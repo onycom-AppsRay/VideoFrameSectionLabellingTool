@@ -4,7 +4,7 @@
   "description": "어플리케이션 테스트 동영상 파일을 통해 로딩 구간을 표시하기 위한 Labelling Tool",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "ELECTRON_ENABLE_LOGGING=1 electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/onycom-AppsRay/VideoFrameSectionLabellingTool#readme",
   "devDependencies": {
-    "electron": "^7.1.9"
+    "electron": "^7.1.9",
+    "electron-reload": "^1.5.0"
+  },
+  "dependencies": {
+    "glob": "^7.1.6"
   }
 }

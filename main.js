@@ -1,6 +1,15 @@
 const { app, BrowserWindow } = require('electron')
 
+const path = require('path')
+const glob = require('glob')
+
+//dev
+require('electron-reload')(__dirname)
+
 function createWindow () {
+
+  loadDemos()
+
   let win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -13,3 +22,8 @@ function createWindow () {
 }
 
 app.on('ready', createWindow)
+
+function loadDemos () {
+  const files = glob.sync(path.join(__dirname, 'main-process/*.js'))
+  files.forEach((file) => { require(file) })
+}
