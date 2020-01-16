@@ -1,0 +1,23 @@
+{
+  "name": "videoframesectionlabellingtool",
+  "version": "1.0.0",
+  "description": "어플리케이션 테스트 동영상 파일을 통해 로딩 구간을 표시하기 위한 Labelling Tool",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onycom-AppsRay/VideoFrameSectionLabellingTool.git"
+  },
+  "author": "parkyounghwan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onycom-AppsRay/VideoFrameSectionLabellingTool/issues"
+  },
+  "homepage": "https://github.com/onycom-AppsRay/VideoFrameSectionLabellingTool#readme",
+  "devDependencies": {
+    "electron": "^7.1.9"
+  }
+}
