@@ -3,6 +3,9 @@ const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const glob = require('glob')
 
+//dev
+require('electron-reload')(__dirname)
+
 function createWindow () {
 
   loadDemos()
