@@ -37,3 +37,21 @@ button, canvas, img {
   font-size: 18px;
   font-weight: bold;
 }
+
+/* custom */
+.container {
+  height: 90vh;
+}
+
+.container .row:nth-child(1) {
+  height: 80%;
+}
+
+.container .row:nth-child(2) {
+  height: 20%;
+}
+
+.row > div {
+  border: 1px solid black;
+  margin: 1px;
+}

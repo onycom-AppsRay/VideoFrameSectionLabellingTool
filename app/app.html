@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>opencv4nodejs electron example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./app.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+  <header class="centered-text">
+    <h3>opencv4nodejs electron example</h3>
+  </header>
+  <main>
+    <section>
+      <div class="centered-container">
+        <label class="margin-right">
+          Pick a .png or .jpg file:
+          </span>
+          <input 
+            type="file" 
+            onchange="onDirectorySelect(event)" 
+            webkitdirectory
+            directory
+            multiple
+          />
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-2" id="file-tree">
+            file tree
+          </div>
+          <div class="col-2" id="button-layout">
+            button layout
+          </div>
+          <div class="col" id="main-frame">
+            <p>main frame</p>
+            <p id="frame-number"></p>
+            <canvas id="mask"></canvas>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm" id="frame-flow"
+            style="border: 1px solid black; overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
+            frame flow
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./components/image/image-helper.js"></script>
+  <script src="./components/video/video-util.js"></script>
+  <script src="./components/file/file.js"></script>
+</body>
+
+</html>
