@@ -1,29 +1,36 @@
-const { app, BrowserWindow } = require('electron')
+const electron = require('electron');
+const url = require('url');
+const path = require('path');
 
-const path = require('path')
-const glob = require('glob')
+const { app, BrowserWindow } = electron;
 
-//dev
-require('electron-reload')(__dirname)
+let win;
+const createWindow = () => {
+  win = new BrowserWindow({
+    width: 1400,
+    height: 800,
+    toolbar: false,
+    resizable: true
+  });
 
-function createWindow () {
+  win.setResizable(true);
+  win.loadURL('file://' + __dirname + '/app/index.html');
 
-  loadDemos()
+  win.on('closed', () => {
+    win = null;
+  });
+};
 
-  let win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
+app.on('ready', createWindow);
 
-  win.loadFile('index.html')
-}
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
 
-app.on('ready', createWindow)
-
-function loadDemos () {
-  const files = glob.sync(path.join(__dirname, 'main-process/*.js'))
-  files.forEach((file) => { require(file) })
-}
+app.on('activate', () => {
+  if (win === null) {
+    createWindow();
+  }
+});

@@ -1,30 +1,32 @@
 {
-  "name": "videoframesectionlabellingtool",
-  "version": "1.0.0",
-  "description": "어플리케이션 테스트 동영상 파일을 통해 로딩 구간을 표시하기 위한 Labelling Tool",
-  "main": "main.js",
-  "scripts": {
-    "start": "ELECTRON_ENABLE_LOGGING=1 electron .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "electron-rebuild": "electron-rebuild -w opencv4nodejs"
-  },
+  "name": "@opencv-electron/plain-js",
+  "version": "0.0.0",
+  "description": "Example for using opencv4nodejs with electron.",
+  "keywords": [
+    "opencv",
+    "cv",
+    "electron",
+    "image",
+    "filter"
+  ],
+  "author": "justadudewhohacks",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/onycom-AppsRay/VideoFrameSectionLabellingTool.git"
+    "url": "git+https://github.com/justadudewhohacks/opencv-electron"
   },
-  "author": "parkyounghwan",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/onycom-AppsRay/VideoFrameSectionLabellingTool/issues"
+    "url": "https://github.com/justadudewhohacks/opencv-electron/issues"
   },
-  "homepage": "https://github.com/onycom-AppsRay/VideoFrameSectionLabellingTool#readme",
-  "devDependencies": {
-    "electron-reload": "^1.5.0"
+  "homepage": "https://github.com/justadudewhohacks/opencv-electron#readme",
+  "scripts": {
+    "electron-rebuild": "electron-rebuild -w opencv4nodejs",
+    "install": "npm run electron-rebuild",
+    "start": "electron main.js"
   },
   "dependencies": {
     "electron": "^1.8.4",
     "electron-rebuild": "^1.7.3",
-    "opencv4nodejs": "^4.2.1",
-    "glob": "^7.1.6"
+    "opencv4nodejs": "^4.2.1"
   }
 }
