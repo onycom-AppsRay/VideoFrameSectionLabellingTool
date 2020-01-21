@@ -1,57 +1,91 @@
 html {
-  background: #fafafa;
+    background: #fafafa;
+    height: 100%;
 }
 
-button, canvas, img {
-  margin: 5px !important;
+button,
+canvas,
+img {
+    margin: 5px !important;
 }
 
 .centered-container {
-  margin: 10px;
-  display: flex;
-  justify-content: center;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .centered-text {
-  text-align: center;
+    text-align: center;
 }
 
 .margin-right {
-  margin-right: 5px;
+    margin-right: 5px;
 }
 
-.slider {
-  display: flex;
-}
-
-.slider > div {
-  width: 400px;
-}
-
-.slider-group {
-  align-items: center;
-  display: flex;
-}
-
-.slider-group > label {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-/* custom */
+/* layout */
 .container {
-  height: 90vh;
+    height: 90vh;
 }
 
-.container .row:nth-child(1) {
-  height: 80%;
+.row {
+  height: 100%
 }
 
-.container .row:nth-child(2) {
-  height: 20%;
-}
-
-.row > div {
+/* file explorer */
+.col-2 {
+  height: 100%;
   border: 1px solid black;
-  margin: 1px;
+  padding: 5px;
+}
+
+.file-list-title {
+  height: 5%;
+}
+
+#file-list {
+  height: 45%; 
+  background-color: aquamarine;
+}
+
+.completed-file-list-title {
+  height: 5%;
+}
+
+#completed-file-list {
+  height: 45%; 
+  background-color: aqua;
+}
+
+/* video explorer */
+#video-explorer {
+  border: 1px solid black; 
+  padding: 5px;
+}
+
+#main-frame-title {
+  height: 5%;
+}
+
+#main-frame {
+  height: 75%; 
+  background-color: aquamarine;
+}
+
+#sub-frame-title {
+  height: 5%;
+}
+
+#sub-frame {
+  height: 15%; 
+  background-color: aqua; 
+  overflow-x: auto; 
+  overflow-y: hidden; 
+  white-space: nowrap;
+}
+
+/* button collection */
+#botton-collection {
+  border: 1px solid black;
+  padding: 5px;
 }
