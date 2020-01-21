@@ -19,4 +19,6 @@ function renderImage(img, canvas) {
   );
   let ctx = canvas.getContext('2d');
   ctx.putImageData(imgData, 0, 0);
+  ctx.font = "40pt Calibri";
+  ctx.fillText('MY  tet', 50, 50);
 }
