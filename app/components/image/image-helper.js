@@ -32,4 +32,5 @@ function renderImageOnText(canvas) {
 
   ctx.font = "30px Verdana";
   ctx.strokeText(canvas.id, 100, 50);
+
 }

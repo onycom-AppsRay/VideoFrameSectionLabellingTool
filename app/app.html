@@ -78,16 +78,41 @@
             <div id="sub-frame">
             </div >
 
+            <div id="sub-frame-button">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Start / End</span>
+                </div>
+                <input type="text" aria-label="Start" class="form-control" id="start-frame-input">
+                <input type="text" aria-label="End" class="form-control" id="end-frame-input">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-outline-success" id="sub-frame-success">Next</button>
+                </div>
+              </div>
+            </div>
+
           </div>
           
           <!-- button collection -->
           <div class="col-2" id="button-collection">
 
-            <div style="height: 5%">버튼 레이아웃</div>            
-            <div style="height: 75%; background-color: aquamarine"></div>
+            <!-- Frame index 'input' tag group -->
+            <div class="button-collection-title">버튼 레이아웃</div>     
+
+            <div class="input-frame-index-group" id="input-container">
+              <div class="input-group">
+                <input type="text" aria-label="Start Frame" class="form-control" id="start-frame-1">
+                <input type="text" aria-label="End Frame" class="form-control" id="end-frame-1">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button">x</button>
+                </div>
+              </div>
+            </div>
             
-            <div style="height: 5%">완료 버튼</div>              
-            <div style="height: 15%; background-color: aqua">
+            <!-- Complete & Next Button -->
+            <div class="complete-title">완료 버튼</div>
+
+            <div class="complete-button">
               <button onclick="onSuccess()">완료</button>
             </div>
 
@@ -136,6 +161,10 @@
     document.getElementById('file-name').innerText = SAMPLE_VIDEO;
   </script>
 
+  <!-- click event -->
+  <script>
+    document.getElementById('sub-frame-success').onclick = onSubFrameSuccess;
+  </script>
 </body>
 
 </html>

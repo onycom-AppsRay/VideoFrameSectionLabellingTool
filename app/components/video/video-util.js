@@ -4,7 +4,7 @@ let frameList = [];
 
 function onVideoSelected(e) {
   deleteSubFrame(frameList.length);
-  
+
   console.log(e.target.innerText);
 
   const filePath = e.target.id;
@@ -49,6 +49,8 @@ function onSelectedFrame(e) {
   renderImage(frameList[frameIdx], document.getElementById('main-frame-mask'));
   
   document.getElementById('frame-number').innerText = frameIdx;
+
+  inputTagFocusing(frameIdx);
 }
 
 function deleteSubFrame(frameIdx) {
@@ -56,4 +58,52 @@ function deleteSubFrame(frameIdx) {
     const subFrame = document.getElementById(i);
     subFrame.remove();
   }
+}
+
+function onSubFrameSuccess(e) {
+  const inputTagTotalCnt = document.getElementsByClassName('input-group').length;
+
+  const inputTagIdx = inputTagTotalCnt + 1;
+
+  const frameIdxInputGroup = document.createElement('div');
+  frameIdxInputGroup.className = 'input-group';
+  frameIdxInputGroup.id = `input-group-${inputTagIdx}`;
+  frameIdxInputGroup.innerHTML = [
+    `<input type="text" aria-label="Start Frame" class="form-control" id="start-frame-${inputTagIdx}">`,
+    `<input type="text" aria-label="End Frame" class="form-control" id="end-frame-${inputTagIdx}">`,
+    `<div class="input-group-append">`,
+    `<button class="btn btn-outline-secondary" onclick="onDeleteInputTag(${inputTagIdx})" type="button">x</button>`,
+    `</div>`
+  ].join('');
+
+  const inputContainer = document.getElementById('input-container');
+  inputContainer.appendChild(frameIdxInputGroup);
+}
+
+function onDeleteInputTag(idx) {
+  const inputTag = document.getElementById(`input-group-${idx}`);
+
+  if (inputTag) {
+    inputTag.remove();
+  }
+}
+
+/**
+ * 
+ * @param {*} frameIdx 
+ * 'start-frame-input' tag 와 'end-frame-input' tag에 'value'가 존재 하면 넣지 않고,
+ * 둘 중에 하나라도 비어있는 'value' option 이 있으면 거기에 값을 넣어 준다.
+ */
+function inputTagFocusing(frameIdx) {
+  const startFrameInput = document.getElementById('start-frame-input');
+  const endFrameInput = document.getElementById('end-frame-input');
+
+  let focusEle = document.activeElement;
+  if (document.getElementById('start-frame-input') == focusEle) {
+    console.log(true);
+  }
+
+  startFrameInput.value = frameIdx;
+  
+  // console.log('INPUT TAG FOCUSING: ', startFrameIdx, endFrameIdx, frameIdx);
 }
