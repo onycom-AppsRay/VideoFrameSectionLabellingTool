@@ -12,13 +12,24 @@ function renderImage(img, canvas) {
 
   canvas.height = img.rows;
   canvas.width = img.cols;
+
   let imgData = new ImageData(
     new Uint8ClampedArray(matRGBA.getData()),
     img.cols,
     img.rows
   );
+
+  if(canvas.getContext) {
+    let ctx = canvas.getContext('2d');
+    ctx.putImageData(imgData, 0, 0);
+  } else {
+    console.log('canvas를 지원하지 않는 브라우저');
+  }
+}
+
+function renderImageOnText(canvas) {
   let ctx = canvas.getContext('2d');
-  ctx.putImageData(imgData, 0, 0);
-  ctx.font = "40pt Calibri";
-  ctx.fillText('MY  tet', 50, 50);
+
+  ctx.font = "30px Verdana";
+  ctx.strokeText(canvas.id, 100, 50);
 }

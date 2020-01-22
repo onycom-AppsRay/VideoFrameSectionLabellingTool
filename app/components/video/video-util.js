@@ -1,64 +1,59 @@
 const cv = require('opencv4nodejs');
 
-const frameList = [];
+let frameList = [];
 
 function onVideoSelected(e) {
+  deleteSubFrame(frameList.length);
+  
   console.log(e.target.innerText);
 
   const filePath = e.target.id;
 
   frameList = [];
 
-  selectedFile = filePath;
+  const videoCapture = new cv.VideoCapture(path.resolve(filePath));
+  let frame = videoCapture.read();
 
-  const vCap = new cv.VideoCapture(selectedFile);
-  
   let i = 0;
-  let frame;
 
   console.log('Video Loading Start');
 
-  do {
-    frame = vCap.read();
-    if(frame.empty) break;
+  while (!frame.empty) {
+    frameList.push(frame);
+    frame = frame.resizeToMax(200);
 
-    const frame2 = frame.resizeToMax(200);
-
-    frameList.push(frame2);
-    
+    // frame flow part
     const canvas = document.createElement('canvas');
-    canvas.setAttribute('class', 'video-frame');
-    canvas.setAttribute('id', `${i}`);
+    canvas.setAttribute('class', `frame`);
+    canvas.setAttribute('id', i);
     canvas.setAttribute('onclick', 'onSelectedFrame(event)');
+
+    renderImage(frame, canvas);
+    renderImageOnText(canvas);
 
     const container = document.getElementById('sub-frame');
     container.appendChild(canvas);
 
-    renderImage(frame2, document.getElementById(`${i}`));
-
     i++;
-  } while(!frame.empty);
+    frame = videoCapture.read();
+  }
 
   console.log('Video Loading End');
 
-  renderImage(frameList[0], document.getElementById('mask'))
+  renderImage(frameList[0], document.getElementById('main-frame-mask'))
 }
 
 function onSelectedFrame(e) {
-  const frameIdx = e.target.getAttribute('id'); // tag 'id' option 을 통해서, index 가져옴
+  const frameIdx = e.target.getAttribute('id');
 
-  renderImage(frameList[frameIdx], document.getElementById('mask'));
+  renderImage(frameList[frameIdx], document.getElementById('main-frame-mask'));
   
-  document.getElementById('frame-number').innerText = `Selected Frame Index: ${frameIdx}`;
+  document.getElementById('frame-number').innerText = frameIdx;
+}
 
-  const frame = document.getElementById('frame-number');
-  const backgroundColor = frame.style.backgroundColor;
-
-  console.log('onSelectedFrame() - backgroundColor: ', backgroundColor);
-
-  if(backgroundColor === '') {
-    frame.style.backgroundColor = 'black';
-  } else {
-    frame.style.backgroundColor = '';
+function deleteSubFrame(frameIdx) {
+  for(let i = 0; i < frameIdx; i++) {
+    const subFrame = document.getElementById(i);
+    subFrame.remove();
   }
 }

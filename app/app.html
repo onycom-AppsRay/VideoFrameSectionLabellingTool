@@ -63,12 +63,12 @@
             <div id="main-frame-title">
               메인 프레임
               <p>현재 파일: <span id="file-name"></span></p>
-              <p id="frame-number"></p>
             </div>
             
             <div id="main-frame">
-              <canvas id="mask"></canvas>
-              <span>1</span>
+              <p style="margin: 0px;">현재 인덱스</p>
+              <span id="frame-number">0</span>
+              <canvas id="main-frame-mask"></canvas>
             </div>
 
             <div id="sub-frame-title">
@@ -111,26 +111,26 @@
     let i = 0;
 
     while(!frame.empty) {
-      frame = frame.resizeToMax(200);
-
       frameList.push(frame);
+      frame = frame.resizeToMax(200);
 
       // frame flow part
       const canvas = document.createElement('canvas');
-      canvas.setAttribute('class', 'video-frame');
-      canvas.setAttribute('id', `${i}`);
+      canvas.setAttribute('class', `frame`);
+      canvas.setAttribute('id', i);
       canvas.setAttribute('onclick', 'onSelectedFrame(event)');
 
+      renderImage(frame, canvas);
+      renderImageOnText(canvas);
+      
       const container = document.getElementById('sub-frame');
       container.appendChild(canvas);
-
-      renderImage(frame, document.getElementById(`${i}`));
 
       i++;
       frame = videoCapture.read();
     }
 
-    renderImage(frameList[0], document.getElementById('mask'));
+    renderImage(frameList[0], document.getElementById('main-frame-mask'));
 
     // View file name 
     document.getElementById('file-name').innerText = SAMPLE_VIDEO;

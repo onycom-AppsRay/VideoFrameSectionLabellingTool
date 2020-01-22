@@ -70,6 +70,19 @@ img {
 #main-frame {
   height: 75%; 
   background-color: aquamarine;
+  text-align: center;
+  overflow-x: auto; 
+  overflow-y: auto; 
+}
+
+#frame-number {
+  display: block;
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+#main-frame-mask {
+  width: 95%;
 }
 
 #sub-frame-title {
