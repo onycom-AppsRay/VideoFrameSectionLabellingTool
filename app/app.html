@@ -83,16 +83,16 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Start</span>
                 </div>
-                <input type="text" aria-label="Start" class="form-control" id="start-frame-input" autofocus>
-
+                <input type="text" aria-label="Start" class="form-control" id="start-frame-input" value="" autofocus>
+            
                 <div class="input-group-prepend">
                   <span class="input-group-text">End</span>
                 </div>
-                <input type="text" aria-label="End" class="form-control" id="end-frame-input">
+                <input type="text" aria-label="End" class="form-control" id="end-frame-input" value="">
               </div>
-
+            
               <div class="input-group">
-                <button type="button" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success">Next</button>
+                <button type="submit" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success">Next</button>
               </div>
             </div>
 
@@ -106,8 +106,8 @@
 
             <div class="input-frame-index-group" id="input-container">
               <div class="input-group">
-                <input type="text" aria-label="Start Frame" class="form-control" id="start-frame-1">
-                <input type="text" aria-label="End Frame" class="form-control" id="end-frame-1">
+                <input type="text" aria-label="Start Frame" class="form-control" id="start-frame-1" readonly>
+                <input type="text" aria-label="End Frame" class="form-control" id="end-frame-1" readonly>
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="button">x</button>
                 </div>
@@ -172,7 +172,6 @@
 
     document.getElementById('end-frame-input').onclick = setAutofocus;
     document.getElementById('start-frame-input').onclick = setAutofocus;
-
   </script>
 </body>
 

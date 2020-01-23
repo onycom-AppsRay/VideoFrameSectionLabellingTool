@@ -46,13 +46,13 @@ function onVideoSelected(e) {
 function onSelectedFrame(e) {
   console.log(e.target);
 
-  const frameIdx = e.target.getAttribute('id');
+  const frameIndex = e.target.getAttribute('id');
 
-  renderImage(frameList[frameIdx], document.getElementById('main-frame-mask'));
+  renderImage(frameList[frameIndex], document.getElementById('main-frame-mask'));
   
-  document.getElementById('frame-number').innerText = frameIdx;
+  document.getElementById('frame-number').innerText = frameIndex;
 
-
+  setFrameIndex(frameIndex);
 }
 
 function deleteSubFrame(frameIdx) {
@@ -63,6 +63,11 @@ function deleteSubFrame(frameIdx) {
 }
 
 function onSubFrameSuccess(e) {
+  const frameIndexList = sendFrameIndex();
+
+  const startFrameIndex = frameIndexList[0];
+  const endFrameIndex = frameIndexList[1];
+
   const inputTagTotalCnt = document.getElementsByClassName('input-group').length;
 
   const inputTagIdx = inputTagTotalCnt + 1;
@@ -71,8 +76,8 @@ function onSubFrameSuccess(e) {
   frameIdxInputGroup.className = 'input-group';
   frameIdxInputGroup.id = `input-group-${inputTagIdx}`;
   frameIdxInputGroup.innerHTML = [
-    `<input type="text" aria-label="Start Frame" class="form-control" id="start-frame-${inputTagIdx}">`,
-    `<input type="text" aria-label="End Frame" class="form-control" id="end-frame-${inputTagIdx}">`,
+    `<input type="text" aria-label="Start Frame" class="form-control" id="start-frame-${inputTagIdx}" value="${startFrameIndex}" readonly>`,
+    `<input type="text" aria-label="End Frame" class="form-control" id="end-frame-${inputTagIdx}" value="${endFrameIndex}" readonly>`,
     `<div class="input-group-append">`,
     `<button class="btn btn-outline-secondary" onclick="onDeleteInputTag(${inputTagIdx})" type="button">x</button>`,
     `</div>`
@@ -80,6 +85,8 @@ function onSubFrameSuccess(e) {
 
   const inputContainer = document.getElementById('input-container');
   inputContainer.appendChild(frameIdxInputGroup);
+
+  initializeInputTag();
 }
 
 function onDeleteInputTag(idx) {
@@ -100,4 +107,43 @@ function setAutofocus (e) {
   endInputTag.removeAttribute('autofocus');
 
   document.getElementById(focusElement).setAttribute('autofocus', '');
+}
+
+function setFrameIndex (frameIndex) {
+  const startInputTag = document.getElementById('start-frame-input');
+  const endInputTag = document.getElementById('end-frame-input');
+
+  const isStartTagAutoFocus = startInputTag.getAttribute('autofocus');
+  const isEndTagAutoFocus = endInputTag.getAttribute('autofocus');
+
+  if (isStartTagAutoFocus == '') {
+    startInputTag.setAttribute('value', frameIndex);
+    startInputTag.innerText = frameIndex;
+  }
+
+  if (isEndTagAutoFocus == '') {
+    endInputTag.setAttribute('value', frameIndex);
+    endInputTag.innerText = frameIndex;
+  }
+}
+
+function sendFrameIndex () {
+  const startInputTag = document.getElementById('start-frame-input');
+  const endInputTag = document.getElementById('end-frame-input');
+
+  const startFrameIndex = startInputTag.getAttribute('value');
+  const endFrameIndex = endInputTag.getAttribute('value');
+
+  startInputTag.setAttribute('value', '');
+  endInputTag.setAttribute('value', '');
+
+  return [startFrameIndex, endFrameIndex];
+}
+
+function initializeInputTag () {
+  const startInputTag = document.getElementById('start-frame-input');
+  const endInputTag = document.getElementById('end-frame-input');
+
+  startInputTag.setAttribute('autofocus', '');
+  endInputTag.removeAttribute('autofocus');
 }
