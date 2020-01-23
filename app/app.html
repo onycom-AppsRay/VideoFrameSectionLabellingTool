@@ -81,13 +81,18 @@
             <div id="sub-frame-button">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">Start / End</span>
+                  <span class="input-group-text">Start</span>
                 </div>
-                <input type="text" aria-label="Start" class="form-control" id="start-frame-input">
+                <input type="text" aria-label="Start" class="form-control" id="start-frame-input" autofocus>
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text">End</span>
+                </div>
                 <input type="text" aria-label="End" class="form-control" id="end-frame-input">
-                <div class="input-group-append">
-                  <button type="button" class="btn btn-outline-success" id="sub-frame-success">Next</button>
-                </div>
+              </div>
+
+              <div class="input-group">
+                <button type="button" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success">Next</button>
               </div>
             </div>
 
@@ -164,6 +169,10 @@
   <!-- click event -->
   <script>
     document.getElementById('sub-frame-success').onclick = onSubFrameSuccess;
+
+    document.getElementById('end-frame-input').onclick = setAutofocus;
+    document.getElementById('start-frame-input').onclick = setAutofocus;
+
   </script>
 </body>
 

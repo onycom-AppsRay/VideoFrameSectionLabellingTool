@@ -44,13 +44,15 @@ function onVideoSelected(e) {
 }
 
 function onSelectedFrame(e) {
+  console.log(e.target);
+
   const frameIdx = e.target.getAttribute('id');
 
   renderImage(frameList[frameIdx], document.getElementById('main-frame-mask'));
   
   document.getElementById('frame-number').innerText = frameIdx;
 
-  inputTagFocusing(frameIdx);
+
 }
 
 function deleteSubFrame(frameIdx) {
@@ -88,22 +90,14 @@ function onDeleteInputTag(idx) {
   }
 }
 
-/**
- * 
- * @param {*} frameIdx 
- * 'start-frame-input' tag 와 'end-frame-input' tag에 'value'가 존재 하면 넣지 않고,
- * 둘 중에 하나라도 비어있는 'value' option 이 있으면 거기에 값을 넣어 준다.
- */
-function inputTagFocusing(frameIdx) {
-  const startFrameInput = document.getElementById('start-frame-input');
-  const endFrameInput = document.getElementById('end-frame-input');
+function setAutofocus (e) {
+  const focusElement = e.target.getAttribute('id');
 
-  let focusEle = document.activeElement;
-  if (document.getElementById('start-frame-input') == focusEle) {
-    console.log(true);
-  }
+  const startInputTag = document.getElementById('start-frame-input');
+  const endInputTag = document.getElementById('end-frame-input');
 
-  startFrameInput.value = frameIdx;
-  
-  // console.log('INPUT TAG FOCUSING: ', startFrameIdx, endFrameIdx, frameIdx);
+  startInputTag.removeAttribute('autofocus');
+  endInputTag.removeAttribute('autofocus');
+
+  document.getElementById(focusElement).setAttribute('autofocus', '');
 }
