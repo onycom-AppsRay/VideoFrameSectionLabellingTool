@@ -44,8 +44,6 @@ function onVideoSelected(e) {
 }
 
 function onSelectedFrame(e) {
-  console.log(e.target);
-
   const frameIndex = e.target.getAttribute('id');
 
   renderImage(frameList[frameIndex], document.getElementById('main-frame-mask'));
@@ -73,11 +71,11 @@ function onSubFrameSuccess(e) {
   const inputTagIdx = inputTagTotalCnt + 1;
 
   const frameIdxInputGroup = document.createElement('div');
-  frameIdxInputGroup.className = 'input-group';
+  frameIdxInputGroup.className = 'input-group frame-index-group';
   frameIdxInputGroup.id = `input-group-${inputTagIdx}`;
   frameIdxInputGroup.innerHTML = [
-    `<input type="text" aria-label="Start Frame" class="form-control" id="start-frame-${inputTagIdx}" value="${startFrameIndex}" readonly>`,
-    `<input type="text" aria-label="End Frame" class="form-control" id="end-frame-${inputTagIdx}" value="${endFrameIndex}" readonly>`,
+    `<input type="text" aria-label="Start Frame" class="form-control frame-index" id="start-frame-${inputTagIdx}" value="${startFrameIndex}" readonly>`,
+    `<input type="text" aria-label="End Frame" class="form-control frame-index" id="end-frame-${inputTagIdx}" value="${endFrameIndex}" readonly>`,
     `<div class="input-group-append">`,
     `<button class="btn btn-outline-secondary" onclick="onDeleteInputTag(${inputTagIdx})" type="button">x</button>`,
     `</div>`
@@ -121,9 +119,16 @@ function setFrameIndex (frameIndex) {
     startInputTag.innerText = frameIndex;
   }
 
+  // start frame index 보다 큰 조건 필요
   if (isEndTagAutoFocus == '') {
-    endInputTag.setAttribute('value', frameIndex);
-    endInputTag.innerText = frameIndex;
+    const startFrameIndex = startInputTag.getAttribute('value');
+
+    if(startFrameIndex > frameIndex) {
+      alert('End Frame 은 Start Frame 보다 커야 한다.');
+    } else {
+      endInputTag.setAttribute('value', frameIndex);
+      endInputTag.innerText = frameIndex;
+    }
   }
 }
 
@@ -146,4 +151,29 @@ function initializeInputTag () {
 
   startInputTag.setAttribute('autofocus', '');
   endInputTag.removeAttribute('autofocus');
+}
+
+// complete
+/**
+ * 'frameList' 에 표시 하기
+ */
+function onCompleteSubmit () {
+  if(confirm('pkl 파일을 생성하시겠습니까?')) { 
+    const frameIndexList = [];
+    
+    const inputTagList = document.getElementsByClassName('frame-index');
+    
+    for (let [key, value] of Object.entries(inputTagList)) {
+      console.log(`${key}: ${value.getAttribute('value')}`);
+      
+      const frameIndex = value.getAttribute('value');
+      
+      frameIndexList.push(frameIndex);
+
+      console.log(frameIndex);
+    }
+    
+    console.log('frame list:', frameList.length);
+    console.log(frameIndexList);
+  }
 }

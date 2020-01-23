@@ -92,7 +92,7 @@
               </div>
             
               <div class="input-group">
-                <button type="submit" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success">Next</button>
+                <button type="submit" class="btn btn-secondary btn-lg btn-block" id="sub-frame-success">Next</button>
               </div>
             </div>
 
@@ -109,7 +109,7 @@
                 <input type="text" aria-label="Start Frame" class="form-control" id="start-frame-1" readonly>
                 <input type="text" aria-label="End Frame" class="form-control" id="end-frame-1" readonly>
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button">x</button>
+                  <button class="btn btn-secondary" type="button">x</button>
                 </div>
               </div>
             </div>
@@ -118,7 +118,7 @@
             <div class="complete-title">완료 버튼</div>
 
             <div class="complete-button">
-              <button onclick="onSuccess()">완료</button>
+              <button type="button" class="btn btn-outline-success btn-lg btn-block" id="complete-submit" style="height: 100%">COMPLETE</button>
             </div>
 
           </div>
@@ -169,9 +169,9 @@
   <!-- click event -->
   <script>
     document.getElementById('sub-frame-success').onclick = onSubFrameSuccess;
-
     document.getElementById('end-frame-input').onclick = setAutofocus;
     document.getElementById('start-frame-input').onclick = setAutofocus;
+    document.getElementById('complete-submit').onclick = onCompleteSubmit
   </script>
 </body>
 
