@@ -149,6 +149,8 @@
       canvas.setAttribute('class', `frame`);
       canvas.setAttribute('id', i);
       canvas.setAttribute('onclick', 'onSelectedFrame(event)');
+      canvas.setAttribute('onmouseover', 'frameSpotlight(this)');
+      canvas.setAttribute('onmouseout', 'frameSpotout(this)');
 
       renderImage(frame, canvas);
       renderImageOnText(canvas);
@@ -172,6 +174,35 @@
     document.getElementById('end-frame-input').onclick = setAutofocus;
     document.getElementById('start-frame-input').onclick = setAutofocus;
     document.getElementById('complete-submit').onclick = onCompleteSubmit
+
+    // frame hover
+    function frameSpotlight (canvas) {
+      canvas.style.width = '210px';
+    }
+    
+    function frameSpotout (canvas) {
+      canvas.style.width = '200px';
+    }
+
+    /*
+    * frame selected section
+    * 셀렉트 된 구간은 다시 선택 하지 못하게 한다.
+    * 'Next' 버튼 클릭 시 해야 한다.
+    * {param1, param2}, int, int 
+    */
+    function frameSelectedSection (a, b) {
+      const canvasList = document.getElementsByClassName('frame');
+
+      for(let i = a; i <= b; i++) {
+        if (i != a || i != b) {
+          canvasList[i].style.borderTop = "3px solid red";
+          canvasList[i].style.borderBottom = "3px solid red";
+          if(i == a) canvasList[i].style.borderLeft = "3px solid red";
+          if(i == b) canvasList[i].style.borderRight = "3px solid red";
+        }
+      }
+    }
+
   </script>
 </body>
 

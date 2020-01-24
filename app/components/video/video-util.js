@@ -27,6 +27,8 @@ function onVideoSelected(e) {
     canvas.setAttribute('class', `frame`);
     canvas.setAttribute('id', i);
     canvas.setAttribute('onclick', 'onSelectedFrame(event)');
+    canvas.setAttribute('onmouseover', 'frameSpotlight(this)');
+    canvas.setAttribute('onmouseout', 'frameSpotout(this)');
 
     renderImage(frame, canvas);
     renderImageOnText(canvas);
@@ -139,9 +141,16 @@ function sendFrameIndex () {
   const startFrameIndex = startInputTag.getAttribute('value');
   const endFrameIndex = endInputTag.getAttribute('value');
 
-  startInputTag.setAttribute('value', '');
-  endInputTag.setAttribute('value', '');
-
+  if (!startFrameIndex || !endFrameIndex) {
+    alert('Frame 번호를 선택하세요');
+  } else {
+    startInputTag.setAttribute('value', '');
+    endInputTag.setAttribute('value', '');
+  
+    // frame selected section
+    frameSelectedSection(startFrameIndex, endFrameIndex);
+  }
+  
   return [startFrameIndex, endFrameIndex];
 }
 

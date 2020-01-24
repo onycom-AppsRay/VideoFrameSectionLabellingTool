@@ -85,7 +85,6 @@ html {
 
 #sub-frame {
   height: 15%; 
-  background-color: aqua; 
   overflow-x: auto; 
   overflow-y: hidden; 
   white-space: nowrap;
