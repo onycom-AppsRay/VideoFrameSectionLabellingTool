@@ -19,7 +19,7 @@ html {
 
 /* layout */
 .container {
-    height: 90vh;
+    height: 85vh;
 }
 
 .row {
@@ -84,6 +84,7 @@ html {
 }
 
 #sub-frame {
+  padding: 5px;
   height: 15%; 
   overflow-x: auto; 
   overflow-y: hidden; 

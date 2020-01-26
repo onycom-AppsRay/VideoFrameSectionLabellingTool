@@ -46,13 +46,16 @@ function onVideoSelected(e) {
 }
 
 function onSelectedFrame(e) {
-  const frameIndex = e.target.getAttribute('id');
+  // const frameIndex = e.target.getAttribute('id');
+  const frameIndex = e;
 
   renderImage(frameList[frameIndex], document.getElementById('main-frame-mask'));
   
   document.getElementById('frame-number').innerText = frameIndex;
 
   setFrameIndex(frameIndex);
+
+  return frameIndex;
 }
 
 function deleteSubFrame(frameIdx) {
@@ -68,29 +71,40 @@ function onSubFrameSuccess(e) {
   const startFrameIndex = frameIndexList[0];
   const endFrameIndex = frameIndexList[1];
 
-  const inputTagTotalCnt = document.getElementsByClassName('input-group').length;
+  if (frameIndexValidation(startFrameIndex, endFrameIndex)) {
+    const inputTagTotalCnt = document.getElementsByClassName('input-group').length;
 
-  const inputTagIdx = inputTagTotalCnt + 1;
+    const inputTagIdx = inputTagTotalCnt + 1;
 
-  const frameIdxInputGroup = document.createElement('div');
-  frameIdxInputGroup.className = 'input-group frame-index-group';
-  frameIdxInputGroup.id = `input-group-${inputTagIdx}`;
-  frameIdxInputGroup.innerHTML = [
-    `<input type="text" aria-label="Start Frame" class="form-control frame-index" id="start-frame-${inputTagIdx}" value="${startFrameIndex}" readonly>`,
-    `<input type="text" aria-label="End Frame" class="form-control frame-index" id="end-frame-${inputTagIdx}" value="${endFrameIndex}" readonly>`,
-    `<div class="input-group-append">`,
-    `<button class="btn btn-outline-secondary" onclick="onDeleteInputTag(${inputTagIdx})" type="button">x</button>`,
-    `</div>`
-  ].join('');
+    const frameIdxInputGroup = document.createElement('div');
+    frameIdxInputGroup.className = 'input-group frame-index-group';
+    frameIdxInputGroup.id = `input-group-${inputTagIdx}`;
+    frameIdxInputGroup.innerHTML = [
+      `<input type="text" aria-label="Start Frame" class="form-control frame-index" id="start-frame-${inputTagIdx}" value="${startFrameIndex}" readonly>`,
+      `<input type="text" aria-label="End Frame" class="form-control frame-index" id="end-frame-${inputTagIdx}" value="${endFrameIndex}" readonly>`,
+      `<div class="input-group-append">`,
+      `<button class="btn btn-outline-secondary" onclick="onDeleteInputTag(${inputTagIdx})" type="button">x</button>`,
+      `</div>`
+    ].join('');
 
-  const inputContainer = document.getElementById('input-container');
-  inputContainer.appendChild(frameIdxInputGroup);
+    const inputContainer = document.getElementById('input-container');
+    inputContainer.appendChild(frameIdxInputGroup);
 
-  initializeInputTag();
+    initializeInputTag();
+  }
 }
 
 function onDeleteInputTag(idx) {
   const inputTag = document.getElementById(`input-group-${idx}`);
+
+  // 'frame flow' 상에서 테두리 없애주기
+  const startFrame = document.getElementById(`start-frame-${idx}`);
+  const endFrame = document.getElementById(`end-frame-${idx}`);
+
+  const startFrameIndex = startFrame.getAttribute('value');
+  const endFrameIndex = endFrame.getAttribute('value');
+
+  frameSelectedSection(startFrameIndex, endFrameIndex, '');
 
   if (inputTag) {
     inputTag.remove();
@@ -118,7 +132,6 @@ function setFrameIndex (frameIndex) {
 
   if (isStartTagAutoFocus == '') {
     startInputTag.setAttribute('value', frameIndex);
-    startInputTag.innerText = frameIndex;
   }
 
   // start frame index 보다 큰 조건 필요
@@ -129,11 +142,15 @@ function setFrameIndex (frameIndex) {
       alert('End Frame 은 Start Frame 보다 커야 한다.');
     } else {
       endInputTag.setAttribute('value', frameIndex);
-      endInputTag.innerText = frameIndex;
     }
   }
 }
 
+/**
+ * * return type 'Boolean'
+ * - 'true': 프레임 인덱스 확정 텍스트 생성
+ * - 'false': alert
+ */
 function sendFrameIndex () {
   const startInputTag = document.getElementById('start-frame-input');
   const endInputTag = document.getElementById('end-frame-input');
@@ -141,22 +158,40 @@ function sendFrameIndex () {
   const startFrameIndex = startInputTag.getAttribute('value');
   const endFrameIndex = endInputTag.getAttribute('value');
 
-  if (!startFrameIndex || !endFrameIndex) {
-    alert('Frame 번호를 선택하세요');
-  } else {
-    startInputTag.setAttribute('value', '');
-    endInputTag.setAttribute('value', '');
-  
-    // frame selected section
-    frameSelectedSection(startFrameIndex, endFrameIndex);
-  }
+  // frame selected section
+  frameSelectedSection(startFrameIndex, endFrameIndex, '5px solid red');
   
   return [startFrameIndex, endFrameIndex];
+}
+
+/**
+ * 확정 프레임 정하기 전 프레임 인덱스 유효성을 검사한다.
+ * @param {*} startFrameIndex 
+ * @param {*} endFrameIndex 
+ * @returnType boolean
+ */
+function frameIndexValidation(startFrameIndex, endFrameIndex) {
+  console.log('START: ', startFrameIndex, ' END: ', endFrameIndex);
+
+  if(startFrameIndex && endFrameIndex) {
+    if(startFrameIndex < endFrameIndex) {
+      return true;
+    } else {
+      alert('End Frame은 Start Frame 보다 커야 한다.');
+      return false;
+    }
+  } else {
+    alert('Frame 인덱스 값을 입력 하세요');
+    return false;
+  }
 }
 
 function initializeInputTag () {
   const startInputTag = document.getElementById('start-frame-input');
   const endInputTag = document.getElementById('end-frame-input');
+
+  startInputTag.setAttribute('value', '');
+  endInputTag.setAttribute('value', '');
 
   startInputTag.setAttribute('autofocus', '');
   endInputTag.removeAttribute('autofocus');

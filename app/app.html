@@ -83,12 +83,12 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Start</span>
                 </div>
-                <input type="text" aria-label="Start" class="form-control" id="start-frame-input" value="" autofocus>
+                <input type="text" aria-label="Start" class="form-control" id="start-frame-input" value="" autofocus readonly>
             
                 <div class="input-group-prepend">
                   <span class="input-group-text">End</span>
                 </div>
-                <input type="text" aria-label="End" class="form-control" id="end-frame-input" value="">
+                <input type="text" aria-label="End" class="form-control" id="end-frame-input" value="" readonly>
               </div>
             
               <div class="input-group">
@@ -127,6 +127,9 @@
       </div>
     </section>
   </main>
+  <footer>
+    asd
+  </footer>
 
   <script src="./components/image/image-helper.js"></script>
   <script src="./components/video/video-util.js"></script>
@@ -148,7 +151,7 @@
       const canvas = document.createElement('canvas');
       canvas.setAttribute('class', `frame`);
       canvas.setAttribute('id', i);
-      canvas.setAttribute('onclick', 'onSelectedFrame(event)');
+      //canvas.setAttribute('onclick', 'onSelectedFrame(event)');
       canvas.setAttribute('onmouseover', 'frameSpotlight(this)');
       canvas.setAttribute('onmouseout', 'frameSpotout(this)');
 
@@ -175,30 +178,69 @@
     document.getElementById('start-frame-input').onclick = setAutofocus;
     document.getElementById('complete-submit').onclick = onCompleteSubmit
 
+    window.addEventListener('keydown',this.onKeyDown, false);
+    window.addEventListener('click', this.onClickedElement, false);
+
+    let CLICKED_ELEMENT;
+    let TOTAL_FRAME_COUNT = document.getElementsByClassName('frame').length;
+
+    function onClickedElement (e) {
+      CLICKED_ELEMENT = e.target;
+
+      if (CLICKED_ELEMENT.className == 'frame') {
+        onSelectedFrame(CLICKED_ELEMENT.id);
+      }
+    }
+
     // frame hover
     function frameSpotlight (canvas) {
       canvas.style.width = '210px';
+      canvas.style.outline = '5px solid red';
     }
     
     function frameSpotout (canvas) {
       canvas.style.width = '200px';
+      canvas.style.outline = '';
     }
 
-    /*
-    * frame selected section
-    * 셀렉트 된 구간은 다시 선택 하지 못하게 한다.
-    * 'Next' 버튼 클릭 시 해야 한다.
-    * {param1, param2}, int, int 
-    */
-    function frameSelectedSection (a, b) {
+    function frameSelectedSection (startFrameIndex, endFrameIndex, BORDER_VALUE) {
       const canvasList = document.getElementsByClassName('frame');
 
-      for(let i = a; i <= b; i++) {
-        if (i != a || i != b) {
-          canvasList[i].style.borderTop = "3px solid red";
-          canvasList[i].style.borderBottom = "3px solid red";
-          if(i == a) canvasList[i].style.borderLeft = "3px solid red";
-          if(i == b) canvasList[i].style.borderRight = "3px solid red";
+      for(let i = startFrameIndex; i <= endFrameIndex; i++) {
+        if (i != startFrameIndex || i != endFrameIndex) {
+          canvasList[i].style.borderTop = BORDER_VALUE;
+          canvasList[i].style.borderBottom = BORDER_VALUE;
+          if(i == startFrameIndex) canvasList[i].style.borderLeft = BORDER_VALUE;
+          if(i == endFrameIndex) canvasList[i].style.borderRight = BORDER_VALUE;
+        }
+      }
+    }
+
+    function onKeyDown (e) {
+      const LEFT_KEY = 37;
+      const RIGHT_KEY = 39;
+
+      let NOW_FRAME_INDEX = Number(CLICKED_ELEMENT.id);
+
+      const code = e.keyCode;
+
+      if(((code == LEFT_KEY) || (code == RIGHT_KEY))) {
+        if(CLICKED_ELEMENT.className == 'frame') {
+          frameSpotout(document.getElementById(NOW_FRAME_INDEX));
+
+          switch(code) {
+            case LEFT_KEY: {
+              if(NOW_FRAME_INDEX > 0) CLICKED_ELEMENT = document.getElementById(--NOW_FRAME_INDEX);
+              break;
+            }
+            case RIGHT_KEY: {
+              if(NOW_FRAME_INDEX < TOTAL_FRAME_COUNT) CLICKED_ELEMENT = document.getElementById(++NOW_FRAME_INDEX);
+              break;
+            }
+          }
+          
+          frameSpotlight(CLICKED_ELEMENT);
+          CLICKED_ELEMENT.scrollIntoView();
         }
       }
     }
