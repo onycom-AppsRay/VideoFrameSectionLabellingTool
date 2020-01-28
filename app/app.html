@@ -76,23 +76,19 @@
             </div>
 
             <div id="sub-frame-button">
-              <div class="input-group">
+              <div class="input-group input-group-lg ">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">Start</span>
+                  <span class="input-group-text" id="inputGroup-sizing-lg">Start</span>
                 </div>
-                <input type="text" aria-label="Start" class="form-control" id="start-frame-input" value="" autofocus
-                  readonly>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="start-frame-input" value=0 readonly autofocus>
 
                 <div class="input-group-prepend">
-                  <span class="input-group-text">End</span>
+                  <span class="input-group-text" id="inputGroup-sizing-lg">End</span>
                 </div>
-                <input type="text" aria-label="End" class="form-control" id="end-frame-input" value="" readonly>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="end-frame-input" value=0 readonly>
               </div>
 
-              <div class="input-group">
-                <!-- <button type="button" class="btn btn-secondary btn-lg btn-block" id="sub-frame-success">Next</button> -->
-                <input type="button" id="sub-frame-success" value="Next">
-              </div>
+              <button type="button" class="btn btn-secondary btn-lg btn-block" id="sub-frame-success">Next</button>
             </div>
 
           </div>
@@ -131,9 +127,127 @@
     asd
   </footer>
 
+  <!-- main -->
+  <script>
+    const cv = require('opencv4nodejs');
+
+    const START_INPUT_TAG = document.getElementById('start-frame-input');
+    const END_INPUT_TAG = document.getElementById('end-frame-input');
+
+    let CLICKED_ELEMENT;
+    let TOTAL_FRAME_COUNT;  // video load 시 초기화
+    let FRAME_LIST = [];
+
+  </script>
   <script src="./components/image/image-helper.js"></script>
   <script src="./components/video/video-util.js"></script>
   <script src="./components/file/file.js"></script>
+
+  <!-- click event -->
+  <script>
+    window.addEventListener('click', this.onClickedElement, false);
+
+    let keyState = {};
+    window.addEventListener('keydown',function(e){
+        keyState[e.keyCode || e.which] = true;
+    },true);    
+    window.addEventListener('keyup',function(e){
+        keyState[e.keyCode || e.which] = false;
+    },true);
+
+    function frameMove() {
+      if (keyState[37] || keyState[65]) {
+        frameSpotout(document.getElementById(NOW_FRAME_INDEX));
+
+        if (NOW_FRAME_INDEX > 0) {
+          CLICKED_ELEMENT = document.getElementById(--NOW_FRAME_INDEX);
+          onSelectedFrame(CLICKED_ELEMENT);
+          frameSpotlight(CLICKED_ELEMENT);
+          CLICKED_ELEMENT.scrollIntoView();
+        }
+      }
+
+      if (keyState[39] || keyState[68]) {
+        frameSpotout(document.getElementById(NOW_FRAME_INDEX));
+
+        if (NOW_FRAME_INDEX < (TOTAL_FRAME_COUNT - 1)) {
+          CLICKED_ELEMENT = document.getElementById(++NOW_FRAME_INDEX);
+          onSelectedFrame(CLICKED_ELEMENT);
+          frameSpotlight(CLICKED_ELEMENT);
+          CLICKED_ELEMENT.scrollIntoView();
+        }
+      }
+
+      if (keyState[13]) {
+        changeAutoFocus();
+        return;
+      }
+
+        // redraw/reposition your object here
+        // also redraw/animate any objects not controlled by the user
+
+        setTimeout(frameMove, 10);
+    }    
+    frameMove();
+
+    document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
+    document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
+    document.getElementById('sub-frame-success').addEventListener('click', onNext, false);
+    document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
+
+    document.querySelector('#input-container').addEventListener('click', onDeleteSelectedFrameIndexInputGroup, false);
+
+    function onClickedElement(e) {
+      CLICKED_ELEMENT = e.target;
+
+      if (CLICKED_ELEMENT.className == 'frame') {
+        onSelectedFrame(CLICKED_ELEMENT);
+      }
+    }
+
+    // frame hover
+    function frameSpotlight(canvas) {
+      canvas.style.position = 'relative';
+      canvas.style.outline = '5px solid red';
+      canvas.style.zIndex = '1';
+    }
+
+    function frameSpotout(canvas) {
+      canvas.style.outline = '';
+      canvas.style.zIndex = '';
+    }
+
+    function onNext () {
+      // 1) Validate input value
+      const startFrameIndex = START_INPUT_TAG.value;
+      const endFrameIndex = END_INPUT_TAG.value;
+    
+      if(validateSelectedFrameIndex(startFrameIndex, endFrameIndex)){
+        // 2) Create frame value input
+        createSelectedFrameIndexInputTag(startFrameIndex, endFrameIndex);
+
+        // 3) Mark the selected section
+        markSelectedSection(startFrameIndex, endFrameIndex, 0.3);
+
+        // 4) Initialize input tag
+        initializeInputTag();
+      }
+    }
+
+    function onDeleteSelectedFrameIndexInputGroup(e) {
+      const selectedFrameIndexInputGroup = e.target.parentElement.parentElement;
+    
+      if(selectedFrameIndexInputGroup.className == 'input-group frame-index-group'){
+        const selectedFrameIndexInput = selectedFrameIndexInputGroup.getElementsByTagName('input');
+    
+        const startFrameIndex = selectedFrameIndexInput[0].value;
+        const endFrameIndex = selectedFrameIndexInput[1].value;
+    
+        markSelectedSection(startFrameIndex, endFrameIndex, 1);
+        selectedFrameIndexInputGroup.remove();
+      }
+    }
+  </script>
   <script>
     const path = require('path');
     const SAMPLE_VIDEO = 'sample.mp4';
@@ -144,7 +258,7 @@
     let i = 0;
 
     while (!frame.empty) {
-      frameList.push(frame);
+      FRAME_LIST.push(frame);
       frame = frame.resizeToMax(200);
 
       // frame flow part
@@ -164,101 +278,12 @@
       frame = videoCapture.read();
     }
 
-    renderImage(frameList[0], document.getElementById('main-frame-mask'));
+    renderImage(FRAME_LIST[0], document.getElementById('main-frame-mask'));
 
     // View file name 
     document.getElementById('file-name').innerText = SAMPLE_VIDEO;
-  </script>
 
-  <!-- click event -->
-  <script>
-    document.getElementById('sub-frame-success').onclick = onSubFrameSuccess;
-    document.getElementById('end-frame-input').onclick = setAutofocus;
-    document.getElementById('start-frame-input').onclick = setAutofocus;
-    document.getElementById('complete-submit').onclick = onCompleteSubmit
-
-    window.addEventListener('keydown', this.onKeyDown, false);
-    window.addEventListener('click', this.onClickedElement, false);
-
-    let CLICKED_ELEMENT;
-    let TOTAL_FRAME_COUNT = document.getElementsByClassName('frame').length;
-
-    console.log(TOTAL_FRAME_COUNT);
-
-    function onClickedElement(e) {
-      CLICKED_ELEMENT = e.target;
-
-      if (CLICKED_ELEMENT.className == 'frame') {
-        onSelectedFrame(CLICKED_ELEMENT);
-      }
-    }
-
-    // frame hover
-    function frameSpotlight(canvas) {
-      canvas.style.position = 'relative';
-      canvas.style.outline = '5px solid red';
-      canvas.style.zIndex = '1'
-    }
-
-    function frameSpotout(canvas) {
-      canvas.style.outline = '';
-      canvas.style.zIndex = ''
-    }
-
-    function frameSelectedSection(startFrameIndex, endFrameIndex, BORDER_VALUE) {
-      const canvasList = document.getElementsByClassName('frame');
-
-      for (let i = startFrameIndex; i <= endFrameIndex; i++) {
-        if (i != startFrameIndex || i != endFrameIndex) {
-          canvasList[i].style.borderTop = BORDER_VALUE;
-          canvasList[i].style.borderBottom = BORDER_VALUE;
-          if (i == startFrameIndex) canvasList[i].style.borderLeft = BORDER_VALUE;
-          if (i == endFrameIndex) canvasList[i].style.borderRight = BORDER_VALUE;
-        }
-      }
-    }
-
-    function onKeyDown(e) {
-      // 분리 시키기
-      const LEFT_KEY = 37;
-      const RIGHT_KEY = 39;
-      const ENTER_KEY = 13;
-
-      const code = e.keyCode;
-
-      let NOW_FRAME_INDEX = Number(CLICKED_ELEMENT.id);
-
-      if (((code == LEFT_KEY) || (code == RIGHT_KEY) || (code == ENTER_KEY))) {
-        if (CLICKED_ELEMENT.className == 'frame') {
-          frameSpotout(document.getElementById(NOW_FRAME_INDEX));
-
-          switch (code) {
-            case LEFT_KEY: {
-              if (NOW_FRAME_INDEX > 0) {
-                CLICKED_ELEMENT = document.getElementById(--NOW_FRAME_INDEX);
-              }
-              break;
-            }
-            case RIGHT_KEY: {
-              if (NOW_FRAME_INDEX < (TOTAL_FRAME_COUNT - 1)) {
-                CLICKED_ELEMENT = document.getElementById(++NOW_FRAME_INDEX);
-              }
-              break;
-            }
-            case ENTER_KEY: {
-              changeAutoFocus();
-              break;
-            }
-          }
-
-          onSelectedFrame(CLICKED_ELEMENT);
-          setFrameIndex(NOW_FRAME_INDEX);
-          frameSpotlight(CLICKED_ELEMENT);
-          CLICKED_ELEMENT.scrollIntoView();
-        }
-      }
-    }
-
+    TOTAL_FRAME_COUNT = getTotalFrameCount();
   </script>
 </body>
 
