@@ -26,7 +26,6 @@ function onVideoSelected(e) {
     const canvas = document.createElement('canvas');
     canvas.setAttribute('class', `frame`);
     canvas.setAttribute('id', i);
-    canvas.setAttribute('onclick', 'onSelectedFrame(event)');
     canvas.setAttribute('onmouseover', 'frameSpotlight(this)');
     canvas.setAttribute('onmouseout', 'frameSpotout(this)');
 
@@ -45,11 +44,10 @@ function onVideoSelected(e) {
   renderImage(frameList[0], document.getElementById('main-frame-mask'))
 }
 
-function onSelectedFrame(e) {
-  // const frameIndex = e.target.getAttribute('id');
-  const frameIndex = e;
+function onSelectedFrame(frameTag) {
+  const frameIndex = frameTag.id;
 
-  renderImage(frameList[frameIndex], document.getElementById('main-frame-mask'));
+  renderImage(frameList[frameTagIndex], document.getElementById('main-frame-mask'));
   
   document.getElementById('frame-number').innerText = frameIndex;
 

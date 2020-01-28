@@ -7,6 +7,11 @@ function decodeImageFromBase64(base64String) {
   return cv.imdecode(buffer);
 }
 
+/**
+ * 
+ * @param {*} img 'Mat' data
+ * @param {*} canvas 'canvas' tag
+ */
 function renderImage(img, canvas) {
   let matRGBA = img.channels === 1 ? img.cvtColor(cv.COLOR_GRAY2RGBA) : img.cvtColor(cv.COLOR_BGR2RGBA);
 
@@ -32,5 +37,4 @@ function renderImageOnText(canvas) {
 
   ctx.font = "30px Verdana";
   ctx.strokeText(canvas.id, 100, 50);
-
 }
