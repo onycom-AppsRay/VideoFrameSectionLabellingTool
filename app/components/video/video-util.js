@@ -136,13 +136,7 @@ function setFrameIndex (frameIndex) {
 
   // start frame index 보다 큰 조건 필요
   if (isEndTagAutoFocus == '') {
-    const startFrameIndex = startInputTag.getAttribute('value');
-
-    if(startFrameIndex > frameIndex) {
-      alert('End Frame 은 Start Frame 보다 커야 한다.');
-    } else {
-      endInputTag.setAttribute('value', frameIndex);
-    }
+    endInputTag.setAttribute('value', frameIndex);
   }
 }
 
@@ -220,4 +214,24 @@ function onCompleteSubmit () {
     console.log('frame list:', frameList.length);
     console.log(frameIndexList);
   }
+}
+
+function changeAutoFocus () {
+  const startInputTag = document.getElementById('start-frame-input');
+  const endInputTag = document.getElementById('end-frame-input');
+  const inputSuccessBtn = document.getElementById('sub-frame-success');
+
+  if (startInputTag.hasAttribute('autofocus')) {
+    startInputTag.removeAttribute('autofocus');
+    endInputTag.setAttribute('autofocus', '');
+  } else if (endInputTag.hasAttribute('autofocus')) {
+    endInputTag.removeAttribute('autofocus');
+    inputSuccessBtn.setAttribute('autofocus', '');
+  } else {
+    inputSuccessBtn.removeAttribute('autofocus');
+    startInputTag.setAttribute('autofocus', '');
+  }
+  // else if (inputSuccessBtn.hasAttribute('autofocus')) {
+  //   startInputTag.setAttribute('autofocus', '');
+  // }
 }

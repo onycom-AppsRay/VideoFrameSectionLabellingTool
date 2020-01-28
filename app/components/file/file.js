@@ -7,8 +7,17 @@ function onDirectorySelect(e) {
   const directoryPath = e.target.files[0].path;
 
   const tree = dirTree(directoryPath);
-
+  
+  initializeFileExplorer()
   dirSearch(tree);
+}
+
+function initializeFileExplorer () {
+  const fileTree = document.getElementById(SELECTED_FILE_TAG);
+
+  while (fileTree.hasChildNodes()) {
+    fileTree.removeChild(fileTree.firstChild);
+  }
 }
 
 function dirSearch(tree) {

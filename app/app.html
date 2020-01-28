@@ -3,14 +3,17 @@
 
 <head>
   <title>opencv4nodejs electron example</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <link rel="stylesheet" href="./app.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -24,13 +27,7 @@
         <label class="margin-right">
           Pick a .png or .jpg file:
           </span>
-          <input 
-            type="file" 
-            onchange="onDirectorySelect(event)" 
-            webkitdirectory
-            directory
-            multiple
-          />
+          <input type="file" onchange="onDirectorySelect(event)" webkitdirectory directory multiple />
       </div>
     </section>
 
@@ -40,7 +37,7 @@
 
           <!-- file list -->
           <div class="col-2" id="file-explorer">
-            
+
             <div class="file-list-title">
               선택한 디렉토리
             </div>
@@ -56,15 +53,15 @@
             </div>
 
           </div>
-          
+
           <!-- video explorer -->
           <div class="col-8" id="video-explorer">
-            
+
             <div id="main-frame-title">
               메인 프레임
               <p>현재 파일: <span id="file-name"></span></p>
             </div>
-            
+
             <div id="main-frame">
               <p style="margin: 0px;">현재 인덱스</p>
               <span id="frame-number">0</span>
@@ -76,33 +73,35 @@
             </div>
 
             <div id="sub-frame">
-            </div >
+            </div>
 
             <div id="sub-frame-button">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">Start</span>
                 </div>
-                <input type="text" aria-label="Start" class="form-control" id="start-frame-input" value="" autofocus readonly>
-            
+                <input type="text" aria-label="Start" class="form-control" id="start-frame-input" value="" autofocus
+                  readonly>
+
                 <div class="input-group-prepend">
                   <span class="input-group-text">End</span>
                 </div>
                 <input type="text" aria-label="End" class="form-control" id="end-frame-input" value="" readonly>
               </div>
-            
+
               <div class="input-group">
-                <button type="submit" class="btn btn-secondary btn-lg btn-block" id="sub-frame-success">Next</button>
+                <!-- <button type="button" class="btn btn-secondary btn-lg btn-block" id="sub-frame-success">Next</button> -->
+                <input type="button" id="sub-frame-success" value="Next">
               </div>
             </div>
 
           </div>
-          
+
           <!-- button collection -->
           <div class="col-2" id="button-collection">
 
             <!-- Frame index 'input' tag group -->
-            <div class="button-collection-title">버튼 레이아웃</div>     
+            <div class="button-collection-title">버튼 레이아웃</div>
 
             <div class="input-frame-index-group" id="input-container">
               <div class="input-group">
@@ -113,12 +112,13 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Complete & Next Button -->
             <div class="complete-title">완료 버튼</div>
 
             <div class="complete-button">
-              <button type="button" class="btn btn-outline-success btn-lg btn-block" id="complete-submit" style="height: 100%">COMPLETE</button>
+              <button type="button" class="btn btn-outline-success btn-lg btn-block" id="complete-submit"
+                style="height: 100%">COMPLETE</button>
             </div>
 
           </div>
@@ -143,7 +143,7 @@
 
     let i = 0;
 
-    while(!frame.empty) {
+    while (!frame.empty) {
       frameList.push(frame);
       frame = frame.resizeToMax(200);
 
@@ -157,7 +157,7 @@
 
       renderImage(frame, canvas);
       renderImageOnText(canvas);
-      
+
       const container = document.getElementById('sub-frame');
       container.appendChild(canvas);
 
@@ -178,13 +178,15 @@
     document.getElementById('start-frame-input').onclick = setAutofocus;
     document.getElementById('complete-submit').onclick = onCompleteSubmit
 
-    window.addEventListener('keydown',this.onKeyDown, false);
+    window.addEventListener('keydown', this.onKeyDown, false);
     window.addEventListener('click', this.onClickedElement, false);
 
     let CLICKED_ELEMENT;
     let TOTAL_FRAME_COUNT = document.getElementsByClassName('frame').length;
 
-    function onClickedElement (e) {
+    console.log(TOTAL_FRAME_COUNT);
+
+    function onClickedElement(e) {
       CLICKED_ELEMENT = e.target;
 
       if (CLICKED_ELEMENT.className == 'frame') {
@@ -193,52 +195,63 @@
     }
 
     // frame hover
-    function frameSpotlight (canvas) {
+    function frameSpotlight(canvas) {
       canvas.style.width = '210px';
-      canvas.style.outline = '5px solid red';
-    }
-    
-    function frameSpotout (canvas) {
-      canvas.style.width = '200px';
-      canvas.style.outline = '';
+      canvas.style.border = '5px solid red';
     }
 
-    function frameSelectedSection (startFrameIndex, endFrameIndex, BORDER_VALUE) {
+    function frameSpotout(canvas) {
+      canvas.style.width = '200px';
+      canvas.style.border = '';
+    }
+
+    function frameSelectedSection(startFrameIndex, endFrameIndex, BORDER_VALUE) {
       const canvasList = document.getElementsByClassName('frame');
 
-      for(let i = startFrameIndex; i <= endFrameIndex; i++) {
+      for (let i = startFrameIndex; i <= endFrameIndex; i++) {
         if (i != startFrameIndex || i != endFrameIndex) {
           canvasList[i].style.borderTop = BORDER_VALUE;
           canvasList[i].style.borderBottom = BORDER_VALUE;
-          if(i == startFrameIndex) canvasList[i].style.borderLeft = BORDER_VALUE;
-          if(i == endFrameIndex) canvasList[i].style.borderRight = BORDER_VALUE;
+          if (i == startFrameIndex) canvasList[i].style.borderLeft = BORDER_VALUE;
+          if (i == endFrameIndex) canvasList[i].style.borderRight = BORDER_VALUE;
         }
       }
     }
 
-    function onKeyDown (e) {
+    function onKeyDown(e) {
+      // 분리 시키기
       const LEFT_KEY = 37;
       const RIGHT_KEY = 39;
-
-      let NOW_FRAME_INDEX = Number(CLICKED_ELEMENT.id);
+      const ENTER_KEY = 13;
 
       const code = e.keyCode;
 
-      if(((code == LEFT_KEY) || (code == RIGHT_KEY))) {
-        if(CLICKED_ELEMENT.className == 'frame') {
+      let NOW_FRAME_INDEX = Number(CLICKED_ELEMENT.id);
+
+      if (((code == LEFT_KEY) || (code == RIGHT_KEY) || (code == ENTER_KEY))) {
+        if (CLICKED_ELEMENT.className == 'frame') {
           frameSpotout(document.getElementById(NOW_FRAME_INDEX));
 
-          switch(code) {
+          switch (code) {
             case LEFT_KEY: {
-              if(NOW_FRAME_INDEX > 0) CLICKED_ELEMENT = document.getElementById(--NOW_FRAME_INDEX);
+              if (NOW_FRAME_INDEX > 0) {
+                CLICKED_ELEMENT = document.getElementById(--NOW_FRAME_INDEX);
+              }
               break;
             }
             case RIGHT_KEY: {
-              if(NOW_FRAME_INDEX < TOTAL_FRAME_COUNT) CLICKED_ELEMENT = document.getElementById(++NOW_FRAME_INDEX);
+              if (NOW_FRAME_INDEX < (TOTAL_FRAME_COUNT - 1)) {
+                CLICKED_ELEMENT = document.getElementById(++NOW_FRAME_INDEX);
+              }
+              break;
+            }
+            case ENTER_KEY: {
+              changeAutoFocus();
               break;
             }
           }
-          
+
+          setFrameIndex(NOW_FRAME_INDEX);
           frameSpotlight(CLICKED_ELEMENT);
           CLICKED_ELEMENT.scrollIntoView();
         }
