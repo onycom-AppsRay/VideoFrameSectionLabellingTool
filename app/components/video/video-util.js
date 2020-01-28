@@ -47,7 +47,7 @@ function onVideoSelected(e) {
 function onSelectedFrame(frameTag) {
   const frameIndex = frameTag.id;
 
-  renderImage(frameList[frameTagIndex], document.getElementById('main-frame-mask'));
+  renderImage(frameList[frameIndex], document.getElementById('main-frame-mask'));
   
   document.getElementById('frame-number').innerText = frameIndex;
 

@@ -151,7 +151,6 @@
       const canvas = document.createElement('canvas');
       canvas.setAttribute('class', `frame`);
       canvas.setAttribute('id', i);
-      //canvas.setAttribute('onclick', 'onSelectedFrame(event)');
       canvas.setAttribute('onmouseover', 'frameSpotlight(this)');
       canvas.setAttribute('onmouseout', 'frameSpotout(this)');
 
@@ -251,6 +250,7 @@
             }
           }
 
+          onSelectedFrame(CLICKED_ELEMENT);
           setFrameIndex(NOW_FRAME_INDEX);
           frameSpotlight(CLICKED_ELEMENT);
           CLICKED_ELEMENT.scrollIntoView();
