@@ -195,13 +195,14 @@
 
     // frame hover
     function frameSpotlight(canvas) {
-      canvas.style.width = '210px';
-      canvas.style.border = '5px solid red';
+      canvas.style.position = 'relative';
+      canvas.style.outline = '5px solid red';
+      canvas.style.zIndex = '1'
     }
 
     function frameSpotout(canvas) {
-      canvas.style.width = '200px';
-      canvas.style.border = '';
+      canvas.style.outline = '';
+      canvas.style.zIndex = ''
     }
 
     function frameSelectedSection(startFrameIndex, endFrameIndex, BORDER_VALUE) {
