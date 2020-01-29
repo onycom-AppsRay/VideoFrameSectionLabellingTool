@@ -2,9 +2,7 @@
 function onVideoSelected(e) {
   deleteSubFrame(FRAME_LIST.length);
 
-  console.log(e.target.innerText);
-
-  const filePath = e.target.id;
+  const filePath = e.target.dataset.path;
 
   FRAME_LIST = [];
 

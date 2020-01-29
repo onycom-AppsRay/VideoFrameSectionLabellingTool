@@ -1,44 +1,65 @@
 const dirTree = require('directory-tree');
 
-const SELECTED_FILE_TAG = 'file-list';
-const COMPLITED_FILE_TAG = 'completed-file-list';
+const VIDEO_FILE_LIST = 'video-file-list';
+const JSON_FILE_LIST = 'json-file-list';
+const VIDEO_FILE_COUNT = 'video-file-count';
+const JSON_FILE_COUNT = 'json-file-count';
 
-function onDirectorySelect(e) {
-  const directoryPath = e.target.files[0].path;
+function selectVideoDirectory(e) {
+  const fileList = e.target.files;
 
-  const tree = dirTree(directoryPath);
+  if(!fileList[0]) return;
 
-  initializeFileExplorer()
-  dirSearch(tree);
+  const directoryPath = fileList[0].path;
+  const fileTagContainer = document.getElementById(VIDEO_FILE_LIST);
+
+  initializeFileExplorer(VIDEO_FILE_LIST);
+
+  // TODO: Validate extensions
+  const tree = dirTree(directoryPath, { extensions: /\.(gif|mp4|mov)$/ }, (item) => {
+    createFileNameTag(item, fileTagContainer);
+  });
+
+  document.getElementById(VIDEO_FILE_COUNT).innerHTML = tree.children.length;
 }
 
-function initializeFileExplorer() {
-  const fileTree = document.getElementById(SELECTED_FILE_TAG);
+function selectJSONFileDirectory(e) {
+  const fileList = e.target.files;
+
+  if(!fileList[0]) return;
+
+  const directoryPath = fileList[0].path;
+  const fileTagContainer = document.getElementById(JSON_FILE_LIST);
+  
+  initializeFileExplorer(JSON_FILE_LIST);
+
+  // TODO: Validate extensions
+  const tree = dirTree(directoryPath, { extensions: /\.(json)$/ }, (item) => {
+    createFileNameTag(item, fileTagContainer);
+  });
+
+  document.getElementById(JSON_FILE_COUNT).innerHTML = tree.children.length;
+}
+
+function initializeFileExplorer(tag) {
+  const fileTree = document.getElementById(tag);
 
   while (fileTree.hasChildNodes()) {
     fileTree.removeChild(fileTree.firstChild);
   }
 }
 
-function dirSearch(tree) {
-  const fileTree = document.getElementById(SELECTED_FILE_TAG);
+function createFileNameTag(item, container) {
+  const fileTag = document.createElement('li');
+  fileTag.innerHTML = item.name;
+  fileTag.setAttribute('data-path', item.path);
+  fileTag.setAttribute('onclick', 'onVideoSelected(event)');
 
-  tree.children.forEach(element => {
-    if (element.type == 'file') {
-      const file = document.createElement('a');
-      const filePath = document.createTextNode(element.name);
-      file.setAttribute('href', '#');
-      file.setAttribute('onclick', 'onVideoSelected(event)');
-      file.setAttribute('id', element.path);
-
-      const p = document.createElement('br');
-
-      file.appendChild(filePath);
-      fileTree.appendChild(file);
-      fileTree.appendChild(p);
-    }
-  });
+  container.appendChild(fileTag);
 }
+
+
+
 
 /**
  * file name 확인 해서 '완료된 파일' 부분에 보여주기
@@ -52,7 +73,7 @@ function onSuccess() {
   // file-name innerText 존재 유무 확인 절차 구현할 것
   console.log(fileName);
 
-  const fileTree = document.getElementById(COMPLITED_FILE_TAG);
+  const fileTree = document.getElementById(JSON_FILE_LIST);
 
   const file = document.createElement('a');
   const filePath = document.createTextNode(fileName);

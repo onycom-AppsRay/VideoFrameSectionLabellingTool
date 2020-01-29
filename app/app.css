@@ -30,23 +30,40 @@ html {
 .col-2 {
   height: 100%;
   border: 1px solid black;
+}
+
+#file-explorer {
   padding: 5px;
 }
 
-.file-list-title {
+.video-file-list-title {
   height: 5%;
 }
 
-#file-list {
+.video-file-container, .json-file-container {
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
+.video-file-container {
   height: 45%; 
   background-color: aquamarine;
 }
 
-.completed-file-list-title {
+#video-file-list > li {
+  cursor: pointer;
+}
+
+#video-file-list > li:hover {
+  color: red;
+}
+
+.json-file-list-title {
   height: 5%;
 }
 
-#completed-file-list {
+.json-file-container {
   height: 45%; 
   background-color: aqua;
 }
