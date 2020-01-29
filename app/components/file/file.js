@@ -5,6 +5,7 @@ const JSON_FILE_LIST = 'json-file-list';
 const VIDEO_FILE_COUNT = 'video-file-count';
 const JSON_FILE_COUNT = 'json-file-count';
 
+// TODO(yhpark): file.js classification
 function selectVideoDirectory(e) {
   const fileList = e.target.files;
 
