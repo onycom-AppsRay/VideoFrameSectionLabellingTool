@@ -21,24 +21,35 @@
   <header class="centered-text">
     <h3>Loding Section Labeling Tool</h3>
   </header>
+  
+  <section>
+    <div class="centered-container">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="open-video-directory"
+            aria-describedby="inputGroupFileAddon01" webkitdirectory directory>
+          <label class="custom-file-label" for="open-video-directory">a .png or .jpg file:</label>
+        </div>
+    
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="open-json-directory"
+            aria-describedby="inputGroupFileAddon01" webkitdirectory directory>
+          <label class="custom-file-label" for="open-json-directory">완료된 파일 저장할 폴더 선택</label>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <main>
     <section>
-      <div class="centered-container">
-        <label class="margin-right">
-          <span>a .png or .jpg file:</span>
-          <input id="open-video-directory" type="file" webkitdirectory directory multiple />
-
-          <label class="margin-right">
-            <span>완료된 파일 저장할 폴더 선택</span>
-            <input id="open-json-directory" type="file" webkitdirectory directory multiple />
-      </div>
-    </section>
-
-    <section>
       <div class="container">
         <div class="row">
-
           <!-- file list -->
           <div class="col-2" id="file-explorer">
 
@@ -58,6 +69,7 @@
               <p><span id="json-file-count">0</span>개</p>
             </div>
 
+            <!-- BUG(yhpark): json 파일은 선택되지 않게 해야한다. -->
             <div class="json-file-container">
               <ol id="json-file-list">
 
@@ -131,7 +143,7 @@
             </div>
 
             <div class="complete-button">
-              <button type="button" class="btn btn-outline-success btn-lg btn-block" id="complete-submit"
+              <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="complete-submit"
                 style="height: 100%">COMPLETE</button>
             </div>
 
@@ -161,7 +173,6 @@
   <script src="./components/image/image-helper.js"></script>
   <script src="./components/video/video-util.js"></script>
   <script src="./components/file/file.js"></script>
-  <script src="./components/file/createFile.js"></script>
   <script src="./components/frame.js"></script>
 
   <!-- click event -->
@@ -229,7 +240,8 @@
 
     function onCompleteSubmit() {
       if (confirm(`Create '.pkl' files?`)) {
-        createPickle(SELECTED_FRAME_LIST);
+        // createPickle(SELECTED_FRAME_LIST);
+        onSuccess();
       } else return;
     }
   </script>

@@ -1,9 +1,12 @@
+const fs = require('fs');
 const dirTree = require('directory-tree');
 
-const VIDEO_FILE_LIST = 'video-file-list';
-const JSON_FILE_LIST = 'json-file-list';
-const VIDEO_FILE_COUNT = 'video-file-count';
-const JSON_FILE_COUNT = 'json-file-count';
+const VIDEO_FILE_LIST = 'video-file-list',
+  JSON_FILE_LIST = 'json-file-list',
+  VIDEO_FILE_COUNT = 'video-file-count',
+  JSON_FILE_COUNT = 'json-file-count';
+
+let JSON_DIRECTORY_PATH;
 
 // TODO(yhpark): file.js classification
 function selectVideoDirectory(e) {
@@ -25,11 +28,16 @@ function selectVideoDirectory(e) {
 }
 
 function selectJSONFileDirectory(e) {
+  console.log('asd');
+
   const fileList = e.target.files;
 
   if(!fileList[0]) return;
 
   const directoryPath = fileList[0].path;
+
+  JSON_DIRECTORY_PATH = directoryPath;
+
   const fileTagContainer = document.getElementById(JSON_FILE_LIST);
   
   initializeFileExplorer(JSON_FILE_LIST);
@@ -69,6 +77,29 @@ function createFileNameTag(item, container) {
  * 3. '완료된 파일'을 선택 시, 다시 볼 수 있도록
  */
 function onSuccess() {
+  console.log(JSON_DIRECTORY_PATH);
+
+  // 0) 파일 이름 가져오기
+  const videoFileName = document.getElementById('file-name').innerHTML;
+  const jsonFileName = videoFileName.split('.')[0];
+
+  // 1) 선택된 구간에 해당하는 값 불러오기
+  console.log(SELECTED_FRAME_LIST);
+
+  let data = {
+    jsonFileName: SELECTED_FRAME_LIST
+  }
+  
+  // 2) json 파일 생성하기
+  fs.writeFile(JSON_DIRECTORY_PATH + '/' + jsonFileName + '.json', data, (err) => {
+    if (err) throw err;
+    alert('The file has been saved!');
+    // 3) 완료된 파일 refresh
+    // selectJSONFileDirectory(JSON_DIRECTORY_PATH);
+  });
+
+
+  /*
   const fileName = document.getElementById('file-name').innerText;
 
   // file-name innerText 존재 유무 확인 절차 구현할 것
@@ -87,5 +118,6 @@ function onSuccess() {
   file.appendChild(filePath);
   fileTree.appendChild(file);
   fileTree.appendChild(p);
+  */
 }
 
