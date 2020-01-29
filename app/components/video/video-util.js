@@ -50,6 +50,8 @@ function onSelectedFrame(frameTag) {
 
   setFrameIndex(frameIndex);
 
+  document.getElementById('frame-number').innerHTML = frameIndex;
+
   return frameIndex;
 }
 
@@ -156,31 +158,6 @@ function initializeInputTag () {
   END_INPUT_TAG.removeAttribute('autofocus');
 }
 
-// complete
-/**
- * 'FRAME_LIST' 에 표시 하기
- */
-function onCompleteSubmit () {
-  if(confirm('pkl 파일을 생성하시겠습니까?')) { 
-    const frameIndexList = [];
-    
-    const inputTagList = document.getElementsByClassName('frame-index');
-    
-    for (let [key, value] of Object.entries(inputTagList)) {
-      console.log(`${key}: ${value.getAttribute('value')}`);
-      
-      const frameIndex = value.getAttribute('value');
-      
-      frameIndexList.push(frameIndex);
-
-      console.log(frameIndex);
-    }
-    
-    console.log('frame list:', FRAME_LIST.length);
-    console.log(frameIndexList);
-  }
-}
-
 function changeAutoFocus () {
   const startInputTag = document.getElementById('start-frame-input');
   const endInputTag = document.getElementById('end-frame-input');
@@ -204,9 +181,24 @@ function markSelectedSection(startFrameIndex, endFrameIndex, opacity) {
   for (let i = startFrameIndex; i <= endFrameIndex; i++) {
     canvasList[i].style.opacity = opacity;
   }
+
+  if (opacity == 1) {
+    SELECTED_FRAME_LIST = unSetSelectedFrameList(startFrameIndex, endFrameIndex, SELECTED_FRAME_LIST);
+  } else {
+    SELECTED_FRAME_LIST = setSelectedFrameList(startFrameIndex, endFrameIndex, SELECTED_FRAME_LIST);
+  }
+
+  console.log('marking list: ', SELECTED_FRAME_LIST);
 }
 
 function getTotalFrameCount () {
-  NOW_FRAME_INDEX = Number(document.getElementsByClassName('frame')[0].id);
-  return document.getElementsByClassName('frame').length;
+  const frameList = document.getElementsByClassName('frame');
+  const length =frameList.length;
+
+  NOW_FRAME_INDEX = 0
+
+  SELECTED_FRAME_LIST = initializeFrameList(length);
+  console.log('initialize: ', SELECTED_FRAME_LIST);
+
+  return length;
 }

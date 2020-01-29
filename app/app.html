@@ -5,14 +5,15 @@
   <title>opencv4nodejs electron example</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <link rel="stylesheet" href="./app.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-  
+
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 </head>
 
@@ -27,7 +28,7 @@
         <label class="margin-right">
           Pick a .png or .jpg file:
           </span>
-          <input type="file" onchange="onDirectorySelect(event)" webkitdirectory directory multiple />
+          <input id="open-video-directory" type="file" webkitdirectory directory multiple />
       </div>
     </section>
 
@@ -80,12 +81,14 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-lg">Start</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="start-frame-input" value=0 readonly autofocus>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-lg" id="start-frame-input" value=0 readonly autofocus>
 
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-lg">End</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="end-frame-input" value=0 readonly>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-lg" id="end-frame-input" value=0 readonly>
               </div>
 
               <button type="button" class="btn btn-secondary btn-lg btn-block" id="sub-frame-success">Next</button>
@@ -137,65 +140,25 @@
     let CLICKED_ELEMENT;
     let TOTAL_FRAME_COUNT;  // video load 시 초기화
     let FRAME_LIST = [];
+    let SELECTED_FRAME_LIST = [];
 
   </script>
   <script src="./components/image/image-helper.js"></script>
   <script src="./components/video/video-util.js"></script>
   <script src="./components/file/file.js"></script>
+  <script src="./components/file/createFile.js"></script>
+  <script src="./components/frame.js"></script>
 
   <!-- click event -->
   <script>
     window.addEventListener('click', this.onClickedElement, false);
 
-    let keyState = {};
-    window.addEventListener('keydown',function(e){
-        keyState[e.keyCode || e.which] = true;
-    },true);    
-    window.addEventListener('keyup',function(e){
-        keyState[e.keyCode || e.which] = false;
-    },true);
-
-    function frameMove() {
-      if (keyState[37] || keyState[65]) {
-        frameSpotout(document.getElementById(NOW_FRAME_INDEX));
-
-        if (NOW_FRAME_INDEX > 0) {
-          CLICKED_ELEMENT = document.getElementById(--NOW_FRAME_INDEX);
-          onSelectedFrame(CLICKED_ELEMENT);
-          frameSpotlight(CLICKED_ELEMENT);
-          CLICKED_ELEMENT.scrollIntoView();
-        }
-      }
-
-      if (keyState[39] || keyState[68]) {
-        frameSpotout(document.getElementById(NOW_FRAME_INDEX));
-
-        if (NOW_FRAME_INDEX < (TOTAL_FRAME_COUNT - 1)) {
-          CLICKED_ELEMENT = document.getElementById(++NOW_FRAME_INDEX);
-          onSelectedFrame(CLICKED_ELEMENT);
-          frameSpotlight(CLICKED_ELEMENT);
-          CLICKED_ELEMENT.scrollIntoView();
-        }
-      }
-
-      if (keyState[13]) {
-        changeAutoFocus();
-        return;
-      }
-
-        // redraw/reposition your object here
-        // also redraw/animate any objects not controlled by the user
-
-        setTimeout(frameMove, 10);
-    }    
-    frameMove();
-
+    document.getElementById('open-video-directory').addEventListener('change', onDirectorySelect, false);
     document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('sub-frame-success').addEventListener('click', onNext, false);
-    document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
-
     document.querySelector('#input-container').addEventListener('click', onDeleteSelectedFrameIndexInputGroup, false);
+    document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
 
     function onClickedElement(e) {
       CLICKED_ELEMENT = e.target;
@@ -217,12 +180,12 @@
       canvas.style.zIndex = '';
     }
 
-    function onNext () {
+    function onNext() {
       // 1) Validate input value
       const startFrameIndex = START_INPUT_TAG.value;
       const endFrameIndex = END_INPUT_TAG.value;
-    
-      if(validateSelectedFrameIndex(startFrameIndex, endFrameIndex)){
+
+      if (validateSelectedFrameIndex(startFrameIndex, endFrameIndex)) {
         // 2) Create frame value input
         createSelectedFrameIndexInputTag(startFrameIndex, endFrameIndex);
 
@@ -236,16 +199,22 @@
 
     function onDeleteSelectedFrameIndexInputGroup(e) {
       const selectedFrameIndexInputGroup = e.target.parentElement.parentElement;
-    
-      if(selectedFrameIndexInputGroup.className == 'input-group frame-index-group'){
+
+      if (selectedFrameIndexInputGroup.className == 'input-group frame-index-group') {
         const selectedFrameIndexInput = selectedFrameIndexInputGroup.getElementsByTagName('input');
-    
+
         const startFrameIndex = selectedFrameIndexInput[0].value;
         const endFrameIndex = selectedFrameIndexInput[1].value;
-    
+
         markSelectedSection(startFrameIndex, endFrameIndex, 1);
         selectedFrameIndexInputGroup.remove();
       }
+    }
+
+    function onCompleteSubmit() {
+      if(confirm(`Create '.pkl' files?`)){
+        createPickle(SELECTED_FRAME_LIST);
+      } else return;
     }
   </script>
   <script>
