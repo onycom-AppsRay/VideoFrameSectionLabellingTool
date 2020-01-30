@@ -1,10 +1,9 @@
 
-function onVideoSelected(e) {
+function selectVideo(e) {
   deleteSubFrame(FRAME_LIST.length);
 
-  console.log(e.target.innerText);
-
-  const filePath = e.target.id;
+  const filePath = e.target.dataset.path;
+  const fileName = e.target.innerHTML;
 
   FRAME_LIST = [];
 
@@ -39,6 +38,8 @@ function onVideoSelected(e) {
   console.log('Video Loading End');
 
   renderImage(FRAME_LIST[0], document.getElementById('main-frame-mask'))
+
+  document.getElementById('file-name').innerText = fileName;
 
   TOTAL_FRAME_COUNT = getTotalFrameCount();
 }

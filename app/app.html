@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>opencv4nodejs electron example</title>
+  <title>Labeller - Select the video section</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,40 +17,76 @@
 
 </head>
 
-<body>
-  <header class="centered-text">
-    <h3>Loding Section Labeling Tool</h3>
-  </header>
+<body style="background-color: red;">
 
-  <main>
+  <header class="centered-text">
     <section>
-      <div class="centered-container">
-        <label class="margin-right">
-          Pick a .png or .jpg file:
-          </span>
-          <input id="open-video-directory" type="file" webkitdirectory directory multiple />
-      </div>
+      <h3>Loding Section Labeling Tool</h3>
     </section>
 
     <section>
       <div class="container">
         <div class="row">
 
+          <div class="col-sm">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="open-video-directory"
+                  aria-describedby="inputGroupFileAddon01" webkitdirectory directory>
+                <label class="custom-file-label" for="open-video-directory">a .png or .jpg file:</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="open-json-directory"
+                  aria-describedby="inputGroupFileAddon01" webkitdirectory directory>
+                <label class="custom-file-label" for="open-json-directory">완료된 파일 저장할 폴더 선택</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section>
+      <div class="container">
+        <div class="row">
           <!-- file list -->
           <div class="col-2" id="file-explorer">
 
-            <div class="file-list-title">
-              선택한 디렉토리
+            <div class="video-file-list-title">
+              <span>선택한 디렉토리</span>
+              <p><span id="video-file-count">0</span>개</p>
             </div>
 
-            <div class="overflow-auto" id="file-list">
+            <div class="video-file-container">
+              <ol id="video-file-list">
+
+              </ol>
             </div>
 
-            <div class="completed-file-list-title">
-              완료된 파일
+            <div class="json-file-list-title">
+              <span>완료된 파일</span>
+              <p><span id="json-file-count">0</span>개</p>
             </div>
 
-            <div class="overflow-auto" id="completed-file-list">
+            <!-- BUG(yhpark): json 파일은 선택되지 않게 해야한다. -->
+            <div class="json-file-container">
+              <ol id="json-file-list">
+
+              </ol>
             </div>
 
           </div>
@@ -59,18 +95,18 @@
           <div class="col-8" id="video-explorer">
 
             <div id="main-frame-title">
-              메인 프레임
+              <span>메인 프레임</span>
               <p>현재 파일: <span id="file-name"></span></p>
             </div>
 
             <div id="main-frame">
-              <p style="margin: 0px;">현재 인덱스</p>
-              <span id="frame-number">0</span>
+              <label>현재 인덱스</label>
+              <p id="frame-number">0</p>
               <canvas id="main-frame-mask"></canvas>
             </div>
 
             <div id="sub-frame-title">
-              프레임 흐름
+              <span>프레임 흐름</span>
             </div>
 
             <div id="sub-frame">
@@ -100,7 +136,9 @@
           <div class="col-2" id="button-collection">
 
             <!-- Frame index 'input' tag group -->
-            <div class="button-collection-title">버튼 레이아웃</div>
+            <div class="button-collection-title">
+              <span>버튼 레이아웃</span>
+            </div>
 
             <div class="input-frame-index-group" id="input-container">
               <div class="input-group">
@@ -113,10 +151,12 @@
             </div>
 
             <!-- Complete & Next Button -->
-            <div class="complete-title">완료 버튼</div>
+            <div class="complete-title">
+              <span>완료 버튼</span>
+            </div>
 
             <div class="complete-button">
-              <button type="button" class="btn btn-outline-success btn-lg btn-block" id="complete-submit"
+              <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="complete-submit"
                 style="height: 100%">COMPLETE</button>
             </div>
 
@@ -126,8 +166,9 @@
       </div>
     </section>
   </main>
+
   <footer>
-    asd
+    <section>footer</section>
   </footer>
 
   <!-- main -->
@@ -141,22 +182,23 @@
     let TOTAL_FRAME_COUNT;  // video load 시 초기화
     let FRAME_LIST = [];
     let SELECTED_FRAME_LIST = [];
-
   </script>
   <script src="./components/image/image-helper.js"></script>
   <script src="./components/video/video-util.js"></script>
   <script src="./components/file/file.js"></script>
-  <script src="./components/file/createFile.js"></script>
   <script src="./components/frame.js"></script>
 
   <!-- click event -->
   <script>
     window.addEventListener('click', this.onClickedElement, false);
 
-    document.getElementById('open-video-directory').addEventListener('change', onDirectorySelect, false);
+    document.getElementById('open-video-directory').addEventListener('change', selectVideoDirectory, false);
+    document.getElementById('open-json-directory').addEventListener('change', selectJSONFileDirectory, false);
+
     document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('sub-frame-success').addEventListener('click', onNext, false);
+
     document.querySelector('#input-container').addEventListener('click', onDeleteSelectedFrameIndexInputGroup, false);
     document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
 
@@ -165,6 +207,12 @@
 
       if (CLICKED_ELEMENT.className == 'frame') {
         onSelectedFrame(CLICKED_ELEMENT);
+        return;
+      }
+      
+      if (CLICKED_ELEMENT.parentElement.id == 'video-file-list') {
+        selectVideo(e);
+        return;
       }
     }
 
@@ -212,8 +260,9 @@
     }
 
     function onCompleteSubmit() {
-      if(confirm(`Create '.pkl' files?`)){
-        createPickle(SELECTED_FRAME_LIST);
+      if (confirm(`Create '.pkl' files?`)) {
+        // createPickle(SELECTED_FRAME_LIST);
+        onSuccess();
       } else return;
     }
   </script>
