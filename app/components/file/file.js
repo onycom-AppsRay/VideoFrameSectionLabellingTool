@@ -10,6 +10,9 @@ let JSON_DIRECTORY_PATH;
 
 // TODO(yhpark): file.js classification
 function selectVideoDirectory(e) {
+  // TODO(yhpark): Initialize video list
+  VIDEO_LIST = '';
+
   const fileList = e.target.files;
 
   if(!fileList[0]) return;
@@ -23,6 +26,8 @@ function selectVideoDirectory(e) {
   const tree = dirTree(directoryPath, { extensions: /\.(gif|mp4|mov)$/ }, (item) => {
     createFileNameTag(item, fileTagContainer);
   });
+
+  VIDEO_LIST = tree;
 
   document.getElementById(VIDEO_FILE_COUNT).innerHTML = tree.children.length;
 }
@@ -64,11 +69,6 @@ function createFileNameTag(item, container) {
   container.appendChild(fileTag);
 }
 
-function checkParameter(param) {
-  console.log(param);
-}
-
-
 /**
  * file name 확인 해서 '완료된 파일' 부분에 보여주기
  * 1. p tag 에 파일 이름 존재하는지 확인
@@ -79,6 +79,12 @@ function onSuccess() {
   if (!JSON_DIRECTORY_PATH) {
     alert('JSON 파일을 저장할 폴더를 선택하세요.');
     document.getElementById('open-json-directory').focus();
+    return;
+  }
+
+  if (!VIDEO_LIST) {
+    alert('비디오 폴더를 선택하세요.');
+    document.getElementById('open-video-directory').focus();
     return;
   }
 
@@ -114,5 +120,25 @@ function onSuccess() {
   deleteAllSelectedFrameIndexInputTag();
   
   // 5) 다음 비디오 파일로 이동
+  VIDEO_LIST.children.forEach((video, index, array) => {
+    if(video.name == videoFileName){
+      const nextVideo = VIDEO_LIST.children[index + 1];
+
+      renderVideo(nextVideo.path, nextVideo.name, FRAME_LIST);
+
+      // 6) 완료된 파일 처리
+      const fileList = document.getElementById('video-file-list').childNodes;
+
+      fileList.forEach((elem) => {
+        if (elem.dataset.path == video.path) {
+          elem.style.textDecoration = 'line-through';
+
+          return;
+        }
+      });
+
+      return;
+    }
+  });
 }
 
