@@ -1,3 +1,51 @@
+function renderVideo(filePath, fileName, frameList) {
+  // 1) Initialze global variable 'frameList'
+  deleteSubFrame(frameList.length); 
+
+  // 2) 읽어 온 경로 상의 video 
+  const videoCapture = new cv.VideoCapture(path.resolve(filePath));
+  let frame = videoCapture.read();
+
+  console.log('Start video rendering');
+
+  // TODO(yhpark): Intialize frameList
+  frameList = [];
+
+  let index = 0;
+  while (!frame.empty) {
+    frameList.push(frame);
+
+    frame = frame.resizeToMax(200);
+
+    const canvasTag = createCanvasTag(frame, index);
+
+    document.getElementById('sub-frame').appendChild(canvasTag);
+
+    index++;
+
+    frame = videoCapture.read();
+  }
+
+  console.log('End video rendering');
+
+  renderImage(frameList[0], document.getElementById('main-frame-mask'))
+
+  document.getElementById('file-name').innerText = fileName;
+
+  TOTAL_FRAME_COUNT = getTotalFrameCount();
+}
+
+function createCanvasTag(frame, index) {
+  const canvasTag = document.createElement('canvas');
+  canvasTag.setAttribute('class', 'frame');
+  canvasTag.setAttribute('id', index);
+
+  renderImage(frame, canvasTag);
+  renderImageOnText(canvasTag);
+
+  return canvasTag;
+}
+
 function selectVideo(e) {
   deleteSubFrame(FRAME_LIST.length);
 
