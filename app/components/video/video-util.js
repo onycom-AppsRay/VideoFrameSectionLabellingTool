@@ -63,7 +63,7 @@ function deleteSubFrame(frameIdx) {
   }
 }
 
-function onDeleteSelectedFrameIndexInputGroup(e) {
+function deleteSelectedFrameIndexInputGroup(e) {
   const selectedFrameIndexInputGroup = e.target.parentElement.parentElement;
 
   if(selectedFrameIndexInputGroup.className == 'input-group frame-index-group'){
@@ -74,6 +74,14 @@ function onDeleteSelectedFrameIndexInputGroup(e) {
 
     markSelectedSection(startFrameIndex, endFrameIndex, 1);
     selectedFrameIndexInputGroup.remove();
+  }
+}
+
+function deleteAllSelectedFrameIndexInputTag () {
+  const inputTagGroups = document.getElementsByClassName('input-group frame-index-group');
+
+  for(let i = 0; i < inputTagGroups.length; i++) {
+    inputTagGroups[i].remove();
   }
 }
 
@@ -104,7 +112,6 @@ function setFrameIndex (frameIndex) {
 
 function createSelectedFrameIndexInputTag (startFrameIndex, endFrameIndex) {
   const inputTagTotalCnt = document.getElementsByClassName('input-group').length;
-
   const inputTagIdx = inputTagTotalCnt + 1;
 
   const frameIdxInputGroup = document.createElement('div');
@@ -121,6 +128,7 @@ function createSelectedFrameIndexInputTag (startFrameIndex, endFrameIndex) {
   const inputContainer = document.getElementById('input-container');
   inputContainer.appendChild(frameIdxInputGroup);
 }
+
 /**
  * 확정 프레임 정하기 전 프레임 인덱스 유효성을 검사한다.
  * @param {*} startFrameIndex 

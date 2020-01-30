@@ -76,7 +76,11 @@ function checkParameter(param) {
  * 3. '완료된 파일'을 선택 시, 다시 볼 수 있도록
  */
 function onSuccess() {
-  console.log(JSON_DIRECTORY_PATH);
+  if (!JSON_DIRECTORY_PATH) {
+    alert('JSON 파일을 저장할 폴더를 선택하세요.');
+    document.getElementById('open-json-directory').focus();
+    return;
+  }
 
   // 0) 파일 이름 가져오기
   const videoFileName = document.getElementById('file-name').innerHTML;
