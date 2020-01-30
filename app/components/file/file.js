@@ -87,17 +87,16 @@ function onSuccess() {
   const jsonFileName = videoFileName.split('.')[0];
 
   // 1) 선택된 구간에 해당하는 값 불러오기
-  console.log(SELECTED_FRAME_LIST);
+  // console.log(SELECTED_FRAME_LIST);
 
   let data = {
     jsonFileName: SELECTED_FRAME_LIST
   }
   
   // 2) json 파일 생성하기
-  fs.writeFile(JSON_DIRECTORY_PATH + '/' + jsonFileName + '.json', data, (err) => {
+  fs.writeFile(JSON_DIRECTORY_PATH + '/' + jsonFileName + '.json', JSON.stringify(data), (err) => {
     if (err) throw err;
-    alert('The file has been saved!');
-    console.log(jsonFileName + '.json');
+    alert('The file has been saved!' + '\n' + jsonFileName + '.json');
 
     // 3) '완료된 파일' refresh
     const fileTagContainer = document.getElementById(JSON_FILE_LIST);
@@ -112,7 +111,8 @@ function onSuccess() {
   });
 
   // 4) 버튼 레이아웃 초기화
-
+  deleteAllSelectedFrameIndexInputTag();
+  
   // 5) 다음 비디오 파일로 이동
 }
 

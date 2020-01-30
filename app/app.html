@@ -211,11 +211,13 @@
       
       if (CLICKED_ELEMENT.parentElement.id == 'video-file-list') {
         selectVideo(e);
+        deleteAllSelectedFrameIndexInputTag()
         return;
       }
 
-      if (CLICKED_ELEMENT.id = 'btn-delete-selected-frame-index-input') {
+      if (CLICKED_ELEMENT.id == 'btn-delete-selected-frame-index-input') {
         deleteSelectedFrameIndexInputGroup(e);
+        return;
       }
     }
 
@@ -249,10 +251,8 @@
     }
 
     function onCompleteSubmit() {
-      if (confirm(`Create '.pkl' files?`)) {
-        // createPickle(SELECTED_FRAME_LIST);
+      if (confirm(`Create '.json' files?`)) {
         onSuccess();
-        deleteAllSelectedFrameIndexInputTag()
       } else return;
     }
   </script>
