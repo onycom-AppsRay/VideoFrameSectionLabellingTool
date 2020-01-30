@@ -5,6 +5,7 @@ const path = require('path');
 const { app, BrowserWindow } = electron;
 
 let win;
+
 const createWindow = () => {
   win = new BrowserWindow({
     width: 1400,

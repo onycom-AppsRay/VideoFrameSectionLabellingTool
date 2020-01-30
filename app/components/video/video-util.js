@@ -1,5 +1,5 @@
 
-function onVideoSelected(e) {
+function selectVideo(e) {
   deleteSubFrame(FRAME_LIST.length);
 
   const filePath = e.target.dataset.path;

@@ -17,34 +17,47 @@
 
 </head>
 
-<body>
+<body style="background-color: red;">
+
   <header class="centered-text">
-    <h3>Loding Section Labeling Tool</h3>
-  </header>
-  
-  <section>
-    <div class="centered-container">
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+    <section>
+      <h3>Loding Section Labeling Tool</h3>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row">
+
+          <div class="col-sm">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="open-video-directory"
+                  aria-describedby="inputGroupFileAddon01" webkitdirectory directory>
+                <label class="custom-file-label" for="open-video-directory">a .png or .jpg file:</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="open-json-directory"
+                  aria-describedby="inputGroupFileAddon01" webkitdirectory directory>
+                <label class="custom-file-label" for="open-json-directory">완료된 파일 저장할 폴더 선택</label>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="open-video-directory"
-            aria-describedby="inputGroupFileAddon01" webkitdirectory directory>
-          <label class="custom-file-label" for="open-video-directory">a .png or .jpg file:</label>
-        </div>
-    
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-        </div>
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="open-json-directory"
-            aria-describedby="inputGroupFileAddon01" webkitdirectory directory>
-          <label class="custom-file-label" for="open-json-directory">완료된 파일 저장할 폴더 선택</label>
-        </div>
+
       </div>
-    </div>
-  </section>
+    </section>
+  </header>
 
   <main>
     <section>
@@ -153,8 +166,9 @@
       </div>
     </section>
   </main>
+
   <footer>
-    asd
+    <section>footer</section>
   </footer>
 
   <!-- main -->
@@ -168,7 +182,6 @@
     let TOTAL_FRAME_COUNT;  // video load 시 초기화
     let FRAME_LIST = [];
     let SELECTED_FRAME_LIST = [];
-
   </script>
   <script src="./components/image/image-helper.js"></script>
   <script src="./components/video/video-util.js"></script>
@@ -181,9 +194,11 @@
 
     document.getElementById('open-video-directory').addEventListener('change', selectVideoDirectory, false);
     document.getElementById('open-json-directory').addEventListener('change', selectJSONFileDirectory, false);
+
     document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('sub-frame-success').addEventListener('click', onNext, false);
+
     document.querySelector('#input-container').addEventListener('click', onDeleteSelectedFrameIndexInputGroup, false);
     document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
 
@@ -192,6 +207,12 @@
 
       if (CLICKED_ELEMENT.className == 'frame') {
         onSelectedFrame(CLICKED_ELEMENT);
+        return;
+      }
+      
+      if (CLICKED_ELEMENT.parentElement.id == 'video-file-list') {
+        selectVideo(e);
+        return;
       }
     }
 

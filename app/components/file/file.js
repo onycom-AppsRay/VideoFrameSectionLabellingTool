@@ -28,8 +28,6 @@ function selectVideoDirectory(e) {
 }
 
 function selectJSONFileDirectory(e) {
-  console.log('asd');
-
   const fileList = e.target.files;
 
   if(!fileList[0]) return;
@@ -62,12 +60,13 @@ function createFileNameTag(item, container) {
   const fileTag = document.createElement('li');
   fileTag.innerHTML = item.name;
   fileTag.setAttribute('data-path', item.path);
-  fileTag.setAttribute('onclick', 'onVideoSelected(event)');
 
   container.appendChild(fileTag);
 }
 
-
+function checkParameter(param) {
+  console.log(param);
+}
 
 
 /**
@@ -94,30 +93,22 @@ function onSuccess() {
   fs.writeFile(JSON_DIRECTORY_PATH + '/' + jsonFileName + '.json', data, (err) => {
     if (err) throw err;
     alert('The file has been saved!');
-    // 3) 완료된 파일 refresh
-    // selectJSONFileDirectory(JSON_DIRECTORY_PATH);
+    console.log(jsonFileName + '.json');
+
+    // 3) '완료된 파일' refresh
+    const fileTagContainer = document.getElementById(JSON_FILE_LIST);
+
+    initializeFileExplorer(JSON_FILE_LIST);
+
+    const tree = dirTree(JSON_DIRECTORY_PATH, { extensions: /\.(json)$/ }, (item) => {
+      createFileNameTag(item, fileTagContainer);
+    });
+  
+    document.getElementById(JSON_FILE_COUNT).innerHTML = tree.children.length;
   });
 
+  // 4) 버튼 레이아웃 초기화
 
-  /*
-  const fileName = document.getElementById('file-name').innerText;
-
-  // file-name innerText 존재 유무 확인 절차 구현할 것
-  console.log(fileName);
-
-  const fileTree = document.getElementById(JSON_FILE_LIST);
-
-  const file = document.createElement('a');
-  const filePath = document.createTextNode(fileName);
-  file.setAttribute('href', '#');
-  file.setAttribute('onclick', 'onVideoSelected(event)');
-  // file.setAttribute('id', element.path);
-
-  const p = document.createElement('br');
-
-  file.appendChild(filePath);
-  fileTree.appendChild(file);
-  fileTree.appendChild(p);
-  */
+  // 5) 다음 비디오 파일로 이동
 }
 
