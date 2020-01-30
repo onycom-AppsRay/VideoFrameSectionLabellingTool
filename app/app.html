@@ -199,7 +199,6 @@
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('sub-frame-success').addEventListener('click', onNext, false);
 
-    document.querySelector('#input-container').addEventListener('click', onDeleteSelectedFrameIndexInputGroup, false);
     document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
 
     function onClickedElement(e) {
@@ -212,6 +211,12 @@
       
       if (CLICKED_ELEMENT.parentElement.id == 'video-file-list') {
         selectVideo(e);
+        deleteAllSelectedFrameIndexInputTag()
+        return;
+      }
+
+      if (CLICKED_ELEMENT.id == 'btn-delete-selected-frame-index-input') {
+        deleteSelectedFrameIndexInputGroup(e);
         return;
       }
     }
@@ -245,23 +250,8 @@
       }
     }
 
-    function onDeleteSelectedFrameIndexInputGroup(e) {
-      const selectedFrameIndexInputGroup = e.target.parentElement.parentElement;
-
-      if (selectedFrameIndexInputGroup.className == 'input-group frame-index-group') {
-        const selectedFrameIndexInput = selectedFrameIndexInputGroup.getElementsByTagName('input');
-
-        const startFrameIndex = selectedFrameIndexInput[0].value;
-        const endFrameIndex = selectedFrameIndexInput[1].value;
-
-        markSelectedSection(startFrameIndex, endFrameIndex, 1);
-        selectedFrameIndexInputGroup.remove();
-      }
-    }
-
     function onCompleteSubmit() {
-      if (confirm(`Create '.pkl' files?`)) {
-        // createPickle(SELECTED_FRAME_LIST);
+      if (confirm(`Create '.json' files?`)) {
         onSuccess();
       } else return;
     }

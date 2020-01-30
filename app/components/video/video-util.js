@@ -1,4 +1,3 @@
-
 function selectVideo(e) {
   deleteSubFrame(FRAME_LIST.length);
 
@@ -57,16 +56,16 @@ function onSelectedFrame(frameTag) {
 }
 
 function deleteSubFrame(frameIdx) {
-  for(let i = 0; i < frameIdx; i++) {
+  for (let i = 0; i < frameIdx; i++) {
     const subFrame = document.getElementById(i);
     subFrame.remove();
   }
 }
 
-function onDeleteSelectedFrameIndexInputGroup(e) {
+function deleteSelectedFrameIndexInputGroup(e) {
   const selectedFrameIndexInputGroup = e.target.parentElement.parentElement;
 
-  if(selectedFrameIndexInputGroup.className == 'input-group frame-index-group'){
+  if (selectedFrameIndexInputGroup.className == 'input-group frame-index-group') {
     const selectedFrameIndexInput = selectedFrameIndexInputGroup.getElementsByTagName('input');
 
     const startFrameIndex = selectedFrameIndexInput[0].value;
@@ -77,19 +76,29 @@ function onDeleteSelectedFrameIndexInputGroup(e) {
   }
 }
 
-function setAutofocus (e) {
-  const focusElement = e.target.getAttribute('id');
+function deleteAllSelectedFrameIndexInputTag() {
+  const inputTagGroups = document.getElementsByClassName('input-group frame-index-group');
 
-  const startInputTag = document.getElementById('start-frame-input');
-  const endInputTag = document.getElementById('end-frame-input');
-
-  startInputTag.removeAttribute('autofocus');
-  endInputTag.removeAttribute('autofocus');
-
-  document.getElementById(focusElement).setAttribute('autofocus', '');
+  for (let [key, value] of Object.entries(inputTagGroups)) {
+    value.remove();
+  }
 }
 
-function setFrameIndex (frameIndex) {
+function setAutofocus(e) {
+  if (e.target.getAttribute('id') == 'start-frame-input') {
+    document.getElementById('end-frame-input').removeAttribute('autofocus');
+    e.target.setAttribute('autofocus', '');
+    return;
+  } 
+  
+  if (e.target.getAttribute('id') == 'end-frame-input') {
+    document.getElementById('start-frame-input').removeAttribute('autofocus');
+    e.target.setAttribute('autofocus', '');
+    return;
+  }
+}
+
+function setFrameIndex(frameIndex) {
   const isStartTagAutoFocus = START_INPUT_TAG.hasAttribute('autofocus');
   const isEndTagAutoFocus = END_INPUT_TAG.hasAttribute('autofocus');
 
@@ -102,9 +111,8 @@ function setFrameIndex (frameIndex) {
   }
 }
 
-function createSelectedFrameIndexInputTag (startFrameIndex, endFrameIndex) {
+function createSelectedFrameIndexInputTag(startFrameIndex, endFrameIndex) {
   const inputTagTotalCnt = document.getElementsByClassName('input-group').length;
-
   const inputTagIdx = inputTagTotalCnt + 1;
 
   const frameIdxInputGroup = document.createElement('div');
@@ -121,6 +129,7 @@ function createSelectedFrameIndexInputTag (startFrameIndex, endFrameIndex) {
   const inputContainer = document.getElementById('input-container');
   inputContainer.appendChild(frameIdxInputGroup);
 }
+
 /**
  * 확정 프레임 정하기 전 프레임 인덱스 유효성을 검사한다.
  * @param {*} startFrameIndex 
@@ -136,13 +145,13 @@ function validateSelectedFrameIndex(startFrameIndex, endFrameIndex) {
   }
 
   if ((startFrameIndex == endFrameIndex)) {
-    alert('Select frame');
+    alert(`'Start(${startFrameIndex})' and 'End(${startFrameIndex})' must be different.`);
     console.log('두 값이 같을 때');
     return false;
   }
 
-  if ((startFrameIndex > endFrameIndex)) {
-    alert(`'Start' must be greater then 'End'`);
+  if ((Number(startFrameIndex) > Number(endFrameIndex))) {
+    alert(`'End(${endFrameIndex})' must be greater then 'Start(${startFrameIndex})'`);
     console.log('false');
     return false;
   } else {
@@ -151,7 +160,7 @@ function validateSelectedFrameIndex(startFrameIndex, endFrameIndex) {
   }
 }
 
-function initializeInputTag () {
+function initializeInputTag() {
   START_INPUT_TAG.setAttribute('value', '0');
   START_INPUT_TAG.setAttribute('autofocus', '');
 
@@ -159,7 +168,7 @@ function initializeInputTag () {
   END_INPUT_TAG.removeAttribute('autofocus');
 }
 
-function changeAutoFocus () {
+function changeAutoFocus() {
   const startInputTag = document.getElementById('start-frame-input');
   const endInputTag = document.getElementById('end-frame-input');
   const inputSuccessBtn = document.getElementById('sub-frame-success');
@@ -192,9 +201,9 @@ function markSelectedSection(startFrameIndex, endFrameIndex, opacity) {
   console.log('marking list: ', SELECTED_FRAME_LIST);
 }
 
-function getTotalFrameCount () {
+function getTotalFrameCount() {
   const frameList = document.getElementsByClassName('frame');
-  const length =frameList.length;
+  const length = frameList.length;
 
   NOW_FRAME_INDEX = 0
 
