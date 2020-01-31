@@ -1,6 +1,6 @@
 function renderVideo(filePath, fileName, frameList) {
   // 1) Initialze global variable 'frameList'
-  deleteSubFrame(frameList.length); 
+  deleteSubFrame(FRAME_LIST.length);
 
   // 2) 읽어 온 경로 상의 video 
   const videoCapture = new cv.VideoCapture(path.resolve(filePath));
@@ -9,13 +9,13 @@ function renderVideo(filePath, fileName, frameList) {
   console.log('Start video rendering');
 
   // TODO(yhpark): Intialize frameList
-  frameList = [];
+  FRAME_LIST = [];
 
   let index = 0;
   while (!frame.empty) {
-    frameList.push(frame);
+    FRAME_LIST.push(frame);
 
-    frame = frame.resizeToMax(200);
+    frame = frame.resizeToMax(100);
 
     const canvasTag = createCanvasTag(frame, index);
 
@@ -28,9 +28,11 @@ function renderVideo(filePath, fileName, frameList) {
 
   console.log('End video rendering');
 
-  renderImage(frameList[0], document.getElementById('main-frame-mask'))
+  renderImage(FRAME_LIST[0], document.getElementById('main-frame-mask'))
 
   document.getElementById('file-name').innerText = fileName;
+  document.getElementById('frame-number').innerHTML = 0;
+  document.getElementById(0).scrollIntoView();
 
   TOTAL_FRAME_COUNT = getTotalFrameCount();
 }
@@ -63,7 +65,7 @@ function selectVideo(e) {
 
   while (!frame.empty) {
     FRAME_LIST.push(frame);
-    frame = frame.resizeToMax(200);
+    frame = frame.resizeToMax(100);
 
     // frame flow part
     const canvas = document.createElement('canvas');
@@ -87,7 +89,9 @@ function selectVideo(e) {
   renderImage(FRAME_LIST[0], document.getElementById('main-frame-mask'))
 
   document.getElementById('file-name').innerText = fileName;
-
+  document.getElementById('frame-number').innerHTML = 0;
+  document.getElementById(0).scrollIntoView();
+  
   TOTAL_FRAME_COUNT = getTotalFrameCount();
 }
 
@@ -100,11 +104,15 @@ function onSelectedFrame(frameTag) {
 
   document.getElementById('frame-number').innerHTML = frameIndex;
 
+  NOW_FRAME_INDEX = frameIndex;
+
   return frameIndex;
 }
 
-function deleteSubFrame(frameIdx) {
-  for (let i = 0; i < frameIdx; i++) {
+function deleteSubFrame(frameIndex) {
+  NOW_FRAME_INDEX = frameIndex;
+
+  for (let i = 0; i < frameIndex; i++) {
     const subFrame = document.getElementById(i);
     subFrame.remove();
   }

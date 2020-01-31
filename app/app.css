@@ -5,16 +5,17 @@ html {
 
 body {
   height: 100vh;
+  font-size: 1rem;
 }
 
 header {
-  height: 13%;
-  background-color: orange;
+  height: 5%;
+  /* background-color: orange; */
 }
 
 main {
-  height: 80%;
-  background-color: yellow;
+  height: 90%;
+  /* background-color: yellow; */
 }
 
 main > section, main > section > .container {
@@ -22,8 +23,8 @@ main > section, main > section > .container {
 }
 
 footer {
-  height: 7%;
-  background-color: green;
+  height: 5%;
+  /* background-color: green; */
 }
 
 /* default */
@@ -95,10 +96,6 @@ footer {
   padding: 5px;
 }
 
-#main-frame-title {
-  height: 5%;
-}
-
 #main-frame {
   height: 65%; 
   text-align: center;
@@ -116,10 +113,6 @@ footer {
 
 #main-frame-mask {
   width: 95%;
-}
-
-#sub-frame-title {
-  height: 5%;
 }
 
 #sub-frame {
