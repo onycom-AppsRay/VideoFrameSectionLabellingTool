@@ -17,16 +17,12 @@
 
 </head>
 
-<body style="background-color: red;">
+<body>
 
-  <header class="centered-text">
-    <section>
-      <h3>Loding Section Labeling Tool</h3>
-    </section>
-
-    <section>
+  <header class="centered-text" style="padding: 3px;">
+    <section class="align-middle">
       <div class="container">
-        <div class="row">
+        <div class="row" style="background-color: white;">
 
           <div class="col-sm">
             <div class="input-group">
@@ -66,68 +62,64 @@
           <!-- file list -->
           <div class="col-2" id="file-explorer">
 
-            <div class="video-file-list-title">
-              <span>선택한 디렉토리</span>
-              <p><span id="video-file-count">0</span>개</p>
+            <div class="video-file-list-container" style="height: 50%">
+              <div class="video-file-list-title" style="height: 10%;">
+                <span>선택한 디렉토리</span>
+                <p><span id="video-file-count">0</span>개</p>
+              </div>
+            
+              <div class="video-file-container" style="height: 90%;">
+                <ol id="video-file-list">
+            
+                </ol>
+              </div>
             </div>
-
-            <div class="video-file-container">
-              <ol id="video-file-list">
-
-              </ol>
-            </div>
-
-            <div class="json-file-list-title">
-              <span>완료된 파일</span>
-              <p><span id="json-file-count">0</span>개</p>
-            </div>
-
-            <!-- BUG(yhpark): json 파일은 선택되지 않게 해야한다. -->
-            <div class="json-file-container">
-              <ol id="json-file-list">
-
-              </ol>
+            
+            <div class="json-file-list-container" style="height: 50%">
+              <div class="json-file-list-title" style="height: 10%;">
+                <span>완료된 파일</span>
+                <p><span id="json-file-count">0</span>개</p>
+              </div>
+            
+              <!-- BUG(yhpark): json 파일은 선택되지 않게 해야한다. -->
+              <div class="json-file-container" style="height: 90%;">
+                <ol id="json-file-list">
+            
+                </ol>
+              </div>
             </div>
 
           </div>
 
           <!-- video explorer -->
-          <div class="col-8" id="video-explorer">
+          <div class="col-8" id="video-explorer" style="height: 100%">
 
-            <div id="main-frame-title">
-              <span>메인 프레임</span>
-              <p>현재 파일: <span id="file-name"></span></p>
-            </div>
-
-            <div id="main-frame">
-              <label>현재 인덱스</label>
-              <p id="frame-number">0</p>
-              <canvas id="main-frame-mask"></canvas>
-            </div>
-
-            <div id="sub-frame-title">
-              <span>프레임 흐름</span>
-            </div>
-
-            <div id="sub-frame">
-            </div>
-
-            <div id="sub-frame-button">
-              <div class="input-group input-group-lg ">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroup-sizing-lg">Start</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-lg" id="start-frame-input" value=0 readonly autofocus>
-
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroup-sizing-lg">End</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-lg" id="end-frame-input" value=0 readonly>
+            <div class="main-frame-container" style="height: 75%"> 
+              <div id="main-frame-title" style="height: 5%">
+                <p>현재 파일: <span id="file-name"></span></p>
               </div>
 
-              <button type="button" class="btn btn-secondary btn-lg btn-block" id="sub-frame-success">Next</button>
+              <div id="main-frame" style="height: 95%">
+                <label>현재 인덱스</label>
+                <p id="frame-number">0</p>
+                <canvas id="main-frame-mask"></canvas>
+              </div>
+            </div>
+
+            <div class="sub-frame-container" style="height: 10%">            
+              <div id="sub-frame" style="height: 100%">
+              </div>
+            </div>
+
+            <div id="sub-frame-button" style="height: 15%">
+              <div class="input-group input-group-lg" style="padding-top: 1%; padding-bottom: 1%; height: 60%">
+                <input type="number" class="form-control" id="start-frame-input" value=0 style="height: 100%; text-align: center" readonly autofocus>
+                <input type="number" class="form-control" id="end-frame-input" value=0 style="height: 100%; text-align: center" readonly>
+              </div>
+
+              <div style="height: 40%">
+                <button type="button" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success" style="height: 100%">Next</button>
+              </div>
             </div>
 
           </div>
@@ -137,7 +129,7 @@
 
             <!-- Frame index 'input' tag group -->
             <div class="button-collection-title">
-              <span>버튼 레이아웃</span>
+              <span>로딩 구간</span>
             </div>
 
             <div class="input-frame-index-group" id="input-container">
@@ -168,12 +160,17 @@
   </main>
 
   <footer>
-    <section>footer</section>
+    <section>
+      <div class="centered-text" style="padding-top: 5px;">
+        <span>©ONYCOM, TestForte.AI</span>
+      </div>
+    </section>
   </footer>
 
   <!-- main -->
   <script>
     const cv = require('opencv4nodejs');
+    const path = require('path');
 
     const START_INPUT_TAG = document.getElementById('start-frame-input');
     const END_INPUT_TAG = document.getElementById('end-frame-input');
@@ -223,6 +220,7 @@
       }
     }
 
+
     // frame hover
     function frameSpotlight(canvas) {
       canvas.style.position = 'relative';
@@ -259,7 +257,7 @@
     }
   </script>
   <script>
-    const path = require('path');
+    /*
     const SAMPLE_VIDEO = 'sample.mp4';
 
     const videoCapture = new cv.VideoCapture(path.resolve(SAMPLE_VIDEO));
@@ -269,7 +267,7 @@
 
     while (!frame.empty) {
       FRAME_LIST.push(frame);
-      frame = frame.resizeToMax(200);
+      frame = frame.resizeToMax(100);
 
       // frame flow part
       const canvas = document.createElement('canvas');
@@ -294,7 +292,9 @@
     document.getElementById('file-name').innerText = SAMPLE_VIDEO;
 
     TOTAL_FRAME_COUNT = getTotalFrameCount();
+    */
   </script>
+  <script src="./components/keyboard.js"></script>
 </body>
 
 </html>

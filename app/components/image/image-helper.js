@@ -35,6 +35,15 @@ function renderImage(img, canvas) {
 function renderImageOnText(canvas) {
   let ctx = canvas.getContext('2d');
 
-  ctx.font = "30px Verdana";
-  ctx.strokeText(canvas.id, 100, 50);
+  drawStroked(ctx, canvas.id, 50, 35);
+}
+
+function drawStroked(ctx, text, x, y) {
+  ctx.font = '30px Sans-serif';
+  ctx.strokeStyle = 'black';
+  ctx.textAlign = "center";
+  ctx.lineWidth = 8;
+  ctx.strokeText(text, x, y);
+  ctx.fillStyle = 'white';
+  ctx.fillText(text, x, y);
 }
