@@ -14,11 +14,9 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
 </head>
 
 <body>
-
   <header class="centered-text" style="padding: 3px;">
     <section class="align-middle">
       <div class="container">
@@ -67,24 +65,24 @@
                 <span>선택한 디렉토리</span>
                 <p><span id="video-file-count">0</span>개</p>
               </div>
-            
+
               <div class="video-file-container" style="height: 90%;">
                 <ol id="video-file-list">
-            
+
                 </ol>
               </div>
             </div>
-            
+
             <div class="json-file-list-container" style="height: 50%">
               <div class="json-file-list-title" style="height: 10%;">
                 <span>완료된 파일</span>
                 <p><span id="json-file-count">0</span>개</p>
               </div>
-            
+
               <!-- BUG(yhpark): json 파일은 선택되지 않게 해야한다. -->
               <div class="json-file-container" style="height: 90%;">
                 <ol id="json-file-list">
-            
+
                 </ol>
               </div>
             </div>
@@ -94,7 +92,7 @@
           <!-- video explorer -->
           <div class="col-8" id="video-explorer" style="height: 100%">
 
-            <div class="main-frame-container" style="height: 75%"> 
+            <div class="main-frame-container" style="height: 75%">
               <div id="main-frame-title" style="height: 5%">
                 <p>현재 파일: <span id="file-name"></span></p>
               </div>
@@ -106,19 +104,22 @@
               </div>
             </div>
 
-            <div class="sub-frame-container" style="height: 10%">            
+            <div class="sub-frame-container" style="height: 10%">
               <div id="sub-frame" style="height: 100%">
               </div>
             </div>
 
             <div id="sub-frame-button" style="height: 15%">
               <div class="input-group input-group-lg" style="padding-top: 1%; padding-bottom: 1%; height: 60%">
-                <input type="number" class="form-control" id="start-frame-input" value=0 style="height: 100%; text-align: center" readonly autofocus>
-                <input type="number" class="form-control" id="end-frame-input" value=0 style="height: 100%; text-align: center" readonly>
+                <input type="number" class="form-control" id="start-frame-input" value=0
+                  style="height: 100%; text-align: center" readonly autofocus>
+                <input type="number" class="form-control" id="end-frame-input" value=0
+                  style="height: 100%; text-align: center" readonly>
               </div>
 
               <div style="height: 40%">
-                <button type="button" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success" style="height: 100%">Next</button>
+                <button type="button" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success"
+                  style="height: 100%">Next</button>
               </div>
             </div>
 
@@ -207,7 +208,7 @@
         onSelectedFrame(CLICKED_ELEMENT);
         return;
       }
-      
+
       if (CLICKED_ELEMENT.parentElement.id == 'video-file-list') {
         selectVideo(e);
         deleteAllSelectedFrameIndexInputTag()
@@ -288,7 +289,7 @@
 
     renderImage(FRAME_LIST[0], document.getElementById('main-frame-mask'));
 
-    // View file name 
+    // View file name
     document.getElementById('file-name').innerText = SAMPLE_VIDEO;
 
     TOTAL_FRAME_COUNT = getTotalFrameCount();
