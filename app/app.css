@@ -10,12 +10,10 @@ body {
 
 header {
   height: 5%;
-  /* background-color: orange; */
 }
 
 main {
   height: 90%;
-  /* background-color: yellow; */
 }
 
 main > section, main > section > .container {
@@ -24,7 +22,6 @@ main > section, main > section > .container {
 
 footer {
   height: 5%;
-  /* background-color: green; */
 }
 
 /* default */
@@ -32,10 +29,6 @@ footer {
     margin: 10px;
     display: flex;
     justify-content: center;
-}
-
-.centered-text {
-    text-align: center;
 }
 
 .margin-right {
@@ -50,10 +43,12 @@ footer {
   border: 1px solid darkgray;
 }
 
+/* header */
+
+
 /* layout */
 .row {
   height: 100%;
-  background-color: whitesmoke;
 }
 
 /* file explorer */
