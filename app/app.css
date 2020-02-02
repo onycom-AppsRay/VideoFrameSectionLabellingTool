@@ -25,6 +25,10 @@ footer {
 }
 
 /* default */
+.row {
+  height: 100%;
+}
+
 .centered-container {
     margin: 10px;
     display: flex;
@@ -45,29 +49,22 @@ footer {
 
 /* header */
 
-
-/* layout */
-.row {
-  height: 100%;
-}
-
-/* file explorer */
+/* main */
+/* main - 'List files' */
 #file-explorer {
   padding: 5px;
 }
 
-.video-file-list-title {
-  height: 5%;
+.video-file-list-container {
+  height: 50%;
 }
 
-.video-file-container, .json-file-container {
-  overflow-x: auto;
-  overflow-y: auto;
-  white-space: nowrap;
+.video-file-list-title {
+  height: 10%;
 }
 
 .video-file-container {
-  height: 45%; 
+  height: 90%; 
 }
 
 #video-file-list > li {
@@ -78,21 +75,40 @@ footer {
   color: red;
 }
 
+.video-file-container, .json-file-container {
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
+.json-file-list-container {
+  height: 50%;
+}
+
 .json-file-list-title {
-  height: 5%;
+  height: 10%;
 }
 
 .json-file-container {
-  height: 45%; 
+  height: 90%; 
 }
 
-/* video explorer */
+/* main - 'Video visualization' */
 #video-explorer {
+  height: 100%;
   padding: 5px;
 }
 
+.main-frame-container {
+  height: 75%;
+}
+
+#main-frame-title {
+  height: 5%;
+}
+
 #main-frame {
-  height: 65%; 
+  height: 95%; 
   text-align: center;
   overflow-x: auto; 
   overflow-y: auto; 
@@ -110,20 +126,48 @@ footer {
   width: 95%;
 }
 
+.sub-frame-container {
+  height: 10%;
+}
+
 #sub-frame {
   padding: 5px;
-  height: 15%; 
+  height: 100%;
   overflow-x: auto; 
-  overflow-y: hidden; 
+  overflow-y: auto; 
   white-space: nowrap;
 }
 
 #sub-frame-button {
-  height: 10%;
+  height: 15%;
   text-align: center;
 }
 
-/* button collection */
+#sub-frame-input-container {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  height: 60%;
+}
+
+#start-frame-input {
+  height: 100%;
+  text-align: center;
+}
+
+#end-frame-input {
+  height: 100%;
+  text-align: center;
+}
+
+.sub-frame-success-container {
+  height: 40%;
+}
+
+#sub-frame-success {
+  height: 100%;
+}
+
+/* main - 'Selected loading section' */
 #button-collection {
   padding: 5px;
 }
@@ -143,4 +187,13 @@ footer {
 
 .complete-button {
   height: 25%;
+}
+
+#complete-submit{
+  height: 100%;
+}
+
+/* footer */
+#company-info{
+  padding-top: 5px;
 }

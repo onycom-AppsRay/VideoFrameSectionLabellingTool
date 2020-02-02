@@ -34,9 +34,6 @@ function frameMove() {
     changeAutoFocus();
   }
 
-  // redraw/reposition your object here
-  // also redraw/animate any objects not controlled by the user
-
   setTimeout(frameMove, 100);
 }
 frameMove();

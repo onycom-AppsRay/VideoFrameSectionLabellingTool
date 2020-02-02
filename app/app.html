@@ -25,6 +25,7 @@
       <div class="container">
         <div class="row">
 
+          <!-- Video directory -->
           <div class="col-sm" id="video-directory-upload">
             <div class="input-group">
               <div class="custom-file">
@@ -34,6 +35,7 @@
             </div>
           </div>
 
+          <!-- JSON directory -->
           <div class="col-sm" id="json-directory-upload">
             <div class="input-group">
               <div class="custom-file">
@@ -54,30 +56,32 @@
     <section>
       <div class="container">
         <div class="row">
-          <!-- file list -->
+
+          <!-- List files -->
           <div class="col-2" id="file-explorer">
 
-            <div class="video-file-list-container" style="height: 50%">
-              <div class="video-file-list-title" style="height: 10%;">
+            <!-- Video list -->
+            <div class="video-file-list-container">
+              <div class="video-file-list-title">
                 <span>선택한 디렉토리</span>
                 <p><span id="video-file-count">0</span>개</p>
               </div>
 
-              <div class="video-file-container" style="height: 90%;">
+              <div class="video-file-container">
                 <ol id="video-file-list">
 
                 </ol>
               </div>
             </div>
 
-            <div class="json-file-list-container" style="height: 50%">
-              <div class="json-file-list-title" style="height: 10%;">
+            <!-- JSON list -->
+            <div class="json-file-list-container">
+              <div class="json-file-list-title">
                 <span>완료된 파일</span>
                 <p><span id="json-file-count">0</span>개</p>
               </div>
 
-              <!-- BUG(yhpark): json 파일은 선택되지 않게 해야한다. -->
-              <div class="json-file-container" style="height: 90%;">
+              <div class="json-file-container">
                 <ol id="json-file-list">
 
                 </ol>
@@ -86,43 +90,42 @@
 
           </div>
 
-          <!-- video explorer -->
-          <div class="col-8" id="video-explorer" style="height: 100%">
+          <!-- Video visualization  -->
+          <div class="col-8" id="video-explorer">
 
-            <div class="main-frame-container" style="height: 75%">
-              <div id="main-frame-title" style="height: 5%">
+            <!-- Main frame -->
+            <div class="main-frame-container">
+              <div id="main-frame-title">
                 <p>현재 파일: <span id="file-name"></span></p>
               </div>
 
-              <div id="main-frame" style="height: 95%">
+              <div id="main-frame">
                 <label>현재 인덱스</label>
                 <p id="frame-number">0</p>
                 <canvas id="main-frame-mask"></canvas>
               </div>
             </div>
 
-            <div class="sub-frame-container" style="height: 10%">
-              <div id="sub-frame" style="height: 100%">
+            <!-- Sub frame -->
+            <div class="sub-frame-container">
+              <div id="sub-frame">
               </div>
             </div>
 
-            <div id="sub-frame-button" style="height: 15%">
-              <div class="input-group input-group-lg" style="padding-top: 1%; padding-bottom: 1%; height: 60%">
-                <input type="number" class="form-control" id="start-frame-input" value=0
-                  style="height: 100%; text-align: center" readonly autofocus>
-                <input type="number" class="form-control" id="end-frame-input" value=0
-                  style="height: 100%; text-align: center" readonly>
+            <div id="sub-frame-button">
+              <div class="input-group input-group-lg" id="sub-frame-input-container">
+                <input type="number" class="form-control" id="start-frame-input" value=0 readonly autofocus>
+                <input type="number" class="form-control" id="end-frame-input" value=0 readonly>
               </div>
 
-              <div style="height: 40%">
-                <button type="button" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success"
-                  style="height: 100%">Next</button>
+              <div class="sub-frame-success-container">
+                <button type="button" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success">Next</button>
               </div>
             </div>
 
           </div>
 
-          <!-- button collection -->
+          <!-- Selected loading section -->
           <div class="col-2" id="button-collection">
 
             <!-- Frame index 'input' tag group -->
@@ -146,8 +149,7 @@
             </div>
 
             <div class="complete-button">
-              <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="complete-submit"
-                style="height: 100%">COMPLETE</button>
+              <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="complete-submit">COMPLETE</button>
             </div>
 
           </div>
@@ -161,7 +163,7 @@
   <footer>
 
     <section>
-      <div class="centered-text" style="padding-top: 5px;">
+      <div class="centered-text" id="company-info">
         <span>©ONYCOM, TestForte.AI</span>
       </div>
     </section>
@@ -183,6 +185,7 @@
     let FRAME_LIST = [];
     let SELECTED_FRAME_LIST = [];
   </script>
+  <script src="./components/file/Loading.js"></script>
   <script src="./components/image/image-helper.js"></script>
   <script src="./components/video/video-util.js"></script>
   <script src="./components/file/file.js"></script>
@@ -210,7 +213,7 @@
       }
 
       if (CLICKED_ELEMENT.parentElement.id == 'video-file-list') {
-        selectVideo(e);
+        renderVideo(e.target.dataset.path, e.target.innerText);
         deleteAllSelectedFrameIndexInputTag()
         return;
       }
@@ -220,7 +223,6 @@
         return;
       }
     }
-
 
     // frame hover
     function frameSpotlight(canvas) {
@@ -256,44 +258,6 @@
         onSuccess();
       } else return;
     }
-  </script>
-  <script>
-    /*
-    const SAMPLE_VIDEO = 'sample.mp4';
-
-    const videoCapture = new cv.VideoCapture(path.resolve(SAMPLE_VIDEO));
-    let frame = videoCapture.read();
-
-    let i = 0;
-
-    while (!frame.empty) {
-      FRAME_LIST.push(frame);
-      frame = frame.resizeToMax(100);
-
-      // frame flow part
-      const canvas = document.createElement('canvas');
-      canvas.setAttribute('class', `frame`);
-      canvas.setAttribute('id', i);
-      canvas.setAttribute('onmouseover', 'frameSpotlight(this)');
-      canvas.setAttribute('onmouseout', 'frameSpotout(this)');
-
-      renderImage(frame, canvas);
-      renderImageOnText(canvas);
-
-      const container = document.getElementById('sub-frame');
-      container.appendChild(canvas);
-
-      i++;
-      frame = videoCapture.read();
-    }
-
-    renderImage(FRAME_LIST[0], document.getElementById('main-frame-mask'));
-
-    // View file name
-    document.getElementById('file-name').innerText = SAMPLE_VIDEO;
-
-    TOTAL_FRAME_COUNT = getTotalFrameCount();
-    */
   </script>
   <script src="./components/keyboard.js"></script>
 </body>
