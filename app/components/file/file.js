@@ -93,7 +93,11 @@ function onSuccess() {
 
   // 1-1) 비디오 당 한 파일을 떨구지 말고, 메모리에 저장해 두었다가, 디렉토리 당 한 파일로 떨구기
   const selectedLoading = new Loading(jsonFileName, SELECTED_FRAME_LIST);
-  console.log(selectedLoading.makeJSON());
+  // console.log(selectedLoading.makeJSON());
+
+  testLearning.setLoadingData(selectedLoading.makeJSON());
+
+  console.log(testLearning.getLoadingData());
   
   // 2) json 파일 생성하기
   fs.writeFile(JSON_DIRECTORY_PATH + '/' + jsonFileName + '.json', JSON.stringify(data), (err) => {
