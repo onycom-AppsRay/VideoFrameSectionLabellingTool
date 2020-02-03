@@ -48,53 +48,6 @@ function createCanvasTag(frame, index) {
   return canvasTag;
 }
 
-function selectVideo(e) {
-  deleteSubFrame(FRAME_LIST.length);
-
-  const filePath = e.target.dataset.path;
-  const fileName = e.target.innerHTML;
-
-  FRAME_LIST = [];
-
-  const videoCapture = new cv.VideoCapture(path.resolve(filePath));
-  let frame = videoCapture.read();
-
-  let i = 0;
-
-  console.log('Video Loading Start');
-
-  while (!frame.empty) {
-    FRAME_LIST.push(frame);
-    frame = frame.resizeToMax(100);
-
-    // frame flow part
-    const canvas = document.createElement('canvas');
-    canvas.setAttribute('class', `frame`);
-    canvas.setAttribute('id', i);
-    canvas.setAttribute('onmouseover', 'frameSpotlight(this)');
-    canvas.setAttribute('onmouseout', 'frameSpotout(this)');
-
-    renderImage(frame, canvas);
-    renderImageOnText(canvas);
-
-    const container = document.getElementById('sub-frame');
-    container.appendChild(canvas);
-
-    i++;
-    frame = videoCapture.read();
-  }
-
-  console.log('Video Loading End');
-
-  renderImage(FRAME_LIST[0], document.getElementById('main-frame-mask'))
-
-  document.getElementById('file-name').innerText = fileName;
-  document.getElementById('frame-number').innerHTML = 0;
-  document.getElementById(0).scrollIntoView();
-  
-  TOTAL_FRAME_COUNT = getTotalFrameCount();
-}
-
 function onSelectedFrame(frameTag) {
   const frameIndex = frameTag.id;
 

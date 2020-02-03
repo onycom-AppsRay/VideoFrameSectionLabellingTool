@@ -69,12 +69,6 @@ function createFileNameTag(item, container) {
   container.appendChild(fileTag);
 }
 
-/**
- * file name 확인 해서 '완료된 파일' 부분에 보여주기
- * 1. p tag 에 파일 이름 존재하는지 확인
- * 2. 불러온 파일 리스트를 전역으로 하나 관리해서, 완료된 파일은 내리거나 색 처리
- * 3. '완료된 파일'을 선택 시, 다시 볼 수 있도록
- */
 function onSuccess() {
   if (!JSON_DIRECTORY_PATH) {
     alert('JSON 파일을 저장할 폴더를 선택하세요.');
@@ -93,11 +87,17 @@ function onSuccess() {
   const jsonFileName = videoFileName.split('.')[0];
 
   // 1) 선택된 구간에 해당하는 값 불러오기
-  // console.log(SELECTED_FRAME_LIST);
-
   let data = {
     jsonFileName: SELECTED_FRAME_LIST
   }
+
+  // 1-1) 비디오 당 한 파일을 떨구지 말고, 메모리에 저장해 두었다가, 디렉토리 당 한 파일로 떨구기
+  const selectedLoading = new Loading(jsonFileName, SELECTED_FRAME_LIST);
+  // console.log(selectedLoading.makeJSON());
+
+  testLearning.setLoadingData(selectedLoading.makeJSON());
+
+  console.log(testLearning.getLoadingData());
   
   // 2) json 파일 생성하기
   fs.writeFile(JSON_DIRECTORY_PATH + '/' + jsonFileName + '.json', JSON.stringify(data), (err) => {
