@@ -90,7 +90,11 @@ footer {
 }
 
 .json-file-container {
-  height: 90%; 
+  height: 80%; 
+}
+
+#json-file-create-btn {
+  height: 100%;
 }
 
 /* main - 'Video visualization' */
