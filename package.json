@@ -29,9 +29,11 @@
     "electron": "^1.8.4",
     "electron-rebuild": "^1.7.3",
     "node-pickle": "0.0.2",
-    "opencv4nodejs": "^4.2.1"
+    "opencv4nodejs": "^4.2.1",
+    "validate.js": "^0.13.1"
   },
   "devDependencies": {
-    "electron-reload": "^1.5.0"
+    "electron-reload": "^1.5.0",
+    "mocha": "^7.0.1"
   }
 }

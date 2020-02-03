@@ -88,7 +88,8 @@
               </div>
 
               <div class="json-file-create">
-                <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="json-file-create-btn">Create JSON file</button>
+                <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="json-file-create-btn">Create
+                  JSON file</button>
               </div>
             </div>
 
@@ -123,7 +124,8 @@
               </div>
 
               <div class="sub-frame-success-container">
-                <button type="button" class="btn btn-outline-success btn-lg btn-block" id="sub-frame-success">Next</button>
+                <button type="button" class="btn btn-outline-success btn-lg btn-block"
+                  id="sub-frame-success">Next</button>
               </div>
             </div>
 
@@ -153,7 +155,8 @@
             </div>
 
             <div class="complete-button">
-              <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="complete-submit">COMPLETE</button>
+              <button type="button" class="btn btn-outline-danger btn-lg btn-block"
+                id="complete-submit">COMPLETE</button>
             </div>
 
           </div>
@@ -178,24 +181,39 @@
   <script>
     const cv = require('opencv4nodejs');
     const path = require('path');
+    const fs = require('fs');
+    const validate = require('validate.js');
+    const dirTree = require('directory-tree');
+
 
     const START_INPUT_TAG = document.getElementById('start-frame-input');
     const END_INPUT_TAG = document.getElementById('end-frame-input');
 
-    let VIDEO_LIST;
+    const VIDEO_FILE_LIST = 'video-file-list',
+      JSON_FILE_LIST = 'json-file-list',
+      VIDEO_FILE_COUNT = 'video-file-count',
+      JSON_FILE_COUNT = 'json-file-count';
 
-    let CLICKED_ELEMENT;
-    let TOTAL_FRAME_COUNT;  // video load 시 초기화
-    let FRAME_LIST = [];
-    let SELECTED_FRAME_LIST = [];
+    let JSON_DIRECTORY_PATH,
+      VIDEO_LIST,
+      CLICKED_ELEMENT,
+      TOTAL_FRAME_COUNT,
+      FRAME_LIST = [],
+      SELECTED_FRAME_LIST = [];
   </script>
   <script src="./components/file/LearningData.js"></script>
-  <script src="./components/file/Loading.js"></script>
+  <script src="./components/file/LoadingInfo.js"></script>
   <script src="./components/image/image-helper.js"></script>
   <script src="./components/video/video-util.js"></script>
   <script src="./components/file/file.js"></script>
   <script src="./components/frame.js"></script>
 
+  <!-- test -->
+  <script>
+    const loading = new LoadingInfo('test', 1);
+    console.log(loading.getLoadingInfo());
+    console.log(loading.getLoadingInfoList());
+  </script>
   <!-- click event -->
   <script>
     window.addEventListener('click', this.onClickedElement, false);
@@ -206,6 +224,9 @@
     document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('sub-frame-success').addEventListener('click', onNext, false);
+    document.getElementById('json-file-create-btn').addEventListener('click', function () {
+      createFile(JSON_DIRECTORY_PATH, 'jsonfile-sample', 'json', testLearning.makeJson());
+    }, false);
 
     document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
 

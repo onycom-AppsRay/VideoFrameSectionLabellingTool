@@ -1,12 +1,24 @@
-const fs = require('fs');
-const dirTree = require('directory-tree');
+// TODO(yhpark): Validate 'string'
+function createFile(path, name, extension, data) {
+  if(validate.isEmpty(path)) {
+    alert(`Set the path to save the 'json' file.`);
+    return;
+  }
 
-const VIDEO_FILE_LIST = 'video-file-list',
-  JSON_FILE_LIST = 'json-file-list',
-  VIDEO_FILE_COUNT = 'video-file-count',
-  JSON_FILE_COUNT = 'json-file-count';
+  const file = name.concat('.', extension);
 
-let JSON_DIRECTORY_PATH;
+  fs.writeFile(path.concat('/', file), data, function (err) {
+    if (err) {
+      throw err;
+    } else if (confirm(`Create an ${file}  file.`)) {
+      alert(`Created file ${file}`);
+      return;
+    } else {
+      console.error('File creation error.');
+      return;
+    };
+  });
+};
 
 // TODO(yhpark): file.js classification
 function selectVideoDirectory(e) {
@@ -93,11 +105,7 @@ function onSuccess() {
 
   // 1-1) 비디오 당 한 파일을 떨구지 말고, 메모리에 저장해 두었다가, 디렉토리 당 한 파일로 떨구기
   const selectedLoading = new Loading(jsonFileName, SELECTED_FRAME_LIST);
-  // console.log(selectedLoading.makeJSON());
-
   testLearning.setLoadingData(selectedLoading.makeJSON());
-
-  console.log(testLearning.getLoadingData());
   
   // 2) json 파일 생성하기
   fs.writeFile(JSON_DIRECTORY_PATH + '/' + jsonFileName + '.json', JSON.stringify(data), (err) => {
