@@ -22,15 +22,21 @@ function createFile(path, name, extension, data) {
 
 // TODO(yhpark): file.js classification
 function selectVideoDirectory(e) {
-  // TODO(yhpark): Initialize video list
+    // TODO(yhpark): Initialize video list
   VIDEO_LIST = '';
 
   const fileList = e.target.files;
 
+  console.log(fileList);
+
   if(!fileList[0]) return;
 
   const directoryPath = fileList[0].path;
+  const directoryName = fileList[0].name;
   const fileTagContainer = document.getElementById(VIDEO_FILE_LIST);
+
+  // Initialize 'JsonFile'
+  SelectedLoadingSectionJsonFile = new JSONFile(directoryName);
 
   initializeFileExplorer(VIDEO_FILE_LIST);
 
@@ -104,10 +110,12 @@ function onSuccess() {
   }
 
   // 1-1) 비디오 당 한 파일을 떨구지 말고, 메모리에 저장해 두었다가, 디렉토리 당 한 파일로 떨구기
-  const selectedLoading = new Loading(jsonFileName, SELECTED_FRAME_LIST);
-  testLearning.setLoadingData(selectedLoading.makeJSON());
+  const SelectedLoading = new LoadingInfo(jsonFileName, SELECTED_FRAME_LIST);
+
+  SelectedLoadingSectionJsonFile.setLoadingData(SelectedLoading.getLoadingInfo());  // 'JsonFile.js' 에 전역으로 선언해 둠.
   
   // 2) json 파일 생성하기
+  /*
   fs.writeFile(JSON_DIRECTORY_PATH + '/' + jsonFileName + '.json', JSON.stringify(data), (err) => {
     if (err) throw err;
     alert('The file has been saved!' + '\n' + jsonFileName + '.json');
@@ -123,6 +131,7 @@ function onSuccess() {
   
     document.getElementById(JSON_FILE_COUNT).innerHTML = tree.children.length;
   });
+  */
 
   // 4) 버튼 레이아웃 초기화
   deleteAllSelectedFrameIndexInputTag();

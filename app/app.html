@@ -63,8 +63,10 @@
             <!-- Video list -->
             <div class="video-file-list-container">
               <div class="video-file-list-title">
-                <span>선택한 디렉토리</span>
-                <p><span id="video-file-count">0</span>개</p>
+                <p>
+                  <span>선택한 디렉토리:</span>
+                  <span id="video-file-count">0</span>개
+                </p>
               </div>
 
               <div class="video-file-container">
@@ -77,8 +79,10 @@
             <!-- JSON list -->
             <div class="json-file-list-container">
               <div class="json-file-list-title">
-                <span>완료된 파일</span>
-                <p><span id="json-file-count">0</span>개</p>
+                <p>
+                  <span>완료된 파일:</span>
+                  <span id="json-file-count">0</span>개
+                </p>
               </div>
 
               <div class="json-file-container">
@@ -185,9 +189,10 @@
     const validate = require('validate.js');
     const dirTree = require('directory-tree');
 
-
     const START_INPUT_TAG = document.getElementById('start-frame-input');
     const END_INPUT_TAG = document.getElementById('end-frame-input');
+
+    let SelectedLoadingSectionJsonFile;
 
     const VIDEO_FILE_LIST = 'video-file-list',
       JSON_FILE_LIST = 'json-file-list',
@@ -201,19 +206,13 @@
       FRAME_LIST = [],
       SELECTED_FRAME_LIST = [];
   </script>
-  <script src="./components/file/LearningData.js"></script>
+  <script src="./components/file/JsonFile.js"></script>
   <script src="./components/file/LoadingInfo.js"></script>
   <script src="./components/image/image-helper.js"></script>
   <script src="./components/video/video-util.js"></script>
   <script src="./components/file/file.js"></script>
   <script src="./components/frame.js"></script>
 
-  <!-- test -->
-  <script>
-    const loading = new LoadingInfo('test', 1);
-    console.log(loading.getLoadingInfo());
-    console.log(loading.getLoadingInfoList());
-  </script>
   <!-- click event -->
   <script>
     window.addEventListener('click', this.onClickedElement, false);
@@ -224,9 +223,7 @@
     document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('sub-frame-success').addEventListener('click', onNext, false);
-    document.getElementById('json-file-create-btn').addEventListener('click', function () {
-      createFile(JSON_DIRECTORY_PATH, 'jsonfile-sample', 'json', testLearning.makeJson());
-    }, false);
+    document.getElementById('json-file-create-btn').addEventListener('click', onCreateJsonFile, false);
 
     document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
 
@@ -283,6 +280,18 @@
       if (confirm(`Create '.json' files?`)) {
         onSuccess();
       } else return;
+    }
+
+    function onCreateJsonFile() {
+      // TODO(yhpark): 파일 생성 후 모두 초기화 시켜야 한다.
+      if(!confirm(`'.json' 파일 생성 시, 현재 디렉터리에 대한 파일 리스트가 초기화 됩니다.`)) {
+        return;
+      }
+
+      const jsonFileName = SelectedLoadingSectionJsonFile.getJSONFileName();
+      const jsonData = SelectedLoadingSectionJsonFile.makeJSON();
+
+      createFile(JSON_DIRECTORY_PATH, jsonFileName, 'json', jsonData);
     }
   </script>
   <script src="./components/keyboard.js"></script>
