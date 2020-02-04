@@ -1,6 +1,6 @@
 const JSONFile = (function () {
   
-  let loadingDataArr = [];
+  const loadingDataArr = new Array();
 
   function JSONFile(fileName) {
     this._fileName = fileName;

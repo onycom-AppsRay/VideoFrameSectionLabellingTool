@@ -39,19 +39,11 @@
           <div class="col-sm" id="json-directory-upload">
             <div class="input-group">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="open-json-directory" webkitdirectory directory>
-                <label class="custom-file-label" for="open-json-directory">완료된 파일 저장할 폴더 선택</label>
+                <input type="file" class="custom-file-input" id="open-json-directory">
+                <label class="custom-file-label" id="json-file-path" for="open-json-directory">저장할 파일 선택('.json')</label>
               </div>
             </div>
           </div>
-          <!-- <div class="col-sm" id="json-directory-upload">
-            <div class="input-group">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="open-json-directory" webkitdirectory directory>
-                <label class="custom-file-label" for="open-json-directory">완료된 파일 저장할 폴더 선택</label>
-              </div>
-            </div>
-          </div> -->
 
         </div>
       </div>
@@ -206,6 +198,8 @@
 
     let SelectedLoadingSectionJsonFile;
 
+    let VIDEO_DIR_PATH;
+
     const VIDEO_FILE_LIST = 'video-file-list',
       JSON_FILE_LIST = 'json-file-list',
       VIDEO_FILE_COUNT = 'video-file-count',
@@ -230,7 +224,7 @@
     window.addEventListener('click', this.onClickedElement, false);
 
     document.getElementById('open-video-directory').addEventListener('change', selectVideoDirectory, false);
-    document.getElementById('open-json-directory').addEventListener('change', selectJSONFileDirectory, false);
+    document.getElementById('open-json-directory').addEventListener('change', selectJSONDirectory, false);
 
     document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
@@ -295,15 +289,10 @@
     }
 
     function onCreateJsonFile() {
-      // TODO(yhpark): 파일 생성 후 모두 초기화 시켜야 한다.
-      if (!confirm(`'.json' 파일 생성 시, 현재 디렉터리에 대한 파일 리스트가 초기화 됩니다.`)) {
-        return;
-      }
-
       const jsonFileName = SelectedLoadingSectionJsonFile.getJSONFileName();
       const jsonData = SelectedLoadingSectionJsonFile.makeJSON();
 
-      createFile(JSON_DIRECTORY_PATH, jsonFileName, 'json', jsonData);
+      createFile(VIDEO_DIR_PATH, jsonFileName, 'json', jsonData);
     }
   </script>
   <script src="./components/keyboard.js"></script>

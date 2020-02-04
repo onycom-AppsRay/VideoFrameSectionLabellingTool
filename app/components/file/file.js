@@ -1,6 +1,6 @@
 // TODO(yhpark): Validate 'string'
 function createFile(path, name, extension, data) {
-  if(validate.isEmpty(path)) {
+  if (validate.isEmpty(path)) {
     alert(`Set the path to save the 'json' file.`);
     return;
   }
@@ -22,14 +22,14 @@ function createFile(path, name, extension, data) {
 
 // TODO(yhpark): file.js classification
 function selectVideoDirectory(e) {
-    // TODO(yhpark): Initialize video list
+  // TODO(yhpark): Initialize video list
   VIDEO_LIST = '';
 
   const fileList = e.target.files;
 
   console.log(fileList);
 
-  if(!fileList[0]) return;
+  if (!fileList[0]) return;
 
   const directoryPath = fileList[0].path;
   const directoryName = fileList[0].name;
@@ -41,8 +41,8 @@ function selectVideoDirectory(e) {
   initializeFileExplorer(VIDEO_FILE_LIST);
 
   // TODO: Validate extensions
-  const tree = dirTree(directoryPath, { extensions: /\.(gif|mp4|mov)$/ }, (item) => {
-    createFileNameTag(item, fileTagContainer);
+  const tree = dirTree(directoryPath, { extensions: /\.(gif|mp4|mov|json)$/ }, (item) => {
+    createFileNameTag(item.name, item.path, fileTagContainer);
   });
 
   VIDEO_LIST = tree;
@@ -50,25 +50,36 @@ function selectVideoDirectory(e) {
   document.getElementById(VIDEO_FILE_COUNT).innerHTML = tree.children.length;
 }
 
-function selectJSONFileDirectory(e) {
-  const fileList = e.target.files;
+function confirmCompletedVideoFile(path) {
+  const data = fs.readFileSync(path);
+  const completedVideoFileList = JSON.parse(data);
 
-  if(!fileList[0]) return;
+  const completedVideoList = [];
 
-  const directoryPath = fileList[0].path;
-
-  JSON_DIRECTORY_PATH = directoryPath;
-
-  const fileTagContainer = document.getElementById(JSON_FILE_LIST);
-  
-  initializeFileExplorer(JSON_FILE_LIST);
-
-  // TODO: Validate extensions
-  const tree = dirTree(directoryPath, { extensions: /\.(json)$/ }, (item) => {
-    createFileNameTag(item, fileTagContainer);
+  Object.entries(completedVideoFileList.loadingData).forEach(([key, value]) => {
+    completedVideoList.push(value.name);
   });
 
-  document.getElementById(JSON_FILE_COUNT).innerHTML = tree.children.length;
+  completedVideoList.forEach((videoName) => {
+    createFileNameTag(videoName, '', document.getElementById('json-file-list'));
+  })
+
+  document.getElementById('json-file-count').innerHTML = completedVideoList.length;
+
+  return completedVideoList;
+}
+
+function selectJSONDirectory(e) {
+  const fileList = e.target.files;
+
+  const filePath = fileList[0].path;
+  const fileName = fileList[0].name;
+
+  JSON_DIRECTORY_PATH = filePath;
+
+  confirmCompletedVideoFile(filePath);
+
+  document.getElementById('json-file-path').innerHTML = JSON_DIRECTORY_PATH;
 }
 
 function initializeFileExplorer(tag) {
@@ -79,21 +90,16 @@ function initializeFileExplorer(tag) {
   }
 }
 
-function createFileNameTag(item, container) {
+function createFileNameTag(name, path, container) {
   const fileTag = document.createElement('li');
-  fileTag.innerHTML = item.name;
-  fileTag.setAttribute('data-path', item.path);
+  fileTag.innerHTML = name;
+  fileTag.dataset.name = name;
+  fileTag.setAttribute('data-path', path);
 
   container.appendChild(fileTag);
 }
 
 function onSuccess() {
-  if (!JSON_DIRECTORY_PATH) {
-    alert('JSON 파일을 저장할 폴더를 선택하세요.');
-    document.getElementById('open-json-directory').focus();
-    return;
-  }
-
   if (!VIDEO_LIST) {
     alert('비디오 폴더를 선택하세요.');
     document.getElementById('open-video-directory').focus();
@@ -116,10 +122,10 @@ function onSuccess() {
 
   // 4) 버튼 레이아웃 초기화
   deleteAllSelectedFrameIndexInputTag();
-  
+
   // 5) 다음 비디오 파일로 이동
   VIDEO_LIST.children.forEach((video, index, array) => {
-    if(video.name == videoFileName){
+    if (video.name == videoFileName) {
       const nextVideo = VIDEO_LIST.children[index + 1];
 
       renderVideo(nextVideo.path, nextVideo.name, FRAME_LIST);
@@ -139,4 +145,3 @@ function onSuccess() {
     }
   });
 }
-
