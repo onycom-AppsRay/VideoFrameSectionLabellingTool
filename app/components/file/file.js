@@ -112,26 +112,7 @@ function onSuccess() {
   // 1-1) 비디오 당 한 파일을 떨구지 말고, 메모리에 저장해 두었다가, 디렉토리 당 한 파일로 떨구기
   const SelectedLoading = new LoadingInfo(jsonFileName, SELECTED_FRAME_LIST);
 
-  SelectedLoadingSectionJsonFile.setLoadingData(SelectedLoading.getLoadingInfo());  // 'JsonFile.js' 에 전역으로 선언해 둠.
-  
-  // 2) json 파일 생성하기
-  /*
-  fs.writeFile(JSON_DIRECTORY_PATH + '/' + jsonFileName + '.json', JSON.stringify(data), (err) => {
-    if (err) throw err;
-    alert('The file has been saved!' + '\n' + jsonFileName + '.json');
-
-    // 3) '완료된 파일' refresh
-    const fileTagContainer = document.getElementById(JSON_FILE_LIST);
-
-    initializeFileExplorer(JSON_FILE_LIST);
-
-    const tree = dirTree(JSON_DIRECTORY_PATH, { extensions: /\.(json)$/ }, (item) => {
-      createFileNameTag(item, fileTagContainer);
-    });
-  
-    document.getElementById(JSON_FILE_COUNT).innerHTML = tree.children.length;
-  });
-  */
+  SelectedLoadingSectionJsonFile.setLoadingData(SelectedLoading.getLoadingInfo()); // 'JsonFile.js' 에 전역으로 선언해 둠.
 
   // 4) 버튼 레이아웃 초기화
   deleteAllSelectedFrameIndexInputTag();
