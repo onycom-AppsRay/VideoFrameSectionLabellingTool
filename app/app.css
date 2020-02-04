@@ -114,10 +114,12 @@ footer {
 #main-frame {
   height: 95%; 
   text-align: center;
-  overflow-x: auto; 
-  overflow-y: auto; 
   background-color: black;
   color: white;
+}
+
+#main-frama-number-container {
+  height: 15%;
 }
 
 #frame-number {
@@ -126,8 +128,16 @@ footer {
   font-size: 3rem;
 }
 
+#main-frame-mask-container {
+  height: 85%;
+  overflow-x: auto; 
+  overflow-y: auto;
+}
+
 #main-frame-mask {
-  width: 95%;
+  width: 80%;
+  height: 95%;
+  border: 1px dotted gray;
 }
 
 .sub-frame-container {

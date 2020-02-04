@@ -44,6 +44,14 @@
               </div>
             </div>
           </div>
+          <!-- <div class="col-sm" id="json-directory-upload">
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="open-json-directory" webkitdirectory directory>
+                <label class="custom-file-label" for="open-json-directory">완료된 파일 저장할 폴더 선택</label>
+              </div>
+            </div>
+          </div> -->
 
         </div>
       </div>
@@ -109,9 +117,13 @@
               </div>
 
               <div id="main-frame">
-                <label>현재 인덱스</label>
-                <p id="frame-number">0</p>
-                <canvas id="main-frame-mask"></canvas>
+                <div id="main-frama-number-container">
+                  <label>현재 인덱스</label>
+                  <p id="frame-number">0</p>
+                </div>
+                <div id="main-frame-mask-container">
+                  <canvas id="main-frame-mask"></canvas>
+                </div>
               </div>
             </div>
 
@@ -284,7 +296,7 @@
 
     function onCreateJsonFile() {
       // TODO(yhpark): 파일 생성 후 모두 초기화 시켜야 한다.
-      if(!confirm(`'.json' 파일 생성 시, 현재 디렉터리에 대한 파일 리스트가 초기화 됩니다.`)) {
+      if (!confirm(`'.json' 파일 생성 시, 현재 디렉터리에 대한 파일 리스트가 초기화 됩니다.`)) {
         return;
       }
 
