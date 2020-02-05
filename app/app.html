@@ -39,8 +39,8 @@
           <div class="col-sm" id="json-directory-upload">
             <div class="input-group">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="open-json-directory">
-                <label class="custom-file-label" id="json-file-path" for="open-json-directory">저장할 파일 선택('.json')</label>
+                <input type="file" class="custom-file-input" id="open-json-file">
+                <label class="custom-file-label" id="json-file-path" for="open-json-file">저장할 파일 선택('.json')</label>
               </div>
             </div>
           </div>
@@ -70,9 +70,7 @@
               </div>
 
               <div class="video-file-container">
-                <ol id="video-file-list">
-
-                </ol>
+                <ol id="video-file-list"></ol>
               </div>
             </div>
 
@@ -86,14 +84,11 @@
               </div>
 
               <div class="json-file-container">
-                <ol id="json-file-list">
-
-                </ol>
+                <ol id="json-file-list"></ol>
               </div>
 
               <div class="json-file-create">
-                <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="json-file-create-btn">Create
-                  JSON file</button>
+                <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="write-json-file-btn">WRITE</button>
               </div>
             </div>
 
@@ -224,12 +219,12 @@
     window.addEventListener('click', this.onClickedElement, false);
 
     document.getElementById('open-video-directory').addEventListener('change', selectVideoDirectory, false);
-    document.getElementById('open-json-directory').addEventListener('change', selectJSONFile, false);
+    document.getElementById('open-json-file').addEventListener('change', selectJSONFile, false);
 
     document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('sub-frame-success').addEventListener('click', onNext, false);
-    document.getElementById('json-file-create-btn').addEventListener('click', onCreateJsonFile, false);
+    document.getElementById('write-json-file-btn').addEventListener('click', onWriteJsonFile, false);
 
     document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
 
@@ -288,10 +283,15 @@
       } else return;
     }
 
-    function onCreateJsonFile() {
-      const jsonFileName = SelectedLoadingSectionJsonFile.getJSONFileName();
+    function onWriteJsonFile(e) {
+      if (!SelectedLoadingSectionJsonFile) {
+        alert('저장할 데이터가 없습니다.');
+        return;
+      }
+
       const jsonData = SelectedLoadingSectionJsonFile.makeJSON();
 
+      confirmJSONFile(JSON_DIRECTORY_PATH);
       writeFile(JSON_DIRECTORY_PATH, jsonData);
     }
   </script>

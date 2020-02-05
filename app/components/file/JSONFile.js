@@ -1,26 +1,15 @@
-const JSONFile = (function () {
-  
-  const loadingDataArr = new Array();
+function JSONFile() {
+  this.loadingDataList = new Array();
+}
 
-  function JSONFile(fileName) {
-    this._fileName = fileName;
-  };
+JSONFile.prototype.pushLoadingData = function (loadingData){
+  this.loadingDataList.push(loadingData);
+}
 
-  JSONFile.prototype.setLoadingData = function (loadingData) {
-    loadingDataArr.push(loadingData);
-  };
+JSONFile.prototype.getLoadingData = function () {
+  return this.loadingDataList;
+}
 
-  JSONFile.prototype.getJSONFileName = function () {
-    return this._fileName;
-  }
-
-  JSONFile.prototype.getLoadingData = function () {
-    return loadingDataArr;
-  };
-
-  JSONFile.prototype.makeJSON = function () {
-    return JSON.stringify({ loadingData: loadingDataArr });
-  };
-
-  return JSONFile;
-}());
+JSONFile.prototype.makeJSON = function () {
+  return JSON.stringify({ loadingData: this.loadingDataList }, null, ' ');
+}

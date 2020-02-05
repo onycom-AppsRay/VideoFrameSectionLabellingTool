@@ -153,7 +153,7 @@ footer {
 }
 
 #sub-frame > canvas {
-  margin: 1px;
+  margin-right: 1px;
 }
 
 #sub-frame-button {

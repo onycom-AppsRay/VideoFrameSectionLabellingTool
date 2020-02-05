@@ -153,12 +153,6 @@ function validateSelectedFrameIndex(startFrameIndex, endFrameIndex) {
     return false;
   }
 
-  if ((startFrameIndex == endFrameIndex)) {
-    alert(`'Start(${startFrameIndex})' and 'End(${startFrameIndex})' must be different.`);
-    console.log('두 값이 같을 때');
-    return false;
-  }
-
   if ((Number(startFrameIndex) > Number(endFrameIndex))) {
     alert(`'End(${endFrameIndex})' must be greater then 'Start(${startFrameIndex})'`);
     console.log('false');
@@ -206,8 +200,6 @@ function markSelectedSection(startFrameIndex, endFrameIndex, opacity) {
   } else {
     SELECTED_FRAME_LIST = setSelectedFrameList(startFrameIndex, endFrameIndex, SELECTED_FRAME_LIST);
   }
-
-  console.log('marking list: ', SELECTED_FRAME_LIST);
 }
 
 function getTotalFrameCount() {
@@ -217,7 +209,6 @@ function getTotalFrameCount() {
   NOW_FRAME_INDEX = 0
 
   SELECTED_FRAME_LIST = initializeFrameList(length);
-  console.log('initialize: ', SELECTED_FRAME_LIST);
 
   return length;
 }

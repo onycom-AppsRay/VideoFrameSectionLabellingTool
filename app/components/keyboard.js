@@ -34,6 +34,6 @@ function frameMove() {
     changeAutoFocus();
   }
 
-  setTimeout(frameMove, 100);
+  setTimeout(frameMove, 80);
 }
 frameMove();
