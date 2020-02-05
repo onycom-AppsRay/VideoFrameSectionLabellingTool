@@ -45,6 +45,15 @@
             </div>
           </div>
 
+          <div class="col-sm" id="json-directory-upload">
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="validate-json-file">
+                <label class="custom-file-label" id="json-file-path" for="validate-json-file">JSON 내의 겹치는 데이터 찾기</label>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -227,6 +236,40 @@
     document.getElementById('write-json-file-btn').addEventListener('click', onWriteJsonFile, false);
 
     document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
+
+    document.getElementById('validate-json-file').addEventListener('change', onValidateJSONFile, false);
+
+    function onValidateJSONFile(e) {
+      const fileList = e.target.files;
+      const filePath = fileList[0].path;
+
+      const readBuffer = fs.readFileSync(filePath);
+      const jsonData = JSON.parse(readBuffer);
+
+      const tempJSONDataMap = new Map();
+      const jsonList = new JSONFile();
+
+      Object.entries(jsonData.loadingData).forEach(([key, value]) => {
+        const fileName = value.name;
+        const fileData = value.data;
+
+        if(tempJSONDataMap.has(fileName)) {
+          tempJSONDataMap.set(fileName, tempJSONDataMap.get(fileName) + 1)
+        } else {
+          tempJSONDataMap.set(fileName, 1);
+
+          const loadingInfo = new LoadingInfo(fileName, fileData);
+          jsonList.pushLoadingData(loadingInfo.getLoadingInfo());
+        }
+      });
+
+      fs.writeFile('/Users/parkyounghwan/Desktop/sample.json', jsonList.makeJSON(), (err) => {
+        if(err) throw err;
+        console.log('success');
+      })
+
+      console.log(tempJSONDataMap);
+    }
 
     function onClickedElement(e) {
       CLICKED_ELEMENT = e.target;
