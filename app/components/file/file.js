@@ -1,25 +1,4 @@
 // TODO(yhpark): Validate 'string'
-function createFile(path, name, extension, data) {
-  if (validate.isEmpty(path)) {
-    alert(`Set the path to save the 'json' file.`);
-    return;
-  }
-
-  const file = name.concat('.', extension);
-
-  fs.writeFile(path.concat('/', file), data, function (err) {
-    if (err) {
-      throw err;
-    } else if (confirm(`Create an ${file}  file.`)) {
-      alert(`Created file ${file}`);
-      return;
-    } else {
-      console.error('File creation error.');
-      return;
-    };
-  });
-};
-
 function writeFile(path, data) {
   if (validate.isEmpty(path)) {
     alert(`Set the path to save the 'json' file.`);
@@ -144,7 +123,8 @@ function onSuccess() {
 
       // 6) 완료된 파일 처리
       const fileList = document.getElementById('video-file-list').childNodes;
-
+      createFileNameTag(video.name, '', document.getElementById('json-file-list'));
+      
       fileList.forEach((elem) => {
         if (elem.dataset.path == video.path) {
           elem.style.textDecoration = 'line-through';
