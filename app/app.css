@@ -152,6 +152,10 @@ footer {
   white-space: nowrap;
 }
 
+#sub-frame > canvas {
+  margin: 1px;
+}
+
 #sub-frame-button {
   height: 15%;
   text-align: center;
