@@ -224,7 +224,7 @@
     window.addEventListener('click', this.onClickedElement, false);
 
     document.getElementById('open-video-directory').addEventListener('change', selectVideoDirectory, false);
-    document.getElementById('open-json-directory').addEventListener('change', selectJSONDirectory, false);
+    document.getElementById('open-json-directory').addEventListener('change', selectJSONFile, false);
 
     document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
@@ -283,7 +283,7 @@
     }
 
     function onCompleteSubmit() {
-      if (confirm(`Create '.json' files?`)) {
+      if (confirm(`로딩 구간에 대한 정보를 저장합니다.`)) {
         onSuccess();
       } else return;
     }
@@ -292,7 +292,7 @@
       const jsonFileName = SelectedLoadingSectionJsonFile.getJSONFileName();
       const jsonData = SelectedLoadingSectionJsonFile.makeJSON();
 
-      createFile(VIDEO_DIR_PATH, jsonFileName, 'json', jsonData);
+      writeFile(JSON_DIRECTORY_PATH, jsonData);
     }
   </script>
   <script src="./components/keyboard.js"></script>

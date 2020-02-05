@@ -20,6 +20,18 @@ function createFile(path, name, extension, data) {
   });
 };
 
+function writeFile(path, data) {
+  if (validate.isEmpty(path)) {
+    alert(`Set the path to save the 'json' file.`);
+    return;
+  }
+
+  fs.writeFile(path, data, (err) => {
+    if (err) throw err;
+    console.log('The file has been saved!');
+  });
+};
+
 // TODO(yhpark): file.js classification
 function selectVideoDirectory(e) {
   // TODO(yhpark): Initialize video list
@@ -69,7 +81,7 @@ function confirmCompletedVideoFile(path) {
   return completedVideoList;
 }
 
-function selectJSONDirectory(e) {
+function selectJSONFile(e) {
   const fileList = e.target.files;
 
   const filePath = fileList[0].path;
@@ -77,7 +89,7 @@ function selectJSONDirectory(e) {
 
   JSON_DIRECTORY_PATH = filePath;
 
-  confirmCompletedVideoFile(filePath);
+  // confirmCompletedVideoFile(filePath);
 
   document.getElementById('json-file-path').innerHTML = JSON_DIRECTORY_PATH;
 }
