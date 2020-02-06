@@ -1,4 +1,7 @@
 function renderVideo(filePath, fileName, frameList) {
+  // 0) run-time
+  videoRunTimeInOpenCV(filePath);
+
   // 1) Initialze global variable 'frameList'
   deleteSubFrame(FRAME_LIST.length);
 
@@ -6,7 +9,8 @@ function renderVideo(filePath, fileName, frameList) {
   const videoCapture = new cv.VideoCapture(path.resolve(filePath));
   let frame = videoCapture.read();
 
-  console.log('Start video rendering');
+  VIDEO_FILE_FPS = videoCapture.get(cv.CAP_PROP_FPS);
+  document.getElementById('video-file-fps').innerHTML = VIDEO_FILE_FPS + ' fps';
 
   // TODO(yhpark): Intialize frameList
   FRAME_LIST = [];
@@ -58,6 +62,8 @@ function onSelectedFrame(frameTag) {
   document.getElementById('frame-number').innerHTML = frameIndex;
 
   NOW_FRAME_INDEX = frameIndex;
+
+  nowVideoTime(VIDEO_FILE_FPS, frameIndex);
 
   return frameIndex;
 }
@@ -211,4 +217,28 @@ function getTotalFrameCount() {
   SELECTED_FRAME_LIST = initializeFrameList(length);
 
   return length;
+}
+
+function videoRunTimeInOpenCV(filePath) {
+  const videoCapture = new cv.VideoCapture(filePath);
+
+  const fps = videoCapture.get(cv.CAP_PROP_FPS);
+  const frameCount = videoCapture.get(cv.CAP_PROP_FRAME_COUNT);
+  const duration = (frameCount / fps);
+
+  const minutes = Math.floor(duration/60);
+  const seconds = Math.round(duration%60);
+
+  document.getElementById('file-run-time').innerHTML = `${minutes}:${seconds}`;
+}
+
+function nowVideoTime(videoFileFPS, frameIndex) {
+  const fps = videoFileFPS;
+
+  const duration = (frameIndex / fps);
+
+  const minutes = Math.floor(duration/60);
+  const seconds = Math.round(duration%60);
+
+  document.getElementById('now-video-time').innerHTML = `${minutes}:${seconds}`;
 }

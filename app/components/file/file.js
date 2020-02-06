@@ -118,10 +118,11 @@ function selectJSONFile(e) {
   const fileList = e.target.files;
 
   const filePath = fileList[0].path;
+  const fileName = fileList[0].name;
 
   JSON_DIRECTORY_PATH = filePath;
 
-  document.getElementById('json-file-path').innerHTML = JSON_DIRECTORY_PATH;
+  document.getElementById('json-file-path').innerHTML = fileName;
 
   confirmJSONFile(filePath);
 }
@@ -158,17 +159,22 @@ function onSuccess() {
     return;
   }
 
-  // 0) 파일 이름 가져오기
-  const videoFileName = document.getElementById('file-name').innerHTML;
-  const jsonFileName = videoFileName.split('.')[0];
+  if (!SelectedLoadingSectionJsonFile) {
+    console.log(SelectedLoadingSectionJsonFile);
 
-  // 1) 선택된 구간에 해당하는 값 불러오기
-  let data = {
-    jsonFileName: SELECTED_FRAME_LIST
+    alert('저장 할 JSON 파일을 선택하세요.');
+    document.getElementById('open-json-file').focus();
+    return;
   }
 
+  // 0) 파일 이름 가져오기
+  const videoFileName = document.getElementById('file-name').innerHTML;
+  const dataName = videoFileName.split('.')[0];
+
+  // 1) 선택된 구간에 해당하는 값 불러오기
+
   // 1-1) 비디오 당 한 파일을 떨구지 말고, 메모리에 저장해 두었다가, 디렉토리 당 한 파일로 떨구기
-  const SelectedLoading = new LoadingInfo(jsonFileName, SELECTED_FRAME_LIST);
+  const SelectedLoading = new LoadingInfo(dataName, SELECTED_FRAME_LIST);
 
   SelectedLoadingSectionJsonFile.pushLoadingData(SelectedLoading.getLoadingInfo()); // 'JsonFile.js' 에 전역으로 선언해 둠.
 

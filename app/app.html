@@ -109,13 +109,26 @@
             <!-- Main frame -->
             <div class="main-frame-container">
               <div id="main-frame-title">
-                <p>현재 파일: <span id="file-name"></span></p>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm">
+                      현재 파일: <span id="file-name"></span>
+                    </div>
+                    <div class="col-sm">
+                      실행 시간: <span id="file-run-time"></span>
+                    </div>
+                    <div class="col-sm">
+                      프레임 단위: <span id="video-file-fps"></span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div id="main-frame">
                 <div id="main-frama-number-container">
                   <label>현재 인덱스</label>
                   <p id="frame-number">0</p>
+                  <p id="now-video-time"></p>
                 </div>
                 <div id="main-frame-mask-container">
                   <canvas id="main-frame-mask"></canvas>
@@ -214,7 +227,8 @@
       CLICKED_ELEMENT,
       TOTAL_FRAME_COUNT,
       FRAME_LIST = [],
-      SELECTED_FRAME_LIST = [];
+      SELECTED_FRAME_LIST = [],
+      VIDEO_FILE_FPS;
   </script>
   <script src="./components/file/JsonFile.js"></script>
   <script src="./components/file/LoadingInfo.js"></script>
@@ -321,7 +335,7 @@
     }
 
     function onCompleteSubmit() {
-      if (confirm(`로딩 구간에 대한 정보를 저장합니다.`)) {
+      if (confirm(`로딩 구간에 대한 정보를 저장 하시겠습니까?`)) {
         onSuccess();
       } else return;
     }
