@@ -109,18 +109,18 @@ function selectJSONFile(e) {
     alert('비디오 폴더를 먼저 선택하세요.');
     return;
   }
-
-  // Initialize 'JsonFile'
-  SelectedLoadingSectionJsonFile = new JSONFile();
-
-  console.log('selectJSONFile(): ', SelectedLoadingSectionJsonFile.getLoadingData());
-
+  
   const fileList = e.target.files;
 
   const filePath = fileList[0].path;
   const fileName = fileList[0].name;
 
   JSON_DIRECTORY_PATH = filePath;
+
+  // Initialize 'JsonFile'
+  SelectedLoadingSectionJsonFile = new JSONFile(fileName);
+
+  console.log('selectJSONFile(): ', SelectedLoadingSectionJsonFile.getLoadingData());
 
   document.getElementById('json-file-path').innerHTML = fileName;
 
