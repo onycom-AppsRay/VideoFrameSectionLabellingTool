@@ -15,11 +15,15 @@ function renderVideo(filePath, fileName, frameList) {
   // TODO(yhpark): Intialize frameList
   FRAME_LIST = [];
 
+  console.log('height:', window.innerHeight);
+  console.log('width:', window.innerWidth);
+
   let index = 0;
   while (!frame.empty) {
     FRAME_LIST.push(frame);
 
     frame = frame.resizeToMax(100);
+    // frame = frame.resizeToMax(100);
 
     const canvasTag = createCanvasTag(frame, index);
 
@@ -33,6 +37,7 @@ function renderVideo(filePath, fileName, frameList) {
   console.log('End video rendering');
 
   renderImage(FRAME_LIST[0], document.getElementById('main-frame-mask'))
+  // mainFrameSize();
 
   document.getElementById('file-name').innerText = fileName;
   document.getElementById('frame-number').innerHTML = 0;
@@ -56,6 +61,7 @@ function onSelectedFrame(frameTag) {
   const frameIndex = frameTag.id;
 
   renderImage(FRAME_LIST[frameIndex], document.getElementById('main-frame-mask'));
+  // mainFrameSize();
 
   setFrameIndex(frameIndex);
 

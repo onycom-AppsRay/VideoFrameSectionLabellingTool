@@ -94,7 +94,11 @@ footer {
   height: 80%; 
 }
 
-#json-file-create-btn {
+.json-file-create {
+  height: 10%;
+}
+
+#write-json-file-btn {
   height: 100%;
 }
 
@@ -137,7 +141,6 @@ footer {
 
 #main-frame-mask {
   width: 80%;
-  height: 95%;
   border: 1px dotted gray;
 }
 
