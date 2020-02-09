@@ -13,6 +13,13 @@ function decodeImageFromBase64(base64String) {
  * @param {*} canvas 'canvas' tag
  */
 function renderImage(img, canvas) {
+  if('main-frame-mask' == canvas.id) {
+    const widthRatio = (img.cols / img.rows) * 80;
+    const width = String(widthRatio).concat('%');
+
+    canvas.style.width = width;
+  }
+
   let matRGBA = img.channels === 1 ? img.cvtColor(cv.COLOR_GRAY2RGBA) : img.cvtColor(cv.COLOR_BGR2RGBA);
 
   canvas.width = img.cols;

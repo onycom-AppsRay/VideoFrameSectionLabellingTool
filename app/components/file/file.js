@@ -8,8 +8,6 @@ function writeFile(path, data) {
   if (validate.isEmpty(data)) {
     alert(`선택한 로딩 구간이 없는 경우 파일에 표시되지 않습니다.`);
   }
-  
-  console.log('writeFile(): ', JSON.parse(data));
 
   fs.writeFile(path, data, (err) => {
     if (err) {
@@ -75,8 +73,6 @@ function confirmJSONFile(path) {
   } else {
     alert('빈 파일을 로딩 하셨습니다.');
   }
-
-  console.log('confirmJSONFile(): ', SelectedLoadingSectionJsonFile.getLoadingData());
 }
 
 // TODO(yhpark): file.js classification
@@ -120,8 +116,6 @@ function selectJSONFile(e) {
   // Initialize 'JsonFile'
   SelectedLoadingSectionJsonFile = new JSONFile(fileName);
 
-  console.log('selectJSONFile(): ', SelectedLoadingSectionJsonFile.getLoadingData());
-
   document.getElementById('json-file-path').innerHTML = fileName;
 
   confirmJSONFile(filePath);
@@ -160,8 +154,6 @@ function onSuccess() {
   }
 
   if (!SelectedLoadingSectionJsonFile) {
-    console.log(SelectedLoadingSectionJsonFile);
-
     alert('저장 할 JSON 파일을 선택하세요.');
     document.getElementById('open-json-file').focus();
     return;

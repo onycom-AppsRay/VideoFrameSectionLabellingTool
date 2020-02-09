@@ -14,16 +14,13 @@ function renderVideo(filePath, fileName, frameList) {
 
   // TODO(yhpark): Intialize frameList
   FRAME_LIST = [];
-
-  console.log('height:', window.innerHeight);
-  console.log('width:', window.innerWidth);
-
+  
   let index = 0;
+  
   while (!frame.empty) {
     FRAME_LIST.push(frame);
 
     frame = frame.resizeToMax(100);
-    // frame = frame.resizeToMax(100);
 
     const canvasTag = createCanvasTag(frame, index);
 
@@ -33,8 +30,6 @@ function renderVideo(filePath, fileName, frameList) {
 
     frame = videoCapture.read();
   }
-
-  console.log('End video rendering');
 
   renderImage(FRAME_LIST[0], document.getElementById('main-frame-mask'))
   // mainFrameSize();
@@ -61,7 +56,6 @@ function onSelectedFrame(frameTag) {
   const frameIndex = frameTag.id;
 
   renderImage(FRAME_LIST[frameIndex], document.getElementById('main-frame-mask'));
-  // mainFrameSize();
 
   setFrameIndex(frameIndex);
 
@@ -161,16 +155,13 @@ function validateSelectedFrameIndex(startFrameIndex, endFrameIndex) {
   // 1) Validate input value
   if ((startFrameIndex == 0) && (endFrameIndex == 0)) {
     alert('Select frame');
-    console.log('둘 다 0일 때');
     return false;
   }
 
   if ((Number(startFrameIndex) > Number(endFrameIndex))) {
     alert(`'End(${endFrameIndex})' must be greater then 'Start(${startFrameIndex})'`);
-    console.log('false');
     return false;
   } else {
-    console.log('true');
     return true;
   }
 }
@@ -186,17 +177,15 @@ function initializeInputTag() {
 function changeAutoFocus() {
   const startInputTag = document.getElementById('start-frame-input');
   const endInputTag = document.getElementById('end-frame-input');
-  const inputSuccessBtn = document.getElementById('sub-frame-success');
 
   if (startInputTag.hasAttribute('autofocus')) {
     startInputTag.removeAttribute('autofocus');
     endInputTag.setAttribute('autofocus', '');
-  } else if (endInputTag.hasAttribute('autofocus')) {
+  } else if (endInputTag.hasAttribute('autofocus')){
     endInputTag.removeAttribute('autofocus');
-    inputSuccessBtn.setAttribute('autofocus', '');
   } else {
-    inputSuccessBtn.removeAttribute('autofocus');
-    startInputTag.setAttribute('autofocus', '');
+    startInputTag.removeAttribute('autofocus');
+    endInputTag.removeAttribute('autofocus');
   }
 }
 
@@ -205,12 +194,12 @@ function markSelectedSection(startFrameIndex, endFrameIndex, opacity) {
 
   for (let i = startFrameIndex; i <= endFrameIndex; i++) {
     canvasList[i].style.opacity = opacity;
-  }
-
-  if (opacity == 1) {
-    SELECTED_FRAME_LIST = unSetSelectedFrameList(startFrameIndex, endFrameIndex, SELECTED_FRAME_LIST);
-  } else {
-    SELECTED_FRAME_LIST = setSelectedFrameList(startFrameIndex, endFrameIndex, SELECTED_FRAME_LIST);
+    
+    if (opacity == 1) {
+      SELECTED_FRAME_LIST = unSetSelectedFrameList(startFrameIndex, endFrameIndex, SELECTED_FRAME_LIST);
+    } else {
+      SELECTED_FRAME_LIST = setSelectedFrameList(startFrameIndex, endFrameIndex, SELECTED_FRAME_LIST);
+    }
   }
 }
 

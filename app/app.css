@@ -146,10 +146,10 @@ footer {
 
 .sub-frame-container {
   height: 10%;
+  padding: 5px;
 }
 
 #sub-frame {
-  padding: 5px;
   height: 100%;
   overflow-x: auto; 
   overflow-y: auto; 
@@ -174,11 +174,13 @@ footer {
 #start-frame-input {
   height: 100%;
   text-align: center;
+  font-size: xx-large;
 }
 
 #end-frame-input {
   height: 100%;
   text-align: center;
+  font-size: xx-large;
 }
 
 .sub-frame-success-container {
@@ -218,4 +220,23 @@ footer {
 /* footer */
 #company-info{
   padding-top: 5px;
+}
+
+/* spinner */
+.overray-spinner {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: visible;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.spinner-count {
+  font-size: xx-large;
+  color: red;
 }

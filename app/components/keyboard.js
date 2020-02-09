@@ -3,8 +3,15 @@ let keyState = {};
 window.addEventListener('keydown', function (e) {
   keyState[e.keyCode || e.which] = true;
 }, true);
+
 window.addEventListener('keyup', function (e) {
   keyState[e.keyCode || e.which] = false;
+}, true);
+
+window.addEventListener('keydown', function (e) {
+  if(e.keyCode == 13) {
+    changeAutoFocus()
+  }
 }, true);
 
 function frameMove() {
@@ -28,10 +35,6 @@ function frameMove() {
       frameSpotlight(CLICKED_ELEMENT);
       CLICKED_ELEMENT.scrollIntoView();
     }
-  }
-
-  if (keyState[13]) {
-    changeAutoFocus();
   }
 
   setTimeout(frameMove, 80);

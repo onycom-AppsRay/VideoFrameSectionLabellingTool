@@ -202,6 +202,10 @@
 
   </footer>
 
+  <div class="overray-spinner">
+    <span class="spinner-count"></span>
+  </div>
+
   <!-- main -->
   <script>
     const cv = require('opencv4nodejs');
@@ -247,6 +251,9 @@
     document.getElementById('start-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('end-frame-input').addEventListener('click', setAutofocus, false);
     document.getElementById('sub-frame-success').addEventListener('click', onNext, false);
+    document.getElementById('sub-frame-success').addEventListener('mouseup', function (e) {
+      e.target.blur();
+    }, false);
     document.getElementById('write-json-file-btn').addEventListener('click', onWriteJsonFile, false);
 
     document.getElementById('complete-submit').addEventListener('click', onCompleteSubmit, false);
@@ -327,10 +334,12 @@
         createSelectedFrameIndexInputTag(startFrameIndex, endFrameIndex);
 
         // 3) Mark the selected section
-        markSelectedSection(startFrameIndex, endFrameIndex, 0.3);
+        markSelectedSection(startFrameIndex, endFrameIndex, 0.1);
 
         // 4) Initialize input tag
         initializeInputTag();
+
+        return false;
       }
     }
 
