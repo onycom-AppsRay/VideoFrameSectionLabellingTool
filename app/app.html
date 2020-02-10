@@ -263,12 +263,13 @@
     function onValidateJSONFile(e) {
       const fileList = e.target.files;
       const filePath = fileList[0].path;
+      const fileName = fileList[0].name;
 
       const readBuffer = fs.readFileSync(filePath);
       const jsonData = JSON.parse(readBuffer);
 
       const tempJSONDataMap = new Map();
-      const jsonList = new JSONFile();
+      const jsonList = new JSONFile(fileName);
 
       Object.entries(jsonData.loadingData).forEach(([key, value]) => {
         const fileName = value.name;
@@ -284,7 +285,7 @@
         }
       });
 
-      fs.writeFile('/Users/parkyounghwan/Desktop/sample.json', jsonList.makeJSON(), (err) => {
+      fs.writeFile(filePath, jsonList.makeJSON(), (err) => {
         if(err) throw err;
         console.log('success');
       })
