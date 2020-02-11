@@ -344,7 +344,9 @@
       }
     }
 
-    function onCompleteSubmit() {
+    function onCompleteSubmit(e) {
+      e.target.blur();
+      
       if (confirm(`로딩 구간에 대한 정보를 저장 하시겠습니까?`)) {
         onSuccess();
       } else return;
