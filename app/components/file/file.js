@@ -19,24 +19,23 @@ function writeFile(path, data) {
 };
 
 function confirmJSONFile(path) {
-  const readBuffer = fs.readFileSync(path);
+  const uploadedJsonFile = fs.readFileSync(path);
 
   deleteFileNameTag(document.getElementById('json-file-list'));
 
-  if (readBuffer.length > 0) {
+  if (uploadedJsonFile.length > 0) {
 
-    const jsonData = JSON.parse(readBuffer);
-    const jsonDataList = Object.entries(jsonData.loadingData);
-    const jsonDataCount = Object.entries(jsonData.loadingData).length;
+    const uploadedLoadingInfo = JSON.parse(uploadedJsonFile);
+    const uploadedLoadingDataList = Object.entries(uploadedLoadingInfo.loadingData);
 
-    const tempJSONDataSet = new Set();
+    const uploadedLoadingDataSet = new Set();
 
     // 이전의 데이터가 있었으면, 표시하고 객체에 저장 시켜서 이어 붙일 준비.
-    jsonDataList.forEach(([key, value]) => {
+    uploadedLoadingDataList.forEach(([key, value]) => {
       const fileName = value.name;
       const fileData = value.data;
-      
-      tempJSONDataSet.add(fileName);
+
+      uploadedLoadingDataSet.add(fileName);
 
       const previousLoadingInfo = new LoadingInfo(fileName, fileData);
       SelectedLoadingSectionJsonFile.pushLoadingData(previousLoadingInfo.getLoadingInfo());
@@ -45,31 +44,32 @@ function confirmJSONFile(path) {
     })
 
     // 만약, 비디오 리스트가 로딩 되었다면 비교해서 취소선 처리하기
-    if(!validate.isEmpty(VIDEO_LIST)) {
+    if (!validate.isEmpty(VIDEO_LIST)) {
       let isCompletedFile = false;
 
-      VIDEO_LIST.children.forEach((video) => {
-        const videoName = video.name.split('.')[0];
-        if(tempJSONDataSet.has(videoName)) {
+      VIDEO_LIST.children.forEach((directoryVideoElement) => {
+
+        const directoryVideoElementName = directoryVideoElement.name;
+
+        if (uploadedLoadingDataSet.has(directoryVideoElementName.split('.')[0])) {
           isCompletedFile = true;
-          const videoList = document.getElementById('video-file-list').childNodes;
-    
-          videoList.forEach((elem) => {
-            if (elem.dataset.path == video.path) {
-              elem.style.textDecoration = 'line-through';
-    
-              return;
-            }
-          });
+
+          const directoryVideoFileNameList = document.getElementById('video-file-list').childNodes;
+
+          for (const videoFileName of directoryVideoFileNameList) {
+            if (videoFileName.dataset.name == directoryVideoElementName) {
+              videoFileName.style.textDecoration = 'line-through';
+            } 
+          }
         }
       })
-      
-      if(!isCompletedFile) {
+
+      if (!isCompletedFile) {
         alert(`JSON 파일과 비디오 폴더 간의 일치하는 항목이 없습니다.`);
       }
     }
 
-    document.getElementById('json-file-count').innerHTML = jsonDataCount;
+    document.getElementById('json-file-count').innerHTML = uploadedLoadingDataList.length;
   } else {
     alert('빈 파일을 로딩 하셨습니다.');
   }
@@ -101,11 +101,11 @@ function selectVideoDirectory(e) {
 }
 
 function selectJSONFile(e) {
-  if(validate.isEmpty(VIDEO_LIST)) {
+  if (validate.isEmpty(VIDEO_LIST)) {
     alert('비디오 폴더를 먼저 선택하세요.');
     return;
   }
-  
+
   const fileList = e.target.files;
 
   const filePath = fileList[0].path;

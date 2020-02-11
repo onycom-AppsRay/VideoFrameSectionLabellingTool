@@ -30,7 +30,7 @@ function renderImage(img, canvas) {
     img.cols,
     img.rows
   );
-                                                                                                                                 
+                                                                              
   if(canvas.getContext) {
     let ctx = canvas.getContext('2d');
     ctx.putImageData(imgData, 0, 0);
