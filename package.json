@@ -22,7 +22,8 @@
   "scripts": {
     "electron-rebuild": "electron-rebuild -w opencv4nodejs",
     "install": "npm run electron-rebuild",
-    "start": "electron ./app/main.js"
+    "start": "electron ./app/main.js",
+    "test": "mocha"
   },
   "dependencies": {
     "directory-tree": "^2.2.4",
