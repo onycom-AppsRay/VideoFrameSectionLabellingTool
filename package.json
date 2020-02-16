@@ -23,7 +23,7 @@
     "electron-rebuild": "electron-rebuild -w opencv4nodejs",
     "install": "npm run electron-rebuild",
     "start": "electron ./app/main.js",
-    "test": "mocha"
+    "test": "mocha test/**/*.spec.js"
   },
   "dependencies": {
     "directory-tree": "^2.2.4",
@@ -34,6 +34,7 @@
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
+    "diffable-html": "^4.0.0",
     "electron-reload": "^1.5.0",
     "mocha": "^7.0.1"
   }
