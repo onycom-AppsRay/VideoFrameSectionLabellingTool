@@ -26,3 +26,7 @@
 #open-directory-container {
   border-right: 1px solid black;
 }
+
+#open-directory {
+  cursor: pointer;
+}

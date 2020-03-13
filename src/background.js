@@ -2,7 +2,6 @@
 // app starts. It runs through entire life of your application.
 // It doesn't have any windows which you can see on screen, but we can open
 // window from here.
-
 import path from "path";
 import url from "url";
 import { app, Menu } from "electron";
@@ -13,6 +12,8 @@ import createWindow from "./helpers/window";
 // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
 import env from "env";
+
+import "./main-process/native-ui/open-file.js";
 
 const setApplicationMenu = () => {
   const menus = [editMenuTemplate];
