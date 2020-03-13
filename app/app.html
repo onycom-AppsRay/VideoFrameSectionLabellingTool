@@ -5,45 +5,42 @@
   <meta charset="utf-8">
   <title>Electron Boilerplate</title>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- section -->
+  <link rel="import" href="./section/header.html">
+  <link rel="import" href="./section/content.html">
+  <link rel="import" href="./section/footer.html">
 </head>
 
 <body>
 
-  <header>
-    <div class="container" style="margin: 0px; height:10%; border-bottom: 1px solid black;">
-      <div class="row">
-        <div class="col-sm" style="border-right: 1px solid black;">
-          One of three columns
-        </div>
-        <div class="col-sm" style="border-right: 1px solid black;">
-          One of three columns
-        </div>
-        <div class="col-sm">
-          One of three columns
-        </div>
-      </div>
-    </div>
-  </header>
+  <header></header>
 
   <main>
-    <div id="app" class="container" style="display: none;">
+    <div class="content"></div>
+    <!-- <div id="app" class="container" style="display: none;">
       <h1 id="greet"></h1>
       <p>
-        Welcome to <a href="http://electron.atom.io" class="js-external-link">Electron</a> app running on this <strong
-          id="os"></strong> machine.
+        <span>
+          App running on this <strong id="os"></strong> machine
+        </span>
+        <span>
+          / App author: <strong id="author"></strong>
+        </span>
+        <span>
+          / Environment: <strong id="env"></strong>
+        </span>
+        <span>
+          / Electron version: <strong id="electron-version"></strong>
+        </span>
       </p>
-      <p>
-        App author: <strong id="author"></strong>
-      </p>
-      <p>
-        Environment: <strong id="env"></strong>
-      </p>
-      <p>
-        Electron version: <strong id="electron-version"></strong>
-      </p>
-    </div>
+    </div> -->
   </main>
+
+  <footer></footer>
 
   <script src="app.js"></script>
 </body>
