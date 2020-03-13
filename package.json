@@ -29,7 +29,7 @@
     "test": "npm run unit && npm run e2e",
     "start": "node build/start.js",
     "release": "npm test && webpack --config=build/webpack.app.config.js --env=production && electron-builder",
-    "test2": "mocha ./test/**/*.spec.js"
+    "test2": "mocha -r @babel/register ./test/**/*.spec.js"
   },
   "dependencies": {
     "fs-jetpack": "^2.1.0",
@@ -38,9 +38,11 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.8.6",
     "babel-loader": "^8.0.0-beta.4",
     "chai": "^4.1.0",
     "css-loader": "^3.1.0",
+    "directory-tree": "^2.2.4",
     "electron": "^4.0.0",
     "electron-builder": "^21.1.5",
     "electron-mocha": "^8.1.1",

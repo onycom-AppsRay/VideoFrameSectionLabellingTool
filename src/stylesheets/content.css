@@ -5,7 +5,7 @@
 }
 
 #content-container > .row {
-  min-height: 100%;
+  height: 100%;
 }
 
 /* files */
@@ -17,6 +17,14 @@
 #video-files-container {
   border-bottom: 1px solid black;
   height: 50%;
+}
+
+#video-files {
+  padding: 0.5vw;
+  text-align: left;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 #json-files-container {
