@@ -1,8 +1,18 @@
-import "./stylesheets/main.css";
+// html
+import "./helpers/html_section_import.js";
 
+// css
+import "./stylesheets/main.css";
+import "./stylesheets/header.css";
+import "./stylesheets/content.css";
+import "./stylesheets/footer.css";
+
+// js
 // Small helpers you might want to keep
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
+
+
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
@@ -27,7 +37,7 @@ const osMap = {
 };
 
 document.querySelector("#app").style.display = "block";
-document.querySelector("#greet").innerHTML = greet();
+// document.querySelector("#greet").innerHTML = greet();
 document.querySelector("#os").innerHTML = osMap[process.platform];
 document.querySelector("#author").innerHTML = manifest.author;
 document.querySelector("#env").innerHTML = env.name;

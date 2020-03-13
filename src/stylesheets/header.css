@@ -1,0 +1,28 @@
+#header-container {
+  min-width: 100%;
+  height: 5vh;
+  border-bottom: 1px solid black;
+}
+
+#header-container > .row {
+  min-height: 100%;
+}
+
+#header-container > .row > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: underline;
+}
+
+#header-container > .row > div:hover {
+  background-color: orange;
+}
+
+#tutorial-container {
+  border-right: 1px solid black;
+}
+
+#open-directory-container {
+  border-right: 1px solid black;
+}
