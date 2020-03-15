@@ -1,5 +1,6 @@
 import { ipcRenderer } from "electron";
 import fileExplorer from "../../helpers/file_explorer";
+import fileOpen from "../../helpers/open-file";
 
 const selectDirBtn = document.getElementById('open-directory');
 
@@ -8,7 +9,7 @@ selectDirBtn.addEventListener('click', (event) => {
 });
 
 ipcRenderer.on('selected-directory', (event, path) => {
-  const videoFliesContainer = document.getElementById('video-files');
+  const videoFliesContainer = document.getElementById('video-files-container');
 
   initialize(videoFliesContainer);
 
@@ -19,7 +20,12 @@ ipcRenderer.on('selected-directory', (event, path) => {
 
   result.forEach((value, index) => {
     const span = document.createElement("span");
-    span.setAttribute('id', 'video-file');
+    span.setAttribute('class', 'video-file');
+    span.setAttribute('data-info', JSON.stringify(value, null, 2));
+
+    span.addEventListener('click', (event) => {
+      fileOpen.openFile(event.target);
+    })
 
     const br = document.createElement("br");
 
