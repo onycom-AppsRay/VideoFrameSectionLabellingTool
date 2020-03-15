@@ -5,17 +5,6 @@
 
 const mainViewContainer = document.getElementById("main-view");
 
-(() => {
-  const file = "/Volumes/Samsung_T5/onycom/[TestForte.AI] 로딩시간측정/[로딩시간측정] 데이터/[데이터] 화면영상녹화본/[화면영상녹화본] Original/[Original] 2020-02-06/20200206_135838.mp4"
-
-  const video = document.createElement("video");
-  video.setAttribute("src", file);
-  video.setAttribute("preload", "metadata");
-
-  console.log(video.videoHeight);
-  console.log(video.videoWidth);
-})();
-
 const openFile = (element) => {
   initialize(mainViewContainer);
 
@@ -23,6 +12,7 @@ const openFile = (element) => {
   const path = file.path;
 
   const video = document.createElement("video");
+  video.style.width = "100%";
   video.style.height = "100%";
   video.setAttribute("src", path);
   video.setAttribute("preload", "metadata");
@@ -58,6 +48,7 @@ const captureVideo = (videoElement) => {
 
           const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
           ctx.putImageData(frame, 0, 0);
+          drawStroked(ctx, "1", (canvas.width/2), (canvas.height/2));
 
           document.getElementById("frame-list-container").appendChild(canvas);
         };
@@ -70,6 +61,16 @@ const captureVideo = (videoElement) => {
     .catch((err) => {
       console.log(err);
     });
+}
+
+function drawStroked(ctx, text, x, y) {
+  ctx.font = '10rem Sans-serif';
+  ctx.strokeStyle = 'black';
+  ctx.textAlign = "center";
+  ctx.lineWidth = 4;
+  ctx.strokeText(text, x, y);
+  ctx.fillStyle = 'white';
+  ctx.fillText(text, x, y);
 }
 
 export default {
