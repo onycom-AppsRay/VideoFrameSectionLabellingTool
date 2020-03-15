@@ -4,9 +4,11 @@
  */
 
 const mainViewContainer = document.getElementById("main-view");
+const frameListContainer = document.getElementById("frame-list-container");
 
 const openFile = (element) => {
   initialize(mainViewContainer);
+  initialize(frameListContainer);
 
   const file = JSON.parse(element.dataset.info);
   const path = file.path;
@@ -34,6 +36,7 @@ const initialize = (element) => {
 const captureVideo = (videoElement) => {
   videoElement.play()
     .then(() => {
+      let index = 1;
       (function loop() {
         if (videoElement.ended) {
           return;
@@ -45,10 +48,10 @@ const captureVideo = (videoElement) => {
 
           const ctx = canvas.getContext("2d");
           ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+          drawStroked(ctx, index++, (canvas.width/2), (canvas.height/2));
 
           const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
           ctx.putImageData(frame, 0, 0);
-          drawStroked(ctx, "1", (canvas.width/2), (canvas.height/2));
 
           document.getElementById("frame-list-container").appendChild(canvas);
         };
@@ -67,7 +70,7 @@ function drawStroked(ctx, text, x, y) {
   ctx.font = '10rem Sans-serif';
   ctx.strokeStyle = 'black';
   ctx.textAlign = "center";
-  ctx.lineWidth = 4;
+  ctx.lineWidth = 5;
   ctx.strokeText(text, x, y);
   ctx.fillStyle = 'white';
   ctx.fillText(text, x, y);
