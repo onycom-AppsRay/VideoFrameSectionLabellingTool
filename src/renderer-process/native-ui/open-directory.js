@@ -3,14 +3,13 @@ import fileExplorer from "../../helpers/file_explorer";
 import fileOpen from "../../helpers/open-file";
 
 const selectDirBtn = document.getElementById('open-directory');
+const videoFliesContainer = document.getElementById('video-files-container');
 
 selectDirBtn.addEventListener('click', (event) => {
   ipcRenderer.send('open-directory-dialog')
 });
 
 ipcRenderer.on('selected-directory', (event, path) => {
-  const videoFliesContainer = document.getElementById('video-files-container');
-
   initialize(videoFliesContainer);
 
   document.getElementById('open-directory').innerHTML = `${path}`
@@ -22,7 +21,6 @@ ipcRenderer.on('selected-directory', (event, path) => {
     const span = document.createElement("span");
     span.setAttribute('class', 'video-file');
     span.setAttribute('data-info', JSON.stringify(value, null, 2));
-
     span.addEventListener('click', (event) => {
       fileOpen.openFile(event.target);
     })
@@ -30,7 +28,6 @@ ipcRenderer.on('selected-directory', (event, path) => {
     const br = document.createElement("br");
 
     videoFliesContainer.appendChild(span).innerHTML = `${index}.&nbsp;${value.name}`;
-
     span.appendChild(br);
   });
 });

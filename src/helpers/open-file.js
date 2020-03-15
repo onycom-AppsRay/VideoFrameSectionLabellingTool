@@ -4,25 +4,17 @@
  */
 
 const mainViewContainer = document.getElementById("main-view");
-
-(() => {
-  const file = "/Volumes/Samsung_T5/onycom/[TestForte.AI] 로딩시간측정/[로딩시간측정] 데이터/[데이터] 화면영상녹화본/[화면영상녹화본] Original/[Original] 2020-02-06/20200206_135838.mp4"
-
-  const video = document.createElement("video");
-  video.setAttribute("src", file);
-  video.setAttribute("preload", "metadata");
-
-  console.log(video.videoHeight);
-  console.log(video.videoWidth);
-})();
+const frameListContainer = document.getElementById("frame-list-container");
 
 const openFile = (element) => {
   initialize(mainViewContainer);
+  initialize(frameListContainer);
 
   const file = JSON.parse(element.dataset.info);
   const path = file.path;
 
   const video = document.createElement("video");
+  video.style.width = "100%";
   video.style.height = "100%";
   video.setAttribute("src", path);
   video.setAttribute("preload", "metadata");
@@ -44,6 +36,7 @@ const initialize = (element) => {
 const captureVideo = (videoElement) => {
   videoElement.play()
     .then(() => {
+      let index = 1;
       (function loop() {
         if (videoElement.ended) {
           return;
@@ -55,6 +48,7 @@ const captureVideo = (videoElement) => {
 
           const ctx = canvas.getContext("2d");
           ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+          drawStroked(ctx, index++, (canvas.width/2), (canvas.height/2));
 
           const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
           ctx.putImageData(frame, 0, 0);
@@ -70,6 +64,16 @@ const captureVideo = (videoElement) => {
     .catch((err) => {
       console.log(err);
     });
+}
+
+function drawStroked(ctx, text, x, y) {
+  ctx.font = '10rem Sans-serif';
+  ctx.strokeStyle = 'black';
+  ctx.textAlign = "center";
+  ctx.lineWidth = 5;
+  ctx.strokeText(text, x, y);
+  ctx.fillStyle = 'white';
+  ctx.fillText(text, x, y);
 }
 
 export default {
