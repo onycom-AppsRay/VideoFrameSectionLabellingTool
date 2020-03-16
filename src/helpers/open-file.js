@@ -1,8 +1,9 @@
+import VideoControl from "./video-control";
+
 /**
  *
  * @param {*} file - 'video file' element('path', 'name', 'size', 'extension', 'type');
  */
-
 const mainViewContainer = document.getElementById("main-view");
 const frameListContainer = document.getElementById("frame-list-container");
 
@@ -12,6 +13,15 @@ const openFile = (element) => {
 
   const file = JSON.parse(element.dataset.info);
   const path = file.path;
+
+  const frameList = VideoControl.capture(path);
+
+  // show frame list
+  frameList.forEach((value, index) => {
+    VideoControl.showFrameList(value);
+  })
+
+  // show main frame
 
   const video = document.createElement("video");
   video.style.width = "100%";
