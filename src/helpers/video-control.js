@@ -146,10 +146,18 @@ const initialize = (element) => {
 
       const img = document.createElement("img");
       img.src = canvas.toDataURL("image/jpeg", 0.1);
+      img.className = "frame";
       img.style.width = "100%";
       img.addEventListener("click", (event) => {
         showMainView(event.target);
-      })
+        event.target.style.border = "5px solid red";
+      });
+      img.addEventListener("mouseup", (event) => {
+        // event.target.style.border = "";
+        console.log(event.target);
+        event.target.blur();
+      });
+
 
       if (index == 0) {
           showMainView(img)
