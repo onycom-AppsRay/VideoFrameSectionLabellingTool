@@ -1,6 +1,5 @@
 import { ipcRenderer } from "electron";
 import fileExplorer from "../helpers/file_explorer";
-import fileOpen from "../helpers/open-file";
 import VideoControl from "../helpers/video-control";
 
 const selectDirBtn = document.getElementById("open-directory");
@@ -24,9 +23,8 @@ ipcRenderer.on('selected-directory', (event, path) => {
     span.setAttribute('class', 'video-file');
     span.setAttribute('data-info', JSON.stringify(value, null, 2));
     span.addEventListener('click', (event) => {
-      // fileOpen.openFile(event.target);
-      VideoControl.play(event.target);
-    })
+      VideoControl.play(event.target, 5);
+    }, false);
 
     const br = document.createElement("br");
 
