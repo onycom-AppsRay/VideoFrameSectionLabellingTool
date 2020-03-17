@@ -14,13 +14,6 @@ const openFile = (element) => {
   const file = JSON.parse(element.dataset.info);
   const path = file.path;
 
-  const frameList = VideoControl.capture(path);
-
-  // show frame list
-  frameList.forEach((value, index) => {
-    VideoControl.showFrameList(value);
-  })
-
   // show main frame
 
   const video = document.createElement("video");
