@@ -1,19 +1,21 @@
 import { ipcRenderer } from "electron";
-import fileExplorer from "../../helpers/file_explorer";
-import fileOpen from "../../helpers/open-file";
+import fileExplorer from "../helpers/file_explorer";
+import fileOpen from "../helpers/open-file";
+import VideoControl from "../helpers/video-control";
 
-const selectDirBtn = document.getElementById('open-directory');
-const videoFliesContainer = document.getElementById('video-files-container');
+const selectDirBtn = document.getElementById("open-directory");
+const videoFliesContainer = document.getElementById("video-files-container");
 
+// Video Directory
 selectDirBtn.addEventListener('click', (event) => {
-  ipcRenderer.send('open-directory-dialog')
+  ipcRenderer.send('open-directory-dialog');
 });
 
 ipcRenderer.on('selected-directory', (event, path) => {
   initialize(videoFliesContainer);
 
-  document.getElementById('open-directory').innerHTML = `${path}`
-  document.getElementById('open-directory').style.fontSize = '1vw';
+  document.getElementById('open-directory').innerHTML = `${path}`;
+  document.getElementById('open-directory').style.fontSize = "1vw";
 
   const result = fileExplorer.getFileList(`${path}`);
 
@@ -22,7 +24,8 @@ ipcRenderer.on('selected-directory', (event, path) => {
     span.setAttribute('class', 'video-file');
     span.setAttribute('data-info', JSON.stringify(value, null, 2));
     span.addEventListener('click', (event) => {
-      fileOpen.openFile(event.target);
+      // fileOpen.openFile(event.target);
+      VideoControl.play(event.target);
     })
 
     const br = document.createElement("br");

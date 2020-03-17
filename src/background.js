@@ -13,7 +13,8 @@ import createWindow from "./helpers/window";
 // in config/env_xxx.json file.
 import env from "env";
 
-import "./main-process/native-ui/open-directory";
+import "./main-process/open-directory.js";
+import "./main-process/open-file.js";
 
 const setApplicationMenu = () => {
   const menus = [editMenuTemplate];

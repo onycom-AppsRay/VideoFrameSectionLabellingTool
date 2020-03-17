@@ -32,7 +32,7 @@
   cursor: pointer;
 }
 
-#json-files-container {
+#json-file-container {
   height: 50%;
 }
 
@@ -78,8 +78,6 @@
 
 .video-frame {
   margin: 1px;
-  width: 100%;
-  height: 30%;
 }
 
 #control1-container {

@@ -13,7 +13,8 @@ import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
 import "./helpers/open-file.js";
 
-import "./renderer-process/native-ui/open-directory.js";
+import "./renderer-process/open-directory.js";
+import "./renderer-process/open-file.js";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
