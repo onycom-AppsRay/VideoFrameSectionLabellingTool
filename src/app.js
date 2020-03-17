@@ -15,7 +15,6 @@ import "./helpers/open-file.js";
 
 import "./renderer-process/open-directory.js";
 import "./renderer-process/open-file.js";
-import "./renderer-process/frame-list-control.js";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.

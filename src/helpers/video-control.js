@@ -125,7 +125,7 @@ const initialize = (element) => {
   video.setAttribute("src", path);
   video.muted = "muted";
   video.style.width = "100%";
-  video.playbackRate = 5;
+  video.playbackRate = 10;
 
   // mainViewContainer.appendChild(video);
 
@@ -148,16 +148,16 @@ const initialize = (element) => {
       img.src = canvas.toDataURL("image/jpeg", 0.1);
       img.className = "frame";
       img.style.width = "100%";
-      img.addEventListener("click", (event) => {
+      img.addEventListener("mouseenter", (event) => {
         showMainView(event.target);
         event.target.style.border = "5px solid red";
       });
-      img.addEventListener("mouseup", (event) => {
-        // event.target.style.border = "";
-        console.log(event.target);
-        event.target.blur();
+      img.addEventListener("mouseleave", (event) => {
+        event.target.style.border = "";
       });
-
+      img.addEventListener("click", (event) => {
+        showMainView(event.target);
+      });
 
       if (index == 0) {
           showMainView(img)
