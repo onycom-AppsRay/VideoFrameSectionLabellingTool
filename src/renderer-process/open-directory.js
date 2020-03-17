@@ -23,7 +23,7 @@ ipcRenderer.on('selected-directory', (event, path) => {
     span.setAttribute('class', 'video-file');
     span.setAttribute('data-info', JSON.stringify(value, null, 2));
     span.addEventListener('click', (event) => {
-      VideoControl.play(event.target, 5);
+      VideoControl.clickVideoFile(event.target, 5);
     }, false);
 
     const br = document.createElement("br");
