@@ -17,8 +17,8 @@ selectDirBtn.addEventListener("click", (event) => {
 ipcRenderer.on("selected-directory", (event, path) => {
   tagControl.initialize(videoFliesContainer);
 
-  document.getElementById("open-directory").innerHTML = `${path}`;
-  document.getElementById("open-directory").style.fontSize = "1vw";
+  selectDirBtn.innerHTML = `${path}`;
+  selectDirBtn.style.fontSize = "1vw";
 
   const result = fileExplorer.getFileList(`${path}`);
 

@@ -1,5 +1,5 @@
 // html
-import "./helpers/html_section_import.js";
+import "./helpers/html_import.js";
 
 // css
 import "./stylesheets/main.css";
