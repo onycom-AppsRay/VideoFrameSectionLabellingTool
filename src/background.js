@@ -13,8 +13,15 @@ import createWindow from "./helpers/window";
 // in config/env_xxx.json file.
 import env from "env";
 
-import "./main-process/open-directory.js";
-import "./main-process/open-file.js";
+import "./main-process/open_directory.js";
+import "./main-process/open_file.js";
+
+global.sharedObject = {
+  FRAME: {
+    LENGTH: 0,
+    AT: 0,
+  }
+}
 
 const setApplicationMenu = () => {
   const menus = [editMenuTemplate];
