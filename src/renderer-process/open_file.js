@@ -1,5 +1,4 @@
 import { ipcRenderer } from "electron";
-
 import fs from "fs";
 
 const selectJsonBtn = document.getElementById("open-json");

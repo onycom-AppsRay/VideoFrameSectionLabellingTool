@@ -11,14 +11,15 @@ import "./stylesheets/footer.css";
 // Small helpers you might want to keep
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
-import "./helpers/open-file.js";
 
-import "./renderer-process/open-directory.js";
-import "./renderer-process/open-file.js";
+import "./renderer-process/key_event.js";
+import "./renderer-process/open_directory.js";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------
+
+import "./test.js";
 
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
