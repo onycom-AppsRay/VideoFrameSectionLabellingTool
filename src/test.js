@@ -9,6 +9,7 @@ const globalVariable = () => {
   console.log("GLOBAL_FRAME_AT: ", GLOBAL_FRAME["AT"]);
 
   console.log(`remote.getGlobal("sharedObject").FRAME: `, remote.getGlobal("sharedObject").FRAME);
+  console.log(`input[name="criteria"]:checked:`, document.querySelector(`input[name="criteria"]:checked`).value);
 }
 
 (() => {
@@ -19,7 +20,7 @@ const globalVariable = () => {
   videoControl.playVideo(video, 5, imageDataList => {
     GLOBAL_FRAME["LENGTH"] = imageDataList.length;
 
-    // globalVariable();
+    globalVariable();
 
     imageDataList.forEach((imageData, index) => {
       const dataUrl = imageControl.imageDataToImage(imageData, 0.1);

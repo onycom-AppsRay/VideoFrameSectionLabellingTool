@@ -35,6 +35,10 @@ const element = async () => {
     if (link.href.match("result_list_container.html")) {
       document.querySelector(`div[id="result-list-container"]`).appendChild(clone);
     }
+
+    if (link.href.match("section_selection_criteria_container.html")) {
+      document.querySelector(`div[id="section-selection-criteria-container"]`).appendChild(clone);
+    }
   })
 };
 
