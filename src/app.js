@@ -15,6 +15,7 @@ import "./helpers/external_links.js";
 
 import "./renderer-process/key_event.js";
 import "./renderer-process/open_directory.js";
+import "./renderer-process/confirm_section.js";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.

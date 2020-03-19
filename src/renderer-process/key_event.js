@@ -17,7 +17,7 @@ window.addEventListener('keydown', function (e) {
   if(e.keyCode == 13) {
     frameInput.convertInputFocus();
   }
-}, false);
+}, true);
 
 const frameMove = () => {
   // Arrow up

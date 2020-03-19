@@ -19,7 +19,7 @@ const globalVariable = () => {
   videoControl.playVideo(video, 5, imageDataList => {
     GLOBAL_FRAME["LENGTH"] = imageDataList.length;
 
-    globalVariable();
+    // globalVariable();
 
     imageDataList.forEach((imageData, index) => {
       const dataUrl = imageControl.imageDataToImage(imageData, 0.1);
