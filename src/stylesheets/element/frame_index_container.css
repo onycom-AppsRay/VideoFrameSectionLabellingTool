@@ -1,0 +1,17 @@
+#frame-index-container > .container {
+  height: 100%;
+}
+
+#frame-index-container .row {
+  height: 100%;
+}
+
+#frame-index-container .col-6 {
+  padding: 0;
+}
+
+#start-frame-input, #end-frame-input {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}

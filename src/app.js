@@ -3,9 +3,10 @@ import "./helpers/html_import.js";
 
 // css
 import "./stylesheets/main.css";
-import "./stylesheets/header.css";
-import "./stylesheets/content.css";
-import "./stylesheets/footer.css";
+import "./stylesheets/section/header.css";
+import "./stylesheets/section/content.css";
+import "./stylesheets/section/footer.css";
+import "./stylesheets/element/frame_index_container.css";
 
 // js
 // Small helpers you might want to keep
