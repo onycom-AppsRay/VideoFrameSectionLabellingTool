@@ -1,12 +1,10 @@
 const sectionConfirmContainer = document.getElementById("section-confirm-container");
 
 sectionConfirmContainer.addEventListener("click", (event) => {
-  // 프레임 선택 기준 제시 해야함.
   const criteria = document.querySelector(`input[name="criteria"]:checked`).value;
   const startFrameIndex = document.getElementById("start-frame-input").value;
   const endFrameIndex = document.getElementById("end-frame-input").value;
 
-  // Alert - '구간 기준' / '구간 시작, 끝' 확인 시켜 주기.
   const message =
     `Confirm with \n` +
     `Criteria: ${criteria} / ` +
@@ -15,9 +13,7 @@ sectionConfirmContainer.addEventListener("click", (event) => {
 
   if(!confirm(message)) return;
 
-  // Validate 'Input' tag frame index
   if (validateSelectedFrameIndex(startFrameIndex, endFrameIndex)) {
-    // Push frame section
     pushSectionValueTableRow(criteria, startFrameIndex, endFrameIndex);
   }
 
@@ -25,16 +21,13 @@ sectionConfirmContainer.addEventListener("click", (event) => {
 })
 
 const validateSelectedFrameIndex = (startFrameIndex, endFrameIndex) => {
-  // 1. Not empty
   if (startFrameIndex == '' || endFrameIndex == '') {
     alert('프레임을 선택하세요.');
     return false;
   }
 
-  // 2. start < end
   if (Number.parseInt(startFrameIndex) > Number.parseInt(endFrameIndex)) {
     alert(`START: ${startFrameIndex} > END: ${endFrameIndex}`);
-
     return false;
   }
 

@@ -13,11 +13,14 @@ const globalVariable = () => {
 }
 
 (() => {
-  const path = "../sample2.mov";
+  const path = "../sample2.mp4";
 
-  const video = videoControl.createVideoTag(path, 5);
+  const playbackRate = 10;
+  const video = videoControl.createVideoTag(path, playbackRate);
 
   videoControl.playVideo(video, 5, imageDataList => {
+    imageControl.setMainViewImageSize(video);
+
     GLOBAL_FRAME["LENGTH"] = imageDataList.length;
 
     globalVariable();

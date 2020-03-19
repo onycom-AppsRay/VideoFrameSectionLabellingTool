@@ -46,20 +46,14 @@
 #main-view {
   position: absolute;
   z-index: 1;
-
   height: 95%;
   width: 95%;
-
-  background-color: red;
 }
 
 #overlay {
   position: relative;
   z-index: 2;
-
   height: 95%;
-
-  background-color: blue;
   opacity: 0.3;
 }
 

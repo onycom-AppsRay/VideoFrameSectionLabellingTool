@@ -25,6 +25,8 @@ const frameMove = () => {
     if (GLOBAL_FRAME["AT"] > 0) {
       const image = document.querySelector(`img[data-index='${--GLOBAL_FRAME["AT"]}'`);
 
+      image.scrollIntoView();
+
       imageControl.setMainViewImage(image);
 
       frameInput.setFrameIndex(GLOBAL_FRAME["AT"]);
@@ -35,6 +37,8 @@ const frameMove = () => {
   if (keyState[40]) {
     if (GLOBAL_FRAME["AT"] < (GLOBAL_FRAME["LENGTH"] - 1)) {
       const image = document.querySelector(`img[data-index='${++GLOBAL_FRAME["AT"]}'`);
+
+      image.scrollIntoView();
 
       imageControl.setMainViewImage(image);
 

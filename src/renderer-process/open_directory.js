@@ -57,6 +57,8 @@ const clickedVideoName = element => {
   const video = videoControl.createVideoTag(path, 5);
 
   videoControl.playVideo(video, 5, imageDataList => {
+    imageControl.setMainViewImageSize(video);
+
     GLOBAL_FRAME["LENGTH"] = imageDataList.length;
     // setFrameList
     imageDataList.forEach((imageData, index) => {
