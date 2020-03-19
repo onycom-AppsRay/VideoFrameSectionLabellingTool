@@ -11,7 +11,16 @@
 }
 
 #start-frame-input, #end-frame-input {
+  font-size: 2vw;
   height: 100%;
   width: 100%;
   text-align: center;
+}
+
+#start-frame-input {
+  background-color: lightgreen;
+}
+
+#end-frame-input {
+  background-color: lightcoral;
 }

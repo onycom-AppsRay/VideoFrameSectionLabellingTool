@@ -95,12 +95,26 @@
   height: 10%;
 }
 
+#section-confirm-container {
+  height: 10%;
+}
+
+#section-confirm-container:hover {
+  background-color: lightblue;
+}
+
 /* control 2 */
 #control2-container {
   padding: 0;
 }
 
 #result-list-container {
+  font-size: 1vw;
   border-bottom: 1px solid black;
+  overflow: auto;
   height: 80%;
+}
+
+#result-confirm-btn {
+  height: 20%;
 }

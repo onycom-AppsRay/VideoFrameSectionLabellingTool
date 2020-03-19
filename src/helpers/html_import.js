@@ -31,6 +31,10 @@ const element = async () => {
     if (link.href.match("frame_index_container.html")) {
       document.querySelector(`div[id="frame-index-container"]`).appendChild(clone);
     }
+
+    if (link.href.match("result_list_container.html")) {
+      document.querySelector(`div[id="result-list-container"]`).appendChild(clone);
+    }
   })
 };
 
