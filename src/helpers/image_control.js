@@ -22,11 +22,20 @@ const setImage = (dataUrl, index, width, height) => {
   image.style.height = height;
 
   image.addEventListener("click", (event) => {
+    const frameIndex = event.target.dataset.index;
+
     // Viewing main
     setMainViewImage(event.target);
 
     // Key board control
-    GLOBAL_FRAME["AT"] = event.target.dataset.index;
+    GLOBAL_FRAME["AT"] = frameIndex;
+
+    // Input frame index (start, end)
+    const startFrameInput = document.getElementById("start-frame-input");
+    const endFrameInput = document.getElementById("end-frame-input");
+
+    startFrameInput.setAttribute("value", frameIndex);
+
   }, false);
 
   frameListContainer.appendChild(image);
