@@ -19,23 +19,25 @@ const createVideoTag = (path, playbackRate) => {
   return video;
 }
 
-const playVideo = (videoElement, fps, callback) => {
+const playVideo = (videoElement, fps, callback1, callback2) => {
   videoElement.play()
     .then(() => {
-      let result = [];
+      let captureArr = [];
+      let index = 0;
 
       (function loop() {
         if (videoElement.ended) {
           console.log("Finish video rendering");
 
-          return callback(result);
+          return callback1(captureArr);
         } else {
           const imageData = captureVideo(videoElement);
-          result.push(imageData);
+          captureArr.push(imageData);
         }
 
         setTimeout(() => {
           loop();
+          callback2(index++, videoElement.ended);
         }, 1000 / Number.parseInt(fps));
       })();
     })

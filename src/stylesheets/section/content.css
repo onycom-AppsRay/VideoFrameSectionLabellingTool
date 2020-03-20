@@ -38,6 +38,7 @@
 
 /* main view */
 #main-view-container {
+  padding: 0;
   background-color: black;
   color: white;
   border-right: 1px solid black;
@@ -46,8 +47,12 @@
 #main-view {
   position: absolute;
   z-index: 1;
-  height: 95%;
+  height: 100%;
+}
+
+#main-view-image {
   width: 95%;
+  height: 100%;
 }
 
 #overlay {
@@ -91,6 +96,8 @@
 
 #section-confirm-container {
   height: 10%;
+  display: flex;
+  align-items: center;
 }
 
 #section-confirm-container:hover {
@@ -111,4 +118,6 @@
 
 #result-confirm-btn {
   height: 20%;
+  display: flex;
+  align-items: center;
 }

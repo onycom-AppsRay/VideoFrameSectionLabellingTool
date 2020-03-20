@@ -39,6 +39,10 @@ const element = async () => {
     if (link.href.match("section_selection_criteria_container.html")) {
       document.querySelector(`div[id="section-selection-criteria-container"]`).appendChild(clone);
     }
+
+    if (link.href.match("progress_bar_container.html")) {
+      document.querySelector(`div[id="progress-bar-container"]`).appendChild(clone);
+    }
   })
 };
 

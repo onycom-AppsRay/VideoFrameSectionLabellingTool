@@ -18,7 +18,6 @@ ipcRenderer.on("selected-directory", (event, path) => {
   tagControl.initialize(videoFliesContainer);
 
   selectDirBtn.innerHTML = `${path}`;
-  selectDirBtn.style.fontSize = "1vw";
 
   const result = fileExplorer.getFileList(`${path}`);
 
@@ -56,16 +55,27 @@ const clickedVideoName = element => {
 
   const video = videoControl.createVideoTag(path, 5);
 
-  videoControl.playVideo(video, 5, imageDataList => {
-    imageControl.setMainViewImageSize(video);
+  // progress logic
+  document.getElementById("progress-bar-container").hidden = false;
 
-    GLOBAL_FRAME["LENGTH"] = imageDataList.length;
-    // setFrameList
-    imageDataList.forEach((imageData, index) => {
-      const dataUrl = imageControl.imageDataToImage(imageData, 0.1);
-      imageControl.setImage(dataUrl, index, "100%", "");
-    })
-  })
+  videoControl.playVideo(video, 5,
+    (imageDataList) => {
+      GLOBAL_FRAME["LENGTH"] = imageDataList.length;
+      // setFrameList
+      imageDataList.forEach((imageData, index) => {
+        const dataUrl = imageControl.imageDataToImage(imageData, 0.1);
+        imageControl.setImage(dataUrl, index, "100%", "");
+      })
+    },
+    // progress logic
+    (progressRate, endFlag) => {
+      if(endFlag) {
+        document.getElementById("progress-bar-container").hidden = true;
+      }else {
+        document.getElementById("progress-bar").style.width = `${progressRate}%`;
+      }
+    }
+  );
 
   // Rendering next video
 }

@@ -12,23 +12,55 @@ const globalVariable = () => {
   console.log(`input[name="criteria"]:checked:`, document.querySelector(`input[name="criteria"]:checked`).value);
 }
 
+const jsonFileData = () => {
+  return {
+    name: "",
+    createAt: new Date(),
+    count: 0,
+    criteria: [
+      {
+        key: "",
+        value: "",
+        content: "",
+      }
+    ],
+    labellingData: [
+      {
+        name: "",
+        value: "",
+      }
+    ]
+  }
+}
+
 (() => {
   const path = "../sample2.mp4";
 
+  // test
+  // console.log(JSON.stringify(jsonFileData(), 2, " "));
+
   const playbackRate = 10;
   const video = videoControl.createVideoTag(path, playbackRate);
+  console.log(video.duration);
+
+  // prograss bar
+  document.getElementById("progress-bar-container").hidden = false;
 
   videoControl.playVideo(video, 5, imageDataList => {
-    imageControl.setMainViewImageSize(video);
-
     GLOBAL_FRAME["LENGTH"] = imageDataList.length;
-
-    globalVariable();
 
     imageDataList.forEach((imageData, index) => {
       const dataUrl = imageControl.imageDataToImage(imageData, 0.1);
       imageControl.setImage(dataUrl, index, "100%", "");
     })
+  }, (result, flag) => {
+    if (flag) {
+      document.getElementById("progress-bar-container").hidden = true;
+      document.getElementById("progress-bar").style.width = "0%";
+    } else {
+      document.getElementById("progress-bar").style.width = `${(result / 26) * 100}%`;
+    }
+
   })
 })();
 

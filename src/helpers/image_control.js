@@ -41,14 +41,6 @@ const setImage = (dataUrl, index, width, height) => {
   frameListContainer.appendChild(image);
 }
 
-const setMainViewImageSize = videoElement => {
-  if (videoElement.videoHeight > videoElement.videoWidth) {
-    mainViewImage.style.height = "100%";
-  } else {
-    mainViewImage.style.width = "100%";
-  }
-}
-
 const setMainViewImage = (element) => {
   mainViewImage.src = element.src;
 }
@@ -64,7 +56,6 @@ const drawStroked = (ctx, text, x, y) => {
 }
 
 export default {
-  setMainViewImageSize,
   imageDataToImage,
   setImage,
   setMainViewImage,

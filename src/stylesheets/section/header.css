@@ -25,6 +25,8 @@
 
 #open-directory-container {
   border-right: 1px solid black;
+  word-break: break-all;
+  font-size: 1vw;
 }
 
 #open-directory {
