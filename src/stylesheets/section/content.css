@@ -116,8 +116,12 @@
   height: 80%;
 }
 
-#result-confirm-btn {
+#complete-container {
   height: 20%;
   display: flex;
   align-items: center;
+}
+
+#complete-container:hover {
+  background-color: crimson;
 }

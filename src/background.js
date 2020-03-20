@@ -8,13 +8,13 @@ import { app, Menu } from "electron";
 import { devMenuTemplate } from "./menu/dev_menu_template";
 import { editMenuTemplate } from "./menu/edit_menu_template";
 import createWindow from "./helpers/window";
+import "./main-process/open_directory";
+// import "./main-process/open_file";
 
 // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
 import env from "env";
 
-import "./main-process/open_directory.js";
-import "./main-process/open_file.js";
 
 global.sharedObject = {
   FRAME: {

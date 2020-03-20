@@ -19,6 +19,7 @@ const createVideoTag = (path, playbackRate) => {
   return video;
 }
 
+// Note, callback
 const playVideo = (videoElement, fps, callback1, callback2) => {
   videoElement.play()
     .then(() => {
@@ -29,7 +30,7 @@ const playVideo = (videoElement, fps, callback1, callback2) => {
         if (videoElement.ended) {
           console.log("Finish video rendering");
 
-          return callback1(captureArr);
+          return callback1(captureArr); // escape condition
         } else {
           const imageData = captureVideo(videoElement);
           captureArr.push(imageData);
