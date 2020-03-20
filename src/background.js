@@ -2,19 +2,17 @@
 // app starts. It runs through entire life of your application.
 // It doesn't have any windows which you can see on screen, but we can open
 // window from here.
+
 import path from "path";
 import url from "url";
-import { app, Menu } from "electron";
+import { app, Menu, ipcMain, dialog } from "electron";
 import { devMenuTemplate } from "./menu/dev_menu_template";
 import { editMenuTemplate } from "./menu/edit_menu_template";
 import createWindow from "./helpers/window";
-import "./main-process/open_directory";
-// import "./main-process/open_file";
 
 // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
 import env from "env";
-
 
 global.sharedObject = {
   FRAME: {
@@ -62,4 +60,16 @@ app.on("ready", () => {
 
 app.on("window-all-closed", () => {
   app.quit();
+});
+
+ipcMain.on("open-directory-dialog", (event) => {
+  console.log("main", event.target);
+
+  dialog.showOpenDialog({
+    properties: ["openDirectory"]
+  }, (files) => {
+    if (files) {
+      event.sender.send("selected-directory", files)
+    }
+  });
 });

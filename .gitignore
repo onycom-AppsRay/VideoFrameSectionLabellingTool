@@ -10,8 +10,3 @@ Thumbs.db
 /app/app.js
 /app/background.js
 /app/**/*.map
-
-sample1.mp4
-sample2.mp4
-
-/src/test.js

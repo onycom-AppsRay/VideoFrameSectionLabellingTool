@@ -7,6 +7,7 @@ module.exports = env => {
     entry: {
       background: "./src/background.js",
       app: "./src/app.js",
+      import: "./src/import.js",
     },
     output: {
       filename: "[name].js",

@@ -1,5 +1,5 @@
 {
-  "name": "video-frame-section-gui",
+  "name": "electron-boilerplate",
   "productName": "Electron Boilerplate",
   "description": "Starter for your Electron application",
   "version": "0.0.0",
@@ -31,22 +31,18 @@
     "release": "webpack --config=build/webpack.app.config.js --env=production && electron-builder"
   },
   "dependencies": {
-    "fs-jetpack": "^2.1.0",
-    "glob": "^7.1.6",
-    "opencv": "^7.0.0"
+    "directory-tree": "^2.2.4",
+    "fs-jetpack": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.8.6",
     "babel-loader": "^8.0.0-beta.4",
     "chai": "^4.1.0",
     "css-loader": "^3.1.0",
-    "directory-tree": "^2.2.4",
     "electron": "^4.0.0",
     "electron-builder": "^21.1.5",
     "electron-mocha": "^8.1.1",
-    "electron-rebuild": "^1.10.1",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "mocha": "^6.2.0",
     "source-map-support": "^0.5.6",

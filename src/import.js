@@ -1,5 +1,3 @@
-// Import and add each page to the DOM
-// 'link' rel 속성 값은 'import' 이어야 하고, 'template' 태그 class 명은 'task-template' 이어야 한다.
 const links = document.querySelectorAll(`link[rel="import"]`);
 
 const section = async () => {

@@ -1,24 +1,25 @@
-import "./helpers/html_import.js";
+import "./import";
 
+import "./stylesheets/main.css";
 import "./stylesheets/main.css";
 import "./stylesheets/section/header.css";
 import "./stylesheets/section/content.css";
 import "./stylesheets/section/footer.css";
 import "./stylesheets/element/frame_index_container.css";
 
-import "./renderer-process/key_event.js";
-import "./renderer-process/open_directory.js";
-import "./renderer-process/confirm_section.js";
-import "./renderer-process/complete.js";
-
+// Small helpers you might want to keep
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
+
+import "./renderer_process/open_directory";
+import "./renderer_process/key_event.js";
+import "./renderer_process/open_directory.js";
+import "./renderer_process/confirm_section.js";
+import "./renderer_process/complete.js";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------
-
-// import "./test.js";
 
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
