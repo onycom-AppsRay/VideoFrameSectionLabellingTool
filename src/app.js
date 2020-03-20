@@ -1,31 +1,27 @@
-// html
 import "./helpers/html_import.js";
 
-// css
 import "./stylesheets/main.css";
 import "./stylesheets/section/header.css";
 import "./stylesheets/section/content.css";
 import "./stylesheets/section/footer.css";
 import "./stylesheets/element/frame_index_container.css";
 
-// js
-// Small helpers you might want to keep
-import "./helpers/context_menu.js";
-import "./helpers/external_links.js";
-
 import "./renderer-process/key_event.js";
 import "./renderer-process/open_directory.js";
 import "./renderer-process/confirm_section.js";
+import "./renderer-process/complete.js";
+
+import "./helpers/context_menu.js";
+import "./helpers/external_links.js";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------
 
-import "./test.js";
+// import "./test.js";
 
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
-import { greet } from "./hello_world/hello_world";
 import env from "env";
 
 const app = remote.app;
@@ -42,7 +38,6 @@ const osMap = {
 };
 
 document.querySelector("#app").style.display = "block";
-// document.querySelector("#greet").innerHTML = greet();
 document.querySelector("#os").innerHTML = osMap[process.platform];
 document.querySelector("#author").innerHTML = manifest.author;
 document.querySelector("#env").innerHTML = env.name;

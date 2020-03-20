@@ -41,7 +41,6 @@ const jsonFileData = () => {
 
   const playbackRate = 10;
   const video = videoControl.createVideoTag(path, playbackRate);
-  console.log(video.duration);
 
   // prograss bar
   document.getElementById("progress-bar-container").hidden = false;

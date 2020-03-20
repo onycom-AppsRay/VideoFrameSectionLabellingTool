@@ -11,7 +11,7 @@ let GLOBAL_FRAME = remote.getGlobal("sharedObject").FRAME;
 
 // Video Directory
 selectDirBtn.addEventListener("click", (event) => {
-  ipcRenderer.send("open-directory-dialog");
+  ipcRenderer.send('open-directory-dialog');
 });
 
 ipcRenderer.on("selected-directory", (event, path) => {
