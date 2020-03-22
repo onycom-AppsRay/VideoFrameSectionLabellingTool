@@ -1,4 +1,5 @@
 import dirTree from "directory-tree";
+import fs from "fs";
 
 const getFileList = (path) => {
   let result = [];

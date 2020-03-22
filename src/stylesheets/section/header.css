@@ -23,12 +23,12 @@
   border-right: 1px solid black;
 }
 
-#open-directory-container {
+#open-directory-container, #open-file-container {
   border-right: 1px solid black;
   word-break: break-all;
-  font-size: 1vw;
 }
 
-#open-directory {
+#open-directory, #open-json, #create-json {
+  font-size: 1.2vw;
   cursor: pointer;
 }

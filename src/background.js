@@ -18,6 +18,10 @@ global.sharedObject = {
   FRAME: {
     LENGTH: 0,
     AT: 0,
+  },
+  JSON_FILE: {
+    PATH: "",
+    NAME: ""
   }
 }
 
@@ -63,13 +67,35 @@ app.on("window-all-closed", () => {
 });
 
 ipcMain.on("open-directory-dialog", (event) => {
-  console.log("main", event.target);
+  console.log("open directory: ", event);
 
   dialog.showOpenDialog({
     properties: ["openDirectory"]
   }, (files) => {
     if (files) {
       event.sender.send("selected-directory", files)
+    }
+  });
+});
+
+ipcMain.on("open-file-dialog", (event) => {
+  console.log("open file: ", event);
+
+  dialog.showOpenDialog({
+    properties: ["openFile"]
+  }, (files) => {
+    if (files) {
+      event.sender.send("selected-file", files)
+    }
+  });
+});
+
+ipcMain.on("open-json-directory-dialog", (event) => {
+  dialog.showOpenDialog({
+    properties: ["openDirectory"]
+  }, (files) => {
+    if (files) {
+      event.sender.send("selected-json-directory", files)
     }
   });
 });
