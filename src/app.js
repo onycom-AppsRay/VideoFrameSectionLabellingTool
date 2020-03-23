@@ -12,10 +12,14 @@ import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
 
 import "./renderer_process/open_directory";
+import "./renderer_process/open_file";
+import "./renderer_process/create_json";
 import "./renderer_process/key_event.js";
 import "./renderer_process/open_directory.js";
 import "./renderer_process/confirm_section.js";
 import "./renderer_process/complete.js";
+
+import "./test";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
