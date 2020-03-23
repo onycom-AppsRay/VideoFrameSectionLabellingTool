@@ -69,8 +69,6 @@ app.on("window-all-closed", () => {
 });
 
 ipcMain.on("open-directory-dialog", (event) => {
-  console.log("open directory: ", event);
-
   dialog.showOpenDialog({
     properties: ["openDirectory"]
   }, (files) => {
@@ -81,8 +79,6 @@ ipcMain.on("open-directory-dialog", (event) => {
 });
 
 ipcMain.on("open-file-dialog", (event) => {
-  console.log("open file: ", event);
-
   dialog.showOpenDialog({
     properties: ["openFile"]
   }, (files) => {
