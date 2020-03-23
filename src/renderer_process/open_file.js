@@ -36,7 +36,7 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
   const GlobalValiable = new globalValiable();
 
   // json setting
-  GlobalValiable.setJSONFile(path, fileName, "");
+  GlobalValiable.setJSONFile(path, fileName);
 
   // video data setting
   const videos = openJSONFileContent.videos;

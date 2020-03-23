@@ -6,9 +6,8 @@ Labelling 된 데이터 관리
   "frameData": [0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 0, 0, 0, ...]
 }
 */
-
 export default class {
-  constructor(title = "", createAt = new Date(), frameList = []) {
+  constructor(title = "", createAt = new Date(), frameList = new Array().fill(0)) {
     this.title = title;
     this.createAt = createAt;
     this.frameList = frameList;
@@ -18,7 +17,14 @@ export default class {
     return this.frameList;
   }
 
-  setFrameList(type, start, end) {
-    this.frameList.fill(type, start, (end + 1));
+  setFrameList(labellingDataList = []) {
+    labellingDataList.forEach((labellingData) => {
+      const type = labellingData.type;    // Alphabet
+      const start = labellingData.start;
+      const end = labellingData.end;
+
+      // 'type', 'A = 0', 'B = 1' ... 으로 매칭 시키기
+      this.frameList.fill(type, start, (end + 1));
+    })
   }
 }

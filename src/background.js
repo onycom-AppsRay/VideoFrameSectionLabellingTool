@@ -18,7 +18,6 @@ global.sharedObject = {
   JSON_FILE: {
     PATH: "",
     NAME: "",
-    CONTENT: {}
   },
   VIDEO_DATA: [],
   FRAME: {

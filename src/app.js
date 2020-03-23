@@ -19,7 +19,7 @@ import "./renderer_process/open_directory.js";
 import "./renderer_process/confirm_section.js";
 import "./renderer_process/complete.js";
 
-// import "./test";
+import "./test";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.

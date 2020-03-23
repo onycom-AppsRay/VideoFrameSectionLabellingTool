@@ -13,10 +13,9 @@ export default class {
     this.FRAME.length = length;
   }
 
-  setJSONFile(path, name, content) {
+  setJSONFile(path, name) {
     this.JSON_FILE.PATH = ((path == "") ? this.JSON_FILE.PATH : path);
     this.JSON_FILE.NAME = ((name == "") ? this.JSON_FILE.NAME : name);
-    this.JSON_FILE.CONTENT = ((content == "") ? this.JSON_FILE.CONTENT : content);
   }
 
   setVideoData(videos) {
