@@ -1,7 +1,7 @@
 import { ipcRenderer, remote } from "electron";
 import fs from "fs";
 
-import fileExplorer from "../helpers/file_explorer";
+import JSONFile from "../model/jsonFile";
 
 const selectedCreateJson = document.getElementById("create-json");
 
@@ -13,7 +13,7 @@ selectedCreateJson.addEventListener("click", (event) => {
 
 ipcRenderer.on("selected-json-directory", (event, pathArr) => {
   const path = pathArr[0];
-  const fileName = createJSONFileName();
+  const fileName = createFileNameWithCurrentTime(".json");
 
   // Duplicate check
   if (!hasJSONFile(path, fileName)) {
@@ -26,9 +26,9 @@ ipcRenderer.on("selected-json-directory", (event, pathArr) => {
   GLOBAL_JSON_FILE.PATH = path;
   GLOBAL_JSON_FILE.NAME = fileName;
 
-  console.log(GLOBAL_JSON_FILE);
+  const json = new JSONFile(fileName, new Date().toLocaleString(), 0, {}, []);
 
-  fs.writeFile(path + "/" + fileName, JSON.stringify(jsonFile, " ", 2), (err) => {
+  fs.writeFile(path + "/" + fileName, JSON.stringify(json, " ", 2), (err) => {
     if (err) throw err;
     alert(`The JSON file was created in path ${path}`);
   });
@@ -43,39 +43,13 @@ const hasJSONFile = (path, fileName) => {
     if(file == fileName) {
       flag = false;
 
-      return false;
+      return;
     }
   })
 
   return flag;
 }
 
-const createJSONFileName = () => {
-  const year = (new Date().getFullYear()).toString();
-  const month = (new Date().getMonth() + 1).toString();;
-  const date = (new Date().getDate()).toString();
-  const extension = "json";
-
-  return year.concat(month)
-    .concat(date)
-    .concat(".")
-    .concat(extension);
-}
-
-const jsonFile = {
-  "name": "",
-  "create": new Date(),
-  "count": 0,
-  "criteria": {},
-  "data": []
-}
-
-const criteriaData = {
-  "number": "",
-  "criteria": "",
-}
-
-const videoData = {
-  "title": "",
-  "data": []
+const createFileNameWithCurrentTime = (extension) => {
+  return new Date(Date.now()).toLocaleDateString().replace(/\//gi, "_").concat(`${extension}`);
 }

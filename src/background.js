@@ -15,14 +15,16 @@ import createWindow from "./helpers/window";
 import env from "env";
 
 global.sharedObject = {
+  JSON_FILE: {
+    PATH: "",
+    NAME: "",
+    CONTENT: {}
+  },
+  VIDEO_DATA: [],
   FRAME: {
     LENGTH: 0,
     AT: 0,
   },
-  JSON_FILE: {
-    PATH: "",
-    NAME: ""
-  }
 }
 
 const setApplicationMenu = () => {
