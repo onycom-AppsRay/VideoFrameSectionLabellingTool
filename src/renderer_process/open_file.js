@@ -1,10 +1,10 @@
-import { ipcRenderer, remote } from "electron";
+import { ipcRenderer } from "electron";
 import fs from "fs";
+
+import globalJSONFile from "../model/globalJSONFile";
 
 import tagControl from "../helpers/tag_control";
 import validation from "../helpers/validation";
-
-import globalValiable from "../model/global_valiable";
 
 const selectJsonBtn = document.getElementById("open-json");
 const jsonFileContainer = document.getElementById("json-file-container");
@@ -27,22 +27,26 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
   // Validate JSON
   if (validation.validationValue(openJSONFileContent)) {
     alert("유효한 JSON 파일 입니다.");
+
+    const GlobalJSONFile = new globalJSONFile();
+    GlobalJSONFile.setPATH(path);
+    GlobalJSONFile.setNAME(fileName);
   } else {
     alert("유효하지 않은 JSON 파일 입니다.");
     return;
   }
 
-  // global setting
-  const GlobalValiable = new globalValiable();
+  // // global setting
+  // const GlobalValiable = new globalValiable();
 
-  // json setting
-  GlobalValiable.setJSONFile(path, fileName);
+  // // json setting
+  // GlobalValiable.setJSONFile(path, fileName);
 
-  // video data setting
-  const videos = openJSONFileContent.videos;
-  GlobalValiable.setVideoData(videos);
+  // // video data setting
+  // const videos = openJSONFileContent.videos;
+  // GlobalValiable.setVideoData(videos);
 
-  addCompletedVideoTitleTag(videos);
+  // addCompletedVideoTitleTag(videos);
 
   // 빈 파일인 경우
   // 저장된 데이터가 있는 경우

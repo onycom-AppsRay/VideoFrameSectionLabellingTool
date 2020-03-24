@@ -1,33 +1,27 @@
-import Labelling from '../model/laballing';
-import globalValiable from "../model/global_valiable";
-import videoData from "../model/videoData";
+import globalVideoData from "../model/globalVideoData";
+import globalJSONFile from "../model/globalJSONFile";
+import labellingData from "../model/laballingData";
 
 const completeContainer = document.getElementById("complete-container");
 
-/**
- * 최종적으로 JSON 파일에 라벨링 데이터 작성하고, 다음 Video 파일로 이동.
- * 1. JSON 파일에 라벨링 데이터 작성
- *  1) Input 'type', 'start', 'end' (LabellingData)
- * 2. 다음 Video 파일로 이동
- */
 completeContainer.addEventListener("click", (event) => {
-  console.log("complete container");
+  const LabellingData = getTableData();
 
-  // List data insert
-  const labellingData = getTableData();
+  const GlobalVideoData = new globalVideoData();
+  GlobalVideoData.setLabellingDataToFrameList(LabellingData);
 
-  // Validate
 
-  // file write
+  const GlobalJSONFile = new globalJSONFile();
 
-  // data setting
-  const VideoData = new videoData("sample.mp4", new Date(), new Array(100).fill(0));
-  VideoData.setFrameList(labellingData);
+  if(GlobalJSONFile.PATH == "" || GlobalJSONFile.NAME == "") {
+    // json file 이 없으면 잠시 보류 했다가, write
+    alert("Select or create a JSON file before saving.");
+  } else {
+    // json file 이 있으면 write
+    console.log("get json and save");
+  }
 
-  console.log(VideoData.getFrameList());
-  // file create
-
-  // Next video
+  console.log(GlobalJSONFile);
 });
 
 const getTableData = () => {
@@ -41,7 +35,7 @@ const getTableData = () => {
     const cells = row.cells;
     const cellLength = cells.length;
 
-    const LabellingData = new Labelling();
+    const LabellingData = new labellingData();
 
     /**
      * 1.type / 2.start / 3.end

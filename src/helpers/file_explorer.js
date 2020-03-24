@@ -1,9 +1,9 @@
 import dirTree from "directory-tree";
 
-const getFileList = (path) => {
+const getFileList = (dirPath) => {
   let result = [];
 
-  dirTree(path, { extensions: /\.(mp4|mov)$/ }, (item) => {
+  dirTree(dirPath, { extensions: /\.(mp4|mov)$/ }, (item) => {
     if (validateFile(item)) {
       result.push(item);
     } else {

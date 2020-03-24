@@ -19,7 +19,11 @@ global.sharedObject = {
     PATH: "",
     NAME: "",
   },
-  VIDEO_DATA: [],
+  VIDEO_DATA: {
+    PATH: "",
+    TITLE: "",
+    FRAME_LIST: []
+  },
   FRAME: {
     LENGTH: 0,
     AT: 0,
