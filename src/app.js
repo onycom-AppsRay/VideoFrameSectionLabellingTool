@@ -41,6 +41,12 @@ const osMap = {
   linux: "Linux"
 };
 
+(() => {
+  console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE));
+  console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA));
+  console.log("FRAME \n", JSON.stringify(remote.getGlobal("sharedObject").FRAME));
+})();
+
 document.querySelector("#app").style.display = "block";
 document.querySelector("#os").innerHTML = osMap[process.platform];
 document.querySelector("#author").innerHTML = manifest.author;

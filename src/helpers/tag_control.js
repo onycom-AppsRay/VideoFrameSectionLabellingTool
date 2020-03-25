@@ -1,22 +1,29 @@
-/**
- * @param {*} element, "video-files" document
- */
 const initialize = (element) => {
-  while(element.hasChildNodes()) {
+  while (element.hasChildNodes()) {
     element.removeChild(element.firstChild);
   }
 }
 
-const createNameTag = (className, name, data) => {
-  const span = document.createElement("span");
-  span.setAttribute("class", className);
-  span.setAttribute("data-info", data);
-  span.innerHTML = name;
+const createNameTag = (tagName, className, classId, datasetPath, datasetTitle, innerText) => {
+  const element = document.createElement(tagName);
 
-  return span;
+  element.className = className;
+  element.id = classId;
+  element.dataset.path = datasetPath;
+  element.dataset.title = datasetTitle;
+  element.textContent = innerText;
+
+  return element;
+}
+
+const addEvent = (element, eventName, eventMethod, propagation = false) => {
+  element.addEventListener(eventName, (event) => {
+    eventMethod(event.target);
+  }, propagation);
 }
 
 export default {
   initialize,
-  createNameTag
+  createNameTag,
+  addEvent
 }

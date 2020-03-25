@@ -35,7 +35,7 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
     GlobalJSONFile.setPATH(path);
     GlobalJSONFile.setNAME(fileName);
 
-    addCompletedVideoTitleTag(JSONFile.videos);
+    showFileList(JSONFile.videos);
 
     jsonControl.markingDirectoryVideoFile(videoFilesContainer, jsonFileContainer);
   } else {
@@ -44,14 +44,14 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
   }
 })
 
-// TODO(yhpakr): 'Show file list' 코드 합치기
-const addCompletedVideoTitleTag = (videos) => {
+const showFileList = (videos) => {
   videos.forEach((video) => {
-    const nameTag = tagControl.createNameTag("completed-video-title", video.title, "");
-    const br = document.createElement("br");
+    const videoTitle = video.title;
 
-    document.getElementById("json-file-container").appendChild(br);
-    document.getElementById("json-file-container").appendChild(nameTag);
+    const videoTitleTag = tagControl.createNameTag("span","completed-video-title", "", "", videoTitle, videoTitle);
+
+    jsonFileContainer.appendChild(videoTitleTag);
+    jsonFileContainer.appendChild(document.createElement("br"));
   })
 }
 
