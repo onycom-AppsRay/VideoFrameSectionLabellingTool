@@ -1,27 +1,37 @@
 import globalVideoData from "../model/globalVideoData";
 import globalJSONFile from "../model/globalJSONFile";
 import labellingData from "../model/laballingData";
+import videoData from "../model/videoData";
+
+import jsonControl from "../helpers/json_control";
 
 const completeContainer = document.getElementById("complete-container");
 
 completeContainer.addEventListener("click", (event) => {
-  const LabellingData = getTableData();
-
-  const GlobalVideoData = new globalVideoData();
-  GlobalVideoData.setLabellingDataToFrameList(LabellingData);
-
-
   const GlobalJSONFile = new globalJSONFile();
 
-  if(GlobalJSONFile.PATH == "" || GlobalJSONFile.NAME == "") {
-    // json file 이 없으면 잠시 보류 했다가, write
+  const jsonFilePath = GlobalJSONFile.PATH;
+  const jsonFileName = GlobalJSONFile.NAME;
+
+  if(jsonFilePath == "" || jsonFileName == "") {
     alert("Select or create a JSON file before saving.");
   } else {
-    // json file 이 있으면 write
     console.log("get json and save");
-  }
 
-  console.log(GlobalJSONFile);
+    const LabellingData = getTableData();
+
+    const GlobalVideoData = new globalVideoData();
+
+    const videoTitle = GlobalVideoData.TITLE;
+    GlobalVideoData.setLabellingDataToFrameList(LabellingData);
+    const frameList = GlobalVideoData.FRAME_LIST;
+
+    const JSONFile = jsonControl.getJSONFile(jsonFilePath);
+
+    const VideoData = new videoData(videoTitle, new Date(), frameList);
+
+    jsonControl.writeJSONFile(jsonFilePath, JSONFile, VideoData);
+  }
 });
 
 const getTableData = () => {

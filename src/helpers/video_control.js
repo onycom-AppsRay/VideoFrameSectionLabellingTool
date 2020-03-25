@@ -11,9 +11,10 @@ const createSpanTagForVideo = (path, title, index) => {
   const span = document.createElement("span");
 
   span.className = "video-file";
+  span.id = title;
   span.dataset.path = path;
   span.dataset.title = title;
-  span.innerHTML = index + ". " + title;
+  span.innerHTML = title;
 
   span.addEventListener("click", (event) => {
     clickedVideoTitleTag(event.target);
