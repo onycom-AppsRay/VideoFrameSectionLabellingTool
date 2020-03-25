@@ -19,7 +19,7 @@ ipcRenderer.on("selected-directory", (event, pathArr) => {
 
   tagControl.initialize(videoFilesContainer);
 
-  showDirPath(path);
+  showDirectoryName(path);
 
   const fileList = fileExplorer.getFileList(path);
 
@@ -28,17 +28,20 @@ ipcRenderer.on("selected-directory", (event, pathArr) => {
   jsonControl.markingDirectoryVideoFile(videoFilesContainer, jsonFileContainer);
 });
 
-const showDirPath = (path) => {
-  selectDirBtn.innerHTML = path;
+const showDirectoryName = (path) => {
+  const pathList = path.split("/");
+
+  selectDirBtn.innerHTML = pathList[pathList.length - 1];;
 }
 
-// TODO(yhpakr): 'Show file list' 코드 합치기
 const showFileList = (fileList) => {
-  fileList.forEach((fileInfo, index) => {
+  fileList.forEach((fileInfo) => {
     const filePath = fileInfo.path;
     const fileTitle = fileInfo.name;
 
-    const videoTitleTag = videoControl.createSpanTagForVideo(filePath, fileTitle, index);
+    const videoTitleTag = tagControl.createNameTag("span", "video-file", "", filePath, fileTitle, fileTitle);
+
+    tagControl.addEvent(videoTitleTag, "click", videoControl.clickedVideoTitleTag, false);
 
     videoFilesContainer.appendChild(videoTitleTag);
     videoFilesContainer.appendChild(document.createElement("br"));

@@ -7,22 +7,6 @@ const frameListContainer = document.getElementById("frame-list-container");
 const mainViewImage = document.getElementById("main-view-image");
 const progressBarContainer = document.getElementById("progress-bar-container");
 
-const createSpanTagForVideo = (path, title, index) => {
-  const span = document.createElement("span");
-
-  span.className = "video-file";
-  span.id = title;
-  span.dataset.path = path;
-  span.dataset.title = title;
-  span.innerHTML = title;
-
-  span.addEventListener("click", (event) => {
-    clickedVideoTitleTag(event.target);
-  }, false);
-
-  return span;
-}
-
 const clickedVideoTitleTag = element => {
   initializeVideo(mainViewImage, frameListContainer, progressBarContainer);
 
@@ -127,5 +111,5 @@ const captureVideo = (videoElement) => {
 };
 
 export default {
-  createSpanTagForVideo,
+  clickedVideoTitleTag
 }
