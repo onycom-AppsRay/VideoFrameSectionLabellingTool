@@ -12,6 +12,4 @@ Thumbs.db
 /app/**/*.map
 
 /src/test.js
-test.json
-3_23_2020.json
-sample.json
+/mock

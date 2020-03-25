@@ -1,57 +1,38 @@
-import Labelling from '../model/laballing';
-import GlobalValiable from "../model/global_valiable";
+import globalVideoData from "../model/globalVideoData";
+import globalJSONFile from "../model/globalJSONFile";
+import labellingData from "../model/laballingData";
 import videoData from "../model/videoData";
+
+import jsonControl from "../helpers/json_control";
 
 const completeContainer = document.getElementById("complete-container");
 
 completeContainer.addEventListener("click", (event) => {
-  console.log("complete container");
+  const GlobalJSONFile = new globalJSONFile();
 
-  // List data insert
-  const labellingData = getTableData();
+  const jsonFilePath = GlobalJSONFile.PATH;
+  const jsonFileName = GlobalJSONFile.NAME;
 
-  // Validate
+  if(jsonFilePath == "" || jsonFileName == "") {
+    alert("Select or create a JSON file before saving.");
+  } else {
+    console.log("get json and save");
 
-  // file write
-  const Global = new GlobalValiable();
-  const gFrame = Global.FRAME;
-  const gFrameLength = gFrame.LENGTH;
+    const LabellingData = getTableData();
 
-  const gJSONFile = Global.JSON_FILE;
-  const globalJSONName = gJSONFile.NAME;
+    const GlobalVideoData = new globalVideoData();
 
-  console.log("gFrame: ", gFrame);
-  console.log("gJSONFile: ", gJSONFile);
+    const videoTitle = GlobalVideoData.TITLE;
+    GlobalVideoData.setLabellingDataToFrameList(LabellingData);
+    const frameList = GlobalVideoData.FRAME_LIST;
 
-  const VideoData = new videoData(globalJSONName, new Date(), new Array(100).fill(0));
+    const JSONFile = jsonControl.getJSONFile(jsonFilePath);
 
-  labellingData.forEach((value) => {
-    const type = value.type;
-    const start = value.start;
-    const end = value.end;
+    const VideoData = new videoData(videoTitle, new Date(), frameList);
 
-    switch(type) {
-      case "A":
-        VideoData.setFrameList(0, start, end);
-        break;
-      case "B":
-        VideoData.setFrameList(1, start, end);
-        break;
-      case "c":
-        VideoData.setFrameList(2, start, end);
-        break;
-    };
-  });
-
-  console.log(VideoData.getFrameList());
-  // file create
-
-  // Next video
+    jsonControl.writeJSONFile(jsonFilePath, JSONFile, VideoData);
+  }
 });
-
-const setLabellingData = (labellingDataList) => {
-
-}
 
 const getTableData = () => {
   const table = document.getElementById("result-list");
@@ -64,7 +45,7 @@ const getTableData = () => {
     const cells = row.cells;
     const cellLength = cells.length;
 
-    const LabellingData = new Labelling();
+    const LabellingData = new labellingData();
 
     /**
      * 1.type / 2.start / 3.end

@@ -1,15 +1,57 @@
-import tagControl from "./tag_control.js";
+import tagControl from "./tag_control";
+import imageControl from "./image_control";
+
+import globalVideoData from "../model/globalVideoData";
 
 const frameListContainer = document.getElementById("frame-list-container");
 const mainViewImage = document.getElementById("main-view-image");
+const progressBarContainer = document.getElementById("progress-bar-container");
 
-const initialize = () => {
-  tagControl.initialize(frameListContainer);
-  mainViewImage.src = "";
+const createSpanTagForVideo = (path, title, index) => {
+  const span = document.createElement("span");
+
+  span.className = "video-file";
+  span.id = title;
+  span.dataset.path = path;
+  span.dataset.title = title;
+  span.innerHTML = title;
+
+  span.addEventListener("click", (event) => {
+    clickedVideoTitleTag(event.target);
+  }, false);
+
+  return span;
+}
+
+const clickedVideoTitleTag = element => {
+  initializeVideo(mainViewImage, frameListContainer, progressBarContainer);
+
+  console.log("Play");
+
+  const videoFilePath = element.dataset.path;
+  const videoFileTitle = element.dataset.title;
+
+  const GlobalVideoData = new globalVideoData();
+  GlobalVideoData.setPATH(videoFilePath);
+  GlobalVideoData.setTITLE(videoFileTitle);
+
+  const video = createVideoTag(videoFilePath, 5);
+
+  playVideo(video, 5, GlobalVideoData);
+
+  // TODO(yhpark):  Rendering next video
+}
+
+const initializeVideo = (mainView, frameList, progressBar) => {
+  tagControl.initialize(frameList);
+
+  mainView.src = "";
+  progressBar.hidden = false;
 }
 
 const createVideoTag = (path, playbackRate) => {
   const video = document.createElement("video");
+
   video.style.width = "100%";
   video.style.height = "100%";
   video.src = path;
@@ -19,8 +61,7 @@ const createVideoTag = (path, playbackRate) => {
   return video;
 }
 
-// Note, callback
-const playVideo = (videoElement, fps, callback1, callback2) => {
+const playVideo = (videoElement, fps, GlobalVideoData) => {
   videoElement.play()
     .then(() => {
       let captureArr = [];
@@ -30,7 +71,10 @@ const playVideo = (videoElement, fps, callback1, callback2) => {
         if (videoElement.ended) {
           console.log("Finish video rendering");
 
-          return callback1(captureArr); // escape condition
+          showFrameList(captureArr);
+          GlobalVideoData.setFRAME_LIST(captureArr.length);
+
+          return;
         } else {
           const imageData = captureVideo(videoElement);
           captureArr.push(imageData);
@@ -38,7 +82,8 @@ const playVideo = (videoElement, fps, callback1, callback2) => {
 
         setTimeout(() => {
           loop();
-          callback2(index++, videoElement.ended);
+
+          showProgress(index++, videoElement.ended);
         }, 1000 / Number.parseInt(fps));
       })();
     })
@@ -47,13 +92,33 @@ const playVideo = (videoElement, fps, callback1, callback2) => {
     });
 }
 
-// image?
+const showFrameList = imageDataList => {
+  const width = "100%";
+  const height = "";
+
+  imageDataList.forEach((imageData, index) => {
+    const dataURL = imageControl.imageDataToImage(imageData, 0.1);
+
+    imageControl.setImage(dataURL, index, width, height);
+  });
+}
+
+const showProgress = (rate, flag) => {
+  if (flag) {
+    document.getElementById("progress-bar-container").hidden = true;
+  } else {
+    document.getElementById("progress-bar").style.width = `${rate}%`;
+  }
+}
+
 const captureVideo = (videoElement) => {
   const canvas = document.createElement("canvas");
+
   canvas.width = videoElement.videoWidth;
   canvas.height = videoElement.videoHeight;
 
   const ctx = canvas.getContext("2d");
+
   ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
   const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -62,7 +127,5 @@ const captureVideo = (videoElement) => {
 };
 
 export default {
-  initialize,
-  createVideoTag,
-  playVideo
+  createSpanTagForVideo,
 }
