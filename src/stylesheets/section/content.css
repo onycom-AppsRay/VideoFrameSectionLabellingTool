@@ -14,26 +14,25 @@
   padding: 0;
 }
 
-#video-files-container {
-  border-bottom: 1px solid black;
-  padding-left: 0.5vw;
-  padding-right: 0.5vw;
-  overflow: auto;
-  height: 50%;
+.video-counting, .json-counting {
+  height: 3%;
 }
 
-#video-files {
-  height: 100%;
-  /* overflow-x: auto;
-  overflow-y: auto; */
+#video-files-container, #json-file-container {
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  overflow-x: auto;
+  overflow-y: auto;
+  height: 47%;
 }
+
+#video-files-container {
+  border-bottom: 1px solid black;
+}
+
 .video-file:hover {
   color: limegreen;
   cursor: pointer;
-}
-
-#json-file-container {
-  height: 50%;
 }
 
 /* main view */

@@ -12,6 +12,7 @@ const createNameTag = (tagName, className, classId, datasetPath, datasetTitle, i
   element.dataset.path = datasetPath;
   element.dataset.title = datasetTitle;
   element.textContent = innerText;
+  element.style.wordBreak = "keep-all";
 
   return element;
 }

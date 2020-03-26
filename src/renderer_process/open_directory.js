@@ -22,11 +22,19 @@ ipcRenderer.on("selected-directory", (event, pathArr) => {
   showDirectoryName(path);
 
   const fileList = fileExplorer.getFileList(path);
+  const fileCount = fileList.length;
+
+  showTotalVideoCount(fileCount);
 
   showFileList(fileList);
 
+  // TODO(yhpark): Check completed video file
   jsonControl.markingDirectoryVideoFile(videoFilesContainer, jsonFileContainer);
 });
+
+const showTotalVideoCount = (count) => {
+  document.getElementById("total-video-count").innerHTML = count;
+}
 
 const showDirectoryName = (path) => {
   const pathList = path.split("/");
@@ -37,9 +45,9 @@ const showDirectoryName = (path) => {
 const showFileList = (fileList) => {
   fileList.forEach((fileInfo) => {
     const filePath = fileInfo.path;
-    const fileTitle = fileInfo.name;
+    const fileTitle = fileInfo.name.replace(/\ |-|#|&/gi, "");
 
-    const videoTitleTag = tagControl.createNameTag("span", "video-file", "", filePath, fileTitle, fileTitle);
+    const videoTitleTag = tagControl.createNameTag("span", "video-file", fileTitle, filePath, fileTitle, fileTitle);
 
     tagControl.addEvent(videoTitleTag, "click", videoControl.clickedVideoTitleTag, false);
 

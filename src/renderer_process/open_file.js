@@ -37,6 +37,8 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
 
     showFileList(JSONFile.videos);
 
+    showJSONFileVideoDataCount(JSONFile.videos.length);
+
     jsonControl.markingDirectoryVideoFile(videoFilesContainer, jsonFileContainer);
   } else {
     alert("유효하지 않은 JSON 파일 입니다.");
@@ -44,11 +46,15 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
   }
 })
 
+const showJSONFileVideoDataCount = (count) => {
+  document.getElementById("json-file-video-data-count").innerHTML = count;
+}
+
 const showFileList = (videos) => {
   videos.forEach((video) => {
-    const videoTitle = video.title;
+    const videoTitle = video.title.replace(/\ |-|#|&/gi, "");
 
-    const videoTitleTag = tagControl.createNameTag("span","completed-video-title", "", "", videoTitle, videoTitle);
+    const videoTitleTag = tagControl.createNameTag("span","completed-video-title", videoTitle, "", videoTitle, videoTitle);
 
     jsonFileContainer.appendChild(videoTitleTag);
     jsonFileContainer.appendChild(document.createElement("br"));
