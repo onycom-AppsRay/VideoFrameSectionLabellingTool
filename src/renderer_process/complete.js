@@ -5,6 +5,9 @@ import videoData from "../model/videoData";
 
 import jsonControl from "../helpers/json_control";
 
+import openFile from "../renderer_process/open_file";
+import openDirectory from "../renderer_process/open_directory";
+
 const completeContainer = document.getElementById("complete-container");
 
 completeContainer.addEventListener("click", (event) => {
@@ -30,7 +33,13 @@ completeContainer.addEventListener("click", (event) => {
 
     const VideoData = new videoData(videoTitle, new Date(), frameList);
 
-    jsonControl.writeJSONFile(jsonFilePath, JSONFile, VideoData);
+    if(jsonControl.writeJSONFile(jsonFilePath, JSONFile, VideoData)) {
+      openFile.addFileTitleTag(videoTitle);
+      openFile.showJSONFileVideoDataCount(openFile.getJSONFileVideoDataCount() + 1);
+
+      openDirectory.markingVideoTitle(videoTitle);
+      openDirectory.showCompletedVideoCount(openDirectory.getCompletedVideoCount() + 1);
+    }
   }
 });
 
