@@ -2,14 +2,9 @@
   <div class="container" id="content-container">
     <div class="row">
 
-      <div class="col-2" id="files-container">
+      <div class="col-1" id="files-container">
         <div class="video-counting">
-          <span id="completed-video-count">
-            0<!--
-      --></span>/<!--
-       --><span id="total-video-count"><!--
-        -->0
-          </span>
+          <span id="completed-video-count">0</span>/<span id="total-video-count">0</span>
         </div>
         <div id="video-files-container">
         </div>
@@ -20,11 +15,15 @@
         </div>
       </div>
 
-      <div class="col-5" id="main-view-container">
-        <div id="progress-bar-container"></div>
+      <div class="col-8" id="main-view-container">
+        <div id="progress-bar-container" hidden></div>
 
-        <div id="main-view">
-          <img id="main-view-image">
+        <div id="main-view-image-container">
+          <!-- 가로 -->
+          <!-- <img id="main-view-image" src="../resources/images/onycom_ci_basic.png" /> -->
+
+          <!-- 세로 -->
+          <img id="main-view-image" src="../resources/images/onycom_ci_basic_long.png" />
         </div>
 
         <div id="overlay">
@@ -32,7 +31,7 @@
         </div>
       </div>
 
-      <div class="col-2" id="control1-container">
+      <div class="col-1" id="control1-container">
         <div id="frame-list-container"></div>
         <div id="frame-index-container"></div>
         <div id="section-confirm-container">
@@ -40,7 +39,7 @@
         </div>
       </div>
 
-      <div class="col-3" id="control2-container">
+      <div class="col-2" id="control2-container">
         <div id="result-list-container"></div>
         <div id="complete-container">
           <p>
