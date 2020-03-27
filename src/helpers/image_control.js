@@ -1,12 +1,15 @@
 import { remote } from "electron";
+import path from "path";
 
 const frameListContainer = document.getElementById("frame-list-container");
+const mainViewImageContainer = document.getElementById("main-view-image-container");
 const mainViewImage = document.getElementById("main-view-image");
 
 let GLOBAL_FRAME = remote.getGlobal("sharedObject").FRAME;
 
 const imageDataToImage = (imageData, quality) => {
   const canvas = document.createElement("canvas");
+
   canvas.width = imageData.width;
   canvas.height = imageData.height;
   canvas.getContext("2d").putImageData(imageData, 0, 0);
@@ -25,7 +28,7 @@ const setImage = (dataUrl, index, width, height) => {
     const frameIndex = event.target.dataset.index;
 
     // Viewing main
-    setMainViewImage(event.target);
+    setMainViewImage(event.target.src);
 
     // Key board control
     GLOBAL_FRAME["AT"] = frameIndex;
@@ -41,8 +44,8 @@ const setImage = (dataUrl, index, width, height) => {
   frameListContainer.appendChild(image);
 }
 
-const setMainViewImage = (element) => {
-  mainViewImage.src = element.src;
+const setMainViewImage = (src) => {
+  mainViewImage.src = src;
 }
 
 const drawStroked = (ctx, text, x, y) => {
@@ -55,9 +58,34 @@ const drawStroked = (ctx, text, x, y) => {
   ctx.fillText(text, x, y);
 }
 
+const setStyleOfMainViewImage = (isWide) => {
+  mainViewImageContainer.setAttribute("style", `height: ""; left: ""; top: ""; transform: ""`);
+
+  if (isWide) {
+    mainViewImageContainer.setAttribute("style", `top: 50%; transform: translateY(-50%);`);
+
+    mainViewImage.setAttribute("style", `width: 100%; height: auto;`);
+  } else {
+
+    mainViewImageContainer.setAttribute("style", `left: 50%; transform: translateX(-50%); height: 100%`);
+
+    mainViewImage.setAttribute("style", `width: auto; height: 100%;`);
+  }
+}
+
+const setDefaultImage = (isWide) => {
+  if(isWide) {
+    document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
+  } else {
+    document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic_long.png");
+  }
+}
+
 export default {
   imageDataToImage,
   setImage,
   setMainViewImage,
-  drawStroked
+  drawStroked,
+  setStyleOfMainViewImage,
+  setDefaultImage
 }

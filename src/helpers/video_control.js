@@ -21,6 +21,8 @@ const clickedVideoTitleTag = element => {
 
   const video = createVideoTag(videoFilePath, 5);
 
+  isWideVideoFrame(video, imageControl.setStyleOfMainViewImage, imageControl.setDefaultImage);
+
   playVideo(video, 5, GlobalVideoData);
 
   // TODO(yhpark):  Rendering next video
@@ -56,6 +58,7 @@ const playVideo = (videoElement, fps, GlobalVideoData) => {
           console.log("Finish video rendering");
 
           showFrameList(captureArr);
+
           GlobalVideoData.setFRAME_LIST(captureArr.length);
 
           return;
@@ -110,6 +113,20 @@ const captureVideo = (videoElement) => {
   return frame;
 };
 
+const isWideVideoFrame = (videoElement, setStyleOfMainImage, setDefaultImage) => {
+  videoElement.addEventListener("loadedmetadata", (event) => {
+    let result = false;
+
+    if (event.target.videoWidth > event.target.videoHeight) {
+      result = true;
+    }
+
+    setStyleOfMainImage(result);
+    setDefaultImage(result);
+  });
+};
+
 export default {
-  clickedVideoTitleTag
+  clickedVideoTitleTag,
+  isWideVideoFrame
 }

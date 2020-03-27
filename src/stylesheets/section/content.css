@@ -43,15 +43,19 @@
   border-right: 1px solid black;
 }
 
-#main-view {
+/*
+가로, 세로 일 때를 아예 분리 시킨다.
+*/
+
+/* 세로 비디오 일 때, */
+#main-view-image-container {
   position: absolute;
   z-index: 1;
-  height: 100%;
+  padding: 1rem;
 }
 
 #main-view-image {
-  width: 95%;
-  height: 100%;
+  border: 1px solid lime;
 }
 
 #overlay {
