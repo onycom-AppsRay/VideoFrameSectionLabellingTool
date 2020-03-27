@@ -85,23 +85,28 @@
 }
 
 #frame-list-container {
-  border-bottom: 1px solid black;
-  height: 80%;
+  height: 100%;
 }
 
 #frame-index-container {
-  border-bottom: 1px solid black;
   height: 10%;
 }
 
 #section-confirm-container {
-  height: 10%;
-  display: flex;
-  align-items: center;
+  height: 8%;
+  width: 100%;
+  display: table;
+  border-top: 1px solid gray;
 }
 
-#section-confirm-container:hover {
-  background-color: lightblue;
+#section-confirm-container > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#section-confirm {
+  height: 90%;
+  width: 98%;
 }
 
 /* control 2 */
@@ -109,19 +114,37 @@
   padding: 0;
 }
 
+#section-select-criteria {
+  height: 32%;
+  overflow: auto;
+}
+
+#section-select-criteria li {
+  cursor: pointer;
+}
+
+#section-select-criteria li:hover {
+  background-color: crimson;
+}
+
 #result-list-container {
   font-size: 1vw;
-  border-bottom: 1px solid black;
   overflow: auto;
-  height: 80%;
+  height: 42%;
 }
 
 #complete-container {
-  height: 20%;
-  display: flex;
-  align-items: center;
+  height: 8%;
+  width: 100%;
+  display: table;
 }
 
-#complete-container:hover {
-  background-color: crimson;
+#complete-container > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#complete {
+  height: 95%;
+  width: 98%;
 }
