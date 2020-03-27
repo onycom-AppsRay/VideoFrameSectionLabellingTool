@@ -1,9 +1,9 @@
-import { remote } from "electron";
-import imageControl from "../helpers/image_control.js";
-import frameInput from "../helpers/frame_input.js";
+import imageControl from "../helpers/image_control";
+import frameInput from "../helpers/frame_input";
+
+import globalFrame from "../model/globalFrame";
 
 let keyState = {};
-let GLOBAL_FRAME = remote.getGlobal("sharedObject").FRAME;
 
 window.addEventListener('keydown', function (e) {
   keyState[e.keyCode || e.which] = true;
@@ -20,29 +20,39 @@ window.addEventListener('keydown', function (e) {
 }, true);
 
 const frameMove = () => {
+  const GlobalFrame = new globalFrame();
+
   // Arrow up
   if (keyState[38]) {
-    if (GLOBAL_FRAME["AT"] > 0) {
-      const image = document.querySelector(`img[data-index='${--GLOBAL_FRAME["AT"]}'`);
+    if (GlobalFrame.AT > 0) {
+      const nextImgIndex = GlobalFrame.AT - 1;
+
+      const image = document.querySelector(`img[data-index='${nextImgIndex}'`);
 
       image.scrollIntoView();
 
       imageControl.setMainViewImage(image.src);
 
-      frameInput.setFrameIndex(GLOBAL_FRAME["AT"]);
+      frameInput.setFrameIndex(nextImgIndex);
+
+      GlobalFrame.setAT(nextImgIndex)
     }
   }
 
   // Arrow down
   if (keyState[40]) {
-    if (GLOBAL_FRAME["AT"] < (GLOBAL_FRAME["LENGTH"] - 1)) {
-      const image = document.querySelector(`img[data-index='${++GLOBAL_FRAME["AT"]}'`);
+    if (GlobalFrame.AT < (GlobalFrame.LENGTH - 1)) {
+      const nextImgIndex = GlobalFrame.AT + 1;
+
+      const image = document.querySelector(`img[data-index='${nextImgIndex}'`);
 
       image.scrollIntoView();
 
       imageControl.setMainViewImage(image.src);
 
-      frameInput.setFrameIndex(GLOBAL_FRAME["AT"]);
+      frameInput.setFrameIndex(nextImgIndex);
+
+      GlobalFrame.setAT(nextImgIndex)
     }
   }
 

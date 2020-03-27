@@ -1,11 +1,10 @@
-import { remote } from "electron";
 import path from "path";
+
+import globalValiable from "../model/globalFrame";
 
 const frameListContainer = document.getElementById("frame-list-container");
 const mainViewImageContainer = document.getElementById("main-view-image-container");
 const mainViewImage = document.getElementById("main-view-image");
-
-let GLOBAL_FRAME = remote.getGlobal("sharedObject").FRAME;
 
 const imageDataToImage = (imageData, quality) => {
   const canvas = document.createElement("canvas");
@@ -23,6 +22,7 @@ const setImage = (dataUrl, index, width, height) => {
   image.dataset.index = index;
   image.style.width = width;
   image.style.height = height;
+  image.style.border = "0.3rem solid lightgray";
 
   image.addEventListener("click", (event) => {
     const frameIndex = event.target.dataset.index;
@@ -31,7 +31,8 @@ const setImage = (dataUrl, index, width, height) => {
     setMainViewImage(event.target.src);
 
     // Key board control
-    GLOBAL_FRAME["AT"] = frameIndex;
+    const GlobalValiable = new globalValiable();
+    GlobalValiable.setAT(frameIndex);
 
     // Input frame index (start, end)
     const startFrameInput = document.getElementById("start-frame-input");

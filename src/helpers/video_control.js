@@ -2,6 +2,7 @@ import tagControl from "./tag_control";
 import imageControl from "./image_control";
 
 import globalVideoData from "../model/globalVideoData";
+import globalFrame from "../model/globalFrame";
 
 const frameListContainer = document.getElementById("frame-list-container");
 const mainViewImage = document.getElementById("main-view-image");
@@ -19,11 +20,13 @@ const clickedVideoTitleTag = element => {
   GlobalVideoData.setPATH(videoFilePath);
   GlobalVideoData.setTITLE(videoFileTitle);
 
+  const GlobalFrame = new globalFrame();
+
   const video = createVideoTag(videoFilePath, 5);
 
   isWideVideoFrame(video, imageControl.setStyleOfMainViewImage, imageControl.setDefaultImage);
 
-  playVideo(video, 5, GlobalVideoData);
+  playVideo(video, 5, GlobalVideoData.setFRAME_LIST, GlobalFrame.setLENGTH);
 
   // TODO(yhpark):  Rendering next video
 }
@@ -47,7 +50,7 @@ const createVideoTag = (path, playbackRate) => {
   return video;
 }
 
-const playVideo = (videoElement, fps, GlobalVideoData) => {
+const playVideo = (videoElement, fps, GlobalVideoDataSetFrameList, GlobalFrameSetLength) => {
   videoElement.play()
     .then(() => {
       let captureArr = [];
@@ -59,7 +62,8 @@ const playVideo = (videoElement, fps, GlobalVideoData) => {
 
           showFrameList(captureArr);
 
-          GlobalVideoData.setFRAME_LIST(captureArr.length);
+          GlobalVideoDataSetFrameList(captureArr.length);
+          GlobalFrameSetLength(captureArr.length);
 
           return;
         } else {
@@ -128,5 +132,7 @@ const isWideVideoFrame = (videoElement, setStyleOfMainImage, setDefaultImage) =>
 
 export default {
   clickedVideoTitleTag,
-  isWideVideoFrame
+  isWideVideoFrame,
+  createVideoTag,
+  playVideo
 }
