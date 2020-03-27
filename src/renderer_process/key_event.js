@@ -27,7 +27,7 @@ const frameMove = () => {
 
       image.scrollIntoView();
 
-      imageControl.setMainViewImage(image);
+      imageControl.setMainViewImage(image.src);
 
       frameInput.setFrameIndex(GLOBAL_FRAME["AT"]);
     }
@@ -40,7 +40,7 @@ const frameMove = () => {
 
       image.scrollIntoView();
 
-      imageControl.setMainViewImage(image);
+      imageControl.setMainViewImage(image.src);
 
       frameInput.setFrameIndex(GLOBAL_FRAME["AT"]);
     }

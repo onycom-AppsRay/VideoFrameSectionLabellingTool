@@ -27,6 +27,7 @@ import "./test";
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
 import env from "env";
+import path from "path";
 
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
@@ -51,5 +52,8 @@ document.querySelector("#app").style.display = "block";
 document.querySelector("#os").innerHTML = osMap[process.platform];
 document.querySelector("#author").innerHTML = manifest.author;
 document.querySelector("#env").innerHTML = env.name;
-document.querySelector("#electron-version").innerHTML =
-  process.versions.electron;
+document.querySelector("#electron-version").innerHTML = process.versions.electron;
+
+document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%)")
+document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
+document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");
