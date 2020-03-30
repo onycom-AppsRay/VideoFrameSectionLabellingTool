@@ -11,16 +11,16 @@
 }
 
 #start-frame-input, #end-frame-input {
-  font-size: 1vw;
   height: 100%;
   width: 100%;
   text-align: center;
 }
 
-#start-frame-input {
-
+#start-frame-input-container, #end-frame-input-container {
+  max-width: 100%;
+  height: 100%;
 }
 
-#end-frame-input {
-
+#start-frame-input-container div, #end-frame-input-container div {
+  padding: 0%;
 }

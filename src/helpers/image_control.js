@@ -38,7 +38,13 @@ const setImage = (dataUrl, index, width, height) => {
     const startFrameInput = document.getElementById("start-frame-input");
     const endFrameInput = document.getElementById("end-frame-input");
 
-    startFrameInput.setAttribute("value", frameIndex);
+    if (startFrameInput.hasAttribute("autofocus")) {
+      startFrameInput.innerHTML = frameIndex;
+    }
+
+    if (endFrameInput.hasAttribute("autofocus")) {
+      endFrameInput.innerHTML = frameIndex;
+    }
 
   }, false);
 
@@ -75,7 +81,7 @@ const setStyleOfMainViewImage = (isWide) => {
 }
 
 const setDefaultImage = (isWide) => {
-  if(isWide) {
+  if (isWide) {
     document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
   } else {
     document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic_long.png");

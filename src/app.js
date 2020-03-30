@@ -17,6 +17,7 @@ import "./renderer_process/create_json.js";
 import "./renderer_process/key_event.js";
 import "./renderer_process/confirm_section.js";
 import "./renderer_process/complete.js";
+import "./renderer_process/create_criteria.js";
 
 import "./test";
 
@@ -46,6 +47,7 @@ const osMap = {
   console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE));
   console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA));
   console.log("FRAME \n", JSON.stringify(remote.getGlobal("sharedObject").FRAME));
+  console.log("CRITERIA \n", JSON.stringify(remote.getGlobal("sharedObject").CRITERIA));
 })();
 
 document.querySelector("#app").style.display = "block";
@@ -54,6 +56,23 @@ document.querySelector("#author").innerHTML = manifest.author;
 document.querySelector("#env").innerHTML = env.name;
 document.querySelector("#electron-version").innerHTML = process.versions.electron;
 
+// main view init
 document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%)")
 document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
 document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");
+
+// criteria init
+remote.getGlobal("sharedObject").CRITERIA.forEach((value, index) => {
+  const criteria = value.replace(/\ /, "&nbsp;");
+
+  const li = document.createElement("li");
+  li.className = "list-group-item";
+  li.innerHTML = [
+    `<div class="custom-control custom-radio">`,
+    `<input type="radio" id="customRadio${index}" name="customRadio" class="custom-control-input">`,
+    `<label class="custom-control-label" for="customRadio${index}">${criteria}</label>`,
+    `</div>`
+  ].join("");
+
+  document.querySelector("#criteria-list").appendChild(li);
+})
