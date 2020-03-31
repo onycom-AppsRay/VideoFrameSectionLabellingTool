@@ -1,7 +1,7 @@
 const setFrameIndex = (index) => {
   const focusPosition = (document.getElementById("start-frame-input").hasAttribute("autofocus") ? "start-frame-input" : "end-frame-input");
 
-  document.getElementById(focusPosition).setAttribute("value", index);
+  document.getElementById(focusPosition).innerHTML = index;
 }
 
 const convertInputFocus = () => {

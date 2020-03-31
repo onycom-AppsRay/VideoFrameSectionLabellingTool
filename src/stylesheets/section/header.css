@@ -28,7 +28,11 @@
   word-break: break-all;
 }
 
-#open-directory, #open-json, #create-json {
+#tutorial-container, #open-directory-container, #open-file-container, #create-file-container {
+  border-right: 1px solid black;
+}
+
+#open-directory, #open-json, #create-criteria, #create-json {
   font-size: 1.2vw;
   cursor: pointer;
 }

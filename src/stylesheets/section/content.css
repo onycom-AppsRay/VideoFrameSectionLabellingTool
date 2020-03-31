@@ -37,17 +37,14 @@
 
 /* main view */
 #main-view-container {
+  height: 100%;
+  width: 100%;
   padding: 0;
   background-color: black;
   color: white;
   border-right: 1px solid black;
 }
 
-/*
-가로, 세로 일 때를 아예 분리 시킨다.
-*/
-
-/* 세로 비디오 일 때, */
 #main-view-image-container {
   position: absolute;
   z-index: 1;
@@ -88,23 +85,28 @@
 }
 
 #frame-list-container {
-  border-bottom: 1px solid black;
-  height: 80%;
+  height: 100%;
 }
 
 #frame-index-container {
-  border-bottom: 1px solid black;
   height: 10%;
 }
 
 #section-confirm-container {
-  height: 10%;
-  display: flex;
-  align-items: center;
+  height: 8%;
+  width: 100%;
+  display: table;
+  border-top: 1px solid gray;
 }
 
-#section-confirm-container:hover {
-  background-color: lightblue;
+#section-confirm-container > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#section-confirm {
+  height: 90%;
+  width: 98%;
 }
 
 /* control 2 */
@@ -112,19 +114,43 @@
   padding: 0;
 }
 
+#criteria-container {
+  height: 32%;
+  overflow: auto;
+}
+
+#criteria-list {
+  text-align: left;
+}
+
+#criteria-list li:hover {
+  background-color: crimson;
+  color: white;
+}
+
+#criteria-list label {
+  cursor: pointer;
+}
+
 #result-list-container {
   font-size: 1vw;
-  border-bottom: 1px solid black;
   overflow: auto;
-  height: 80%;
+  height: 42%;
 }
 
 #complete-container {
-  height: 20%;
-  display: flex;
-  align-items: center;
+  height: 8%;
+  width: 100%;
+  display: table;
+  border-top: 1px solid gray;
 }
 
-#complete-container:hover {
-  background-color: crimson;
+#complete-container > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#complete {
+  height: 95%;
+  width: 98%;
 }

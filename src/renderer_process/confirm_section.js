@@ -2,8 +2,8 @@ const sectionConfirmContainer = document.getElementById("section-confirm-contain
 
 sectionConfirmContainer.addEventListener("click", (event) => {
   const criteria = document.querySelector(`input[name="criteria"]:checked`).value;
-  const startFrameIndex = document.getElementById("start-frame-input").value;
-  const endFrameIndex = document.getElementById("end-frame-input").value;
+  const startFrameIndex = document.getElementById("start-frame-input").innerHTML;
+  const endFrameIndex = document.getElementById("end-frame-input").innerHTML;
 
   const message =
     `Confirm with \n` +

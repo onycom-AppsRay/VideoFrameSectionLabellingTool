@@ -16,31 +16,42 @@
       </div>
 
       <div class="col-8" id="main-view-container">
-        <div id="progress-bar-container"></div>
+        <div id="progress-bar-container" hidden></div>
 
         <div id="main-view-image-container">
           <img id="main-view-image" src="" alt="onycom"/>
         </div>
 
+        <!--
         <div id="overlay">
           <div id="section-selection-criteria-container"></div>
         </div>
+        -->
       </div>
 
       <div class="col-1" id="control1-container">
         <div id="frame-list-container"></div>
-        <div id="frame-index-container"></div>
-        <div id="section-confirm-container">
-          <p>PUSH</p>
-        </div>
       </div>
 
       <div class="col-2" id="control2-container">
+        <div id="frame-index-container"></div>
+
+        <div id="criteria-container">
+          <ul id="criteria-list" class="list-group list-group-flush"></ul>
+        </div>
+
+        <div id="section-confirm-container">
+          <div>
+            <button id="section-confirm" type="button" class="btn btn-lg btn-outline-success">PUSH</button>
+          </div>
+        </div>
+
         <div id="result-list-container"></div>
+
         <div id="complete-container">
-          <p>
-            WRITE FILE<br>&<br>NEXT VIDEO FILE LOAD
-          </p>
+          <div>
+            <button id="complete" type="button" class="btn btn-lg btn-outline-danger">COMPLETE</button>
+          </div>
         </div>
       </div>
     </div>

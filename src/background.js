@@ -28,6 +28,7 @@ global.sharedObject = {
     LENGTH: 0,
     AT: 0,
   },
+  CRITERIA: ["TEST"]
 }
 
 const setApplicationMenu = () => {
@@ -46,10 +47,12 @@ if (env.name !== "production") {
   app.setPath("userData", `${userDataPath} (${env.name})`);
 }
 
+let mainWindow;
+
 app.on("ready", () => {
   setApplicationMenu();
 
-  const mainWindow = createWindow("main", {
+  mainWindow = createWindow("main", {
     width: 1000,
     height: 600
   });
@@ -100,3 +103,7 @@ ipcMain.on("open-json-directory-dialog", (event) => {
     }
   });
 });
+
+ipcMain.on('reply', (event, message) => {
+	mainWindow.webContents.send('messageFromMain', message);
+})
