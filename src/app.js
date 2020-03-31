@@ -69,8 +69,8 @@ remote.getGlobal("sharedObject").CRITERIA.forEach((value, index) => {
   li.className = "list-group-item";
   li.innerHTML = [
     `<div class="custom-control custom-radio">`,
-    `<input type="radio" id="customRadio${index}" name="customRadio" class="custom-control-input">`,
-    `<label class="custom-control-label" for="customRadio${index}">${criteria}</label>`,
+    `<input type="radio" id="creteria${index}" name="creteria" class="custom-control-input">`,
+    `<label class="custom-control-label" for="creteria${index}">${criteria}</label>`,
     `</div>`
   ].join("");
 

@@ -1,9 +1,12 @@
 const sectionConfirmContainer = document.getElementById("section-confirm-container");
 
 sectionConfirmContainer.addEventListener("click", (event) => {
-  const criteria = document.querySelector(`input[name="criteria"]:checked`).value;
   const startFrameIndex = document.getElementById("start-frame-input").innerHTML;
   const endFrameIndex = document.getElementById("end-frame-input").innerHTML;
+  const creteriaList = document.getElementsByName("creteria");
+
+  const criteriaTag = checkCriteria(creteriaList);
+  const criteria = criteriaTag.dataset.type;
 
   const message =
     `Confirm with \n` +
@@ -54,4 +57,19 @@ const pushSectionValueTableRow = (sectionType, startFrameIndex, endFrameIndex) =
   }, false)
 
   tbody.appendChild(row);
+}
+
+const checkCriteria = (creteriaList) => {
+  const arr = Array.prototype.slice.call(creteriaList);
+  let result;
+
+  arr.some((criteria) => {
+    if(criteria.checked == true) {
+      result = criteria;
+
+      return true;
+    }
+  })
+
+  return result;
 }
