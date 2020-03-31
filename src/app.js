@@ -44,10 +44,10 @@ const osMap = {
 };
 
 (() => {
-  console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE));
-  console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA));
-  console.log("FRAME \n", JSON.stringify(remote.getGlobal("sharedObject").FRAME));
-  console.log("CRITERIA \n", JSON.stringify(remote.getGlobal("sharedObject").CRITERIA));
+  console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE, " ", 2));
+  console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA, " ", 2));
+  console.log("FRAME \n", JSON.stringify(remote.getGlobal("sharedObject").FRAME, " ", 2));
+  console.log("CRITERIA \n", JSON.stringify(remote.getGlobal("sharedObject").CRITERIA, " ", 2));
 })();
 
 document.querySelector("#app").style.display = "block";
