@@ -41,6 +41,9 @@ const frameMove = () => {
 
   // Arrow down
   if (keyState[40]) {
+    const startFrameInput = document.getElementById("start-frame-input");
+    const startIndex = startFrameInput.innerHTML;
+
     if (GlobalFrame.AT < (GlobalFrame.LENGTH - 1)) {
       const nextImgIndex = GlobalFrame.AT + 1;
 

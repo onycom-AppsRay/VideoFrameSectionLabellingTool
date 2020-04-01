@@ -1,19 +1,33 @@
-const sectionConfirmContainer = document.getElementById("section-confirm-container");
+const sectionConfirm = document.getElementById("section-confirm");
 
-sectionConfirmContainer.addEventListener("click", (event) => {
-  const criteria = document.querySelector(`input[name="criteria"]:checked`).value;
+sectionConfirm.addEventListener("click", (event) => {
   const startFrameIndex = document.getElementById("start-frame-input").innerHTML;
   const endFrameIndex = document.getElementById("end-frame-input").innerHTML;
+  const creteriaList = document.getElementsByName("creteria");
 
-  const message =
-    `Confirm with \n` +
-    `Criteria: ${criteria} / ` +
-    `Start: ${startFrameIndex} / ` +
-    `End: ${endFrameIndex} \n`;
+  if(!hasCriteria(creteriaList)) {
+    alert("라벨링 기준을 입력하세요!");
+    return false;
+  }
 
-  if(!confirm(message)) return;
+  const criteriaTag = checkCriteria(creteriaList);
 
-  if (validateSelectedFrameIndex(startFrameIndex, endFrameIndex)) {
+  if(criteriaTag == undefined) {
+    alert("라벨링 기준을 선택하세요!");
+    return false;
+  }
+
+  if (validateSelectedFrameIndex(startFrameIndex, endFrameIndex, creteriaList.length)) {
+    const criteria = criteriaTag.dataset.type;
+
+    const message =
+      `Confirm with \n` +
+      `Criteria: ${criteria} / ` +
+      `Start: ${startFrameIndex} / ` +
+      `End: ${endFrameIndex} \n`;
+
+    if(!confirm(message)) return;
+
     pushSectionValueTableRow(criteria, startFrameIndex, endFrameIndex);
   }
 
@@ -35,6 +49,14 @@ const validateSelectedFrameIndex = (startFrameIndex, endFrameIndex) => {
   return true;
 }
 
+const hasCriteria = criteriaList => {
+  return (criteriaList.length > 0) ? true : false;
+}
+
+const isCriteria = criteriaList => {
+  return (criteriaList.length > 0) ? true : false;
+}
+
 const pushSectionValueTableRow = (sectionType, startFrameIndex, endFrameIndex) => {
   const tbody = document.querySelector("tbody");
   const rowIndex = (tbody.rows.length + 1);
@@ -54,4 +76,19 @@ const pushSectionValueTableRow = (sectionType, startFrameIndex, endFrameIndex) =
   }, false)
 
   tbody.appendChild(row);
+}
+
+const checkCriteria = (creteriaList) => {
+  const arr = Array.prototype.slice.call(creteriaList);
+  let result;
+
+  arr.some((criteria) => {
+    if(criteria.checked == true) {
+      result = criteria;
+
+      return true;
+    }
+  })
+
+  return result;
 }

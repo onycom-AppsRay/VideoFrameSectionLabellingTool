@@ -26,9 +26,9 @@ global.sharedObject = {
   },
   FRAME: {
     LENGTH: 0,
-    AT: 0,
+    AT: 0
   },
-  CRITERIA: ["TEST"]
+  CRITERIA: []
 }
 
 const setApplicationMenu = () => {

@@ -26,12 +26,14 @@ ipcRenderer.on('messageFromMain', (event, message) => {
   const index = GlobalCriteria.CRITERIA.push(message);
   const criteria = message.replace(/\ /, "&nbsp;");
 
+  const indexing = String.fromCharCode(96 + index).toUpperCase();
+
   const li = document.createElement("li");
   li.className = "list-group-item";
   li.innerHTML = [
     `<div class="custom-control custom-radio">`,
-    `<input type="radio" id="customRadio${index}" name="customRadio" class="custom-control-input">`,
-    `<label class="custom-control-label" for="customRadio${index}">${criteria}</label>`,
+    `<input type="radio" id="creteria-${index}" name="creteria" data-type="${indexing}" class="custom-control-input">`,
+    `<label class="custom-control-label" for="creteria-${index}">${indexing}.&nbsp${criteria}</label>`,
     `</div>`
   ].join("");
 

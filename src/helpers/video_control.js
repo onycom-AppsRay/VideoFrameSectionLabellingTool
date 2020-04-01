@@ -21,6 +21,7 @@ const clickedVideoTitleTag = element => {
   GlobalVideoData.setTITLE(videoFileTitle);
 
   const GlobalFrame = new globalFrame();
+  GlobalFrame.setAT(0);
 
   const video = createVideoTag(videoFilePath, 5);
 
@@ -50,10 +51,11 @@ const createVideoTag = (path, playbackRate) => {
   return video;
 }
 
-const playVideo = (videoElement, fps, GlobalVideoDataSetFrameList, GlobalFrameSetLength) => {
+const playVideo = (videoElement, fps, GlobalVideoDataSetFrameList, GlobalFrameSetLength, GlobalFrameSetList) => {
   videoElement.play()
     .then(() => {
       let captureArr = [];
+      let videoElementArr = [];
       let index = 0;
 
       (function loop() {
@@ -67,14 +69,14 @@ const playVideo = (videoElement, fps, GlobalVideoDataSetFrameList, GlobalFrameSe
 
           return;
         } else {
-          const imageData = captureVideo(videoElement);
+          const imageData = captureVideo(videoElement, index++);
           captureArr.push(imageData);
         }
 
         setTimeout(() => {
           loop();
 
-          showProgress(index++, videoElement.ended);
+          showProgress(index, videoElement.ended);
         }, 1000 / Number.parseInt(fps));
       })();
     })
@@ -85,7 +87,7 @@ const playVideo = (videoElement, fps, GlobalVideoDataSetFrameList, GlobalFrameSe
 
 const showFrameList = imageDataList => {
   const width = "100%";
-  const height = "";
+  const height = "auto";
 
   imageDataList.forEach((imageData, index) => {
     const dataURL = imageControl.imageDataToImage(imageData, 0.1);
@@ -102,7 +104,7 @@ const showProgress = (rate, flag) => {
   }
 }
 
-const captureVideo = (videoElement) => {
+const captureVideo = (videoElement, index) => {
   const canvas = document.createElement("canvas");
 
   canvas.width = videoElement.videoWidth;
@@ -111,6 +113,7 @@ const captureVideo = (videoElement) => {
   const ctx = canvas.getContext("2d");
 
   ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+  imageControl.drawStroked(ctx, index, canvas.width / 2, canvas.height / 2);
 
   const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
