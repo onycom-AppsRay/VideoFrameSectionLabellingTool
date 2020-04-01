@@ -55,4 +55,4 @@ jobs:
           prerelease: true
           title: "Development Build"
           files:
-            LICENSE.txt
+            README.md
