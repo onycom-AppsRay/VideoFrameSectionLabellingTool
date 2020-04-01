@@ -1,15 +1,14 @@
 {
-  "name": "electron-boilerplate",
-  "productName": "Electron Boilerplate",
-  "description": "Starter for your Electron application",
+  "name": "labeller",
+  "productName": "Labeller",
+  "description": "Tool for labeling video segments.",
   "version": "0.0.0",
   "private": true,
-  "author": "Mr. Gumby <mr.gumby@example.com>",
-  "copyright": "© 2017, Gumby inc.",
-  "homepage": "http://example.com",
+  "author": "parkyounghwan <https://github.com/parkyounghwan>",
+  "copyright": "© 2020, parkyounghwan.",
   "main": "app/background.js",
   "build": {
-    "appId": "com.example.electron-boilerplate",
+    "appId": "com.onycom.labelling-tool",
     "files": [
       "app/**/*",
       "node_modules/**/*",

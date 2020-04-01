@@ -8,6 +8,7 @@ module.exports = env => {
       background: "./src/background.js",
       app: "./src/app.js",
       import: "./src/import.js",
+      create_criteria: "./src/renderer_process/window/create_criteria.js"
     },
     output: {
       filename: "[name].js",
