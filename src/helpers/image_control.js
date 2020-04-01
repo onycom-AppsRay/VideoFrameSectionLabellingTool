@@ -11,7 +11,10 @@ const imageDataToImage = (imageData, quality) => {
 
   canvas.width = imageData.width;
   canvas.height = imageData.height;
-  canvas.getContext("2d").putImageData(imageData, 0, 0);
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.putImageData(imageData, 0, 0);
 
   return canvas.toDataURL("image/jpeg", quality);
 }
@@ -33,6 +36,8 @@ const setImage = (dataUrl, index, width, height) => {
     // Key board control
     const GlobalValiable = new globalValiable();
     GlobalValiable.setAT(frameIndex);
+
+    console.log(frameIndex);
 
     // Input frame index (start, end)
     const startFrameInput = document.getElementById("start-frame-input");
@@ -74,7 +79,7 @@ const setStyleOfMainViewImage = (isWide) => {
     mainViewImage.setAttribute("style", `width: 100%; height: auto;`);
   } else {
 
-    mainViewImageContainer.setAttribute("style", `left: 50%; transform: translateX(-50%); height: 100%`);
+    mainViewImageContainer.setAttribute("style", `left: 50%; transform: translateX(-50%); height: 95%`);
 
     mainViewImage.setAttribute("style", `width: auto; height: 100%;`);
   }

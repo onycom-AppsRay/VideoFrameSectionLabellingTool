@@ -1,22 +1,33 @@
-const sectionConfirmContainer = document.getElementById("section-confirm-container");
+const sectionConfirm = document.getElementById("section-confirm");
 
-sectionConfirmContainer.addEventListener("click", (event) => {
+sectionConfirm.addEventListener("click", (event) => {
   const startFrameIndex = document.getElementById("start-frame-input").innerHTML;
   const endFrameIndex = document.getElementById("end-frame-input").innerHTML;
   const creteriaList = document.getElementsByName("creteria");
 
+  if(!hasCriteria(creteriaList)) {
+    alert("라벨링 기준을 입력하세요!");
+    return false;
+  }
+
   const criteriaTag = checkCriteria(creteriaList);
-  const criteria = criteriaTag.dataset.type;
 
-  const message =
-    `Confirm with \n` +
-    `Criteria: ${criteria} / ` +
-    `Start: ${startFrameIndex} / ` +
-    `End: ${endFrameIndex} \n`;
+  if(criteriaTag == undefined) {
+    alert("라벨링 기준을 선택하세요!");
+    return false;
+  }
 
-  if(!confirm(message)) return;
+  if (validateSelectedFrameIndex(startFrameIndex, endFrameIndex, creteriaList.length)) {
+    const criteria = criteriaTag.dataset.type;
 
-  if (validateSelectedFrameIndex(startFrameIndex, endFrameIndex)) {
+    const message =
+      `Confirm with \n` +
+      `Criteria: ${criteria} / ` +
+      `Start: ${startFrameIndex} / ` +
+      `End: ${endFrameIndex} \n`;
+
+    if(!confirm(message)) return;
+
     pushSectionValueTableRow(criteria, startFrameIndex, endFrameIndex);
   }
 
@@ -36,6 +47,14 @@ const validateSelectedFrameIndex = (startFrameIndex, endFrameIndex) => {
 
   // 3. reduplicate(overlap)
   return true;
+}
+
+const hasCriteria = criteriaList => {
+  return (criteriaList.length > 0) ? true : false;
+}
+
+const isCriteria = criteriaList => {
+  return (criteriaList.length > 0) ? true : false;
 }
 
 const pushSectionValueTableRow = (sectionType, startFrameIndex, endFrameIndex) => {

@@ -4,6 +4,7 @@ export default class {
   constructor() {
     this.LENGTH = remote.getGlobal("sharedObject").FRAME.LENGTH;
     this.AT = remote.getGlobal("sharedObject").FRAME.AT;
+    this.LIST = remote.getGlobal("sharedObject").FRAME.LIST;
   }
 
   setLENGTH(length){
@@ -12,5 +13,9 @@ export default class {
 
   setAT(at){
     remote.getGlobal("sharedObject").FRAME.AT = Number.parseInt(at);
+  }
+
+  setLIST(frameList){
+    remote.getGlobal("sharedObject").FRAME.LIST = Array.prototype.slice.call(frameList);
   }
 }
