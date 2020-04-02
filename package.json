@@ -1,6 +1,6 @@
 {
-  "name": "labeller",
-  "productName": "Labeller",
+  "name": "labeler",
+  "productName": "Labeler",
   "description": "Tool for labeling video segments.",
   "version": "0.0.0",
   "private": true,
