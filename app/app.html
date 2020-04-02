@@ -13,6 +13,7 @@
   <link rel="import" href="./section/header.html">
   <link rel="import" href="./section/content.html">
   <link rel="import" href="./section/footer.html">
+  <link rel="import" href="./section/about.html">
   <!-- element -->
   <link rel="import" href="./element/frame_index_container.html">
   <link rel="import" href="./element/result_list_container.html">
@@ -20,15 +21,19 @@
 </head>
 
 <body>
-  <header></header>
+  <div class="js-content is-shown">
+    <header></header>
 
-  <main>
-    <div class="content"></div>
-  </main>
+    <main>
+      <div class="content"></div>
+    </main>
 
-  <footer></footer>
-
-  <script src="app.js"></script>
+    <footer></footer>
+  </div>
+  <script>
+    require('./app.js')
+    require('./nav.js')
+  </script>
 </body>
 
 </html>

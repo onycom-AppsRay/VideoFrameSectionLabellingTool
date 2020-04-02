@@ -17,6 +17,10 @@ const section = async () => {
     if (link.href.match("footer.html")) {
       document.querySelector("footer").appendChild(clone)
     }
+
+    if (link.href.match("about.html")) {
+      document.querySelector("body").appendChild(clone)
+    }
   })
 };
 
