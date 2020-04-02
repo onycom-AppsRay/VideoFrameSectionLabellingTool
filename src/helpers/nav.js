@@ -22,7 +22,6 @@ function hideAllModals() {
   Array.prototype.forEach.call(modals, (modal) => {
     modal.classList.remove('is-shown')
   })
-  // showMainContent()
 }
 
 showMainContent()
