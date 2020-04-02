@@ -81,64 +81,47 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/renderer_process/window/create_criteria.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/helpers/nav.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/renderer_process/window/create_criteria.js":
-/*!********************************************************!*\
-  !*** ./src/renderer_process/window/create_criteria.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-ipcRenderer = __webpack_require__(/*! electron */ "electron").ipcRenderer;
-const sendMessageButton = document.getElementById('save');
-let mainCriteria;
-ipcRenderer.on('message', (event, message) => {
-  mainCriteria = message;
-});
-sendMessageButton.addEventListener("click", event => {
-  const input = document.getElementById("inputCriteria");
-  const userInputCriteria = input.value;
-  let result = true;
-
-  if (userInputCriteria == "") {
-    alert("기준을 입력하세요");
-    return;
-  }
-
-  mainCriteria.some(criteria => {
-    if (criteria == userInputCriteria) {
-      result = false;
-      return true;
-    }
-  });
-
-  if (!result) {
-    alert("이미 겹치는 기준이 있습니다.");
-    return;
-  } else {
-    if (confirm("저장 하시겠습니까?")) {
-      ipcRenderer.send('reply', input.value);
-      window.close();
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "electron":
-/*!***************************!*\
-  !*** external "electron" ***!
-  \***************************/
+/***/ "./src/helpers/nav.js":
+/*!****************************!*\
+  !*** ./src/helpers/nav.js ***!
+  \****************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("electron");
+document.body.addEventListener('click', event => {
+  if (event.target.dataset.modal) {
+    handleModalTrigger(event);
+  } else if (event.target.classList.contains('modal-hide')) {
+    showMainContent();
+  }
+});
+
+function showMainContent() {
+  document.querySelector("#about-modal").classList.remove("is-shown");
+  document.querySelector('.js-content').classList.add('is-shown');
+}
+
+function handleModalTrigger(event) {
+  hideAllModals();
+  const modalId = `${event.target.dataset.modal}-modal`;
+  document.getElementById(modalId).classList.add('is-shown');
+}
+
+function hideAllModals() {
+  const modals = document.querySelectorAll('.js-content.is-shown');
+  Array.prototype.forEach.call(modals, modal => {
+    modal.classList.remove('is-shown');
+  }); // showMainContent()
+}
+
+showMainContent();
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=create_criteria.js.map
+//# sourceMappingURL=nav.js.map

@@ -5,6 +5,7 @@ import "./stylesheets/main.css";
 import "./stylesheets/section/header.css";
 import "./stylesheets/section/content.css";
 import "./stylesheets/section/footer.css";
+import "./stylesheets/section/about.css";
 import "./stylesheets/element/frame_index_container.css";
 
 // Small helpers you might want to keep
