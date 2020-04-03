@@ -21,6 +21,10 @@ const section = async () => {
     if (link.href.match("about.html")) {
       document.querySelector("body").appendChild(clone)
     }
+
+    if (link.href.match("criteria.html")) {
+      document.querySelector("#criteria-container").appendChild(clone)
+    }
   })
 };
 

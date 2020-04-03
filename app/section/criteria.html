@@ -1,0 +1,21 @@
+<template class="task-template">
+  <div id="criteria-modal" class="criteria">
+    <label for="inputCriteria">Criteria</label>
+    <input type="criteria" class="form-control" id="inputCriteria" aria-describedby="criteriaHelp" value=""
+      placeholder="Input criteria">
+    <small id="criteriaHelp" class="form-text text-muted">Add criteria for labbelling.</small>
+
+    <br>
+
+    <button id="criteria-insert" class="btn btn-primary btn-sm">Submit</button>
+    <ul id="criteria-temp-list" class="list-group-flush">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="badge badge-warning badge-pill">type</span>
+        <span>criteria</span>
+      </li>
+    </ul>
+
+    <button id="criteria-insert-success" class="btn btn-link criteria-button modal-hide">apply</button>
+    <button id="criteria-insert-back" class="btn btn-link criteria-button modal-hide">back</button>
+  </div>
+</template>
