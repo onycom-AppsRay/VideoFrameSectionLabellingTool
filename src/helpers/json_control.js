@@ -16,7 +16,12 @@ const getJSONFile = (path) => {
     return;
   };
 
-  return new jsonFile(jsonContent);
+  return new jsonFile()
+    .setName(content.name)
+    .setCreateAt(content.createAt)
+    .setCount(content.count)
+    .setCriteria(content.criteria)
+    .setVideos(content.videos);
 }
 
 const writeJSONFile = (path, jsonFile, videoData) => {

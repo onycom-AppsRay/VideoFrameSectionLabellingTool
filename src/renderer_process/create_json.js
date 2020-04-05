@@ -26,11 +26,18 @@ ipcRenderer.on("selected-json-directory", (event, pathArr) => {
   GLOBAL_JSON_FILE.PATH = path;
   GLOBAL_JSON_FILE.NAME = fileName;
 
-  const json = new JSONFile(fileName, new Date().toLocaleString(), 0, {}, []);
+  const json = new JSONFile();
+  json.setName(fileName)
+    .setCreateAt(new Date().toLocaleString())
+    .setCount(0)
+    .setCriteria([])
+    .setVideos([]);
 
   fs.writeFile(path + "/" + fileName, JSON.stringify(json, " ", 2), (err) => {
     if (err) throw err;
     alert(`The JSON file was created in path ${path}`);
+
+    console.log(json);
   });
 });
 

@@ -1,5 +1,7 @@
 import globalVideoData from "../model/globalVideoData";
 import globalJSONFile from "../model/globalJSONFile";
+import globalCriteria from "../model/globalCriteria";
+
 import labellingData from "../model/laballingData";
 import videoData from "../model/videoData";
 
@@ -30,6 +32,8 @@ completeContainer.addEventListener("click", (event) => {
     const frameList = GlobalVideoData.FRAME_LIST;
 
     const JSONFile = jsonControl.getJSONFile(jsonFilePath);
+
+    JSONFile.setCriteria = new globalCriteria().CRITERIA;
 
     const VideoData = new videoData(videoTitle, new Date(), frameList);
 

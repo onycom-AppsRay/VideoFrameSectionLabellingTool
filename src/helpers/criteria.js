@@ -1,19 +1,25 @@
+import globalCriteria from "../model/globalCriteria";
+
 const criteriaInsertBtn = document.getElementById("criteria-insert");
 const criteriaInsertSuccessBtn = document.getElementById("criteria-insert-success");
-const criteriaInsertBackBtn = document.getElementById("criteria-insert-back");
 
 let criteriaTempList = [];
 
 criteriaInsertBtn.onclick = () => {
   const criteriaElement = document.createElement("li");
   const criteriaElementId = "criteriaTempElement";
-  const elementLength = countCriteriaList();
+  const elementLength = document.getElementsByName("criteriaTempElement").length;
 
   const text = document.getElementById("inputCriteria").value;
   const type = convertNumberToAlphabet(elementLength);
 
   if (hasEqualCriteria(text)) {
     alert(`There are overlapping criteria.`);
+    return;
+  }
+
+  if (text == "") {
+    alert(`There is no data entered.`);
     return;
   }
 
@@ -30,8 +36,37 @@ criteriaInsertBtn.onclick = () => {
   document.getElementById("criteria-temp-list").appendChild(criteriaElement);
 }
 
-const countCriteriaList = () => {
-  return document.getElementsByName("criteriaTempElement").length;
+criteriaInsertSuccessBtn.onclick = () => {
+  if (criteriaTempList.length == 0) {
+    alert(`criteria is empty`);
+    return;
+  }
+
+  // init
+  document.getElementById("criteria-list").innerHTML = "";
+
+  const GlobalCriteria = new globalCriteria();
+
+  Array.prototype.forEach.call(criteriaTempList, (criteria, index) => {
+    const li = document.createElement("li");
+    const type = convertNumberToAlphabet(index);
+
+    li.className = "list-group-item";
+    li.innerHTML = [
+      `<div class="custom-control custom-radio">`,
+      `<input type="radio" id="creteria-${index}" name="creteria" data-type="${type}" class="custom-control-input">`,
+      `<label class="custom-control-label" for="creteria-${index}">${type}.&nbsp${criteria}</label>`,
+      `</div>`
+    ].join("");
+
+    document.getElementById("criteria-list").appendChild(li);
+
+    GlobalCriteria.CRITERIA.push({
+      "type": type,
+      "text": criteria
+    });
+
+  });
 }
 
 const convertNumberToAlphabet = (number) => {
@@ -48,29 +83,4 @@ const hasEqualCriteria = (text) => {
   });
 
   return result;
-}
-
-criteriaInsertSuccessBtn.onclick = () => {
-  if (criteriaTempList.length == 0) {
-    console.log("criteria is empty");
-    return;
-  }
-
-  // init
-  document.getElementById("criteria-list").innerHTML = "";
-
-  Array.prototype.forEach.call(criteriaTempList, (criteria, index) => {
-    const li = document.createElement("li");
-    const type = convertNumberToAlphabet(index);
-
-    li.className = "list-group-item";
-    li.innerHTML = [
-      `<div class="custom-control custom-radio">`,
-      `<input type="radio" id="creteria-${index}" name="creteria" data-type="${type}" class="custom-control-input">`,
-      `<label class="custom-control-label" for="creteria-${index}">${type}.&nbsp${criteria}</label>`,
-      `</div>`
-    ].join("");
-
-    document.getElementById("criteria-list").appendChild(li);
-  });
 }
