@@ -12,7 +12,7 @@ const getJSONFile = (path) => {
     return;
   };
 
-  if (!validation.validationValue(jsonContent)) {
+  if (!validation.checkJSONValueType(jsonContent)) {
     return;
   };
 

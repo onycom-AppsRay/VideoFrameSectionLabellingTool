@@ -10,7 +10,7 @@ const isValidJSON = (json) => {
   }
 }
 
-const validationValue = (json) => {
+const checkJSONValueType = (json) => {
   if (!validator.isString(json.name)) {
     return false;
   }
@@ -36,5 +36,5 @@ const validationValue = (json) => {
 
 export default {
   isValidJSON,
-  validationValue
+  checkJSONValueType
 }

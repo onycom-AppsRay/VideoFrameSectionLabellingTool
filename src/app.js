@@ -50,6 +50,9 @@ const osMap = {
   console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA, " ", 2));
   console.log("FRAME \n", JSON.stringify(remote.getGlobal("sharedObject").FRAME, " ", 2));
   console.log("CRITERIA \n", JSON.stringify(remote.getGlobal("sharedObject").CRITERIA, " ", 2));
+
+  remote.getGlobal("sharedObject").JSON_FILE.PATH = "";
+  remote.getGlobal("sharedObject").JSON_FILE.NAME = "";
 })();
 
 document.querySelector("#app").style.display = "block";

@@ -18,27 +18,14 @@
   background-color: lightgray;
 }
 
-#open-directory-container, #create-file-container {
+#open-directory-container, #create-file-container, #open-file-container, #create-criteria-container {
   padding: 0;
 }
 
-#open-directory, #create-json {
+#open-directory, #create-json, #open-json, #create-criteria {
   height: 90%;
   width: 95%;
   font-size: 1vw;
-}
-
-#open-file-container:hover {
-  background-color: yellow;
-}
-
-#create-criteria-container:hover {
-  background-color: yellowgreen;
-}
-
-#tutorial-container, #open-directory-container, #open-file-container, #create-file-container {
-  border-right: 1px solid black;
-  word-break: break-all;
 }
 
 #tutorial-container, #open-directory-container, #open-file-container, #create-file-container, #tool-prograss {

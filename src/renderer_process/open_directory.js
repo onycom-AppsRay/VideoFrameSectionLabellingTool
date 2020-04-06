@@ -22,6 +22,8 @@ ipcRenderer.on("selected-directory", (event, pathArr) => {
 
   videoFilesContainer.initialize();
 
+  console.log(hasComparisonTarget(DIRECTORY_PATH, JSON_PATH));
+
   const completedVideoFiles = videoFilesContainer.checkCompletedVideoFiles(DIRECTORY_PATH, JSON_PATH);
   const files = fileExplorer.getFileList(path);
 
@@ -29,3 +31,12 @@ ipcRenderer.on("selected-directory", (event, pathArr) => {
 
   selectDirBtn.className = "btn btn-primary";
 });
+
+// TODO(yhpark): hasComparisonTarget
+const hasComparisonTarget = (directoryPath, jsonPath) => {
+  if(!directoryPath || !jsonPath) {
+    return false;
+  } else {
+    return true;
+  }
+}

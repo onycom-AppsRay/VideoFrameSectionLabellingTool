@@ -43,7 +43,7 @@ completeContainer.addEventListener("click", (event) => {
 
     if(jsonControl.isWriteJSONFile(jsonFilePath, JSONFile, VideoData)) {
       openFile.addFileTitleTag(videoTitle);
-      openFile.showJSONFileVideoDataCount(openFile.getJSONFileVideoDataCount() + 1);
+      document.getElementById("json-file-video-data-count").innerHTML = (document.getElementById("json-file-video-data-count").innerHTML + 1);
 
       openDirectory.markingVideoTitle(videoTitle);
       openDirectory.showCompletedVideoCount(openDirectory.document.getElementById("completed-video-count").innerHTML + 1);
