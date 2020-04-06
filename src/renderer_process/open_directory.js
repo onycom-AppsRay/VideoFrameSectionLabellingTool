@@ -7,7 +7,6 @@ import fileExplorer from "../helpers/file_explorer";
 import globalJSONFile from "../model/global/globalJSONFile";
 
 const SELECT_DIR_BTN = document.getElementById("open-directory");
-const JSON_PATH = new globalJSONFile().PATH;
 
 SELECT_DIR_BTN.addEventListener("click", (event) => {
   ipcRenderer.send('open-directory-dialog');
@@ -21,6 +20,8 @@ ipcRenderer.on("selected-directory", (event, pathArr) => {
   remote.getGlobal("sharedObject").DIRECTORY.PATH = directoryPath;
 
   videoFilesContainer.initialize();
+
+  const JSON_PATH = new globalJSONFile().PATH;
 
   const completedVideoFiles = videoFilesContainer.checkCompletedVideoFiles(directoryPath, JSON_PATH);
   const videoFiles = fileExplorer.getFileList(directoryPath);

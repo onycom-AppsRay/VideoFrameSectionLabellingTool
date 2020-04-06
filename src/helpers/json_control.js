@@ -6,14 +6,15 @@ import validation from "../helpers/validation";
 
 const getJSONFile = (path) => {
   const content = fs.readFileSync(path);
-  const jsonContent = JSON.parse(content);
 
   if (!validation.isValidJSON(content)) {
-    return;
+    return false;
   };
 
+  const jsonContent = JSON.parse(content);
+
   if (!validation.checkJSONValueType(jsonContent)) {
-    return;
+    return false;
   };
 
   return new jsonFile()

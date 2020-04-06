@@ -48,6 +48,7 @@ const osMap = {
 (() => {
   remote.getGlobal("sharedObject").JSON_FILE.PATH = "";
   remote.getGlobal("sharedObject").JSON_FILE.NAME = "";
+  remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
 
   console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE, " ", 2));
   console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA, " ", 2));

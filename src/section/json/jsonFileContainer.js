@@ -23,7 +23,7 @@ const showVideoFiles = (json) => {
     jsonFileContainer.appendChild(document.createElement("br"));
   })
 
-  showJSONVideoFilesCount(videos.length);
+  showJSONVideoFilesCount(videos);
 }
 
 const showJSONVideoFilesCount = (fileList) => {

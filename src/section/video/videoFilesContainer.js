@@ -8,7 +8,7 @@ const initialize = () => {
   tagControl.initialize(videoFilesContainer);
 }
 
-const showVideoFiles = (videoFiles, completedVideoFiles) => {
+const showVideoFiles = (videoFiles, completedVideoFiles = []) => {
   const videoFilesContainer = document.getElementById("video-files-container");
 
   Array.prototype.forEach.call(videoFiles, (fileInfo) => {
@@ -27,6 +27,7 @@ const showVideoFiles = (videoFiles, completedVideoFiles) => {
     videoFilesContainer.appendChild(document.createElement("br"));
   })
 
+  showDirectoryVideoFilesCount(videoFiles);
   markCompletedVideoFiles(completedVideoFiles);
 }
 
@@ -49,7 +50,6 @@ const checkCompletedVideoFiles = (directoryPath, jsonFilePath) => {
     })
 
     showCompletedVideoFilesCount(result);
-    showDirectoryVideoFilesCount(videoFiles);
   }
 
   return result;
