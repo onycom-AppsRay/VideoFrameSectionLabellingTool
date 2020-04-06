@@ -1,7 +1,22 @@
 export default class {
-  constructor(title, createAt, frameList) {
+  constructor() {
+    this.title = "";
+    this.createAt = new Object();
+    this.frameList = [];
+  }
+
+  setTitle(title) {
     this.title = title;
-    this.createAt = createAt;
+    return this;
+  }
+
+  setCreateAt() {
+    this.createAt = new Date().toLocaleDateString();
+    return this;
+  }
+
+  setFrameList(frameList) {
     this.frameList = frameList;
+    return this;
   }
 }

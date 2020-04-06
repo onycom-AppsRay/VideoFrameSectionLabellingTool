@@ -1,7 +1,6 @@
 import { ipcRenderer } from "electron";
 
 import fileExplorer from "../helpers/file_explorer";
-import videoControl from "../helpers/video_control";
 import tagControl from "../helpers/tag_control";
 import jsonControl from "../helpers/json_control";
 
@@ -14,14 +13,14 @@ const completedVideoCount = document.getElementById("completed-video-count");
 
 selectDirBtn.addEventListener("click", (event) => {
   ipcRenderer.send('open-directory-dialog');
+
+  selectDirBtn.className = "btn btn-outline-primary";
 });
 
 ipcRenderer.on("selected-directory", (event, pathArr) => {
   const path = pathArr[0];
 
   tagControl.initialize(videoFilesContainer);
-
-  showDirectoryName(path);
 
   const fileList = fileExplorer.getFileList(path);
 
@@ -30,6 +29,8 @@ ipcRenderer.on("selected-directory", (event, pathArr) => {
   showFileList(fileList);
 
   markingDirectoryVideoFile(videoFilesContainer, jsonFileContainer);
+
+  selectDirBtn.className = "btn btn-primary";
 });
 
 const markingDirectoryVideoFile = (videoFilesContainer, jsonFileContainer) => {
@@ -65,22 +66,20 @@ const getCompletedVideoCount = () => {
   return Number.parseInt(completedVideoCount.innerHTML);
 }
 
-const showDirectoryName = (path) => {
-  const pathList = path.split("/");
-
-  selectDirBtn.innerHTML = pathList[pathList.length - 1];;
-}
-
 const showFileList = (fileList) => {
   fileList.forEach((fileInfo) => {
     const filePath = fileInfo.path;
     const fileTitle = fileInfo.name.replace(/\ |-|#|&/gi, "");
 
-    const videoTitleTag = tagControl.createNameTag("span", "video-file", fileTitle, filePath, fileTitle, fileTitle);
+    const span = document.createElement("span");
+    span.className = "video-file";
+    span.id = fileTitle;
+    span.dataset.path = filePath;
+    span.dataset.title = fileTitle;
+    span.innerText = fileTitle;
+    span.style.wordBreak = "keep-all";
 
-    tagControl.addEvent(videoTitleTag, "click", videoControl.clickedVideoTitleTag, false);
-
-    videoFilesContainer.appendChild(videoTitleTag);
+    videoFilesContainer.appendChild(span);
     videoFilesContainer.appendChild(document.createElement("br"));
   })
 }

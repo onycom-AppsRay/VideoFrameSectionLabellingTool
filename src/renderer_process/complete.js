@@ -26,6 +26,7 @@ completeContainer.addEventListener("click", (event) => {
     const LabellingData = getTableData();
 
     const GlobalVideoData = new globalVideoData();
+    const GlobalCriteria = new globalCriteria();
 
     const videoTitle = GlobalVideoData.TITLE;
     GlobalVideoData.setLabellingDataToFrameList(LabellingData);
@@ -33,11 +34,14 @@ completeContainer.addEventListener("click", (event) => {
 
     const JSONFile = jsonControl.getJSONFile(jsonFilePath);
 
-    JSONFile.setCriteria = new globalCriteria().CRITERIA;
+    JSONFile.setCriteria(GlobalCriteria.CRITERIA);
 
-    const VideoData = new videoData(videoTitle, new Date(), frameList);
+    const VideoData = new videoData();
+    VideoData.setTitle(videoTitle)
+      .setCreateAt()
+      .setFrameList(frameList);
 
-    if(jsonControl.writeJSONFile(jsonFilePath, JSONFile, VideoData)) {
+    if(jsonControl.isWriteJSONFile(jsonFilePath, JSONFile, VideoData)) {
       openFile.addFileTitleTag(videoTitle);
       openFile.showJSONFileVideoDataCount(openFile.getJSONFileVideoDataCount() + 1);
 

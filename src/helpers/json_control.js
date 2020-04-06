@@ -17,14 +17,14 @@ const getJSONFile = (path) => {
   };
 
   return new jsonFile()
-    .setName(content.name)
-    .setCreateAt(content.createAt)
-    .setCount(content.count)
-    .setCriteria(content.criteria)
-    .setVideos(content.videos);
+    .setName(jsonContent.name)
+    .setCreateAt(jsonContent.createAt)
+    .setCount(jsonContent.count)
+    .setCriteria(jsonContent.criteria)
+    .setVideos(jsonContent.videos);
 }
 
-const writeJSONFile = (path, jsonFile, videoData) => {
+const isWriteJSONFile = (path, jsonFile, videoData) => {
   const videoDataList = jsonFile.videos;
 
   if (hasVideoData(videoDataList, videoData)) {
@@ -74,6 +74,6 @@ const matchingVideoTitle = (directoryVideos, jsonVideos) => {
 
 export default {
   getJSONFile,
-  writeJSONFile,
+  isWriteJSONFile,
   matchingVideoTitle,
 }

@@ -29,7 +29,12 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
   selectJsonBtn.innerHTML = `${fileName}`;
 
   const openJSONFileContent = readJSONFile(path);
-  const JSONFile = new jsonFile(openJSONFileContent);
+  const JSONFile = new jsonFile();
+  JSONFile.setName(openJSONFileContent.name)
+    .setCreateAt(openJSONFileContent.createAt)
+    .setCount(openJSONFileContent.count)
+    .setCriteria(openJSONFileContent.criteria)
+    .setVideos(openJSONFileContent.videos);
 
   if (validation.validationValue(openJSONFileContent)) {
     alert("유효한 JSON 파일 입니다.");

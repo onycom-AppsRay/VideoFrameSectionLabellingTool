@@ -12,27 +12,42 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: underline;
 }
 
-#header-container > .row > div:hover {
-  background-color: orange;
+#tutorial-container:hover {
+  background-color: lightgray;
 }
 
-#tutorial-container {
-  border-right: 1px solid black;
+#open-directory-container {
+  padding: 0;
 }
 
-#open-directory-container, #open-file-container {
-  border-right: 1px solid black;
-  word-break: break-all;
+#open-directory {
+  height: 90%;
+  width: 95%;
+}
+
+#create-file-container:hover {
+  background-color: darkorange;
+}
+
+#open-file-container:hover {
+  background-color: yellow;
+}
+
+#create-criteria-container:hover {
+  background-color: yellowgreen;
 }
 
 #tutorial-container, #open-directory-container, #open-file-container, #create-file-container {
   border-right: 1px solid black;
+  word-break: break-all;
+}
+
+#tutorial-container, #open-directory-container, #open-file-container, #create-file-container, #tool-prograss {
+  border-right: 1px solid black;
 }
 
 #open-directory, #open-json, #create-criteria, #create-json {
-  font-size: 1.2vw;
   cursor: pointer;
 }

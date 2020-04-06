@@ -14,6 +14,9 @@ import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
 import "./helpers/criteria.js";
 
+import "./event/file/videoFileEvent.js";
+import "./section/video/mainViewContainer.js";
+
 import "./renderer_process/open_directory.js";
 import "./renderer_process/open_file.js";
 import "./renderer_process/create_json.js";
@@ -62,17 +65,17 @@ document.querySelector("#main-view-image").src = path.join("file://", __dirname,
 document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");
 
 // criteria init
-remote.getGlobal("sharedObject").CRITERIA.forEach((value, index) => {
-  const criteria = value.replace(/\ /, "&nbsp;");
+// remote.getGlobal("sharedObject").CRITERIA.forEach((value, index) => {
+//   const criteria = value.replace(/\ /, "&nbsp;");
 
-  const li = document.createElement("li");
-  li.className = "list-group-item";
-  li.innerHTML = [
-    `<div class="custom-control custom-radio">`,
-    `<input type="radio" id="creteria${index}" name="creteria" class="custom-control-input">`,
-    `<label class="custom-control-label" for="creteria${index}">${criteria}</label>`,
-    `</div>`
-  ].join("");
+//   const li = document.createElement("li");
+//   li.className = "list-group-item";
+//   li.innerHTML = [
+//     `<div class="custom-control custom-radio">`,
+//     `<input type="radio" id="creteria${index}" name="creteria" class="custom-control-input">`,
+//     `<label class="custom-control-label" for="creteria${index}">${criteria}</label>`,
+//     `</div>`
+//   ].join("");
 
-  document.querySelector("#criteria-list").appendChild(li);
-})
+//   document.querySelector("#criteria-list").appendChild(li);
+// })

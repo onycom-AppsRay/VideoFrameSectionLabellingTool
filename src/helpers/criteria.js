@@ -46,6 +46,7 @@ criteriaInsertSuccessBtn.onclick = () => {
   document.getElementById("criteria-list").innerHTML = "";
 
   const GlobalCriteria = new globalCriteria();
+  let tempCriteriaList = [];
 
   Array.prototype.forEach.call(criteriaTempList, (criteria, index) => {
     const li = document.createElement("li");
@@ -61,12 +62,13 @@ criteriaInsertSuccessBtn.onclick = () => {
 
     document.getElementById("criteria-list").appendChild(li);
 
-    GlobalCriteria.CRITERIA.push({
+    tempCriteriaList.push({
       "type": type,
       "text": criteria
     });
-
   });
+
+  // GlobalCriteria.setCriteria(tempCriteriaList);
 }
 
 const convertNumberToAlphabet = (number) => {
