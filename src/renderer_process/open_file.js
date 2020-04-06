@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron";
 import fs from "fs";
 
-import globalJSONFile from "../model/globalJSONFile";
+import globalJSONFile from "../model/global/globalJSONFile";
 import jsonFile from "../model/jsonFile";
 
 import tagControl from "../helpers/tag_control";
@@ -22,6 +22,7 @@ selectJsonBtn.addEventListener("click", (event) => {
 
 ipcRenderer.on("selected-file", (event, pathArr) => {
   const path = pathArr[0];
+
   const fileName = getFileName(path);
 
   tagControl.initialize(jsonFileContainer);
@@ -68,7 +69,7 @@ const markingDirectoryVideoFile = (videoFilesContainer, jsonFileContainer) => {
     openDirectory.markingVideoTitle(videoTitle);
   })
 
-  openDirectory.showCompletedVideoCount(matchedVideoList.length);
+  // openDirectory.showCompletedVideoCount(matchedVideoList.length);
 }
 
 const showJSONFileVideoDataCount = (count) => {

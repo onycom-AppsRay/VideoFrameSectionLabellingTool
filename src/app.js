@@ -15,7 +15,6 @@ import "./helpers/external_links.js";
 import "./helpers/criteria.js";
 
 import "./event/file/videoFileEvent.js";
-import "./section/video/mainViewContainer.js";
 
 import "./renderer_process/open_directory.js";
 import "./renderer_process/open_file.js";

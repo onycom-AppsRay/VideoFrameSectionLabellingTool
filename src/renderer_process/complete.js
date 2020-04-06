@@ -1,6 +1,6 @@
-import globalVideoData from "../model/globalVideoData";
-import globalJSONFile from "../model/globalJSONFile";
-import globalCriteria from "../model/globalCriteria";
+import globalVideoData from "../model/global/globalVideoData";
+import globalJSONFile from "../model/global/globalJSONFile";
+import globalCriteria from "../model/global/globalCriteria";
 
 import labellingData from "../model/laballingData";
 import videoData from "../model/videoData";
@@ -46,7 +46,7 @@ completeContainer.addEventListener("click", (event) => {
       openFile.showJSONFileVideoDataCount(openFile.getJSONFileVideoDataCount() + 1);
 
       openDirectory.markingVideoTitle(videoTitle);
-      openDirectory.showCompletedVideoCount(openDirectory.getCompletedVideoCount() + 1);
+      openDirectory.showCompletedVideoCount(openDirectory.document.getElementById("completed-video-count").innerHTML + 1);
     }
   }
 });

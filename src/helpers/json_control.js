@@ -24,6 +24,15 @@ const getJSONFile = (path) => {
     .setVideos(jsonContent.videos);
 }
 
+const writeJSONFile = (path, content) => {
+  fs.writeFile(path, JSON.stringify(content, " ", 2), err => {
+    if (err) throw err;
+    else {
+      alert(`The JSON file was created in path \n\n '${path}'`);
+    }
+  });
+}
+
 const isWriteJSONFile = (path, jsonFile, videoData) => {
   const videoDataList = jsonFile.videos;
 
@@ -72,8 +81,31 @@ const matchingVideoTitle = (directoryVideos, jsonVideos) => {
   return matchedVideoList;
 };
 
+const createFileNameWithCurrentTime = () => {
+  return new Date(Date.now()).toLocaleDateString().replace(/\//gi, "_").concat(`.json`);
+}
+
+const hasJSONFile = (path, fileName) => {
+  let flag = true;
+
+  const dirList = fs.readdirSync(path);
+
+  dirList.some((file) => {
+    if(file == fileName) {
+      flag = false;
+
+      return;
+    }
+  })
+
+  return flag;
+}
+
 export default {
   getJSONFile,
+  writeJSONFile,
   isWriteJSONFile,
   matchingVideoTitle,
+  createFileNameWithCurrentTime,
+  hasJSONFile
 }

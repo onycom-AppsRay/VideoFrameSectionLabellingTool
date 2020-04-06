@@ -1,6 +1,6 @@
 import path from "path";
 
-import globalValiable from "../model/globalFrame";
+import globalValiable from "../model/global/globalFrame";
 
 const frameListContainer = document.getElementById("frame-list-container");
 const mainViewImageContainer = document.getElementById("main-view-image-container");

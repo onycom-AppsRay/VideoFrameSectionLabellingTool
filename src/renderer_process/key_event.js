@@ -1,7 +1,7 @@
 import imageControl from "../helpers/image_control";
 import frameInput from "../helpers/frame_input";
 
-import globalFrame from "../model/globalFrame";
+import globalFrame from "../model/global/globalFrame";
 
 let keyState = {};
 

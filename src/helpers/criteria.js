@@ -1,4 +1,4 @@
-import globalCriteria from "../model/globalCriteria";
+import globalCriteria from "../model/global/globalCriteria";
 
 const criteriaInsertBtn = document.getElementById("criteria-insert");
 const criteriaInsertSuccessBtn = document.getElementById("criteria-insert-success");

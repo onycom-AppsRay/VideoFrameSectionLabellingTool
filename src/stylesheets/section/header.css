@@ -18,17 +18,14 @@
   background-color: lightgray;
 }
 
-#open-directory-container {
+#open-directory-container, #create-file-container {
   padding: 0;
 }
 
-#open-directory {
+#open-directory, #create-json {
   height: 90%;
   width: 95%;
-}
-
-#create-file-container:hover {
-  background-color: darkorange;
+  font-size: 1vw;
 }
 
 #open-file-container:hover {
@@ -46,8 +43,4 @@
 
 #tutorial-container, #open-directory-container, #open-file-container, #create-file-container, #tool-prograss {
   border-right: 1px solid black;
-}
-
-#open-directory, #open-json, #create-criteria, #create-json {
-  cursor: pointer;
 }

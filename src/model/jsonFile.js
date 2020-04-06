@@ -1,7 +1,7 @@
 export default class {
   constructor() {
     this.name = "";
-    this.createAt = new Object();
+    this.createAt = new Date().toLocaleString();
     this.count = 0;
     this.criteria = [];
     this.videos = [];
@@ -29,6 +29,10 @@ export default class {
 
   setVideos(videos) {
     this.videos = videos;
+    return this;
+  }
+
+  makeJSON() {
     return this;
   }
 }
