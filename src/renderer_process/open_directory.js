@@ -4,39 +4,28 @@ import videoFilesContainer from "../section/video/videoFilesContainer";
 
 import fileExplorer from "../helpers/file_explorer";
 
-const selectDirBtn = document.getElementById("open-directory");
+import globalJSONFile from "../model/global/globalJSONFile";
 
-const JSON_PATH = remote.getGlobal("sharedObject").JSON_FILE.PATH;
-const DIRECTORY_PATH = remote.getGlobal("sharedObject").DIRECTORY.PATH;
+const SELECT_DIR_BTN = document.getElementById("open-directory");
+const JSON_PATH = new globalJSONFile().PATH;
 
-selectDirBtn.addEventListener("click", (event) => {
+SELECT_DIR_BTN.addEventListener("click", (event) => {
   ipcRenderer.send('open-directory-dialog');
 
-  selectDirBtn.className = "btn btn-outline-primary";
+  SELECT_DIR_BTN.className = "btn btn-outline-primary";
 });
 
 ipcRenderer.on("selected-directory", (event, pathArr) => {
-  const path = pathArr[0];
+  const directoryPath = pathArr[0];
 
-  remote.getGlobal("sharedObject").DIRECTORY.PATH = path;
+  remote.getGlobal("sharedObject").DIRECTORY.PATH = directoryPath;
 
   videoFilesContainer.initialize();
 
-  console.log(hasComparisonTarget(DIRECTORY_PATH, JSON_PATH));
+  const completedVideoFiles = videoFilesContainer.checkCompletedVideoFiles(directoryPath, JSON_PATH);
+  const videoFiles = fileExplorer.getFileList(directoryPath);
 
-  const completedVideoFiles = videoFilesContainer.checkCompletedVideoFiles(DIRECTORY_PATH, JSON_PATH);
-  const files = fileExplorer.getFileList(path);
+  videoFilesContainer.showVideoFiles(videoFiles, completedVideoFiles);
 
-  videoFilesContainer.showVideoFiles(files, completedVideoFiles);
-
-  selectDirBtn.className = "btn btn-primary";
+  SELECT_DIR_BTN.className = "btn btn-primary";
 });
-
-// TODO(yhpark): hasComparisonTarget
-const hasComparisonTarget = (directoryPath, jsonPath) => {
-  if(!directoryPath || !jsonPath) {
-    return false;
-  } else {
-    return true;
-  }
-}

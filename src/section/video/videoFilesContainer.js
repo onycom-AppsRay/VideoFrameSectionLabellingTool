@@ -8,10 +8,10 @@ const initialize = () => {
   tagControl.initialize(videoFilesContainer);
 }
 
-const showVideoFiles = (files, completedVideoFiles) => {
+const showVideoFiles = (videoFiles, completedVideoFiles) => {
   const videoFilesContainer = document.getElementById("video-files-container");
 
-  Array.prototype.forEach.call(files, (fileInfo) => {
+  Array.prototype.forEach.call(videoFiles, (fileInfo) => {
     const filePath = fileInfo.path;
     const fileTitle = fileInfo.name.replace(/\ |-|#|&/gi, "");
 
@@ -33,19 +33,24 @@ const showVideoFiles = (files, completedVideoFiles) => {
 const checkCompletedVideoFiles = (directoryPath, jsonFilePath) => {
   let result = [];
 
-  const videoFiles = fileExplorer.getFileList(directoryPath);
-  const completedVideoFiles = jsonControl.getJSONFile(jsonFilePath).videos;
+  console.log(directoryPath);
+  console.log(jsonFilePath);
 
-  videoFiles.forEach((video) => {
-    completedVideoFiles.forEach((completedVideoFile) => {
-      if(video.name == completedVideoFile.title) {
-        result.push(video.name);
-      }
+  if(directoryPath && jsonFilePath) {
+    const videoFiles = fileExplorer.getFileList(directoryPath);
+    const completedVideoFiles = jsonControl.getJSONFile(jsonFilePath).videos;
+
+    videoFiles.forEach((video) => {
+      completedVideoFiles.forEach((completedVideoFile) => {
+        if(video.name == completedVideoFile.title) {
+          result.push(video.name);
+        }
+      })
     })
-  })
 
-  showCompletedVideoFilesCount(result);
-  showDirectoryVideoFilesCount(videoFiles);
+    showCompletedVideoFilesCount(result);
+    showDirectoryVideoFilesCount(videoFiles);
+  }
 
   return result;
 }
