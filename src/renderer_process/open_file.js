@@ -2,8 +2,11 @@ import { ipcRenderer, remote } from "electron";
 
 import jsonFileContainer from "../section/json/jsonFileContainer";
 import videoFilesContainer from "../section/video/videoFilesContainer";
+import inputModalContainer from "../section/criteria/inputModalContainer";
+import criteriaContainer from "../section/criteria/criteriaContainer";
 
 import globalJSONFile from "../model/global/globalJSONFile";
+import globalCriteria from "../model/global/globalCriteria";
 
 import validation from "../helpers/validation";
 import jsonControl from "../helpers/json_control";
@@ -24,7 +27,7 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
 
   const json = jsonControl.getJSONFile(jsonPath);
 
-  if(json == false) {
+  if(!json) {
     alert("Not JSON");
     return;
   }
@@ -38,6 +41,7 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
 
     const DIRECTORY_PATH = remote.getGlobal("sharedObject").DIRECTORY.PATH;
 
+    // video
     const completedVideoFiles = videoFilesContainer.checkCompletedVideoFiles(DIRECTORY_PATH, jsonPath);
 
     if(completedVideoFiles.length > 0) {
@@ -46,7 +50,12 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
 
     jsonFileContainer.showVideoFiles(json);
 
-    // TODO(yhpark): Read 'criteria'
+    // criteria
+    const GlobalCriteria = new globalCriteria();
+    GlobalCriteria.setCriteria(json.criteria);
+
+    inputModalContainer.setCriteria();
+    criteriaContainer.setCriteria();
 
     document.getElementById("open-json").className = "btn btn-primary";
 

@@ -25,7 +25,9 @@
 #open-directory, #create-json, #open-json, #create-criteria {
   height: 90%;
   width: 95%;
-  font-size: 1vw;
+  font-size: 0.9vw;
+  /* padding: 0; */
+  line-height: 100%;
 }
 
 #tutorial-container, #open-directory-container, #open-file-container, #create-file-container, #tool-prograss {

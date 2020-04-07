@@ -6,7 +6,11 @@
   display: inline;
 }
 
-#criteria-temp-list {
+#criteria-modal-header {
+  padding: 0;
+}
+
+#criteria-modal-list {
   padding: 0;
 }
 
@@ -18,6 +22,6 @@
   display:none;
 }
 
-#criteria-insert-success {
+#criteria-apply {
   color: seagreen;
 }

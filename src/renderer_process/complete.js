@@ -7,8 +7,7 @@ import videoData from "../model/videoData";
 
 import jsonControl from "../helpers/json_control";
 
-import openFile from "../renderer_process/open_file";
-import openDirectory from "../renderer_process/open_directory";
+// import openDirectory from "../renderer_process/open_directory";
 
 const completeContainer = document.getElementById("complete-container");
 
@@ -42,11 +41,11 @@ completeContainer.addEventListener("click", (event) => {
       .setFrameList(frameList);
 
     if(jsonControl.isWriteJSONFile(jsonFilePath, JSONFile, VideoData)) {
-      openFile.addFileTitleTag(videoTitle);
+      // openFile.addFileTitleTag(videoTitle);
       document.getElementById("json-file-video-data-count").innerHTML = (document.getElementById("json-file-video-data-count").innerHTML + 1);
 
-      openDirectory.markingVideoTitle(videoTitle);
-      openDirectory.showCompletedVideoCount(openDirectory.document.getElementById("completed-video-count").innerHTML + 1);
+      // openDirectory.markingVideoTitle(videoTitle);
+      // openDirectory.showCompletedVideoCount(openDirectory.document.getElementById("completed-video-count").innerHTML + 1);
     }
   }
 });

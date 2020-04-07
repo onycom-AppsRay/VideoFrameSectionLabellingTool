@@ -2,7 +2,22 @@ import { remote } from "electron";
 
 export default class {
   constructor() {
-    this.CRITERIA = remote.getGlobal("sharedObject").CRITERIA;
+    this.type = "";
+    this.text = "";
+  }
+
+  setType(type) {
+    this.type = type;
+    return this;
+  }
+
+  setText(text) {
+    this.text = text;
+    return this;
+  }
+
+  initCriteria() {
+    remote.getGlobal("sharedObject").CRITERIA = [];
   }
 
   getCriteria() {
@@ -10,6 +25,6 @@ export default class {
   }
 
   setCriteria(criteriaList) {
-    remote.getGlobal("sharedObject").CRITERIA = criteriaList;
+    remote.getGlobal("sharedObject").CRITERIA = Array.prototype.concat(remote.getGlobal("sharedObject").CRITERIA, criteriaList);
   }
 }

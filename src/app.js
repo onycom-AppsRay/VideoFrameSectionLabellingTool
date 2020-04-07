@@ -12,9 +12,11 @@ import "./stylesheets/element/frame_index_container.css";
 // Small helpers you might want to keep
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
-import "./helpers/criteria.js";
+// import "./helpers/criteria.js";
 
 import "./event/file/videoFileEvent.js";
+import "./event/criteria/inputFormEvent.js";
+import "./event/criteria/applyEvent.js";
 
 import "./renderer_process/open_directory.js";
 import "./renderer_process/open_file.js";
@@ -49,6 +51,7 @@ const osMap = {
   remote.getGlobal("sharedObject").JSON_FILE.PATH = "";
   remote.getGlobal("sharedObject").JSON_FILE.NAME = "";
   remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
+  remote.getGlobal("sharedObject").CRITERIA = [];
 
   console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE, " ", 2));
   console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA, " ", 2));
@@ -66,19 +69,3 @@ document.querySelector("#electron-version").innerHTML = process.versions.electro
 document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%)")
 document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
 document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");
-
-// criteria init
-// remote.getGlobal("sharedObject").CRITERIA.forEach((value, index) => {
-//   const criteria = value.replace(/\ /, "&nbsp;");
-
-//   const li = document.createElement("li");
-//   li.className = "list-group-item";
-//   li.innerHTML = [
-//     `<div class="custom-control custom-radio">`,
-//     `<input type="radio" id="creteria${index}" name="creteria" class="custom-control-input">`,
-//     `<label class="custom-control-label" for="creteria${index}">${criteria}</label>`,
-//     `</div>`
-//   ].join("");
-
-//   document.querySelector("#criteria-list").appendChild(li);
-// })

@@ -34,9 +34,6 @@ const showVideoFiles = (videoFiles, completedVideoFiles = []) => {
 const checkCompletedVideoFiles = (directoryPath, jsonFilePath) => {
   let result = [];
 
-  console.log(directoryPath);
-  console.log(jsonFilePath);
-
   if(directoryPath && jsonFilePath) {
     const videoFiles = fileExplorer.getFileList(directoryPath);
     const completedVideoFiles = jsonControl.getJSONFile(jsonFilePath).videos;

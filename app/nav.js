@@ -102,7 +102,6 @@ document.body.addEventListener('click', event => {
       });
       const modalId = `${event.target.dataset.modal}-modal`;
       document.getElementById(modalId).classList.add('is-shown');
-      console.log(modalId);
     } else {
       handleModalTrigger(event);
     }
