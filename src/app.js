@@ -12,18 +12,19 @@ import "./stylesheets/element/frame_index_container.css";
 // Small helpers you might want to keep
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
-// import "./helpers/criteria.js";
 
 import "./event/file/videoFileEvent.js";
 import "./event/criteria/inputFormEvent.js";
 import "./event/criteria/applyEvent.js";
+import "./event/json/completeBtnEvent.js";
 
 import "./renderer_process/open_directory.js";
 import "./renderer_process/open_file.js";
 import "./renderer_process/create_json.js";
 import "./renderer_process/key_event.js";
 import "./renderer_process/confirm_section.js";
-import "./renderer_process/complete.js";
+
+import "./test";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
@@ -47,17 +48,17 @@ const osMap = {
   linux: "Linux"
 };
 
-(() => {
-  remote.getGlobal("sharedObject").JSON_FILE.PATH = "";
-  remote.getGlobal("sharedObject").JSON_FILE.NAME = "";
-  remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
-  remote.getGlobal("sharedObject").CRITERIA = [];
+// (() => {
+//   remote.getGlobal("sharedObject").JSON_FILE.PATH = "";
+//   remote.getGlobal("sharedObject").JSON_FILE.NAME = "";
+//   remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
+//   remote.getGlobal("sharedObject").CRITERIA = [];
 
-  console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE, " ", 2));
-  console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA, " ", 2));
-  console.log("FRAME \n", JSON.stringify(remote.getGlobal("sharedObject").FRAME, " ", 2));
-  console.log("CRITERIA \n", JSON.stringify(remote.getGlobal("sharedObject").CRITERIA, " ", 2));
-})();
+//   console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE, " ", 2));
+//   console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA, " ", 2));
+//   console.log("FRAME \n", JSON.stringify(remote.getGlobal("sharedObject").FRAME, " ", 2));
+//   console.log("CRITERIA \n", JSON.stringify(remote.getGlobal("sharedObject").CRITERIA, " ", 2));
+// })();
 
 document.querySelector("#app").style.display = "block";
 document.querySelector("#os").innerHTML = osMap[process.platform];

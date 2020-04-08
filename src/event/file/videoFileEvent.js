@@ -28,6 +28,6 @@ videoFilesContainer.onclick = (event) => {
     mainViewContainer.setMainFrameRate(video);
 
     const fps = 5;
-    videoControl.play(video, fps);
+    videoControl.play(video, fps, GlobalFrame.setLENGTH);
   }
 }

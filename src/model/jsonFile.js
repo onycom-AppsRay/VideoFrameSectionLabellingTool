@@ -28,7 +28,7 @@ export default class {
   }
 
   setVideos(videos) {
-    this.videos = videos;
+    this.videos = Array.prototype.concat(this.videos, videos);
     return this;
   }
 

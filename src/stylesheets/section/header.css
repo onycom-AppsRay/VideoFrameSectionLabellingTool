@@ -14,20 +14,20 @@
   align-items: center;
 }
 
-#tutorial-container:hover {
-  background-color: lightgray;
-}
-
-#open-directory-container, #create-file-container, #open-file-container, #create-criteria-container {
+#tutorial-container, #open-directory-container, #create-file-container, #open-file-container, #create-criteria-container {
   padding: 0;
 }
 
-#open-directory, #create-json, #open-json, #create-criteria {
+#tutorial-container-button, #open-directory, #create-json, #open-json, #create-criteria {
   height: 90%;
   width: 95%;
   font-size: 0.9vw;
-  /* padding: 0; */
-  line-height: 100%;
+  line-height: 110%;
+  font-weight: bolder;
+}
+
+#tutorial-container-button {
+  font-size: large;
 }
 
 #tutorial-container, #open-directory-container, #open-file-container, #create-file-container, #tool-prograss {

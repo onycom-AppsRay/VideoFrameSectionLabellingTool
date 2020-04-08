@@ -14,7 +14,7 @@ const createVideoTag = (path, playbackRate) => {
   return video;
 }
 
-const play = (videoElement, fps) => {
+const play = (videoElement, fps, setFrameLength) => {
   videoElement.play()
     .then(() => {
       let captureArr = [];
@@ -28,7 +28,7 @@ const play = (videoElement, fps) => {
           showFrameList(captureArr);
 
           // GlobalVideoDataSetFrameList(captureArr.length);
-          // GlobalFrameSetLength(captureArr.length);
+          setFrameLength(captureArr.length);
 
           return;
         } else {

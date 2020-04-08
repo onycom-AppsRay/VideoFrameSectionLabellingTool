@@ -39,8 +39,23 @@ const showCriteria = (type, text) => {
   document.getElementById("criteria-list").appendChild(li);
 }
 
+const selectedCriteria = () => {
+  const criteriaList = document.querySelectorAll("#criteria-list > li[name=criteria]");
+
+  let result = "";
+  Array.prototype.some.call(criteriaList, (criteria) => {
+    if(criteria.checked == true) {
+      result = criteria;
+      return true;
+    }
+  })
+
+  return result;
+}
+
 export default {
   initialize,
   setCriteria,
   showCriteria,
+  selectedCriteria
 }

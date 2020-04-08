@@ -1,3 +1,4 @@
+
 document.body.addEventListener('click', (event) => {
   if (event.target.dataset.modal) {
     if(event.target.dataset.modal == "criteria") {
