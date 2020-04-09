@@ -12,27 +12,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: underline;
 }
 
-#header-container > .row > div:hover {
-  background-color: orange;
+#tutorial-container, #open-directory-container, #create-file-container, #open-file-container, #create-criteria-container {
+  padding: 0;
 }
 
-#tutorial-container {
+#tutorial-container-button, #open-directory, #create-json, #open-json, #create-criteria {
+  height: 90%;
+  width: 95%;
+  font-size: 0.9vw;
+  line-height: 110%;
+  font-weight: bolder;
+}
+
+#tutorial-container-button {
+  font-size: large;
+}
+
+#tutorial-container, #open-directory-container, #open-file-container, #create-file-container, #tool-prograss {
   border-right: 1px solid black;
-}
-
-#open-directory-container, #open-file-container {
-  border-right: 1px solid black;
-  word-break: break-all;
-}
-
-#tutorial-container, #open-directory-container, #open-file-container, #create-file-container {
-  border-right: 1px solid black;
-}
-
-#open-directory, #open-json, #create-criteria, #create-json {
-  font-size: 1.2vw;
-  cursor: pointer;
 }

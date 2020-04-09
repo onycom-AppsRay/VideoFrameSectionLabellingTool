@@ -1,23 +1,23 @@
-import imageControl from "../helpers/image_control";
-import frameInput from "../helpers/frame_input";
+import imageControl from "./image_control";
+import frameInput from "./frame_input";
 
-import globalFrame from "../model/globalFrame";
+import globalFrame from "../model/global/globalFrame";
 
 let keyState = {};
 
 window.addEventListener('keydown', function (e) {
   keyState[e.keyCode || e.which] = true;
-}, true);
+}, false);
 
 window.addEventListener('keyup', function (e) {
   keyState[e.keyCode || e.which] = false;
-}, true);
+}, false);
 
 window.addEventListener('keydown', function (e) {
   if(e.keyCode == 13) {
     frameInput.convertInputFocus();
   }
-}, true);
+}, false);
 
 const frameMove = () => {
   const GlobalFrame = new globalFrame();

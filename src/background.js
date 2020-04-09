@@ -15,6 +15,9 @@ import createWindow from "./helpers/window";
 import env from "env";
 
 global.sharedObject = {
+  DIRECTORY: {
+    PATH: "",
+  },
   JSON_FILE: {
     PATH: "",
     NAME: "",

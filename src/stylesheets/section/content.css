@@ -122,16 +122,13 @@
 #criteria-container {
   height: 32%;
   overflow: auto;
-  /* background-color: whitesmoke; */
 }
 
 #criteria-list-container {
-  /* visibility: hidden; */
   display: none;
 }
 
 #criteria-list-container.is-shown {
-  /* visibility: visible; */
   display: inline;
 }
 

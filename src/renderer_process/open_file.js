@@ -1,110 +1,78 @@
-import { ipcRenderer } from "electron";
-import fs from "fs";
+import { ipcRenderer, remote } from "electron";
 
-import globalJSONFile from "../model/globalJSONFile";
-import jsonFile from "../model/jsonFile";
+import jsonFileContainer from "../section/json/jsonFileContainer";
+import videoFilesContainer from "../section/video/videoFilesContainer";
+import inputModalContainer from "../section/criteria/inputModalContainer";
+import criteriaContainer from "../section/criteria/criteriaContainer";
 
-import tagControl from "../helpers/tag_control";
+import globalJSONFile from "../model/global/globalJSONFile";
+import globalCriteria from "../model/global/globalCriteria";
+
 import validation from "../helpers/validation";
 import jsonControl from "../helpers/json_control";
 
-import openDirectory from "../renderer_process/open_directory";
-
 const selectJsonBtn = document.getElementById("open-json");
-const jsonFileContainer = document.getElementById("json-file-container");
-const videoFilesContainer = document.getElementById("video-files-container");
-
-const JSONFileVideoDataCount = document.getElementById("json-file-video-data-count");
 
 selectJsonBtn.addEventListener("click", (event) => {
   ipcRenderer.send("open-file-dialog");
 })
 
 ipcRenderer.on("selected-file", (event, pathArr) => {
-  const path = pathArr[0];
-  const fileName = getFileName(path);
+  const jsonPath = pathArr[0];
+  const fileName = getFileName(jsonPath);
 
-  tagControl.initialize(jsonFileContainer);
+  jsonFileContainer.initialize();
 
-  selectJsonBtn.innerHTML = `${fileName}`;
+  const json = jsonControl.getJSONFile(jsonPath);
 
-  const openJSONFileContent = readJSONFile(path);
-  const JSONFile = new jsonFile(openJSONFileContent);
+  if(!json) {
+    alert("Not JSON");
+    return;
+  }
 
-  if (validation.validationValue(openJSONFileContent)) {
-    alert("유효한 JSON 파일 입니다.");
+  if (validation.checkJSONValueType(json)) {
+    alert("This is a valid JSON file.");
 
     const GlobalJSONFile = new globalJSONFile();
-    GlobalJSONFile.setPATH(path);
+    GlobalJSONFile.setPATH(jsonPath);
     GlobalJSONFile.setNAME(fileName);
 
-    showFileList(JSONFile.videos);
+    const DIRECTORY_PATH = remote.getGlobal("sharedObject").DIRECTORY.PATH;
 
-    showJSONFileVideoDataCount(JSONFile.videos.length);
+    // video
+    const completedVideoFiles = videoFilesContainer.checkCompletedVideoFiles(DIRECTORY_PATH, jsonPath);
 
-    markingDirectoryVideoFile(videoFilesContainer, jsonFileContainer);
+    if(completedVideoFiles.length > 0) {
+      videoFilesContainer.markCompletedVideoFiles(completedVideoFiles);
+    }
+
+    jsonFileContainer.showVideoFiles(json);
+
+    // criteria
+    const GlobalCriteria = new globalCriteria();
+    GlobalCriteria.setCriteria(json.criteria);
+
+    console.log(GlobalCriteria.getCriteria());
+
+    inputModalContainer.initialize();
+    inputModalContainer.setCriteria();
+    criteriaContainer.initialize();
+    criteriaContainer.setCriteria();
+
+    document.getElementById("open-json").className = "btn btn-primary";
+    document.getElementById("create-criteria").className = "btn btn-secondary";
+    document.getElementById("create-criteria").disabled = true;
+    document.getElementById("create-criteria").style.cursor = "Default";
+
+    return;
   } else {
-    alert("유효하지 않은 JSON 파일 입니다.");
+    alert("Invalid JSON file.");
     return;
   }
 })
-
-const markingDirectoryVideoFile = (videoFilesContainer, jsonFileContainer) => {
-  if (!videoFilesContainer.hasChildNodes() || !jsonFileContainer.hasChildNodes()) {
-    return;
-  }
-
-  const dirVideoTitleList = tagControl.getTitlesOfVideoTags(videoFilesContainer);
-  const jsonVideoTitleList = tagControl.getTitlesOfVideoTags(jsonFileContainer);
-
-  const matchedVideoList = jsonControl.matchingVideoTitle(dirVideoTitleList, jsonVideoTitleList);
-
-  matchedVideoList.forEach((videoTitle) => {
-    openDirectory.markingVideoTitle(videoTitle);
-  })
-
-  openDirectory.showCompletedVideoCount(matchedVideoList.length);
-}
-
-const showJSONFileVideoDataCount = (count) => {
-  JSONFileVideoDataCount.innerHTML = count;
-}
-
-const getJSONFileVideoDataCount = () => {
-  return Number.parseInt(JSONFileVideoDataCount.innerHTML);
-}
-
-const showFileList = (videos) => {
-  videos.forEach((video) => {
-    const videoTitle = video.title.replace(/\ |-|#|&/gi, "");
-
-    const videoTitleTag = tagControl.createNameTag("span","completed-video-title", videoTitle, "", videoTitle, videoTitle);
-
-    jsonFileContainer.appendChild(videoTitleTag);
-    jsonFileContainer.appendChild(document.createElement("br"));
-  })
-}
-
-const readJSONFile = (path) => {
-  return JSON.parse(fs.readFileSync(path));
-}
 
 const getFileName = (path) => {
   const pathElement = path.split("/");
 
   return pathElement[pathElement.length - 1];
-}
-
-const addFileTitleTag = (videoTitle) => {
-  const title = videoTitle.replace(/\ |-|#|&/gi, "");
-  const videoTitleTag = tagControl.createNameTag("span","completed-video-title", title, "", title, title);
-
-  jsonFileContainer.appendChild(videoTitleTag);
-  jsonFileContainer.appendChild(document.createElement("br"));
-}
-
-export default {
-  addFileTitleTag,
-  showJSONFileVideoDataCount,
-  getJSONFileVideoDataCount,
 }

@@ -1,24 +1,28 @@
 <template class="task-template">
   <div class="container" id="header-container">
     <div class="row">
-      <div class="col-1" id="tutorial-container" data-modal="about">
-        tutorial
+      <div class="col-1" id="tutorial-container">
+        <button id="tutorial-container-button" type="button" class="btn btn-outline-info" data-modal="about">About</button>
       </div>
 
-      <div class="col-4" id="open-directory-container">
-        <span id="open-directory">open directory</span>
-      </div>
-
-      <div class="col-4" id="open-file-container">
-        <span id="open-json">open json</span>
+      <div class="col-7" id="tool-prograss">
+        <span>1. open-directory > 2.open-json or create json > 3.create criteria</span>
       </div>
 
       <div class="col-1" id="create-file-container">
-        <span id="create-json">create json</span>
+        <button id="create-json" type="button" class="btn btn-outline-primary">MAKE&nbsp;JSON</button>
       </div>
 
-      <div class="col-2" id="create-criteria-container">
-        <span id="create-criteria" data-modal="criteria">create criteria</span>
+      <div class="col-1" id="open-directory-container">
+        <button id="open-directory" type="button" class="btn btn-outline-primary">OPEN&nbsp;DIR</button>
+      </div>
+
+      <div class="col-1" id="open-file-container">
+        <button id="open-json" type="button" class="btn btn-outline-primary">OPEN&nbsp;JSON</button>
+      </div>
+
+      <div class="col-1" id="create-criteria-container">
+        <button id="create-criteria" type="button" class="btn btn-outline-primary" data-modal="criteria">CRITERIA</button>
       </div>
     </div>
   </div>

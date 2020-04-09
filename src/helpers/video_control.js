@@ -1,43 +1,6 @@
-import tagControl from "./tag_control";
 import imageControl from "./image_control";
 
-import globalVideoData from "../model/globalVideoData";
-import globalFrame from "../model/globalFrame";
-
-const frameListContainer = document.getElementById("frame-list-container");
-const mainViewImage = document.getElementById("main-view-image");
-const progressBarContainer = document.getElementById("progress-bar-container");
-
-const clickedVideoTitleTag = element => {
-  initializeVideo(mainViewImage, frameListContainer, progressBarContainer);
-
-  console.log("Play");
-
-  const videoFilePath = element.dataset.path;
-  const videoFileTitle = element.dataset.title;
-
-  const GlobalVideoData = new globalVideoData();
-  GlobalVideoData.setPATH(videoFilePath);
-  GlobalVideoData.setTITLE(videoFileTitle);
-
-  const GlobalFrame = new globalFrame();
-  GlobalFrame.setAT(0);
-
-  const video = createVideoTag(videoFilePath, 5);
-
-  isWideVideoFrame(video, imageControl.setStyleOfMainViewImage, imageControl.setDefaultImage);
-
-  playVideo(video, 5, GlobalVideoData.setFRAME_LIST, GlobalFrame.setLENGTH);
-
-  // TODO(yhpark):  Rendering next video
-}
-
-const initializeVideo = (mainView, frameList, progressBar) => {
-  tagControl.initialize(frameList);
-
-  mainView.src = "";
-  progressBar.hidden = false;
-}
+// playVideo(video, 5, GlobalVideoData.setFRAME_LIST, GlobalFrame.setLENGTH);
 
 const createVideoTag = (path, playbackRate) => {
   const video = document.createElement("video");
@@ -51,7 +14,7 @@ const createVideoTag = (path, playbackRate) => {
   return video;
 }
 
-const playVideo = (videoElement, fps, GlobalVideoDataSetFrameList, GlobalFrameSetLength, GlobalFrameSetList) => {
+const play = (videoElement, fps, setFrameLength) => {
   videoElement.play()
     .then(() => {
       let captureArr = [];
@@ -64,8 +27,8 @@ const playVideo = (videoElement, fps, GlobalVideoDataSetFrameList, GlobalFrameSe
 
           showFrameList(captureArr);
 
-          GlobalVideoDataSetFrameList(captureArr.length);
-          GlobalFrameSetLength(captureArr.length);
+          // GlobalVideoDataSetFrameList(captureArr.length);
+          setFrameLength(captureArr.length);
 
           return;
         } else {
@@ -120,22 +83,7 @@ const captureVideo = (videoElement, index) => {
   return frame;
 };
 
-const isWideVideoFrame = (videoElement, setStyleOfMainImage, setDefaultImage) => {
-  videoElement.addEventListener("loadedmetadata", (event) => {
-    let result = false;
-
-    if (event.target.videoWidth > event.target.videoHeight) {
-      result = true;
-    }
-
-    setStyleOfMainImage(result);
-    setDefaultImage(result);
-  });
-};
-
 export default {
-  clickedVideoTitleTag,
-  isWideVideoFrame,
   createVideoTag,
-  playVideo
+  play
 }

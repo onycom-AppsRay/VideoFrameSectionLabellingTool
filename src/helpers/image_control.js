@@ -1,6 +1,6 @@
 import path from "path";
 
-import globalValiable from "../model/globalFrame";
+import globalFrame from "../model/global/globalFrame";
 
 const frameListContainer = document.getElementById("frame-list-container");
 const mainViewImageContainer = document.getElementById("main-view-image-container");
@@ -34,10 +34,8 @@ const setImage = (dataUrl, index, width, height) => {
     setMainViewImage(event.target.src);
 
     // Key board control
-    const GlobalValiable = new globalValiable();
-    GlobalValiable.setAT(frameIndex);
-
-    console.log(frameIndex);
+    const GlobalFrame = new globalFrame();
+    GlobalFrame.setAT(frameIndex);
 
     // Input frame index (start, end)
     const startFrameInput = document.getElementById("start-frame-input");
