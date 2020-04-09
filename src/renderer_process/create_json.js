@@ -10,8 +10,6 @@ const selectedCreateJson = document.getElementById("create-json");
 
 selectedCreateJson.addEventListener("click", (event) => {
   ipcRenderer.send("open-json-directory-dialog");
-
-  document.getElementById("create-json").className = "btn btn-outline-primary";
 });
 
 ipcRenderer.on("selected-json-directory", (event, pathArr) => {
@@ -25,13 +23,17 @@ ipcRenderer.on("selected-json-directory", (event, pathArr) => {
   }
 
   const GlobalJSONFile = new globalJSONFile();
-  GlobalJSONFile.setPATH(path);
-  GlobalJSONFile.setNAME(fileName);
 
   const json = new jsonFile().makeJSON().setName(fileName);
   const creationPath = String.prototype.concat(path, "/", fileName);
 
+  GlobalJSONFile.setPATH(creationPath);
+  GlobalJSONFile.setNAME(fileName);
+
   jsonControl.writeJSONFile(creationPath, json);
 
   document.getElementById("create-json").className = "btn btn-primary";
+  document.getElementById("open-json").className = "btn btn-primary";
+  document.getElementById("open-json").disabled = true;
+  document.getElementById("open-json").cursor = "Default";
 });

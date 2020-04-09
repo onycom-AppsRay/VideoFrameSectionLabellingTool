@@ -26,15 +26,19 @@
   transition: visibility 0s 0s linear , opacity .24s ease-out, transform .24s ease-out;
 }
 
+.about-section {
+  margin: var(--about-space) 0;
+}
+
 .about-wrapper {
   margin: auto;
-  border: 1px solid black;
 }
 
 .about-header {
   max-width: 680px;
   padding: 0 var(--about-space);
   text-align: center;
+  margin: var(--about-space) 0;
 }
 
 .about-logo {
@@ -49,10 +53,6 @@
   padding: 0 var(--about-space);
 }
 
-.about-section {
-  margin: var(--about-space) 0;
-}
-
 .about h2 {
   text-align: center;
   margin: 0 0 1em 0;
@@ -60,7 +60,7 @@
   color: hsl(0, 0%, 55%);
 }
 
-.about .about-code h2 {
+.about .about-header h2 {
   color: hsl(330, 65%, 55%);
 }
 
@@ -70,4 +70,11 @@
 
 footer.about-section {
   text-align: center;
+}
+
+.about-section button {
+  width: 100%;
+  height:100%;
+  border-color: white;
+  background-color: white;
 }

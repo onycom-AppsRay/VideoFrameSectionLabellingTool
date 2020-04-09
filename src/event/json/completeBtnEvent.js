@@ -5,12 +5,15 @@ import jsonControl from "../../helpers/json_control";
 import labellingData from "../../model/labellingData";
 import videoData from "../../model/videoData";
 
+import labellingContainer from "../../section/label/labellingContainer";
+
 const COMPLETE_BTN = document.getElementById("complete");
 
 COMPLETE_BTN.addEventListener("click", (event) => {
   const GLOBAL = remote.getGlobal("sharedObject");
 
   const JSON_PATH = GLOBAL.JSON_FILE.PATH;
+  const JSON_NAME = GLOBAL.JSON_FILE.NAME;
   const CRITERIAS = GLOBAL.CRITERIA;
   const VIDEO_TITLE = GLOBAL.VIDEO_DATA.TITLE;
   const VIDEO_FRAME_LENGTH = GLOBAL.FRAME.LENGTH;
@@ -24,6 +27,15 @@ COMPLETE_BTN.addEventListener("click", (event) => {
   }
 
   // 2. Criteria info
+  if(json.criteria.length == 0) {
+    json.criteria = CRITERIAS;
+    json.name = JSON_NAME;
+
+    document.getElementById("create-criteria").className = "btn btn-secondary";
+    document.getElementById("create-criteria").disabled = true;
+    document.getElementById("create-criteria").style.cursor = "Default";
+  }
+  /*
   const overlappingCriterias = checkOverlappingCriterias(CRITERIAS, json.criteria);
   if(overlappingCriterias.length > 0) {
     let overlappingCriteriasStr = "";
@@ -37,15 +49,18 @@ COMPLETE_BTN.addEventListener("click", (event) => {
   } else {
     json.setCriteria(CRITERIAS);
   }
+  */
 
   // 3. labeling info
   const labellingInfos = getTableData();
 
+  /*
   const checkLabellingData = checkLabellingDatas(labellingInfos);
   if(checkLabellingData > 0) {
     alert(`Invalid data exists. \n\n There is a problem with table number '${checkLabellingData}'.`);
     return;
   }
+  */
 
   // set data
   const VideoData = new videoData();
@@ -55,12 +70,9 @@ COMPLETE_BTN.addEventListener("click", (event) => {
     .setCreateAt()
     .setFrameList(labellingList);
 
-  json.setVideos(VideoData);
-
   // write json
-  // jsonControl.isWriteJSONFile(JSON_PATH,  json, VideoData);
-
-  console.log(json);
+  jsonControl.isWriteJSONFile(JSON_PATH, json, VideoData);
+  labellingContainer.initialize();
 })
 
 const hasOverlappingVideo = (videoTitle, jsonVideos) => {

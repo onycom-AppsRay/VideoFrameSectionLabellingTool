@@ -1,4 +1,4 @@
-import videoControl from "../../helpers/video/video_control";
+import videoControl from "../../helpers/video_control";
 
 import mainViewContainer from "../../section/video/mainViewContainer";
 import frameListContainer from "../../section/video/frameListContainer";

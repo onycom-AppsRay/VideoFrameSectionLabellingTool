@@ -25,6 +25,6 @@ export default class {
   }
 
   setCriteria(criteriaList) {
-    remote.getGlobal("sharedObject").CRITERIA = Array.prototype.concat(remote.getGlobal("sharedObject").CRITERIA, criteriaList);
+    remote.getGlobal("sharedObject").CRITERIA = criteriaList;
   }
 }

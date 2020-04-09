@@ -26,13 +26,14 @@ const showCriteria = (type, text) => {
   const li = document.createElement("li");
 
   // TODO(yhpark): Set index
-  const index = "0";
+  const index = type;
+  const label = String.fromCharCode(Number.parseInt(type) + 64);
 
   li.className = "list-group-item";
   li.innerHTML = [
     `<div class="custom-control custom-radio">`,
-    `<input type="radio" id="creteria-${index}" name="creteria" data-type="${type}" class="custom-control-input">`,
-    `<label class="custom-control-label" for="creteria-${index}">${type}.&nbsp${text}</label>`,
+    `<input type="radio" class="custom-control-input" id="criteria-${index}" name="criteria" data-label="${label}" data-index="${index}" data-text="${text}">`,
+    `<label class="custom-control-label" for="criteria-${index}">${label}.&nbsp${text}</label>`,
     `</div>`
   ].join("");
 
@@ -40,7 +41,7 @@ const showCriteria = (type, text) => {
 }
 
 const selectedCriteria = () => {
-  const criteriaList = document.querySelectorAll("#criteria-list > li[name=criteria]");
+  const criteriaList = document.querySelectorAll("#criteria-list input[name=criteria]");
 
   let result = "";
   Array.prototype.some.call(criteriaList, (criteria) => {

@@ -28,7 +28,7 @@ const showCriteria = (type, text) => {
   const liId = "modal-criteria";
 
   li.innerHTML = [
-    `<li name=${liId} class="list-group-item d-flex justify-content-between align-items-center" data-type="${type}" data-text="${text}">`,
+    `<li name=${liId} class="list-group-item d-flex justify-content-between align-items-center" data-type=${type} data-text="${text}">`,
     `<span class="badge badge-primary badge-pill">${type}</span>`,
     `&nbsp;`,
     `<span class="criteria-temp-text">${text}</span>`,
@@ -38,12 +38,15 @@ const showCriteria = (type, text) => {
   document.getElementById("criteria-modal-list").appendChild(li);
 }
 
-const convertNumberToAlphabet = (number) => {
-  return String.fromCharCode(97 + number).toUpperCase();
+const getCriteriaIndex = () => {
+  const criteriaTag = document.querySelectorAll("#criteria-modal-list li[name=modal-criteria]");
+
+  return criteriaTag.length;
 }
 
 export default {
   initialize,
   setCriteria,
-  showCriteria
+  showCriteria,
+  getCriteriaIndex
 }

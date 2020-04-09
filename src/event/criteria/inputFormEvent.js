@@ -1,5 +1,3 @@
-import globalCriteria from "../../model/global/globalCriteria";
-
 import inputModalContainer from "../../section/criteria/inputModalContainer";
 
 const CRITERIA_INSERT_BTN = document.getElementById("criteria-insert");
@@ -13,21 +11,9 @@ CRITERIA_INSERT_BTN.onclick = () => {
     return;
   }
 
-  const GlobalCriteria = new globalCriteria();
-  const globalCriteriaArr = GlobalCriteria.getCriteria();
-  const globalCriteriaArrLength = globalCriteriaArr.length;
-  const type = (globalCriteriaArrLength + 1);
+  const criteriaIndex = Number.parseInt(inputModalContainer.getCriteriaIndex()) + 1;
 
-  let temp = [{
-    "type": type,
-    "text": text
-  }];
-
-  inputModalContainer.showCriteria(type, text);
-
-  GlobalCriteria.setCriteria(temp);
-  // TODO(yhpark): Managing Global criteria
-  console.log("Global Criteria: ", new globalCriteria().getCriteria());
+  inputModalContainer.showCriteria(criteriaIndex, text);
 }
 
 const hasSameCriteria = (criteria) => {

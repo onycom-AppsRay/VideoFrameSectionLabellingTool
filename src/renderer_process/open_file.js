@@ -15,8 +15,6 @@ const selectJsonBtn = document.getElementById("open-json");
 
 selectJsonBtn.addEventListener("click", (event) => {
   ipcRenderer.send("open-file-dialog");
-
-  document.getElementById("open-json").className = "btn btn-outline-primary";
 })
 
 ipcRenderer.on("selected-file", (event, pathArr) => {
@@ -54,10 +52,17 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
     const GlobalCriteria = new globalCriteria();
     GlobalCriteria.setCriteria(json.criteria);
 
+    console.log(GlobalCriteria.getCriteria());
+
+    inputModalContainer.initialize();
     inputModalContainer.setCriteria();
+    criteriaContainer.initialize();
     criteriaContainer.setCriteria();
 
     document.getElementById("open-json").className = "btn btn-primary";
+    document.getElementById("create-criteria").className = "btn btn-secondary";
+    document.getElementById("create-criteria").disabled = true;
+    document.getElementById("create-criteria").style.cursor = "Default";
 
     return;
   } else {

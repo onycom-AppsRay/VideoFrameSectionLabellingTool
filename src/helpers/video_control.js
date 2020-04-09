@@ -1,4 +1,4 @@
-import imageControl from "../image_control";
+import imageControl from "./image_control";
 
 // playVideo(video, 5, GlobalVideoData.setFRAME_LIST, GlobalFrame.setLENGTH);
 
