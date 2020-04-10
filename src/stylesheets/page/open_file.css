@@ -1,0 +1,9 @@
+#open-file-page {
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  border: 1px dashed #669966;
+  background-color: coral;
+  text-align: center;
+}

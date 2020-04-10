@@ -1,0 +1,126 @@
+<html>
+
+<head>
+  <style type="text/css">
+    div {
+      opacity: 0.7;
+      font: 12px Arial;
+    }
+
+    span.bold {
+      font-weight: bold;
+    }
+
+    #normdiv {
+      z-index: 8;
+      height: 70px;
+      border: 1px dashed #999966;
+      background-color: #ffffcc;
+      margin: 0px 50px 0px 50px;
+      text-align: center;
+    }
+
+    #reldiv1 {
+      z-index: 2;
+      height: 100px;
+      position: relative;
+      top: 30px;
+      border: 1px dashed #669966;
+      background-color: #ccffcc;
+      margin: 0px 50px 0px 50px;
+      text-align: center;
+    }
+
+    #reldiv2 {
+      z-index: 1;
+      height: 100px;
+      position: relative;
+      top: 15px;
+      left: 20px;
+      border: 1px dashed #669966;
+      background-color: #ccffcc;
+      margin: 0px 50px 0px 50px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <br /><br />
+
+  <div id="reldiv1">
+    <br /><span class="bold">DIV #1</span>
+    <br />position: relative;
+    <br />z-index: 3;
+  </div>
+
+  <div id="reldiv2">
+    <br /><span class="bold">DIV #2</span>
+    <br />position: relative;
+    <br />z-index: 2;
+  </div>
+
+  <div id="normdiv">
+    <br /><span class="bold">DIV #8</span>
+    <br />no positioning
+    <br />z-index: 8;
+  </div>
+
+  <div>
+    <button id="zIndex-1">z-index 1</button>
+    <button id="zIndex-2">z-index 2</button>
+    <button id="zIndex-3">z-index 3</button>
+  </div>
+</body>
+<script>
+  const div1 = document.getElementById("reldiv1");
+  const div2 = document.getElementById("reldiv2");
+  const div3 = document.getElementById("normdiv");
+
+  const zIndex1Btn = document.getElementById("zIndex-1");
+  const zIndex2Btn = document.getElementById("zIndex-2");
+  const zIndex3Btn = document.getElementById("zIndex-3");
+
+  let zIndex1BtnFlag = true;
+  let zIndex2BtnFlag = true;
+  let zIndex3BtnFlag = true;
+
+  zIndex1Btn.addEventListener("click", (event) => {
+    if (zIndex1BtnFlag) {
+      div1.style.display = "none";
+      zIndex1BtnFlag = false;
+    } else {
+      div1.style.display = "";
+      zIndex1BtnFlag = true;
+    }
+  })
+
+  zIndex2Btn.addEventListener("click", (event) => {
+    if (zIndex2BtnFlag) {
+      div2.style.display = "none";
+      zIndex2BtnFlag = false;
+    } else {
+      div2.style.display = "";
+      zIndex2BtnFlag = true;
+    }
+  })
+
+  zIndex3Btn.addEventListener("click", (event) => {
+    if (zIndex3BtnFlag) {
+      div1.style.display = "";
+      div2.style.display = "";
+      zIndex1BtnFlag = true;
+      zIndex2BtnFlag = true;
+      zIndex3BtnFlag = false;
+    } else {
+      div1.style.display = "none";
+      div2.style.display = "none";
+      zIndex1BtnFlag = true;
+      zIndex2BtnFlag = true;
+      zIndex3BtnFlag = true;
+    }
+  })
+</script>
+
+</html>
