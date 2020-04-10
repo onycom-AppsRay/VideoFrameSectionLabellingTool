@@ -25,8 +25,6 @@ import "./renderer_process/open_directory.js";
 import "./renderer_process/open_file.js";
 import "./renderer_process/create_json.js";
 
-//
-
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------

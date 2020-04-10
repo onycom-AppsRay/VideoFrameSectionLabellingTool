@@ -29,5 +29,6 @@ videoFilesContainer.onclick = (event) => {
 
     const fps = 5;
     videoControl.play(video, fps, GlobalFrame.setLENGTH);
+    overlayContainer.showProgress();
   }
 }
