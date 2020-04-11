@@ -12,6 +12,7 @@
   <!-- page -->
   <link rel="import" href="./page/open_directory.html">
   <link rel="import" href="./page/open_file.html">
+  <link rel="import" href="./page/form_criteria2.html">
 
   <!-- section -->
   <link rel="import" href="./section/header.html">
@@ -19,6 +20,7 @@
   <link rel="import" href="./section/footer.html">
   <link rel="import" href="./section/about.html">
   <link rel="import" href="./section/criteria.html">
+
   <!-- element -->
   <link rel="import" href="./element/frame_index_container.html">
   <link rel="import" href="./element/result_list_container.html">
@@ -28,29 +30,17 @@
 <body>
   <!-- z-index: 3 -->
   <div id="open-directory-page">
-    <p>open directory page</p>
-    <p>open directory page</p>
-    <p>open directory page</p>
-    <p>open directory page</p>
-    <button id="go-open-file-page-btn">NEXT</button>
   </div>
 
   <!-- z-index: 2 -->
   <div id="open-file-page">
-    <p>open file page</p>
-    <p>open file page</p>
-    <p>open file page</p>
-    <button id="go-criteria-form-page-btn">NEXT</button>
   </div>
 
   <!-- z-index: 1 -->
-  <div id="criteria-form-page">
-    <p>insert criteria form</p>
-    <p>insert criteria form</p>
-    <button id="go-labelling-page-btn">NEXT</button>
+  <div id="form-criteria-page">
   </div>
 
-  <div class="js-content" style="display: none;">
+  <div class="js-content" style="display: none">
     <header></header>
 
     <main>
@@ -65,12 +55,13 @@
 
     const openDirectoryPage = document.getElementById("open-directory-page");
     const openFilePage = document.getElementById("open-file-page");
-    const criteriaFormPage = document.getElementById("criteria-form-page");
+    const formCriteriaPage = document.getElementById("form-criteria-page");
     const jsContent = document.getElementsByClassName("js-content")[0];
 
     const goOpenFilePageBtn = document.getElementById("go-open-file-page-btn");
-    const goCriteriaFormPageBtn = document.getElementById("go-criteria-form-page-btn");
+    const goCriteriaFormPageBtn = document.getElementById("go-form-criteria-page-btn");
     const goLabellingPageBtn = document.getElementById("go-labelling-page-btn");
+
     const backBtn = document.getElementById("back");
 
     goOpenFilePageBtn.addEventListener("click", (event) => {
@@ -82,14 +73,14 @@
     })
 
     goLabellingPageBtn.addEventListener("click", (event) => {
-      criteriaFormPage.style.display = "none";
+      formCriteriaPage.style.display = "none";
       jsContent.style.display = "";
-    });
+    })
 
     backBtn.addEventListener("click", (event) => {
       openDirectoryPage.style.display = "";
       openFilePage.style.display = "";
-      criteriaFormPage.style.display = "";
+      formCriteriaPage.style.display = "";
 
       jsContent.style.display = "none";
     });

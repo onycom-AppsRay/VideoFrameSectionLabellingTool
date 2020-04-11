@@ -25,6 +25,18 @@ const section = async () => {
     if (link.href.match("criteria.html")) {
       document.querySelector("#criteria-container").appendChild(clone)
     }
+
+    if(link.href.match("open_directory.html")) {
+      document.querySelector("#open-directory-page").appendChild(clone);
+    }
+
+    if(link.href.match("open_file.html")) {
+      document.querySelector("#open-file-page").appendChild(clone);
+    }
+
+    if(link.href.match("form_criteria2.html")) {
+      document.querySelector("#form-criteria-page").appendChild(clone);
+    }
   })
 };
 

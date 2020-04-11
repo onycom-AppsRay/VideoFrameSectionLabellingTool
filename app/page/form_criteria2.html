@@ -1,0 +1,49 @@
+<template class="task-template">
+  <p>라벨링 기준을 입력합니다.</p>
+
+  <div class="input-group mb-3" style="width: 50%; margin: auto;">
+    <input id="input-criteria2" type="text" class="form-control" placeholder="라벨링 기준" aria-label="라벨링 기준"
+      aria-describedby="button-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" type="button" id="button-addon2">Insert</button>
+    </div>
+  </div>
+
+  <br>
+
+  <div id="form-criteria2-list" style="width: 50%; margin: auto;">
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="badge badge-primary badge-pill">14</span>
+        Cras justo odio
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="badge badge-primary badge-pill">2</span>
+        Dapibus ac facilisis in
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="badge badge-primary badge-pill">1</span>
+        Morbi leo risus
+      </li>
+    </ul>
+  </div>
+
+  <button type="button" class="btn btn-link" id="go-labelling-page-btn">NEXT</button>
+  <script>
+    const criteriaInsertBtn = document.getElementById("button-addon2");
+
+    criteriaInsertBtn.onclick = () => {
+      const li = document.createElement("li");
+      const criteria = document.getElementById("input-criteria2").value;
+      const type = "test";
+
+      li.className = "list-group-item d-flex justify-content-between align-items-center";
+      li.innerHTML = [
+        `<span class="badge badge-primary badge-pill">${type}</span>`,
+        `${criteria}`
+      ].join("");
+
+      document.querySelector("#form-criteria2-list > ul").appendChild(li);
+    }
+  </script>
+</template>

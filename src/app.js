@@ -9,7 +9,7 @@ import "./stylesheets/section/criteria.css";
 import "./stylesheets/element/frame_index_container.css";
 import "./stylesheets/page/open_directory.css";
 import "./stylesheets/page/open_file.css";
-import "./stylesheets/page/criteria_form.css";
+import "./stylesheets/page/form_criteria.css";
 
 // Small helpers you might want to keep
 import "./helpers/context_menu.js";
