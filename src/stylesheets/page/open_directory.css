@@ -1,3 +1,4 @@
+
 #open-directory-page {
   z-index: 3;
   height: 100%;
@@ -5,4 +6,30 @@
   position: absolute;
   background-color: white;
   text-align: center;
+
+  /* 가운데 중앙 정렬 */
+  display: table;
+}
+
+#open-directory-page-container {
+  /* 가운데 중앙 정렬 */
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#open-directory-button {
+  width: 15%;
+}
+
+#open-directory-path {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+#open-directory-path > p{
+  font-size: 2vw;
+  font-weight: lighter;
+  font-family: serif;
 }

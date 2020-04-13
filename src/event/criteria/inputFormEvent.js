@@ -1,3 +1,5 @@
+import { remote } from "electron";
+
 import inputModalContainer from "../../section/criteria/inputModalContainer";
 
 const CRITERIA_INSERT_BTN = document.getElementById("criteria-insert");

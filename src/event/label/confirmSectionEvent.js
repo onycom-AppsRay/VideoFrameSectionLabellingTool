@@ -21,7 +21,7 @@ SECTION_CONFIRM.addEventListener("click", (event) => {
         `Start: ${startFrameIndex} / ` +
         `End: ${endFrameIndex} \n`;
 
-      if (!confirm(message)) return;
+      if (!confirm(message)) return;q
 
       labellingContainer.showLabellingData(startFrameIndex, endFrameIndex, criteriaLabel);
     }

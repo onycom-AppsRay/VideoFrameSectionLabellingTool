@@ -29,16 +29,13 @@
 
 <body>
   <!-- z-index: 3 -->
-  <div id="open-directory-page">
-  </div>
+  <div id="open-directory-page"></div>
 
   <!-- z-index: 2 -->
-  <div id="open-file-page">
-  </div>
+  <div id="open-file-page"></div>
 
   <!-- z-index: 1 -->
-  <div id="form-criteria-page">
-  </div>
+  <div id="form-criteria-page"></div>
 
   <div class="js-content" style="display: none">
     <header></header>
@@ -58,32 +55,10 @@
     const formCriteriaPage = document.getElementById("form-criteria-page");
     const jsContent = document.getElementsByClassName("js-content")[0];
 
-    const goOpenFilePageBtn = document.getElementById("go-open-file-page-btn");
-    const goCriteriaFormPageBtn = document.getElementById("go-form-criteria-page-btn");
-    const goLabellingPageBtn = document.getElementById("go-labelling-page-btn");
-
-    const backBtn = document.getElementById("back");
-
-    goOpenFilePageBtn.addEventListener("click", (event) => {
-      openDirectoryPage.style.display = "none";
-    })
-
-    goCriteriaFormPageBtn.addEventListener("click", (event) => {
-      openFilePage.style.display = "none";
-    })
-
-    goLabellingPageBtn.addEventListener("click", (event) => {
-      formCriteriaPage.style.display = "none";
-      jsContent.style.display = "";
-    })
-
-    backBtn.addEventListener("click", (event) => {
-      openDirectoryPage.style.display = "";
-      openFilePage.style.display = "";
-      formCriteriaPage.style.display = "";
-
-      jsContent.style.display = "none";
-    });
+    openDirectoryPage.style.display = "none";
+    openFilePage.style.display = "none";
+    formCriteriaPage.style.display = "none";
+    jsContent.style.display = "";
   </script>
 </body>
 

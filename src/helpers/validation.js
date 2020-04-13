@@ -1,6 +1,6 @@
 import validator from "validate.js";
 
-const isValidJSON = (json) => {
+const isJSON = (json) => {
   try {
     JSON.parse(json);
 
@@ -35,6 +35,6 @@ const checkJSONValueType = (json) => {
 }
 
 export default {
-  isValidJSON,
+  isJSON,
   checkJSONValueType
 }

@@ -12,8 +12,8 @@ export default class {
     return this;
   }
 
-  setCreateAt(date) {
-    this.createAt = date;
+  setCreateAt() {
+    this.createAt = new Date().toLocaleString();;
     return this;
   }
 

@@ -24,9 +24,12 @@ import "./event/json/completeBtnEvent.js";
 import "./event/label/confirmSectionEvent.js";
 import "./event/label/deleteLabellingDataEvent.js";
 
-import "./renderer_process/open_directory.js";
-import "./renderer_process/open_file.js";
-import "./renderer_process/create_json.js";
+import "./page/criteria/insert.js";
+import "./page/directory/openDirectory.js";
+import "./page/file/importExistingFile.js";
+import "./page/file/createJSONFile.js";
+
+import "./page/labelling/section/header.js";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
@@ -62,11 +65,11 @@ const osMap = {
 //   console.log("CRITERIA \n", JSON.stringify(remote.getGlobal("sharedObject").CRITERIA, " ", 2));
 })();
 
-document.querySelector("#app").style.display = "block";
+document.querySelector("#app-info").style.display = "block";
 document.querySelector("#os").innerHTML = osMap[process.platform];
-document.querySelector("#author").innerHTML = manifest.author;
+document.querySelector("#author").innerHTML = `${manifest.author}` + `&copy;` + `onycom`;
 document.querySelector("#env").innerHTML = env.name;
-document.querySelector("#electron-version").innerHTML = process.versions.electron;
+// document.querySelector("#electron-version").innerHTML = process.versions.electron;
 
 // main view init
 document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%)")

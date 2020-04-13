@@ -23,7 +23,7 @@ const setCriteria = () => {
 }
 
 const showCriteria = (type, text) => {
-  const li = document.createElement("li");
+  const li = document.createElemqqent("li");
 
   const liId = "modal-criteria";
 

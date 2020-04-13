@@ -17,6 +17,7 @@ import env from "env";
 global.sharedObject = {
   DIRECTORY: {
     PATH: "",
+    VIDEOS: []
   },
   JSON_FILE: {
     PATH: "",

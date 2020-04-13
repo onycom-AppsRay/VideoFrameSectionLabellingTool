@@ -7,23 +7,34 @@ import validation from "../helpers/validation";
 const getJSONFile = (path) => {
   const content = fs.readFileSync(path);
 
-  if (!validation.isValidJSON(content)) {
-    return false;
+  let result = {
+    "result": false,
+    "content": ""
+  }
+
+  if (!validation.isJSON(content)) {
+    result.content = "Not JSON";
+    return result;
   };
 
   const jsonContent = JSON.parse(content);
 
   if (!validation.checkJSONValueType(jsonContent)) {
-    return false;
+    result.content = "Not valid JSON";
+    return result;
   };
 
-  return new jsonFile()
+  result.result = true;
+  result.content = new jsonFile()
     .setName(jsonContent.name)
     .setCreateAt(jsonContent.createAt)
     .setCount(jsonContent.count)
     .setCriteria(jsonContent.criteria)
     .setVideos(jsonContent.videos);
+
+  return result;
 }
+
 
 const writeJSONFile = (path, content) => {
   fs.writeFile(path, JSON.stringify(content, " ", 2), err => {
