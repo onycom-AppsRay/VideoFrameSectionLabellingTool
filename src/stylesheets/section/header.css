@@ -8,38 +8,38 @@
   min-height: 100%;
 }
 
-#header-container > .row > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 #tutorial-container, #back-container {
   padding: 0;
 }
 
-#tutorial-button, #back-button {
-  height: 90%;
-  width: 98%;
-  font-size: 0.9vw;
-  line-height: 110%;
-  font-weight: bolder;
-}
-
-#back-container {
+#path-info-container {
+  overflow-x: overlay;
+  text-align: left;
   border-right: 1px solid lightgray;
-}
-
-#tutorial-container {
   border-left: 1px solid lightgray;
 }
 
-#back-button {
-  font-size: xx-large;
-  color: black;
+#path-info-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+#tutorial-container, #back-container {
+  margin: auto;
 }
 
 #tutorial-button {
-  font-size: xx-large;
-  color: black;
+  height: 90%;
+  width: 98%;
+  font-weight: bolder;
+  font-size: 2vw;
+  padding: 0;
 }
+
+#back-button {
+  height: 90%;
+  width: 98%;
+  font-weight: bolder;
+  font-size: 2vw;
+  padding: 0;
+}
+

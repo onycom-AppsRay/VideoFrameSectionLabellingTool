@@ -1,7 +1,5 @@
 import fs from "fs";
 
-import jsonFile from "../model/jsonFile";
-
 import validation from "../helpers/validation";
 
 const getJSONFile = (path) => {
@@ -25,12 +23,7 @@ const getJSONFile = (path) => {
   };
 
   result.result = true;
-  result.content = new jsonFile()
-    .setName(jsonContent.name)
-    .setCreateAt(jsonContent.createAt)
-    .setCount(jsonContent.count)
-    .setCriteria(jsonContent.criteria)
-    .setVideos(jsonContent.videos);
+  result.content = jsonContent;
 
   return result;
 }
@@ -39,9 +32,6 @@ const getJSONFile = (path) => {
 const writeJSONFile = (path, content) => {
   fs.writeFile(path, JSON.stringify(content, " ", 2), err => {
     if (err) throw err;
-    else {
-      alert(`The JSON file was created in path \n\n '${path}'`);
-    }
   });
 }
 

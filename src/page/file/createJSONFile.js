@@ -2,13 +2,12 @@ import { ipcRenderer, remote } from "electron";
 
 import jsonControl from "../../helpers/json_control";
 
-import jsonFile from "../../model/jsonFile";
+import jsonFileDTO from "../../model/dto/jsonFile";
 
 const createFileBtn = document.getElementById("create-file-button");
-const goFormCriteriaPageBtn = document.getElementById("go-form-criteria-page-btn");
-const openFilePage = document.getElementById("open-file-page");
 
-let pageMoveFlag = false;
+const goCriteriaPageBtn = document.querySelector(`#open-file-page-container button[name="go-criteria"]`);
+const openFilePage = document.getElementById("open-file-page");
 
 createFileBtn.onclick = () => {
   ipcRenderer.send("open-json-directory-dialog");
@@ -28,25 +27,22 @@ ipcRenderer.on("selected-json-directory", (event, pathArr) => {
   remote.getGlobal("sharedObject").JSON_FILE.PATH = path;
   remote.getGlobal("sharedObject").JSON_FILE.NAME = fileName;
 
-  const JSONFile = new jsonFile().setName(fileName).setCreateAt();
+  const JSONFile = new jsonFileDTO().setName(fileName);
 
   const creationPath = String.prototype.concat(path, "/", fileName);
 
   jsonControl.writeJSONFile(creationPath, JSONFile);
 
   document.querySelector("#open-file-path > p").innerText = creationPath;
+  document.getElementById("json-file-path").innerText = creationPath;
 
-  pageMoveFlag = true;
+  goCriteriaPageBtn.hidden = "";
 });
 
-goFormCriteriaPageBtn.onclick = () => {
-  if(pageMoveFlag) {
-    openFilePage.style.display = "none";
+goCriteriaPageBtn.onclick = () => {
+  openFilePage.style.display = "none";
 
-    return;
-  } else {
-    alert("파일을 가져오세요.");
+  document.querySelector("#open-file-path > p").innerHTML = `.&nbsp;.&nbsp.`;
 
-    return;
-  }
+  goCriteriaPageBtn.hidden = true;
 }

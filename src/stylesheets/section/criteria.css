@@ -1,7 +1,7 @@
 .criteria {
   display: none;
 }
-
+/*
 .criteria.is-shown {
   display: inline;
 }
@@ -12,7 +12,7 @@
 
 #criteria-modal-list {
   padding: 0;
-}
+} */
 
 .criteria-temp-text {
   overflow-x: auto;

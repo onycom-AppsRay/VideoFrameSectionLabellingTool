@@ -1,4 +1,4 @@
-import imageControl from "../../helpers/image_control";
+import imageControl from "../../../../helpers/image_control";
 
 const initialize = () => {
   const mainViewImage = document.getElementById("main-view-image");

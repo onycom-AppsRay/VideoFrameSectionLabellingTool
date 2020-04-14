@@ -1,4 +1,4 @@
-import tagControl from "../../helpers/tag_control";
+import tagControl from "../../../../../helpers/tag_control";
 
 const initialize = () => {
   const jsonFileContainer = document.getElementById("json-file-container");
@@ -6,10 +6,10 @@ const initialize = () => {
   tagControl.initialize(jsonFileContainer);
 }
 
-const showVideoFiles = (json) => {
+const showVideoFiles = (jsonVideos) => {
   const jsonFileContainer = document.getElementById("json-file-container");
 
-  const videos = json.videos;
+  const videos = jsonVideos;
 
   videos.forEach((videoInfo) => {
     const title = videoInfo.title.replace(/\ |-|#|&/gi, "");

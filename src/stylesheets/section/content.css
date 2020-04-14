@@ -110,7 +110,8 @@
 #section-confirm {
   height: 90%;
   width: 98%;
-  font-size: xx-large;
+  font-size: 2vw;
+  padding: 0;
 }
 
 /* control 2 */
@@ -121,14 +122,6 @@
 #criteria-container {
   height: 32%;
   overflow: auto;
-}
-
-#criteria-list-container {
-  display: none;
-}
-
-#criteria-list-container.is-shown {
-  display: inline;
 }
 
 #criteria-list {
@@ -165,5 +158,6 @@
 #complete {
   height: 90%;
   width: 98%;
-  font-size: xx-large;
+  font-size: 2vw;
+  padding: 0;
 }

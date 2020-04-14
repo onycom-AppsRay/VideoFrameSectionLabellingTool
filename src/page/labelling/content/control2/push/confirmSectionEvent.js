@@ -1,12 +1,11 @@
-import criteriaContainer from "../../section/criteria/criteriaContainer";
-import labellingContainer from "../../section/label/labellingContainer";
+import labellingContainer from "../complete/labellingContainer";
 
 const SECTION_CONFIRM = document.getElementById("section-confirm");
 
 SECTION_CONFIRM.addEventListener("click", (event) => {
   const startFrameIndex = document.getElementById("start-frame-input").innerHTML;
   const endFrameIndex = document.getElementById("end-frame-input").innerHTML;
-  const criteriaTag = criteriaContainer.selectedCriteria();
+  const criteriaTag = selectedCriteria();
 
   if (validate(startFrameIndex, endFrameIndex, criteriaTag)) {
     const criteriaLabel = criteriaTag.dataset.label;
@@ -26,7 +25,21 @@ SECTION_CONFIRM.addEventListener("click", (event) => {
       labellingContainer.showLabellingData(startFrameIndex, endFrameIndex, criteriaLabel);
     }
   }
-})
+});
+
+const selectedCriteria = () => {
+  const criteriaList = document.querySelectorAll("#criteria-list input[name=criteria]");
+
+  let result = "";
+  Array.prototype.some.call(criteriaList, (criteria) => {
+    if(criteria.checked == true) {
+      result = criteria;
+      return true;
+    }
+  })
+
+  return result;
+};
 
 const validate = (startFrameIndex, endFrameIndex, criteria) => {
   if (startFrameIndex == '' || endFrameIndex == '') {
@@ -45,4 +58,4 @@ const validate = (startFrameIndex, endFrameIndex, criteria) => {
   }
 
   return true;
-}
+};

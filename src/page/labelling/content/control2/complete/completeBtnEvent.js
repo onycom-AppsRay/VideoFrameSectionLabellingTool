@@ -1,11 +1,11 @@
 import { remote } from "electron";
 
-import jsonControl from "../../helpers/json_control";
+import jsonControl from "../../../../../helpers/json_control";
 
-import labellingData from "../../model/labellingData";
-import videoData from "../../model/videoData";
+import labellingData from "../../../../../model/labellingData";
+import videoData from "../../../../../model/videoData";
 
-import labellingContainer from "../../section/label/labellingContainer";
+import labellingContainer from "./labellingContainer";
 
 const COMPLETE_BTN = document.getElementById("complete");
 

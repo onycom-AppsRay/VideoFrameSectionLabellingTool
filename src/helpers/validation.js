@@ -23,7 +23,7 @@ const checkJSONValueType = (json) => {
     return false;
   };
 
-  if (!validator.isObject(json.criteria)) {
+  if (!validator.isObject(json.criterias)) {
     return false;
   };
 

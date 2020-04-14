@@ -16,20 +16,18 @@ import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
 import "./helpers/key_event.js";
 
-import "./event/modal/nav.js";
-import "./event/file/videoFileEvent.js";
-import "./event/criteria/inputFormEvent.js";
-import "./event/criteria/applyEvent.js";
-import "./event/json/completeBtnEvent.js";
-import "./event/label/confirmSectionEvent.js";
-import "./event/label/deleteLabellingDataEvent.js";
+import "./page/labelling/header/nav.js";
+import "./page/labelling/header/back.js";
+
+import "./page/labelling/content/files/directory/videoFileEvent.js";
+import "./page/labelling/content/control2/complete/completeBtnEvent.js";
+import "./page/labelling/content/control2/push/confirmSectionEvent.js";
 
 import "./page/criteria/insert.js";
+import "./page/criteria/apply.js";
 import "./page/directory/openDirectory.js";
 import "./page/file/importExistingFile.js";
 import "./page/file/createJSONFile.js";
-
-import "./page/labelling/section/header.js";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
@@ -53,25 +51,31 @@ const osMap = {
   linux: "Linux"
 };
 
-(() => {
-//   remote.getGlobal("sharedObject").JSON_FILE.PATH = "";
-//   remote.getGlobal("sharedObject").JSON_FILE.NAME = "";
-//   remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
+const initGlobalVariable = () => {
+  remote.getGlobal("sharedObject").JSON_FILE.PATH = "";
+  remote.getGlobal("sharedObject").JSON_FILE.NAME = "";
+  remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
+  remote.getGlobal("sharedObject").DIRECTORY.VIDEOS = [];
   remote.getGlobal("sharedObject").CRITERIA = [];
+}
 
-//   console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE, " ", 2));
-//   console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA, " ", 2));
-//   console.log("FRAME \n", JSON.stringify(remote.getGlobal("sharedObject").FRAME, " ", 2));
-//   console.log("CRITERIA \n", JSON.stringify(remote.getGlobal("sharedObject").CRITERIA, " ", 2));
+const initMainViewFrame = () => {
+  document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%)")
+  document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
+  document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");
+
+}
+
+const projectInfo = () => {
+  document.querySelector("#app-info").style.display = "block";
+  document.querySelector("#os").innerHTML = osMap[process.platform];
+  document.querySelector("#author").innerHTML = `${manifest.author}` + `&copy;` + `onycom`;
+  document.querySelector("#env").innerHTML = env.name;
+  // document.querySelector("#electron-version").innerHTML = process.versions.electron;
+}
+
+(() => {
+  projectInfo();
+  initMainViewFrame();
+  initGlobalVariable();
 })();
-
-document.querySelector("#app-info").style.display = "block";
-document.querySelector("#os").innerHTML = osMap[process.platform];
-document.querySelector("#author").innerHTML = `${manifest.author}` + `&copy;` + `onycom`;
-document.querySelector("#env").innerHTML = env.name;
-// document.querySelector("#electron-version").innerHTML = process.versions.electron;
-
-// main view init
-document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%)")
-document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
-document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");

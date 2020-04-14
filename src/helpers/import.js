@@ -22,10 +22,6 @@ const section = async () => {
       document.querySelector("body").appendChild(clone)
     }
 
-    if (link.href.match("criteria.html")) {
-      document.querySelector("#criteria-container").appendChild(clone)
-    }
-
     if(link.href.match("open_directory.html")) {
       document.querySelector("#open-directory-page").appendChild(clone);
     }

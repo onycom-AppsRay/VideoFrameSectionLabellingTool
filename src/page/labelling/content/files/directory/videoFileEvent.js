@@ -1,11 +1,11 @@
-import videoControl from "../../helpers/video_control";
+import videoControl from "../../../../../helpers/video_control";
 
-import mainViewContainer from "../../section/video/mainViewContainer";
-import frameListContainer from "../../section/video/frameListContainer";
-import overlayContainer from "../../section/overlayContainer";
+import mainViewContainer from "../../main/mainViewContainer";
+import frameListContainer from "../../control1/frame/frameListContainer";
+import overlayContainer from "../../../../overlay/overlayContainer";
 
-import globalVideoData from "../../model/global/globalVideoData";
-import globalFrame from "../../model/global/globalFrame";
+import globalVideoData from "../../../../../model/global/globalVideoData";
+import globalFrame from "../../../../../model/global/globalFrame";
 
 const videoFilesContainer = document.getElementById("video-files-container");
 

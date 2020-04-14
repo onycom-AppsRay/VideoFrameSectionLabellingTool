@@ -1,6 +1,6 @@
-import tagControl from "../../helpers/tag_control";
-import jsonControl from "../../helpers/json_control";
-import fileExplorer from "../../helpers/file_explorer";
+import tagControl from "../../../../../helpers/tag_control";
+import jsonControl from "../../../../../helpers/json_control";
+import fileExplorer from "../../../../../helpers/file_explorer";
 
 const initialize = () => {
   const videoFilesContainer = document.getElementById("video-files-container");

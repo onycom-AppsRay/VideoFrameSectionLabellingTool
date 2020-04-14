@@ -1,4 +1,4 @@
-import tagControl from "../../helpers/tag_control";
+import tagControl from "../../../../../helpers/tag_control";
 
 const initialize = () => {
   const criteriaTempList = document.querySelector("#result-list tbody");
