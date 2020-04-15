@@ -5,8 +5,8 @@ import jsonControl from "../../helpers/json_control";
 import jsonFileDTO from "../../model/dto/jsonFile";
 
 const createFileBtn = document.getElementById("create-file-button");
-
 const goCriteriaPageBtn = document.querySelector(`#open-file-page-container button[name="go-criteria"]`);
+
 const openFilePage = document.getElementById("open-file-page");
 
 createFileBtn.onclick = () => {

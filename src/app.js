@@ -20,6 +20,7 @@ import "./page/labelling/header/nav.js";
 import "./page/labelling/header/back.js";
 
 import "./page/labelling/content/files/directory/videoFileEvent.js";
+import "./page/labelling/content/control1/frame/frameClickEvent.js";
 import "./page/labelling/content/control2/complete/completeBtnEvent.js";
 import "./page/labelling/content/control2/push/confirmSectionEvent.js";
 
@@ -29,6 +30,7 @@ import "./page/directory/openDirectory.js";
 import "./page/file/importExistingFile.js";
 import "./page/file/createJSONFile.js";
 
+import "./test";
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------
@@ -63,7 +65,6 @@ const initMainViewFrame = () => {
   document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%)")
   document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
   document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");
-
 }
 
 const projectInfo = () => {

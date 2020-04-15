@@ -1,3 +1,5 @@
+import { remote } from "electron";
+
 import imageControl from "./image_control";
 
 const createVideoTag = (path, playbackRate) => {
@@ -11,7 +13,7 @@ const createVideoTag = (path, playbackRate) => {
   return video;
 }
 
-const play = (videoElement, fps, setFrameLength) => {
+const play = (videoElement, fps) => {
   videoElement.play()
     .then(() => {
       let captureArr = [];
@@ -22,7 +24,7 @@ const play = (videoElement, fps, setFrameLength) => {
           console.log("Finish video rendering");
 
           showFrameList(captureArr);
-          setFrameLength(captureArr.length);
+          remote.getGlobal("sharedObject").FRAME.LENGTH = captureArr.length;
 
           return;
         } else {

@@ -8,21 +8,21 @@ SECTION_CONFIRM.addEventListener("click", (event) => {
   const criteriaTag = selectedCriteria();
 
   if (validate(startFrameIndex, endFrameIndex, criteriaTag)) {
-    const criteriaLabel = criteriaTag.dataset.label;
+    const criteriaType = criteriaTag.dataset.type;
 
-    if (labellingContainer.hasSameData(startFrameIndex, endFrameIndex, criteriaLabel)) {
+    if (labellingContainer.hasSameData(startFrameIndex, endFrameIndex, criteriaType)) {
       alert("Same data.");
       return;
     } else {
       const message =
         `Confirm with \n` +
-        `Criteria: ${criteriaLabel} / ` +
+        `Criteria: ${criteriaType} / ` +
         `Start: ${startFrameIndex} / ` +
         `End: ${endFrameIndex} \n`;
 
-      if (!confirm(message)) return;q
+      if (!confirm(message)) return;
 
-      labellingContainer.showLabellingData(startFrameIndex, endFrameIndex, criteriaLabel);
+      labellingContainer.showLabellingData(startFrameIndex, endFrameIndex, criteriaType);
     }
   }
 });

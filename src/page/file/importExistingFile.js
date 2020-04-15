@@ -13,7 +13,6 @@ const openFilePage = document.getElementById("open-file-page");
 const formCriteriaPage = document.getElementById("form-criteria-page");
 const jsContent = document.getElementsByClassName("js-content")[0];
 
-const goCriteriaPageBtn = document.querySelector(`#open-file-page-container button[name="go-criteria"]`);
 const goLabellingPageBtn = document.querySelector(`#open-file-page-container button[name="go-labelling"]`);
 
 let filePath;
@@ -36,9 +35,6 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
     return;
   }
 
-  // 페이지에 파일 경로 보여주기.
-  document.querySelector("#open-file-path > p").innerText = filePath;
-
   // 객체로 매핑하여, 각 요소들 검사 및 메소드 활용.
   const JSONContent = new jsonContentDTO(readContent.content);
 
@@ -48,18 +44,22 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
   // JSON 파일 내에 'criteria(기준)'이 명시 되어있는지 검사
   if (jsonCriteria.length > 0) {
     // GO LABELLING PAGE
+    // 현재 페이지에 파일 경로 보여주기.
+    document.querySelector("#open-file-path > p").innerText = filePath;
+
     goLabellingPageBtn.hidden = "";
 
     return;
   } else {
     // GO CRITERIA PAGE
-    goCriteriaPageBtn.hidden = "";
+    alert("저장 된 기준이 없습니다. 새로운 작업 파일을 만드세요.");
 
     return;
   }
 });
 
 goLabellingPageBtn.onclick = () => {
+  // 'labelling' 페이지에 파일 경로 보여주기.
   document.getElementById("json-file-path").innerText = filePath;
 
   remote.getGlobal("sharedObject").JSON_FILE.PATH = filePath;
@@ -101,17 +101,6 @@ goLabellingPageBtn.onclick = () => {
   document.querySelector("#open-file-path > p").innerHTML = `.&nbsp;.&nbsp.`;
 
   goLabellingPageBtn.hidden = true;
-}
-
-goCriteriaPageBtn.onclick = () => {
-  document.getElementById("json-file-path").innerText = filePath;
-  remote.getGlobal("sharedObject").JSON_FILE.PATH = filePath;
-
-  openFilePage.style.display = "none";
-
-  document.querySelector("#open-file-path > p").innerHTML = `.&nbsp;.&nbsp.`;
-
-  goCriteriaPageBtn.hidden = true;
 }
 
 const showCriteria = (type, criteria) => {

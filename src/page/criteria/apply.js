@@ -32,6 +32,9 @@ goLabellingPageBtn.onclick = () => {
     const globalJSONPath = remote.getGlobal("sharedObject").JSON_FILE.PATH;
     const globalJSONName = remote.getGlobal("sharedObject").JSON_FILE.NAME;
 
+    console.log(globalJSONPath);
+    console.log(globalJSONName);
+
     const json = jsonControl.getJSONFile(String.prototype.concat(globalJSONPath, "/", globalJSONName));
     const content = json.content;
 

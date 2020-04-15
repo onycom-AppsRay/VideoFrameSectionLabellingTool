@@ -47,6 +47,19 @@ const initEachSectionContent = () => {
   const jsonFilePath = document.getElementById("json-file-path");
   jsonFilePath.innerText = "";
 
+  // 'file explorer' section
+  const completedVideoCount = document.querySelector("#files-container .video-counting #completed-video-count");
+  completedVideoCount.innerText = 0;
+  const totalVideoCount = document.querySelector("#files-container .video-counting #total-video-count");
+  totalVideoCount.innerText = 0;
+  const directoryVideoFileContainer = document.querySelector("#files-container #video-files-container");
+  initialize(directoryVideoFileContainer);
+
+  const jsonVideoCount = document.querySelector("#files-container .json-counting #json-file-video-data-count");
+  jsonVideoCount.innerText = 0;
+  const jsonVideoFileContainer = document.querySelector("#files-container #json-file-container");
+  initialize(jsonVideoFileContainer);
+
   // 'criteria' section
   const criteriaList = document.getElementById("criteria-list");
   initialize(criteriaList);
