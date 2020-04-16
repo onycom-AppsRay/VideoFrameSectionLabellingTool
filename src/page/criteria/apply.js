@@ -22,6 +22,7 @@ goLabellingPageBtn.onclick = () => {
         .setText(text);
 
       criteriaArr.push(JSONCriteria);
+
       showCriteria(type, text);
     });
 
@@ -30,12 +31,8 @@ goLabellingPageBtn.onclick = () => {
 
     // JSON 파일에 'criteria(기준)' 입력
     const globalJSONPath = remote.getGlobal("sharedObject").JSON_FILE.PATH;
-    const globalJSONName = remote.getGlobal("sharedObject").JSON_FILE.NAME;
 
-    console.log(globalJSONPath);
-    console.log(globalJSONName);
-
-    const json = jsonControl.getJSONFile(String.prototype.concat(globalJSONPath, "/", globalJSONName));
+    const json = jsonControl.getJSONFile(globalJSONPath);
     const content = json.content;
 
     if(!json.result) {
@@ -46,7 +43,7 @@ goLabellingPageBtn.onclick = () => {
     const JSONFile = new jsonFileDTO(content);
     JSONFile.setCriterias(criteriaArr);
 
-    jsonControl.writeJSONFile(String.prototype.concat(globalJSONPath, "/", globalJSONName), JSONFile);
+    jsonControl.writeJSONFile(globalJSONPath, JSONFile);
 
     // page move
     const formCriteriaPage = document.getElementById("form-criteria-page");

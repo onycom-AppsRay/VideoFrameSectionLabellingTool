@@ -23,13 +23,13 @@ ipcRenderer.on("selected-json-directory", (event, pathArr) => {
     return;
   }
 
-  // set global
-  remote.getGlobal("sharedObject").JSON_FILE.PATH = path;
-  remote.getGlobal("sharedObject").JSON_FILE.NAME = fileName;
-
   const JSONFile = new jsonFileDTO().setName(fileName);
 
   const creationPath = String.prototype.concat(path, "/", fileName);
+
+  // set global
+  remote.getGlobal("sharedObject").JSON_FILE.NAME = fileName;
+  remote.getGlobal("sharedObject").JSON_FILE.PATH = creationPath;
 
   jsonControl.writeJSONFile(creationPath, JSONFile);
 

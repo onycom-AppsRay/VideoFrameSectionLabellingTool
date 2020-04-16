@@ -2,10 +2,15 @@ import { remote } from "electron";
 
 import jsonControl from "../../../../../helpers/json_control";
 
-import labellingData from "../../../../../model/labellingData";
-import videoData from "../../../../../model/videoData";
+import videoDataDTO from "../../../../../model/dto/videoData";
+import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
 import labellingContainer from "./labellingContainer";
+import mainViewContainer from "../../main/mainViewContainer";
+import frameListContainer from "../../control1/frame/frameListContainer";
+import inputFrameIndexContainer from "../../control2/push/inputFrameIndexContainer";
+import jsonFileContainer from "../../files/json/jsonFileContainer";
+import videoFilesContainer from "../../files/directory/videoFilesContainer";
 
 const COMPLETE_BTN = document.getElementById("complete");
 
@@ -13,149 +18,42 @@ COMPLETE_BTN.addEventListener("click", (event) => {
   const GLOBAL = remote.getGlobal("sharedObject");
 
   const JSON_PATH = GLOBAL.JSON_FILE.PATH;
-  const JSON_NAME = GLOBAL.JSON_FILE.NAME;
-  const CRITERIAS = GLOBAL.CRITERIA;
   const VIDEO_TITLE = GLOBAL.VIDEO_DATA.TITLE;
   const VIDEO_FRAME_LENGTH = GLOBAL.FRAME.LENGTH;
 
-  const json = jsonControl.getJSONFile(JSON_PATH);
+  const readContent = jsonControl.getJSONFile(JSON_PATH);
 
-  // 1. Video file info
-  if(hasOverlappingVideo(VIDEO_TITLE, json.videos)) {
+  if (!readContent.result) {
+    alert(readContent.content);
+    return;
+  }
+
+  const JSONFile = new jsonFileDTO(readContent.content);
+  const JSONVideos = JSONFile.getVideos();
+
+  if (jsonControl.hasVideoData(JSONVideos, VIDEO_TITLE)) {
     alert(`There is overlapping video data. \n\n '${VIDEO_TITLE}'`);
     return;
   }
 
-  // 2. Criteria info
-  if(json.criteria.length == 0) {
-    json.criteria = CRITERIAS;
-    json.name = JSON_NAME;
+  const labellingInfoList = labellingContainer.getLabellingData();
 
-    document.getElementById("create-criteria").className = "btn btn-secondary";
-    document.getElementById("create-criteria").disabled = true;
-    document.getElementById("create-criteria").style.cursor = "Default";
-  }
-  /*
-  const overlappingCriterias = checkOverlappingCriterias(CRITERIAS, json.criteria);
-  if(overlappingCriterias.length > 0) {
-    let overlappingCriteriasStr = "";
-
-    overlappingCriterias.forEach((criteria) => {
-      overlappingCriteriasStr = overlappingCriteriasStr.concat("\'", criteria, "\'", "\n");
-    });
-
-    alert(`There is overlapping criterias. \n\n ${overlappingCriteriasStr}`);
-    return;
-  } else {
-    json.setCriteria(CRITERIAS);
-  }
-  */
-
-  // 3. labeling info
-  const labellingInfos = getTableData();
-
-  /*
-  const checkLabellingData = checkLabellingDatas(labellingInfos);
-  if(checkLabellingData > 0) {
-    alert(`Invalid data exists. \n\n There is a problem with table number '${checkLabellingData}'.`);
-    return;
-  }
-  */
-
-  // set data
-  const VideoData = new videoData();
-  const labellingList = VideoData.convertLabellingDataToFrameList(VIDEO_FRAME_LENGTH, labellingInfos);
-
+  const VideoData = new videoDataDTO();
   VideoData.setTitle(VIDEO_TITLE)
-    .setCreateAt()
-    .setFrameList(labellingList);
+    .convertLabellingDatasoFrameList(VIDEO_FRAME_LENGTH, labellingInfoList);
 
-  // write json
-  jsonControl.isWriteJSONFile(JSON_PATH, json, VideoData);
+  JSONFile.setVideos(VideoData)
+    .setCount();
+
+  jsonControl.writeJSONFile(JSON_PATH, JSONFile);
+
   labellingContainer.initialize();
+  mainViewContainer.initialize();
+  frameListContainer.initialize();
+  inputFrameIndexContainer.reset();
+
+  jsonFileContainer.initialize();
+  jsonFileContainer.showVideoFiles(JSONFile.getVideos());
+  videoFilesContainer.showCompletedVideoFilesCount(JSONFile.getVideos());
+  videoFilesContainer.markCompletedVideoFiles([VIDEO_TITLE]);
 })
-
-const hasOverlappingVideo = (videoTitle, jsonVideos) => {
-  return Array.prototype.some.call(jsonVideos, (jsonVideo) => {
-    if(jsonVideo.title == videoTitle) {
-      return true;
-    }
-  });
-}
-
-const checkOverlappingCriterias = (criterias, jsonCriterias) => {
-  let result = [];
-
-  Array.prototype.forEach.call(jsonCriterias, (jsonCriteria) => {
-    Array.prototype.forEach.call(criterias, (criteria) => {
-      if(jsonCriteria.text == criteria.text) {
-        result.push(criteria.text);
-      }
-    })
-  });
-
-  return result;
-}
-
-const checkLabellingDatas = (labellingInfos) => {
-  let result = 0;
-  let beforeEnd = 0;
-
-  Array.prototype.some.call(labellingInfos, (labellingInfo, index) => {
-    const start = labellingInfo.start;
-    const end =labellingInfo.end;
-
-    if(start > end) {
-      result = (index + 1);
-      return true;
-    }
-
-    if(beforeEnd > start) {
-      result = (index + 1);
-      return true;
-    }
-
-    beforeEnd = end;
-  })
-
-  return result;
-}
-
-const getTableData = () => {
-  const table = document.getElementById("result-list");
-  const rowLength = table.rows.length;
-
-  let result = [];
-
-  for (let i = 1; i < rowLength; i++) {
-    const row = table.rows.item(i);
-    const cells = row.cells;
-    const cellLength = cells.length;
-
-    const LabellingData = new labellingData();
-
-    /**
-     * 1.type / 2.start / 3.end
-     */
-    for (let i = 1; i < cellLength; i++) {
-      const cell = cells[i];
-      const value = cell.innerHTML;
-
-      switch (i) {
-        case 1:
-          LabellingData.type = value;
-          break;
-        case 2:
-          LabellingData.start = Number.parseInt(value);
-          break;
-        case 3:
-          LabellingData.end = Number.parseInt(value);
-          break;
-      }
-    }
-
-    result.push(LabellingData);
-  };
-
-  return result;
-}

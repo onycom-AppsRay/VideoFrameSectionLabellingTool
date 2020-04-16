@@ -5,7 +5,11 @@ export default class {
   }
 
   setType(type) {
-    this.type = type;
+    if(typeof type == "string") {
+      this.type = (type.toString().charCodeAt(0) - 64);
+    } else {
+      this.type = type;
+    }
     return this;
   }
 

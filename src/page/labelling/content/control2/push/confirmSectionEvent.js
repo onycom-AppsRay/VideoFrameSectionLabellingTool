@@ -1,13 +1,21 @@
 import labellingContainer from "../complete/labellingContainer";
 
+import criteriaContainer from "./criteriaContainer";
+
 const SECTION_CONFIRM = document.getElementById("section-confirm");
 
 SECTION_CONFIRM.addEventListener("click", (event) => {
-  const startFrameIndex = document.getElementById("start-frame-input").innerHTML;
-  const endFrameIndex = document.getElementById("end-frame-input").innerHTML;
-  const criteriaTag = selectedCriteria();
+  event.target.blur();
 
-  if (validate(startFrameIndex, endFrameIndex, criteriaTag)) {
+  const startFrameInput = document.getElementById("start-frame-input");
+  const endFrameInput =document.getElementById("end-frame-input");
+
+  const startFrameIndex = startFrameInput.innerText;
+  const endFrameIndex = endFrameInput.innerText;
+
+  const criteriaTag = criteriaContainer.selectedCriteria();
+
+  if (criteriaContainer.validate(startFrameIndex, endFrameIndex, criteriaTag)) {
     const criteriaType = criteriaTag.dataset.type;
 
     if (labellingContainer.hasSameData(startFrameIndex, endFrameIndex, criteriaType)) {
@@ -23,39 +31,10 @@ SECTION_CONFIRM.addEventListener("click", (event) => {
       if (!confirm(message)) return;
 
       labellingContainer.showLabellingData(startFrameIndex, endFrameIndex, criteriaType);
+
+      startFrameInput.innerText = endFrameIndex;
+      startFrameInput.focus();
+      endFrameInput.setAttribute("autofocus", "");
     }
   }
 });
-
-const selectedCriteria = () => {
-  const criteriaList = document.querySelectorAll("#criteria-list input[name=criteria]");
-
-  let result = "";
-  Array.prototype.some.call(criteriaList, (criteria) => {
-    if(criteria.checked == true) {
-      result = criteria;
-      return true;
-    }
-  })
-
-  return result;
-};
-
-const validate = (startFrameIndex, endFrameIndex, criteria) => {
-  if (startFrameIndex == '' || endFrameIndex == '') {
-    alert('Please select a frame.');
-    return false;
-  }
-
-  if (Number.parseInt(startFrameIndex) > Number.parseInt(endFrameIndex)) {
-    alert(`START: ${startFrameIndex} > END: ${endFrameIndex}`);
-    return false;
-  }
-
-  if (!criteria) {
-    alert(`Please select a criteria.`);
-    return false;
-  }
-
-  return true;
-};

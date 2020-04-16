@@ -1,10 +1,6 @@
 .criteria {
   display: none;
 }
-/*
-.criteria.is-shown {
-  display: inline;
-}
 
 #criteria-modal-header {
   padding: 0;
@@ -12,7 +8,7 @@
 
 #criteria-modal-list {
   padding: 0;
-} */
+}
 
 .criteria-temp-text {
   overflow-x: auto;

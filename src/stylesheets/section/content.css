@@ -43,6 +43,10 @@
   color: white;
 }
 
+#main-view-container > div {
+  height: auto;
+}
+
 #main-view-image-container {
   position: absolute;
   z-index: 1;

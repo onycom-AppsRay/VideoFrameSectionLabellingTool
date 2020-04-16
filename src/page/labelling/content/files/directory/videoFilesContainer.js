@@ -81,4 +81,5 @@ export default {
   showVideoFiles,
   checkCompletedVideoFiles,
   markCompletedVideoFiles,
+  showCompletedVideoFilesCount
 }

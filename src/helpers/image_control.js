@@ -1,7 +1,5 @@
 import path from "path";
 
-import globalFrame from "../model/global/globalFrame";
-
 const frameListContainer = document.getElementById("frame-list-container");
 const mainViewImageContainer = document.getElementById("main-view-image-container");
 const mainViewImage = document.getElementById("main-view-image");
@@ -26,30 +24,6 @@ const setImage = (dataUrl, index, width, height) => {
   image.style.width = width;
   image.style.height = height;
   image.style.border = "0.3rem solid lightgray";
-
-  image.addEventListener("click", (event) => {
-    const frameIndex = event.target.dataset.index;
-
-    // Viewing main
-    setMainViewImage(event.target.src);
-
-    // Key board control
-    const GlobalFrame = new globalFrame();
-    GlobalFrame.setAT(frameIndex);
-
-    // Input frame index (start, end)
-    const startFrameInput = document.getElementById("start-frame-input");
-    const endFrameInput = document.getElementById("end-frame-input");
-
-    if (startFrameInput.hasAttribute("autofocus")) {
-      startFrameInput.innerHTML = frameIndex;
-    }
-
-    if (endFrameInput.hasAttribute("autofocus")) {
-      endFrameInput.innerHTML = frameIndex;
-    }
-
-  }, false);
 
   frameListContainer.appendChild(image);
 }

@@ -16,7 +16,6 @@ const jsContent = document.getElementsByClassName("js-content")[0];
 const goLabellingPageBtn = document.querySelector(`#open-file-page-container button[name="go-labelling"]`);
 
 let filePath;
-
 let jsonCriteria;
 let jsonVideos;
 
@@ -92,6 +91,7 @@ goLabellingPageBtn.onclick = () => {
     const completedVideoFiles = jsonControl.matchingVideoTitle(directoryVideoNameList, jsonVideoTitleList);
 
     videoFilesContainer.markCompletedVideoFiles(completedVideoFiles);
+    videoFilesContainer.showCompletedVideoFilesCount(completedVideoFiles);
   }
 
   openFilePage.style.display = "none";

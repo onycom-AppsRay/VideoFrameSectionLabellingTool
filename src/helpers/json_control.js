@@ -35,36 +35,12 @@ const writeJSONFile = (path, content) => {
   });
 }
 
-const isWriteJSONFile = (path, jsonFile, videoData) => {
-  const videoDataList = jsonFile.videos;
-
-  if (hasVideoData(videoDataList, videoData)) {
-    // TODO(yhpark): 라벨링 데이터 덮어쓰기
-    alert("동일한 비디오에 대한 라벨링 데이터가 존재 합니다!");
-
-    return false;
-  } else {
-    jsonFile.createAt = new Date();
-    jsonFile.videos.push(videoData);
-
-    fs.writeFileSync(path, JSON.stringify(jsonFile, " ", 2));
-
-    return true;
-  }
-}
-
-const hasVideoData = (videoDataList, videoData) => {
-  const videoTitle = videoData.title;
-
-  let result = false;
-
-  result = videoDataList.some((videoData) => {
+const hasVideoData = (videoDataList, videoTitle) => {
+  return Array.prototype.some.call(videoDataList, (videoData) => {
     if (videoData.title == videoTitle) {
       return true;
     }
   });
-
-  return result;
 }
 
 const matchingVideoTitle = (directoryVideos, jsonVideos) => {
@@ -106,8 +82,8 @@ const hasJSONFile = (path, fileName) => {
 export default {
   getJSONFile,
   writeJSONFile,
-  isWriteJSONFile,
   matchingVideoTitle,
   createFileNameWithCurrentTime,
-  hasJSONFile
+  hasJSONFile,
+  hasVideoData
 }

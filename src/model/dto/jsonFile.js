@@ -39,11 +39,6 @@ export default class {
     return this;
   }
 
-  setCount(count) {
-    this.count = count;
-    return this;
-  }
-
   setCriterias(criterias) {
     Array.prototype.forEach.call(criterias, (criteria) => {
       const JSONCriteria = new jsonCriteriaDTO();
@@ -62,7 +57,11 @@ export default class {
     return this;
   }
 
-  makeJSON() {
-    return this;
+  setCount() {
+    this.count++;
+
+    if(this.count != this.videos.length) {
+      this.count = this.videos.length;
+    }
   }
 }

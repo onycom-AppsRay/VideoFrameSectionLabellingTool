@@ -23,6 +23,11 @@ const initGlobalVariable = () => {
   remote.getGlobal("sharedObject").JSON_FILE.NAME = "";
   remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
   remote.getGlobal("sharedObject").DIRECTORY.VIDEOS = [];
+  remote.getGlobal("sharedObject").VIDEO_DATA.PATH = "";
+  remote.getGlobal("sharedObject").VIDEO_DATA.TITLE = "";
+  remote.getGlobal("sharedObject").VIDEO_DATA.FRAME_LIST = [];
+  remote.getGlobal("sharedObject").FRAME.LENGTH = 0;
+  remote.getGlobal("sharedObject").FRAME.AT = 0;
   remote.getGlobal("sharedObject").CRITERIA = [];
 }
 
