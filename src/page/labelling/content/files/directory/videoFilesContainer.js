@@ -12,15 +12,13 @@ const showVideoFiles = (videoFiles, completedVideoFiles = []) => {
   const videoFilesContainer = document.getElementById("video-files-container");
 
   Array.prototype.forEach.call(videoFiles, (fileInfo) => {
-    const filePath = fileInfo.path;
-    const fileTitle = fileInfo.name.replace(/\ |-|#|&/gi, "");
-
     const span = document.createElement("span");
+
     span.className = "video-file";
-    span.id = fileTitle;
-    span.dataset.path = filePath;
-    span.dataset.title = fileTitle;
-    span.innerText = fileTitle;
+    span.id = fileInfo.name;
+    span.dataset.path = fileInfo.path;
+    span.dataset.title = fileInfo.name;
+    span.innerText = fileInfo.name.replace(/\ |-|#|&/gi, "");
     span.style.wordBreak = "keep-all";
 
     videoFilesContainer.appendChild(span);

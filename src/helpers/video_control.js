@@ -1,13 +1,29 @@
 import { remote } from "electron";
 
 import imageControl from "./image_control";
+import jsonControl from "./json_control";
 
-const createVideoTag = (path, playbackRate) => {
+import jsonFileDTO from "../model/dto/jsonFile";
+
+const getVideoTag = (path, playbackRate) => {
   const video = document.getElementById("hidden-video");
 
   video.style.width = "100%";
   video.style.height = "100%";
   video.src = path;
+  video.muted = "muted";
+  video.playbackRate = playbackRate;
+
+  return video;
+}
+
+const createVideoTag = (path, playbackRate) => {
+  const video = document.createElement("video");
+
+  video.style.width = "100%";
+  video.style.height = "100%";
+  video.src = path;
+  video.muted = "muted";
   video.playbackRate = playbackRate;
 
   return video;
@@ -69,7 +85,47 @@ const captureVideo = (videoElement, index) => {
   return frame;
 };
 
+const searchNextVideo = (nowVideoTitle) => {
+  const globalDirectoryVideoInfoList = remote.getGlobal("sharedObject").DIRECTORY.VIDEOS;
+
+  let directoryVideoTitleList = [];
+
+  globalDirectoryVideoInfoList.forEach((videoInfo) => {
+    directoryVideoTitleList.push(videoInfo.name);
+  })
+
+  const readContent = jsonControl.getJSONFile(remote.getGlobal("sharedObject").JSON_FILE.PATH);
+
+  if (!readContent.result) {
+    alert(readContent.content);
+    return;
+  }
+
+  const JSONFile = new jsonFileDTO(readContent.content);
+  const JSONVideoInfoList = JSONFile.getVideos();
+
+  let jsonVideoTitleList = [];
+
+  JSONVideoInfoList.forEach((videoInfo) => {
+    jsonVideoTitleList.push(videoInfo.title);
+  })
+
+  let nowVideoIndex = directoryVideoTitleList.indexOf(nowVideoTitle);
+  let length = directoryVideoTitleList.length;
+
+  for(let i = (nowVideoIndex + 1); i < (length + nowVideoIndex); i++) {
+    const nextTargetIndex = (i % length);
+    const nextTarget = directoryVideoTitleList[nextTargetIndex];
+
+    if(jsonVideoTitleList.indexOf(nextTarget) == -1) {
+      return nextTarget;
+    }
+  }
+}
+
 export default {
+  getVideoTag,
   createVideoTag,
   play,
+  searchNextVideo
 }

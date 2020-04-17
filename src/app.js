@@ -19,6 +19,7 @@ import "./helpers/key_event.js";
 import "./page/labelling/header/nav.js";
 import "./page/labelling/header/back.js";
 
+import "./page/labelling/content/control2/complete/sectionClickEvent.js";
 import "./page/labelling/content/files/directory/videoFileEvent.js";
 import "./page/labelling/content/control1/frame/frameClickEvent.js";
 import "./page/labelling/content/control2/complete/completeBtnEvent.js";
@@ -30,7 +31,7 @@ import "./page/directory/openDirectory.js";
 import "./page/file/importExistingFile.js";
 import "./page/file/createJSONFile.js";
 
-// import "./test";
+import "./test";
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------

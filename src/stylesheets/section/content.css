@@ -23,6 +23,7 @@
   overflow-x: auto;
   overflow-y: auto;
   height: 47%;
+  text-align: left;
 }
 
 #video-files-container {
@@ -30,7 +31,7 @@
 }
 
 .video-file:hover {
-  color: limegreen;
+  color: lime;
   cursor: pointer;
 }
 
