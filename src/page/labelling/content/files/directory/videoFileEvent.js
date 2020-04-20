@@ -18,8 +18,6 @@ videoFilesContainer.onclick = (event) => {
     const path = event.target.dataset.path;
     const title = event.target.dataset.title;
 
-    console.log(videoControl.searchNextVideo(title));
-
     const jsonFilePath = remote.getGlobal("sharedObject").JSON_FILE.PATH;
     const result = jsonControl.getJSONFile(jsonFilePath);
 
@@ -55,7 +53,7 @@ videoFilesContainer.onclick = (event) => {
     mainViewContainer.setMainFrameRate(video);
 
     const fps = 5;
-    videoControl.play(video, fps, GlobalFrame.setLENGTH);
+    videoControl.play(video, fps);
     overlayContainer.showProgress();
   }
 }

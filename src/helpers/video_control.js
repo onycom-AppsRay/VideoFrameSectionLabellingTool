@@ -46,6 +46,7 @@ const play = (videoElement, fps) => {
         } else {
           const imageData = captureVideo(videoElement, index++);
           captureArr.push(imageData);
+
         }
 
         setTimeout(() => {
@@ -113,11 +114,11 @@ const searchNextVideo = (nowVideoTitle) => {
   let nowVideoIndex = directoryVideoTitleList.indexOf(nowVideoTitle);
   let length = directoryVideoTitleList.length;
 
-  for(let i = (nowVideoIndex + 1); i < (length + nowVideoIndex); i++) {
+  for (let i = (nowVideoIndex + 1); i < (length + nowVideoIndex); i++) {
     const nextTargetIndex = (i % length);
     const nextTarget = directoryVideoTitleList[nextTargetIndex];
 
-    if(jsonVideoTitleList.indexOf(nextTarget) == -1) {
+    if (jsonVideoTitleList.indexOf(nextTarget) == -1) {
       return nextTarget;
     }
   }
@@ -127,5 +128,6 @@ export default {
   getVideoTag,
   createVideoTag,
   play,
+  showFrameList,
   searchNextVideo
 }

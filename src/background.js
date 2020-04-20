@@ -32,7 +32,13 @@ global.sharedObject = {
     LENGTH: 0,
     AT: 0
   },
-  CRITERIA: []
+  CRITERIA: [],
+  NEXT_VIDEO: {
+    PATH: "",
+    TITLE: "",
+    FRAME_LIST: [],
+    FRAME_LENGTH: 0
+  }
 }
 
 const setApplicationMenu = () => {
