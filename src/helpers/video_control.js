@@ -1,4 +1,5 @@
 import { remote } from "electron";
+import ffmpeg from "ffmpeg";
 
 import imageControl from "./image_control";
 import jsonControl from "./json_control";
@@ -28,6 +29,32 @@ const createVideoTag = (path, playbackRate) => {
 
   return video;
 }
+
+const getFrame = (path) => {
+  try {
+    var process = new ffmpeg(path);
+    process.then(function (video) {
+      // Callback mode
+      video.fnExtractFrameToJPG(`/Users/parkyounghwan/git/onycom/VideoFrameSectionLabellingTool/mock`, {
+        frame_rate: 1,
+        number: 5,
+        file_name: 'frame'
+      }, function (error, files) {
+        alert(error);
+        if (!error) {
+          alert('Frames: ' + files);
+        }
+      });
+    }, function (err) {
+      alert('Error: ' + err);
+    });
+
+  } catch (e) {
+    alert(e.code);
+    alert(e.msg);
+  }
+
+};
 
 const play = (videoElement, fps) => {
   videoElement.play()
@@ -127,6 +154,7 @@ const searchNextVideo = (nowVideoTitle) => {
 export default {
   getVideoTag,
   createVideoTag,
+  getFrame,
   play,
   showFrameList,
   searchNextVideo

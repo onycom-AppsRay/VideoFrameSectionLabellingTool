@@ -18,43 +18,44 @@ videoFilesContainer.onclick = (event) => {
     const path = event.target.dataset.path;
     const title = event.target.dataset.title;
 
-    const jsonFilePath = remote.getGlobal("sharedObject").JSON_FILE.PATH;
-    const result = jsonControl.getJSONFile(jsonFilePath);
+    videoControl.getFrame(path);
+    // const jsonFilePath = remote.getGlobal("sharedObject").JSON_FILE.PATH;
+    // const result = jsonControl.getJSONFile(jsonFilePath);
 
-    if(!result.result) {
-      alert("Error json file load");
-      return;
-    }
+    // if(!result.result) {
+    //   alert("Error json file load");
+    //   return;
+    // }
 
-    const JSONContent = new jsonFileDTO(result.content);
-    const JSONVideos = JSONContent.getVideos();
+    // const JSONContent = new jsonFileDTO(result.content);
+    // const JSONVideos = JSONContent.getVideos();
 
-    if(JSONVideos.length > 0) {
-      if(jsonControl.hasVideoData(JSONVideos, title)){
-        alert("동일한 비디오에 대한 데이터가 존재 합니다.");
-        return;
-      }
-    }
+    // if(JSONVideos.length > 0) {
+    //   if(jsonControl.hasVideoData(JSONVideos, title)){
+    //     alert("동일한 비디오에 대한 데이터가 존재 합니다.");
+    //     return;
+    //   }
+    // }
 
-    mainViewContainer.initialize();
-    frameListContainer.initialize();
-    overlayContainer.initialize();
+    // mainViewContainer.initialize();
+    // frameListContainer.initialize();
+    // overlayContainer.initialize();
 
-    const GlobalVideoData = new globalVideoData();
-    GlobalVideoData.setPATH(path);
-    GlobalVideoData.setTITLE(title);
+    // const GlobalVideoData = new globalVideoData();
+    // GlobalVideoData.setPATH(path);
+    // GlobalVideoData.setTITLE(title);
 
-    const GlobalFrame = new globalFrame();
-    GlobalFrame.setAT(0);
+    // const GlobalFrame = new globalFrame();
+    // GlobalFrame.setAT(0);
 
-    const playBackRate = 5;
-    const video = videoControl.getVideoTag(path, playBackRate);
+    // const playBackRate = 5;
+    // const video = videoControl.getVideoTag(path, playBackRate);
 
-    mainViewContainer.setMainFrameRate(video);
+    // mainViewContainer.setMainFrameRate(video);
 
-    const fps = 5;
-    videoControl.play(video, fps);
-    overlayContainer.showProgress();
+    // const fps = 5;
+    // videoControl.play(video, fps);
+    // overlayContainer.showProgress();
   }
 }
 
