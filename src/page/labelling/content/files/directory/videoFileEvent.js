@@ -1,12 +1,12 @@
 import { remote } from "electron";
 
-import videoControl from "../../../../../helpers/video_control";
+import videoCapture from "../../../../../helpers/opencv/videoCapture";
+
 import jsonControl from "../../../../../helpers/json_control";
-import imageControl from "../../../../../helpers/image_control";
 
 import mainViewContainer from "../../main/mainViewContainer";
 import frameListContainer from "../../control1/frame/frameListContainer";
-import overlayContainer from "../../../../overlay/overlayContainer";
+import labellingContainer from "../../control2/complete/labellingContainer";
 
 import globalVideoData from "../../../../../model/global/globalVideoData";
 import globalFrame from "../../../../../model/global/globalFrame";
@@ -39,7 +39,7 @@ videoFilesContainer.onclick = (event) => {
 
     mainViewContainer.initialize();
     frameListContainer.initialize();
-    // overlayContainer.initialize();
+    labellingContainer.initialize();
 
     const GlobalVideoData = new globalVideoData();
     GlobalVideoData.setPATH(path);
@@ -48,23 +48,20 @@ videoFilesContainer.onclick = (event) => {
     const GlobalFrame = new globalFrame();
     GlobalFrame.setAT(0);
 
-    const playBackRate = 5;
-    const video = videoControl.getVideoTag(path, playBackRate);
+    const video = mainViewContainer.getVideoTag(path);
 
     mainViewContainer.setMainFrameRate(video);
-    
-    const frameList = videoControl.capture(path);
 
-    frameList.forEach((frame, index) => {
-      const canvas = imageControl.setFrameToCanvas(frame, index);
+    const VideoCapture = new videoCapture(path);
+    VideoCapture.capture();
+
+    VideoCapture.getFrameList().forEach((frame, index) => {
+      const imageData = VideoCapture.setFrameToImageData(frame);
+
+      const canvas = frameListContainer.createCanvas(frame, imageData, index);
 
       document.getElementById("frame-list-container").appendChild(canvas);
     })
-
-
-    // const fps = 5;
-    // videoControl.play(video, fps);
-    // overlayContainer.showProgress();
   }
 }
 

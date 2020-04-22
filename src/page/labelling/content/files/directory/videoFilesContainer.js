@@ -2,6 +2,8 @@ import tagControl from "../../../../../helpers/tag_control";
 import jsonControl from "../../../../../helpers/json_control";
 import fileExplorer from "../../../../../helpers/file_explorer";
 
+import jsonFileDTO from "../../../../../model/dto/jsonFile";
+
 const initialize = () => {
   const videoFilesContainer = document.getElementById("video-files-container");
 
@@ -74,10 +76,49 @@ const showDirectoryVideoFilesCount = (fileList) => {
   document.getElementById("total-video-count").innerHTML = fileList.length;
 }
 
+const searchNextVideo = (nowVideoTitle) => {
+  const globalDirectoryVideoInfoList = remote.getGlobal("sharedObject").DIRECTORY.VIDEOS;
+
+  let directoryVideoTitleList = [];
+
+  globalDirectoryVideoInfoList.forEach((videoInfo) => {
+    directoryVideoTitleList.push(videoInfo.name);
+  })
+
+  const readContent = jsonControl.getJSONFile(remote.getGlobal("sharedObject").JSON_FILE.PATH);
+
+  if (!readContent.result) {
+    alert(readContent.content);
+    return;
+  }
+
+  const JSONFile = new jsonFileDTO(readContent.content);
+  const JSONVideoInfoList = JSONFile.getVideos();
+
+  let jsonVideoTitleList = [];
+
+  JSONVideoInfoList.forEach((videoInfo) => {
+    jsonVideoTitleList.push(videoInfo.title);
+  })
+
+  let nowVideoIndex = directoryVideoTitleList.indexOf(nowVideoTitle);
+  let length = directoryVideoTitleList.length;
+
+  for (let i = (nowVideoIndex + 1); i < (length + nowVideoIndex); i++) {
+    const nextTargetIndex = (i % length);
+    const nextTarget = directoryVideoTitleList[nextTargetIndex];
+
+    if (jsonVideoTitleList.indexOf(nextTarget) == -1) {
+      return nextTarget;
+    }
+  }
+}
+
 export default {
   initialize,
   showVideoFiles,
   checkCompletedVideoFiles,
   markCompletedVideoFiles,
-  showCompletedVideoFilesCount
+  showCompletedVideoFilesCount,
+  searchNextVideo
 }

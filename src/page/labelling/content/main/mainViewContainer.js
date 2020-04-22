@@ -6,6 +6,15 @@ const initialize = () => {
   mainViewImage.src = "";
 }
 
+const getVideoTag = (path) => {
+  const video = document.getElementById("hidden-video");
+
+  video.src = path;
+  video.muted = "muted";
+
+  return video;
+}
+
 const setMainFrameRate = async (videoElement) => {
   let flag = false;
 
@@ -21,5 +30,6 @@ const setMainFrameRate = async (videoElement) => {
 
 export default {
   initialize,
+  getVideoTag,
   setMainFrameRate
 }
