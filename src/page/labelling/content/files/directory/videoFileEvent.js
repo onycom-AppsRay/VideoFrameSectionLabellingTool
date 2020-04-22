@@ -18,7 +18,7 @@ videoFilesContainer.onclick = (event) => {
     const path = event.target.dataset.path;
     const title = event.target.dataset.title;
 
-    videoControl.getFrame(path);
+    videoControl.videoCapture(path);
     // const jsonFilePath = remote.getGlobal("sharedObject").JSON_FILE.PATH;
     // const result = jsonControl.getJSONFile(jsonFilePath);
 

@@ -1,10 +1,39 @@
 import { remote } from "electron";
-import ffmpeg from "ffmpeg";
+import cv from "opencv4nodejs";
 
 import imageControl from "./image_control";
 import jsonControl from "./json_control";
 
 import jsonFileDTO from "../model/dto/jsonFile";
+
+const videoCapture = (path) => {
+  // open video capture
+  const vCap = new cv.VideoCapture(path);
+
+  const frame = vCap.read();
+
+  const matRGBA = frame.channels === 1
+    ? frame.cvtColor(cv.COLOR_GRAY2RGBA)
+    : frame.cvtColor(cv.COLOR_BGR2RGBA);
+
+  // create new ImageData from raw mat data
+  const imgData = new ImageData(
+    new Uint8ClampedArray(matRGBA.getData()),
+    frame.cols,
+    frame.rows
+  );
+
+  // set canvas dimensions
+  const canvas = document.createElement('canvas');
+  canvas.height = frame.cols;
+  canvas.width = frame.rows;
+
+  // set image data
+  const ctx = canvas.getContext('2d');
+  ctx.putImageData(imgData, 0, 0);
+
+  document.getElementById("main-view-image-container").appendChild(canvas);
+}
 
 const getVideoTag = (path, playbackRate) => {
   const video = document.getElementById("hidden-video");
@@ -152,6 +181,7 @@ const searchNextVideo = (nowVideoTitle) => {
 }
 
 export default {
+  videoCapture,
   getVideoTag,
   createVideoTag,
   getFrame,
