@@ -7,32 +7,25 @@ import jsonControl from "./json_control";
 import jsonFileDTO from "../model/dto/jsonFile";
 
 const videoCapture = (path) => {
-  // open video capture
   const vCap = new cv.VideoCapture(path);
 
-  const frame = vCap.read();
+  let result = [];
+  let done = false;
+  
+  while(!done) {
+    let frame = vCap.read();
+    
+    if(frame.empty) {
+      remote.getGlobal("sharedObject").FRAME.LENGTH = result.length;
 
-  const matRGBA = frame.channels === 1
-    ? frame.cvtColor(cv.COLOR_GRAY2RGBA)
-    : frame.cvtColor(cv.COLOR_BGR2RGBA);
+      vCap.reset();
+      done = true;
+    } else {
+      result.push(frame);
+    }
+  }
 
-  // create new ImageData from raw mat data
-  const imgData = new ImageData(
-    new Uint8ClampedArray(matRGBA.getData()),
-    frame.cols,
-    frame.rows
-  );
-
-  // set canvas dimensions
-  const canvas = document.createElement('canvas');
-  canvas.height = frame.cols;
-  canvas.width = frame.rows;
-
-  // set image data
-  const ctx = canvas.getContext('2d');
-  ctx.putImageData(imgData, 0, 0);
-
-  document.getElementById("main-view-image-container").appendChild(canvas);
+  return result;
 }
 
 const getVideoTag = (path, playbackRate) => {
@@ -58,32 +51,6 @@ const createVideoTag = (path, playbackRate) => {
 
   return video;
 }
-
-const getFrame = (path) => {
-  try {
-    var process = new ffmpeg(path);
-    process.then(function (video) {
-      // Callback mode
-      video.fnExtractFrameToJPG(`/Users/parkyounghwan/git/onycom/VideoFrameSectionLabellingTool/mock`, {
-        frame_rate: 1,
-        number: 5,
-        file_name: 'frame'
-      }, function (error, files) {
-        alert(error);
-        if (!error) {
-          alert('Frames: ' + files);
-        }
-      });
-    }, function (err) {
-      alert('Error: ' + err);
-    });
-
-  } catch (e) {
-    alert(e.code);
-    alert(e.msg);
-  }
-
-};
 
 const play = (videoElement, fps) => {
   videoElement.play()
@@ -184,7 +151,6 @@ export default {
   videoCapture,
   getVideoTag,
   createVideoTag,
-  getFrame,
   play,
   showFrameList,
   searchNextVideo
