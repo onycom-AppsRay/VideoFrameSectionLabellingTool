@@ -1,9 +1,32 @@
 import { remote } from "electron";
+import cv from "opencv4nodejs";
 
 import imageControl from "./image_control";
 import jsonControl from "./json_control";
 
 import jsonFileDTO from "../model/dto/jsonFile";
+
+const videoCapture = (path) => {
+  const vCap = new cv.VideoCapture(path);
+
+  let result = [];
+  let done = false;
+  
+  while(!done) {
+    let frame = vCap.read();
+    
+    if(frame.empty) {
+      remote.getGlobal("sharedObject").FRAME.LENGTH = result.length;
+
+      vCap.reset();
+      done = true;
+    } else {
+      result.push(frame);
+    }
+  }
+
+  return result;
+}
 
 const getVideoTag = (path, playbackRate) => {
   const video = document.getElementById("hidden-video");
@@ -125,6 +148,7 @@ const searchNextVideo = (nowVideoTitle) => {
 }
 
 export default {
+  videoCapture,
   getVideoTag,
   createVideoTag,
   play,

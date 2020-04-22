@@ -2,6 +2,7 @@ import { remote } from "electron";
 
 import videoControl from "../../../../../helpers/video_control";
 import jsonControl from "../../../../../helpers/json_control";
+import imageControl from "../../../../../helpers/image_control";
 
 import mainViewContainer from "../../main/mainViewContainer";
 import frameListContainer from "../../control1/frame/frameListContainer";
@@ -47,14 +48,23 @@ videoFilesContainer.onclick = (event) => {
     const GlobalFrame = new globalFrame();
     GlobalFrame.setAT(0);
 
-    const playBackRate = 5;
-    const video = videoControl.getVideoTag(path, playBackRate);
+    const frameList = videoControl.videoCapture(path);
 
-    mainViewContainer.setMainFrameRate(video);
+    frameList.forEach((frame, index) => {
+      const dataURL = imageControl.setFrameToCanvas(frame, index);
+  
+      // document.getElementById("frame-list-container").appendChild(canvas);
+      imageControl.setImage(dataURL, index, "100%", "auto");
+    })
 
-    const fps = 5;
-    videoControl.play(video, fps);
-    overlayContainer.showProgress();
+    // const playBackRate = 5;
+    // const video = videoControl.getVideoTag(path, playBackRate);
+
+    // mainViewContainer.setMainFrameRate(video);
+
+    // const fps = 5;
+    // videoControl.play(video, fps);
+    // overlayContainer.showProgress();
   }
 }
 

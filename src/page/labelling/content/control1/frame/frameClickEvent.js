@@ -32,4 +32,24 @@ frameListContainer.addEventListener("click", (event) => {
       endFrameInput.innerHTML = clickedFrameIndex;
     }
   }
+
+  if(event.target.tagName == "CANVAS") {
+    const clickedCanvas = event.target;
+
+    const mainContainer = document.getElementById("main-view-image-container");
+
+    if(mainContainer.hasChildNodes()) {
+      let children = mainContainer.childNodes;
+
+      for(let i = 0; i < children.length; i++) {
+        if(children[i].tagName == "CANVAS") {
+          children[i].remove();
+
+          break;
+        }
+      }
+    }
+
+    mainContainer.appendChild(clickedCanvas);
+  }
 })
