@@ -20,7 +20,7 @@ const setFrameToCanvas = (frame, index) => {
   canvas.height = frame.rows;
   canvas.width = frame.cols;
 
-  canvas.setAttribute("style", "width: 100%;");
+  canvas.setAttribute("style", "width: 100%; height: auto; border: 2px solid lightgray");
   canvas.dataset.index = index;
   
   // set image data
@@ -29,7 +29,7 @@ const setFrameToCanvas = (frame, index) => {
   ctx.putImageData(imgData, 0, 0);
   drawStroked(ctx, index, (frame.cols / 2), (frame.rows / 2));
 
-  return canvas.toDataURL("image/jpeg");
+  return canvas;
 }
 
 const imageDataToImage = (imageData, quality) => {

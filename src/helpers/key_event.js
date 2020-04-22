@@ -38,20 +38,20 @@ const frameMove = () => {
        */
       if(focusPosition == "start-frame-input") {
         const nextImgIndex = GlobalFrame.AT - 1;
-        const image = document.querySelector(`img[data-index='${nextImgIndex}'`);
+        const canvas = document.querySelector(`canvas[data-index='${nextImgIndex}'`);
 
         if((endFrameIndex == 0) || (startFrameIndex > endFrameIndex)) {
           markSelectedFrame(GlobalFrame.AT, nextImgIndex);
 
-          image.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
+          canvas.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 
-          imageControl.setMainViewImage(image.src);
+          imageControl.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
           inputFrameIndexContainer.setFrameIndex(nextImgIndex);
 
           GlobalFrame.setAT(nextImgIndex)
         } else {
-          image.scrollIntoView({block: "center"});
+          canvas.scrollIntoView({block: "center"});
         }
       }
 
@@ -62,20 +62,20 @@ const frameMove = () => {
        */
       if(focusPosition == "end-frame-input") {
         const nextImgIndex = GlobalFrame.AT - 1;
-        const image = document.querySelector(`img[data-index='${nextImgIndex}'`);
+        const canvas = document.querySelector(`canvas[data-index='${nextImgIndex}'`);
 
         if((endFrameIndex > startFrameIndex)) {
           markSelectedFrame(GlobalFrame.AT, nextImgIndex);
 
-          image.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
+          canvas.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 
-          imageControl.setMainViewImage(image.src);
+          imageControl.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
           inputFrameIndexContainer.setFrameIndex(nextImgIndex);
 
           GlobalFrame.setAT(nextImgIndex)
         } else {
-          image.scrollIntoView({block: "center"});
+          canvas.scrollIntoView({block: "center"});
         }
       }
     }
@@ -86,13 +86,13 @@ const frameMove = () => {
     if (GlobalFrame.AT < (GlobalFrame.LENGTH - 1)) {
       const nextImgIndex = GlobalFrame.AT + 1;
 
-      const image = document.querySelector(`img[data-index='${nextImgIndex}'`);
+      const canvas = document.querySelector(`canvas[data-index='${nextImgIndex}'`);
 
       markSelectedFrame(GlobalFrame.AT, nextImgIndex);
 
-      image.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
+      canvas.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 
-      imageControl.setMainViewImage(image.src);
+      imageControl.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
       inputFrameIndexContainer.setFrameIndex(nextImgIndex);
 
@@ -104,10 +104,10 @@ const frameMove = () => {
 }
 
 const markSelectedFrame = (before, now) => {
-  const beforeFrame = document.querySelector(`#frame-list-container img[data-index="${before}"]`)
+  const beforeFrame = document.querySelector(`#frame-list-container canvas[data-index="${before}"]`)
   beforeFrame.style.borderColor = "lightgray";
 
-  const nowFrame = document.querySelector(`#frame-list-container img[data-index="${now}"]`);
+  const nowFrame = document.querySelector(`#frame-list-container canvas[data-index="${now}"]`);
   nowFrame.style.borderColor = "red";
 }
 

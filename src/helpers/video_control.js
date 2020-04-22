@@ -6,7 +6,7 @@ import jsonControl from "./json_control";
 
 import jsonFileDTO from "../model/dto/jsonFile";
 
-const videoCapture = (path) => {
+const capture = (path) => {
   const vCap = new cv.VideoCapture(path);
 
   let result = [];
@@ -148,7 +148,7 @@ const searchNextVideo = (nowVideoTitle) => {
 }
 
 export default {
-  videoCapture,
+  capture,
   getVideoTag,
   createVideoTag,
   play,

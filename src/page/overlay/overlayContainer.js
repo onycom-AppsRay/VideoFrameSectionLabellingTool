@@ -8,6 +8,7 @@ const initialize = () => {
 }
 
 const showProgress = () => {
+  /*
   const video = document.getElementById("hidden-video");
   const progressBarContainer = document.getElementById("progress-bar-container");
   const progressBar = document.getElementById("progress-bar");
@@ -28,6 +29,7 @@ const showProgress = () => {
 
     progressBar.style.width = `${rate}%`;
   });
+  */
 }
 
 export default {

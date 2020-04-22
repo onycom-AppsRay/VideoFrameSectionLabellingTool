@@ -34,22 +34,29 @@ frameListContainer.addEventListener("click", (event) => {
   }
 
   if(event.target.tagName == "CANVAS") {
-    const clickedCanvas = event.target;
+    const canvas = event.target;
+    const clickedFrameIndex = canvas.dataset.index;
 
-    const mainContainer = document.getElementById("main-view-image-container");
+    imageControl.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
-    if(mainContainer.hasChildNodes()) {
-      let children = mainContainer.childNodes;
+    const nowFrameIndex = remote.getGlobal("sharedObject").FRAME.AT;
+    const nowImgTag = document.querySelector(`#frame-list-container canvas[data-index="${nowFrameIndex}"]`);
 
-      for(let i = 0; i < children.length; i++) {
-        if(children[i].tagName == "CANVAS") {
-          children[i].remove();
+    nowImgTag.style.borderColor = "lightgray";
 
-          break;
-        }
-      }
+    remote.getGlobal("sharedObject").FRAME.AT = Number.parseInt(clickedFrameIndex);
+    const clickedFrameTag = document.querySelector(`#frame-list-container canvas[data-index="${clickedFrameIndex}"]`);
+    clickedFrameTag.style.borderColor = "red";
+
+    const startFrameInput = document.getElementById("start-frame-input");
+    const endFrameInput = document.getElementById("end-frame-input");
+
+    if (startFrameInput.hasAttribute("autofocus")) {
+      startFrameInput.innerHTML = clickedFrameIndex;
     }
 
-    mainContainer.appendChild(clickedCanvas);
+    if (endFrameInput.hasAttribute("autofocus")) {
+      endFrameInput.innerHTML = clickedFrameIndex;
+    }
   }
 })
