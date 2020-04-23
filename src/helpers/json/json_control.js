@@ -1,6 +1,6 @@
 import fs from "fs";
 
-import validation from "../helpers/validation";
+import validation from "../validation";
 
 const getJSONFile = (path) => {
   const content = fs.readFileSync(path);

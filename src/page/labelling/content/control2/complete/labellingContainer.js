@@ -4,7 +4,6 @@ import labellingDataDTO from "../../../../../model/dto/labellingData";
 
 const initialize = () => {
   const criteriaTempList = document.querySelector("#result-list tbody");
-
   tagControl.initialize(criteriaTempList);
 }
 

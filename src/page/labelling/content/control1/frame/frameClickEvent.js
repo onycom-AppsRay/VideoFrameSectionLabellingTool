@@ -1,24 +1,25 @@
 import { remote } from "electron";
 
-import imageControl from "../../../../../helpers/image_control";
+import mainViewContainer from "../../main/mainViewContainer";
 
 const frameListContainer = document.getElementById("frame-list-container");
 
 frameListContainer.addEventListener("click", (event) => {
-  if(event.target.tagName == "IMG") {
-    const imgTag = event.target;
+  if(event.target.tagName == "CANVAS") {
+    const canvas = event.target;
+    const clickedFrameIndex = canvas.dataset.index;
 
-    const clickedFrameIndex = imgTag.dataset.index;
+    console.log(clickedFrameIndex);
 
-    imageControl.setMainViewImage(imgTag.src);
+    mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
     const nowFrameIndex = remote.getGlobal("sharedObject").FRAME.AT;
-    const nowImgTag = document.querySelector(`#frame-list-container img[data-index="${nowFrameIndex}"]`);
+    const nowImgTag = document.querySelector(`#frame-list-container canvas[data-index="${nowFrameIndex}"]`);
 
     nowImgTag.style.borderColor = "lightgray";
 
     remote.getGlobal("sharedObject").FRAME.AT = Number.parseInt(clickedFrameIndex);
-    const clickedFrameTag = document.querySelector(`#frame-list-container img[data-index="${clickedFrameIndex}"]`);
+    const clickedFrameTag = document.querySelector(`#frame-list-container canvas[data-index="${clickedFrameIndex}"]`);
     clickedFrameTag.style.borderColor = "red";
 
     const startFrameInput = document.getElementById("start-frame-input");
@@ -31,25 +32,5 @@ frameListContainer.addEventListener("click", (event) => {
     if (endFrameInput.hasAttribute("autofocus")) {
       endFrameInput.innerHTML = clickedFrameIndex;
     }
-  }
-
-  if(event.target.tagName == "CANVAS") {
-    const clickedCanvas = event.target;
-
-    const mainContainer = document.getElementById("main-view-image-container");
-
-    if(mainContainer.hasChildNodes()) {
-      let children = mainContainer.childNodes;
-
-      for(let i = 0; i < children.length; i++) {
-        if(children[i].tagName == "CANVAS") {
-          children[i].remove();
-
-          break;
-        }
-      }
-    }
-
-    mainContainer.appendChild(clickedCanvas);
   }
 })
