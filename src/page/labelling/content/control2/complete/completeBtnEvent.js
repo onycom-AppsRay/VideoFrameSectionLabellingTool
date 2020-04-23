@@ -1,6 +1,7 @@
 import { remote } from "electron";
 
-import jsonControl from "../../../../../helpers/json_control";
+import jsonControl from "../../../../../helpers/json/json_control";
+import tagControl from "../../../../../helpers/tag_control";
 
 import videoDataDTO from "../../../../../model/dto/videoData";
 import jsonFileDTO from "../../../../../model/dto/jsonFile";
@@ -56,4 +57,6 @@ COMPLETE_BTN.addEventListener("click", (event) => {
   jsonFileContainer.showVideoFiles(JSONFile.getVideos());
   videoFilesContainer.showCompletedVideoFilesCount(JSONFile.getVideos());
   videoFilesContainer.markCompletedVideoFiles([VIDEO_TITLE]);
-})
+
+  tagControl.initMainViewFrame();
+});

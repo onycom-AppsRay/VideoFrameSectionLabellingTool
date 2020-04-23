@@ -1,6 +1,6 @@
 import { remote } from "electron";
 
-import jsonControl from "../../helpers/json_control";
+import jsonControl from "../../helpers/json/json_control";
 
 import jsonCriteriaDTO from "../../model/dto/jsonCriteria";
 import jsonFileDTO from "../../model/dto/jsonFile";

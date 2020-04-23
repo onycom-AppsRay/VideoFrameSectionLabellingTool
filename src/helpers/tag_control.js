@@ -1,3 +1,4 @@
+import path from "path";
 
 const initialize = (element) => {
   while (element.hasChildNodes()) {
@@ -5,6 +6,13 @@ const initialize = (element) => {
   }
 }
 
+const initMainViewFrame = () => {
+  document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%);")
+  document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
+  document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");
+}
+
 export default {
-  initialize
+  initialize,
+  initMainViewFrame
 }
