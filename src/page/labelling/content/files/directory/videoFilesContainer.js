@@ -1,5 +1,5 @@
 import tagControl from "../../../../../helpers/tag_control";
-import jsonControl from "../../../../../helpers/json_control";
+import jsonControl from "../../../../../helpers/json/json_control";
 import fileExplorer from "../../../../../helpers/file_explorer";
 
 import jsonFileDTO from "../../../../../model/dto/jsonFile";

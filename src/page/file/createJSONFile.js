@@ -1,6 +1,6 @@
 import { ipcRenderer, remote } from "electron";
 
-import jsonControl from "../../helpers/json_control";
+import jsonControl from "../../helpers/json/json_control";
 
 import jsonFileDTO from "../../model/dto/jsonFile";
 

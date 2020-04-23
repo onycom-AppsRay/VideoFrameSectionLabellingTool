@@ -2,7 +2,7 @@ import { remote } from "electron";
 
 import videoCapture from "../../../../../helpers/opencv/videoCapture";
 
-import jsonControl from "../../../../../helpers/json_control";
+import jsonControl from "../../../../../helpers/json/json_control";
 
 import mainViewContainer from "../../main/mainViewContainer";
 import frameListContainer from "../../control1/frame/frameListContainer";

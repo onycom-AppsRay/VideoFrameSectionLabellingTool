@@ -40,7 +40,6 @@ const reset = () => {
   startFrameInput.innerText = 0;
   endFrameInput.innerText = 0;
 
-  startFrameInput.removeAttribute("autofocus");
   endFrameInput.removeAttribute("autofocus");
 
   startFrameInput.focus();

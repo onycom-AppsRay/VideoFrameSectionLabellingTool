@@ -41,6 +41,8 @@ import jetpack from "fs-jetpack";
 import env from "env";
 import path from "path";
 
+import tagControl from "./helpers/tag_control";
+
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
 
@@ -62,12 +64,6 @@ const initGlobalVariable = () => {
   remote.getGlobal("sharedObject").CRITERIA = [];
 }
 
-const initMainViewFrame = () => {
-  document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%);")
-  document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
-  document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");
-}
-
 const projectInfo = () => {
   document.querySelector("#app-info").style.display = "block";
   document.querySelector("#os").innerHTML = osMap[process.platform];
@@ -78,6 +74,6 @@ const projectInfo = () => {
 
 (() => {
   projectInfo();
-  initMainViewFrame();
+  tagControl.initMainViewFrame();
   initGlobalVariable();
 })();

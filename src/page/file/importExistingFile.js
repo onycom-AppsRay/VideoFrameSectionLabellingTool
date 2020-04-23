@@ -1,6 +1,6 @@
 import { ipcRenderer, remote } from "electron";
 
-import jsonControl from "../../helpers/json_control";
+import jsonControl from "../../helpers/json/json_control";
 
 import videoFilesContainer from "../labelling/content/files/directory/videoFilesContainer";
 import jsonFileContainer from "../labelling/content/files/json/jsonFileContainer";
