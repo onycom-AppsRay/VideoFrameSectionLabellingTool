@@ -6,7 +6,6 @@ import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
 const initialize = () => {
   const videoFilesContainer = document.getElementById("video-files-container");
-
   tagControl.initialize(videoFilesContainer);
 }
 

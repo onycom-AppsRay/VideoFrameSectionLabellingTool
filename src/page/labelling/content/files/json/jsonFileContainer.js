@@ -2,7 +2,6 @@ import tagControl from "../../../../../helpers/tag_control";
 
 const initialize = () => {
   const jsonFileContainer = document.getElementById("json-file-container");
-
   tagControl.initialize(jsonFileContainer);
 }
 

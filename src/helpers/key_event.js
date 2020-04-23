@@ -1,4 +1,5 @@
-import imageControl from "./image_control";
+
+import mainViewContainer from "../page/labelling/content/main/mainViewContainer";
 
 import inputFrameIndexContainer from "../page/labelling/content/control2/push/inputFrameIndexContainer";
 
@@ -45,7 +46,7 @@ const frameMove = () => {
 
           canvas.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 
-          imageControl.setMainViewImage(canvas.toDataURL("image/jpeg"));
+          mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
           inputFrameIndexContainer.setFrameIndex(nextImgIndex);
 
@@ -69,7 +70,7 @@ const frameMove = () => {
 
           canvas.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 
-          imageControl.setMainViewImage(canvas.toDataURL("image/jpeg"));
+          mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
           inputFrameIndexContainer.setFrameIndex(nextImgIndex);
 
@@ -92,7 +93,7 @@ const frameMove = () => {
 
       canvas.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 
-      imageControl.setMainViewImage(canvas.toDataURL("image/jpeg"));
+      mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
       inputFrameIndexContainer.setFrameIndex(nextImgIndex);
 

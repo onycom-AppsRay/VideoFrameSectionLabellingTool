@@ -55,7 +55,10 @@ videoFilesContainer.onclick = (event) => {
     const VideoCapture = new videoCapture(path);
     VideoCapture.capture();
 
-    VideoCapture.getFrameList().forEach((frame, index) => {
+    const frameList = VideoCapture.getFrameList();
+    GlobalFrame.setLENGTH(frameList.length);
+
+    frameList.forEach((frame, index) => {
       const imageData = VideoCapture.setFrameToImageData(frame);
 
       const canvas = frameListContainer.createCanvas(frame, imageData, index);

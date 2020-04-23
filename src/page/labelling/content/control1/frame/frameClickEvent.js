@@ -1,6 +1,6 @@
 import { remote } from "electron";
 
-import imageControl from "../../../../../helpers/image_control";
+import mainViewContainer from "../../main/mainViewContainer";
 
 const frameListContainer = document.getElementById("frame-list-container");
 
@@ -9,7 +9,9 @@ frameListContainer.addEventListener("click", (event) => {
     const canvas = event.target;
     const clickedFrameIndex = canvas.dataset.index;
 
-    imageControl.setMainViewImage(canvas.toDataURL("image/jpeg"));
+    console.log(clickedFrameIndex);
+
+    mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
     const nowFrameIndex = remote.getGlobal("sharedObject").FRAME.AT;
     const nowImgTag = document.querySelector(`#frame-list-container canvas[data-index="${nowFrameIndex}"]`);
