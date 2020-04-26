@@ -32,11 +32,11 @@
     "electron-rebuild": "electron-rebuild -w opencv4nodejs"
   },
   "dependencies": {
+    "capture-frame": "^3.0.0",
     "directory-tree": "^2.2.4",
     "electron-settings": "^3.2.0",
     "fs-jetpack": "^2.1.0",
     "node-gyp": "^6.1.0",
-    "opencv4nodejs": "^5.1.0",
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
