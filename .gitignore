@@ -11,5 +11,4 @@ Thumbs.db
 /app/background.js
 /app/**/*.map
 
-/src/test.js
 /mock
