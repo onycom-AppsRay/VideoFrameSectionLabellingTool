@@ -1,6 +1,6 @@
 import { remote } from "electron";
 
-import videoCapture from "../../../../../helpers/opencv/videoCapture";
+// import videoCapture from "../../../../../helpers/opencv/videoCapture";
 
 import jsonControl from "../../../../../helpers/json/json_control";
 
@@ -52,19 +52,19 @@ videoFilesContainer.onclick = (event) => {
 
     mainViewContainer.setMainFrameRate(video);
 
-    const VideoCapture = new videoCapture(path);
-    VideoCapture.capture();
+    // const VideoCapture = new videoCapture(path);
+    // VideoCapture.capture();
 
-    const frameList = VideoCapture.getFrameList();
-    GlobalFrame.setLENGTH(frameList.length);
+    // const frameList = VideoCapture.getFrameList();
+    // GlobalFrame.setLENGTH(frameList.length);
 
-    frameList.forEach((frame, index) => {
-      const imageData = VideoCapture.setFrameToImageData(frame);
+    // frameList.forEach((frame, index) => {
+    //   const imageData = VideoCapture.setFrameToImageData(frame);
 
-      const canvas = frameListContainer.createCanvas(frame, imageData, index);
+    //   const canvas = frameListContainer.createCanvas(frame, imageData, index);
 
-      document.getElementById("frame-list-container").appendChild(canvas);
-    })
+    //   document.getElementById("frame-list-container").appendChild(canvas);
+    // })
   }
 }
 
