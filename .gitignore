@@ -2,9 +2,7 @@ node_modules
 .DS_Store
 Thumbs.db
 *.log
-
-/dist
-/temp
+package-lock.json
 
 # ignore everything in 'app' folder what had been generated from 'src' folder
 /app/app.js
@@ -12,4 +10,6 @@ Thumbs.db
 /app/**/*.map
 
 /src/test.js
+
+/dist
 /mock
