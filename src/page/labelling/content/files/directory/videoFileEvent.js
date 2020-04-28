@@ -1,6 +1,6 @@
 import { remote } from "electron";
 
-// import videoCapture from "../../../../../helpers/opencv/videoCapture";
+import videoCapture from "../../../../../helpers/video/videoCapture";
 
 import jsonControl from "../../../../../helpers/json/json_control";
 
@@ -14,7 +14,7 @@ import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
 const videoFilesContainer = document.getElementById("video-files-container");
 
-videoFilesContainer.onclick = (event) => {
+videoFilesContainer.onclick = async (event) => {
   if (event.target.className == "video-file") {
     const path = event.target.dataset.path;
     const title = event.target.dataset.title;
@@ -52,19 +52,35 @@ videoFilesContainer.onclick = (event) => {
 
     mainViewContainer.setMainFrameRate(video);
 
-    // const VideoCapture = new videoCapture(path);
-    // VideoCapture.capture();
+    const loadedVideo = await videoCapture.loadVideo(path);
 
-    // const frameList = VideoCapture.getFrameList();
-    // GlobalFrame.setLENGTH(frameList.length);
+    let videoWidth = loadedVideo.videoWidth;
+    let videoHeight = loadedVideo.videoHeight;
 
-    // frameList.forEach((frame, index) => {
-    //   const imageData = VideoCapture.setFrameToImageData(frame);
+    const frameList = await videoCapture.extractFrames(loadedVideo, 5);
+    GlobalFrame.setLENGTH(frameList.length);
 
-    //   const canvas = frameListContainer.createCanvas(frame, imageData, index);
+    frameList.forEach((frame, index) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = videoWidth;
+      canvas.height = videoHeight;
 
-    //   document.getElementById("frame-list-container").appendChild(canvas);
-    // })
+      canvas.style.width = "100%";
+      canvas.style.height = "auto";
+      canvas.style.border = "2px solid lightgray";
+      canvas.dataset.index = index;
+
+      let img = new Image;
+      img.onload = function () {
+        const ctx = canvas.getContext('2d');
+
+        ctx.drawImage(img, 0, 0);
+        frameListContainer.drawStroked(ctx, index, (videoWidth / 2), (videoHeight / 2));
+      };
+      img.src = frame;
+
+      document.getElementById("frame-list-container").appendChild(canvas);
+    })
   }
 }
 

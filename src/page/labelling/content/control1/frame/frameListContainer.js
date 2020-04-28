@@ -35,5 +35,6 @@ const drawStroked = (ctx, text, x, y) => {
 
 export default {
   initialize,
-  createCanvas
+  createCanvas,
+  drawStroked
 }

@@ -1,92 +1,133 @@
-import captureFrame from "capture-frame";
 
 const assetURL = `${__dirname}/resources/sample/videos/[video]long_sample.mp4`;
-const video_element = document.getElementById("test-video");
-video_element.src = assetURL;
-video_element.muted = "muted";
 
-async function processArray(array) {
-  // map array to promises
-  const promises = array.map(delayedLog);
-  // wait until all promises are resolved
-  await Promise.all(promises);
-  console.log('Done!');
-}
+(async () => {
+  const video = await loadVideo(assetURL);
 
-(() => {
+  let videoWidth = video.videoWidth;
+  let videoHeight = video.videoHeight;
 
-  for (let i = 0; i < 10; i++) {
-    onloadedmetadata(i);
-  }
+  const frameList = await extractFrames(video);
 
-  function onloadedmetadata (i) {
-    console.log(i);
-    video_element.addEventListener('seeked', (i) => {
-      console.log(i);
+  console.log(frameList);
 
-      const buf = captureFrame(video_element)
+  frameList.forEach((frame) => {
+    const canvas = document.createElement("canvas");
 
-      const image = document.createElement('img')
-      image.src = window.URL.createObjectURL(new window.Blob([buf]))
-      image.style.height = "30%";
-      document.body.appendChild(image);
+    canvas.width = videoWidth;
+    canvas.height = videoHeight;
 
-    });
+    canvas.style.width = "30%";
 
-    video_element.currentTime = i;
-  }
+    let img = new Image;
+    
+    img.onload = function () {
+      canvas.getContext("2d").drawImage(img, 0, 0);
+    };
 
-  // video.addEventListener('loadedmetadata', onloadedmetadata);
-  // function onloadedmetadata() {
-  //   video.addEventListener('seeked', () => {
-  //     const buf = captureFrame(video)
+    img.src = frame;
 
-  //     const image = document.createElement('img')
-  //     image.src = window.URL.createObjectURL(new window.Blob([buf]))
-  //     image.style.height = "30%";
-  //     document.body.appendChild(image)
-  //   });
-
-  //   video.currentTime = 3;
-  // }
+    document.body.appendChild(canvas);
+  });
 })();
 
-const capture = () => {
-  const video = document.querySelector("#test-video");
+async function loadVideo (videoUrl) {
+  return new Promise(async (resolve) => {
+    // fully download it first (no buffering):
+    let videoBlob = await fetch(videoUrl).then(r => r.blob());
+    let videoObjectUrl = URL.createObjectURL(videoBlob);
+    let video = document.createElement("video");
 
-  const canvas = document.createElement("canvas");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+    video.src = videoObjectUrl;
 
-  canvas.getContext('2d').drawImage(video, 0, 0);
-
-  document.body.appendChild(canvas);
-
-  const dataUri = canvas.toDataURL('./image/' + "png");
-  const data = dataUri.split(',')[1];
-
-  return Buffer.from(data, 'base64');
-}
-
-const setImage = (buf) => {
-  const image = document.createElement('img')
-  image.src = window.URL.createObjectURL(new window.Blob([buf]))
-
-  console.log(image.src);
-
-  document.querySelector("body").appendChild(image);
-}
-
-function seekToTime(ts) {
-  // try and avoid pauses after seeking
-  video_element.pause();
-  video_element.currentTime = ts; // if this is far enough away from current, it implies a "play" call as well...oddly. I mean seriously that is junk.
-  // however if it close enough, then we need to call play manually
-  // some shenanigans to try and work around this:
-  var timer = setInterval(function () {
-    if (video_element.paused && video_element.readyState == 4 || !video_element.paused) {
-      video_element.play();
-      clearInterval(timer);
+    while ((video.duration === Infinity || isNaN(video.duration)) && video.readyState < 2) {
+      await new Promise(r => setTimeout(r, 1000));
+      video.currentTime = 10000000 * Math.random();
     }
-  }, 50);
-}
+
+    resolve(video);
+  });
+};
+
+async function extractFrames (video, fps = 1) {
+  return new Promise(async (resolve) => {
+    let seekResolve;
+    video.addEventListener('seeked', async function () {
+      if (seekResolve) seekResolve();
+    });
+
+    let duration = video.duration;
+
+    let canvas = document.createElement('canvas');
+    let context = canvas.getContext('2d');
+    let [w, h] = [video.videoWidth, video.videoHeight]
+    canvas.width = w;
+    canvas.height = h;
+
+    let frames = [];
+    let interval = 1 / fps;
+    let currentTime = 0;
+
+    while (currentTime < duration) {
+      video.currentTime = currentTime;
+
+      await new Promise(r => seekResolve = r);
+
+      context.drawImage(video, 0, 0, w, h);
+      let base64ImageData = canvas.toDataURL();
+      frames.push(base64ImageData);
+
+      currentTime += interval;
+    }
+
+    resolve(frames);
+  });
+};
+
+async function extractFramesFromVideo(videoUrl, fps = 1) {
+  return new Promise(async (resolve) => {
+
+    // fully download it first (no buffering):
+    let videoBlob = await fetch(videoUrl).then(r => r.blob());
+    let videoObjectUrl = URL.createObjectURL(videoBlob);
+    let video = document.createElement("video");
+
+    let seekResolve;
+    video.addEventListener('seeked', async function () {
+      if (seekResolve) seekResolve();
+    });
+
+    video.src = videoObjectUrl;
+
+    while ((video.duration === Infinity || isNaN(video.duration)) && video.readyState < 2) {
+      await new Promise(r => setTimeout(r, 1000));
+      video.currentTime = 10000000 * Math.random();
+    }
+
+    let duration = video.duration;
+
+    let canvas = document.createElement('canvas');
+    let context = canvas.getContext('2d');
+    let [w, h] = [video.videoWidth, video.videoHeight]
+    canvas.width = w;
+    canvas.height = h;
+
+    let frames = [];
+    let interval = 1 / fps;
+    let currentTime = 0;
+
+    while (currentTime < duration) {
+      video.currentTime = currentTime;
+
+      await new Promise(r => seekResolve = r);
+
+      context.drawImage(video, 0, 0, w, h);
+      let base64ImageData = canvas.toDataURL();
+      frames.push(base64ImageData);
+
+      currentTime += interval;
+    }
+
+    resolve(frames);
+  });
+};
