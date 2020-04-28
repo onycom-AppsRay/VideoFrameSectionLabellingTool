@@ -31,7 +31,6 @@ import "./page/directory/openDirectory.js";
 import "./page/file/importExistingFile.js";
 import "./page/file/createJSONFile.js";
 
-// import "./test";
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------
@@ -39,7 +38,6 @@ import "./page/file/createJSONFile.js";
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
 import env from "env";
-import path from "path";
 
 import tagControl from "./helpers/tag_control";
 

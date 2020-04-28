@@ -11,7 +11,7 @@ const createCanvas = (frame, imgData, index) => {
   canvas.width = frame.cols;
 
   canvas.style.width = "100%";
-  canvas.style.height = "autu";
+  canvas.style.height = "auto";
   canvas.style.border = "2px solid lightgray";
   canvas.dataset.index = index;
   
