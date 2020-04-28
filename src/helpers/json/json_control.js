@@ -28,7 +28,6 @@ const getJSONFile = (path) => {
   return result;
 }
 
-
 const writeJSONFile = (path, content) => {
   fs.writeFile(path, JSON.stringify(content, " ", 2), err => {
     if (err) throw err;
@@ -87,7 +86,7 @@ const hasJSONFile = (path, fileName) => {
   const dirList = fs.readdirSync(path);
 
   dirList.some((file) => {
-    if(file == fileName) {
+    if (file == fileName) {
       flag = false;
 
       return;

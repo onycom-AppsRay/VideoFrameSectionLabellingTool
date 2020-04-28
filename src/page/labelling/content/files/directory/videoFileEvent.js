@@ -14,8 +14,18 @@ import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
 const videoFilesContainer = document.getElementById("video-files-container");
 
+let clickEventFlag = false;
+
 videoFilesContainer.onclick = async (event) => {
   if (event.target.className == "video-file") {
+
+    if (clickEventFlag) {
+      alert("loading...");
+      return false;
+    } else {
+      clickEventFlag = true;
+    }
+
     const path = event.target.dataset.path;
     const title = event.target.dataset.title;
 
@@ -72,7 +82,7 @@ videoFilesContainer.onclick = async (event) => {
 
       let img = new Image;
       img.onload = function () {
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext("2d");
 
         ctx.drawImage(img, 0, 0);
         frameListContainer.drawStroked(ctx, index, (videoWidth / 2), (videoHeight / 2));
@@ -80,7 +90,12 @@ videoFilesContainer.onclick = async (event) => {
       img.src = frame;
 
       document.getElementById("frame-list-container").appendChild(canvas);
-    })
+
+      if (frameList.length == (index + 1)) {
+        clickEventFlag = false;
+      }
+
+    });
   }
 }
 

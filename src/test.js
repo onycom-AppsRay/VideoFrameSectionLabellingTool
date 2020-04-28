@@ -9,8 +9,6 @@ const assetURL = `${__dirname}/resources/sample/videos/[video]long_sample.mp4`;
 
   const frameList = await extractFrames(video);
 
-  console.log(frameList);
-
   frameList.forEach((frame) => {
     const canvas = document.createElement("canvas");
 

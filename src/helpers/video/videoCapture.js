@@ -1,7 +1,6 @@
 
 async function loadVideo (videoUrl) {
   return new Promise(async (resolve) => {
-    // fully download it first (no buffering):
     let videoBlob = await fetch(videoUrl).then(r => r.blob());
     let videoObjectUrl = URL.createObjectURL(videoBlob);
     let video = document.createElement("video");
@@ -26,8 +25,6 @@ async function extractFrames (video, fps = 1) {
 
     let duration = video.duration;
 
-    console.log(duration);
-
     let canvas = document.createElement('canvas');
     let context = canvas.getContext('2d');
     let [w, h] = [video.videoWidth, video.videoHeight]
@@ -39,6 +36,8 @@ async function extractFrames (video, fps = 1) {
     let currentTime = 0;
 
     while (currentTime < duration) {
+      document.querySelector("#frames-progress-bar > div").style.width = `${(100 * (currentTime / duration))}%`;
+
       video.currentTime = currentTime;
 
       await new Promise(r => seekResolve = r);
@@ -48,9 +47,8 @@ async function extractFrames (video, fps = 1) {
       frames.push(base64ImageData);
 
       currentTime += interval;
-
-      console.log(currentTime);
     }
+    document.querySelector("#frames-progress-bar > div").style.width = `0%`;
 
     resolve(frames);
   });
