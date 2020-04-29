@@ -9,8 +9,6 @@ frameListContainer.addEventListener("click", (event) => {
     const canvas = event.target;
     const clickedFrameIndex = canvas.dataset.index;
 
-    console.log(clickedFrameIndex);
-
     mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
 
     const nowFrameIndex = remote.getGlobal("sharedObject").FRAME.AT;

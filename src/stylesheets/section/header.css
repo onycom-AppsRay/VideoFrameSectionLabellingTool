@@ -24,23 +24,19 @@
   display: none; /* Chrome, Safari, Opera*/
 }
 
-#tutorial-container, #back-container {
-  margin: auto;
-}
-
 #tutorial-button {
-  height: 90%;
+  height: 95%;
   width: 98%;
   font-weight: bolder;
-  font-size: 2vw;
+  font-size: larger;
   padding: 0;
 }
 
 #back-button {
-  height: 90%;
+  height: 95%;
   width: 98%;
   font-weight: bolder;
-  font-size: 2vw;
+  font-size: larger;
   padding: 0;
 }
 

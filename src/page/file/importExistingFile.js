@@ -69,8 +69,6 @@ goLabellingPageBtn.onclick = () => {
     const type = String.fromCharCode(criteria.type + 64);
     const text = criteria.text;
 
-    console.log(criteria);
-
     showCriteria(type, text);
   })
 
@@ -117,10 +115,4 @@ const showCriteria = (type, criteria) => {
   ].join("");
 
   document.getElementById("criteria-list").appendChild(li);
-}
-
-const setTypeForInsertedCriteria = () => {
-  const length = getLengthInInsertedCriteriaList();
-
-  return String.fromCharCode(length + 65);
 }
