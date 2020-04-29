@@ -18,7 +18,8 @@ goLabellingPageBtn.onclick = () => {
       const text = li.childNodes[1].innerText;
 
       const JSONCriteria = new jsonCriteriaDTO();
-      JSONCriteria.setType(type)
+      JSONCriteria
+        .setType(type)
         .setText(text);
 
       criteriaArr.push(JSONCriteria);

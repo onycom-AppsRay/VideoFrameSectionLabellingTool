@@ -8,6 +8,11 @@ const jsContent = document.getElementsByClassName("js-content")[0];
 const backBtn = document.getElementById("back-button");
 
 backBtn.addEventListener("click", (event) => {
+  
+  if(!confirm("첫 단계로 돌아갈 시, 현재 데이터는 초기화 됩니다.")) {
+    return false;
+  }
+
   initGlobalVariable();
   initEachSectionContent();
 

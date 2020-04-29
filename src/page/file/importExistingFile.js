@@ -66,8 +66,10 @@ goLabellingPageBtn.onclick = () => {
 
   // 사용자가 저장해 놓은 JSON에 있는 기준 보여주기
   Array.prototype.forEach.call(jsonCriteria, (criteria) => {
-    const type = criteria.type;
+    const type = String.fromCharCode(criteria.type + 64);
     const text = criteria.text;
+
+    console.log(criteria);
 
     showCriteria(type, text);
   })
@@ -115,4 +117,10 @@ const showCriteria = (type, criteria) => {
   ].join("");
 
   document.getElementById("criteria-list").appendChild(li);
+}
+
+const setTypeForInsertedCriteria = () => {
+  const length = getLengthInInsertedCriteriaList();
+
+  return String.fromCharCode(length + 65);
 }
