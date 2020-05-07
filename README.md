@@ -27,26 +27,35 @@
 #### (1) Select Video Directory
 비디오 파일이 있는 폴더를 선택한다.
 
-![open-video-directory](https://user-images.githubusercontent.com/20623970/81248648-ccc15c00-9057-11ea-8734-331150377705.gif)
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81248648-ccc15c00-9057-11ea-8734-331150377705.gif" width="70%">
+</kbd>
 
 
 #### (2) Open JSON Directory
 레이블링 데이터를 저장 할 JSON 파일을 생성 혹은 기존에 작업하던, JSON 파일을 불러온다.
 
 a. JSON 파일 생성
-![open-json](https://user-images.githubusercontent.com/20623970/81248795-22960400-9058-11ea-8c42-421f5c049ab2.gif)
+
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81248795-22960400-9058-11ea-8c42-421f5c049ab2.gif" width="70%">
+</kbd>
 
 b. 생성 한 JSON 파일 불러오기
-![open-json2](https://user-images.githubusercontent.com/20623970/81248931-74d72500-9058-11ea-904c-daecf442b7d4.gif)
 
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81248931-74d72500-9058-11ea-904c-daecf442b7d4.gif" width="70%">
+</kbd>
 
 #### (3) Write Criteria
 JSON 파일을 생성할 경우, 레이블링 기준을 입력한다.
-
-![write-criteria](https://user-images.githubusercontent.com/20623970/81249064-b8319380-9058-11ea-8332-78071a840bcf.gif)
-
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81249064-b8319380-9058-11ea-8332-78071a840bcf.gif" width="70%">
+</kbd>
 
 #### (4) Labelling
 레이블링 작업을 진행한다.
 
-![labelling](https://user-images.githubusercontent.com/20623970/81255108-ce931b80-9067-11ea-85a0-a6b36e2edbc0.gif)
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81255108-ce931b80-9067-11ea-85a0-a6b36e2edbc0.gif" width="70%">
+</kbd>
