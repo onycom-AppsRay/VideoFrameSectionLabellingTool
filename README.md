@@ -27,9 +27,8 @@
 #### (1) Select Video Directory
 비디오 파일이 있는 폴더를 선택한다.
 
-<kbd>
-  <img width="500" alt="스크린샷 2020-04-29 오후 4 13 28" src="https://user-images.githubusercontent.com/20623970/80569853-b3575900-8a34-11ea-9c9f-6f65c4b11e3d.png">
-</kbd>
+![open-video-directory](https://user-images.githubusercontent.com/20623970/81248648-ccc15c00-9057-11ea-8734-331150377705.gif)
+
 
 #### (2) Open JSON Directory
 레이블링 데이터를 저장 할 JSON 파일을 생성 혹은 기존에 작업하던, JSON 파일을 불러온다.
