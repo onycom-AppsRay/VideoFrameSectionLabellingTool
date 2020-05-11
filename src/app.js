@@ -24,6 +24,7 @@ import "./page/labelling/content/files/directory/videoFileEvent.js";
 import "./page/labelling/content/control1/frame/frameClickEvent.js";
 import "./page/labelling/content/control2/complete/completeBtnEvent.js";
 import "./page/labelling/content/control2/push/confirmSectionEvent.js";
+import "./page/labelling/content/files/json/jsonFileEvent.js";
 
 import "./page/criteria/insert.js";
 import "./page/criteria/apply.js";
