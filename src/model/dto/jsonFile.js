@@ -64,4 +64,8 @@ export default class {
       this.count = this.videos.length;
     }
   }
+
+  updateVideo(index, video) {
+    this.videos.splice(index, 1, video);
+  }
 }
