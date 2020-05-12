@@ -1,6 +1,7 @@
 import { remote } from "electron";
 
 import globalFrame from "../../../../../model/global/globalFrame";
+import globalVideoData from "../../../../../model/global/globalVideoData";
 
 import videoCapture from "../../../../../helpers/video/videoCapture";
 import jsonControl from "../../../../../helpers/json/json_control";
@@ -16,6 +17,17 @@ let clickEventFlag = false;
 jsonFileContainer.onclick = async (event) => {
   if (event.target.className == "json-video-file") {
 
+    const title = event.target.dataset.title;
+
+    if(!confirm(`'${title}' 의 데이터를 수정하시겠습니까?`)) {
+      return;
+    }
+
+    document.getElementById("video-title").innerText = title;
+
+    document.getElementById("complete").style.display = "none";
+    document.getElementById("update").style.display = "";
+
     if (clickEventFlag) {
       alert("loading...");
       return false;
@@ -29,7 +41,6 @@ jsonFileContainer.onclick = async (event) => {
 
     // extract video frame list
     const videoDirectoryPath = remote.getGlobal("sharedObject").DIRECTORY.PATH;
-    const title = event.target.dataset.title;
 
     const completedFilePath = String.prototype.concat(videoDirectoryPath, "/", title);
 
@@ -42,6 +53,10 @@ jsonFileContainer.onclick = async (event) => {
     let videoHeight = loadedVideo.videoHeight;
 
     const frameList = await videoCapture.extractFrames(loadedVideo, 5);
+
+    const GlobalVideoData = new globalVideoData();
+    GlobalVideoData.setPATH(videoDirectoryPath);
+    GlobalVideoData.setTITLE(title);
 
     const GlobalFrame = new globalFrame();
     GlobalFrame.setAT(0);
@@ -89,33 +104,34 @@ jsonFileContainer.onclick = async (event) => {
       }
     })
 
-    console.log(labellingData);
-
-    const criterias = result.content.criterias;
-    const content = result.content;
-
-    console.log(criteria);
-    console.log(content);
-
-
-    const first = false;
-
     let before = 0;
     let start, end = 0;
-    labellingData.forEach((value, index) => {
-      before = value;
+    let flag = false;
 
-      if (before != 0 && value == before) {
-        
+    labellingData.forEach((value, index) => {
+      if (value > 0 && before != value) {
+        if (flag) {
+          end = (index - 1);
+          flag = false;
+
+          labellingContainer.showLabellingData(start, end, String.fromCharCode(before + 64));
+        }
+
+        start = index;
+        flag = true;
+        before = value;
+
+        return;
       }
 
-      // criterias.some((criteria) => {
-      //   const type = criteria.type;
+      if (flag && before != value) {
+        end = (index - 1);
+        flag = false;
 
-      //   if(type == value) {
+        labellingContainer.showLabellingData(start, end, String.fromCharCode(before + 64));
+      }
 
-      //   }
-      // })
+      before = value;
     })
 
   }

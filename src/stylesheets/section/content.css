@@ -140,7 +140,7 @@
   vertical-align: middle;
 }
 
-#complete {
+#complete, #update {
   height: 90%;
   width: 98%;
   font-size: 2vw;
