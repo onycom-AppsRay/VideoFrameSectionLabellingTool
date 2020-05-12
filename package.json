@@ -22,6 +22,7 @@
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
+    "test": "mocha test/**/**.spec.js",
     "start": "node build/start.js",
     "release": "webpack --config=build/webpack.app.config.js --env=production && electron-builder",
     "electron-rebuild": "electron-rebuild -w opencv4nodejs"
@@ -33,6 +34,7 @@
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
+    "should": "^13.2.3",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@types/node": "^13.13.1",
