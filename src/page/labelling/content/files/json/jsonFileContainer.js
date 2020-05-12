@@ -17,6 +17,7 @@ const showVideoFiles = (jsonVideos) => {
     span.className = "json-video-file";
     span.id = title;
     span.innerText = title;
+    span.dataset.title = videoInfo.title;
 
     jsonFileContainer.appendChild(span);
     jsonFileContainer.appendChild(document.createElement("br"));

@@ -19,6 +19,8 @@ let clickEventFlag = false;
 videoFilesContainer.onclick = async (event) => {
   if (event.target.className == "video-file") {
 
+    const title = event.target.dataset.title;
+
     if (clickEventFlag) {
       alert("loading...");
       return false;
@@ -26,8 +28,9 @@ videoFilesContainer.onclick = async (event) => {
       clickEventFlag = true;
     }
 
+    document.getElementById("video-title").innerText = title;
+
     const path = event.target.dataset.path;
-    const title = event.target.dataset.title;
 
     const jsonFilePath = remote.getGlobal("sharedObject").JSON_FILE.PATH;
     const result = jsonControl.getJSONFile(jsonFilePath);

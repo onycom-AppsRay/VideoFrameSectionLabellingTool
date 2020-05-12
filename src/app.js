@@ -23,7 +23,9 @@ import "./page/labelling/content/control2/complete/sectionClickEvent.js";
 import "./page/labelling/content/files/directory/videoFileEvent.js";
 import "./page/labelling/content/control1/frame/frameClickEvent.js";
 import "./page/labelling/content/control2/complete/completeBtnEvent.js";
+import "./page/labelling/content/control2/complete/updateBtnEvent.js";
 import "./page/labelling/content/control2/push/confirmSectionEvent.js";
+import "./page/labelling/content/files/json/jsonFileEvent.js";
 
 import "./page/criteria/insert.js";
 import "./page/criteria/apply.js";
@@ -60,6 +62,9 @@ const initGlobalVariable = () => {
   remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
   remote.getGlobal("sharedObject").DIRECTORY.VIDEOS = [];
   remote.getGlobal("sharedObject").CRITERIA = [];
+
+  document.getElementById("complete").style.display = "";
+  document.getElementById("update").style.display = "none";
 }
 
 const projectInfo = () => {
