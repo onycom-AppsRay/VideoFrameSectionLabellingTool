@@ -18,28 +18,20 @@ describe("Directory open test", () => {
     it("should return files that directory path", () => {
       files = fs.readdirSync(dirPath);
       files.should.have.length(5);
-
-      // fs.readdir(dirPath, (err, files) => {
-      //   if(err) done(err);
-
-
-      //   files.forEach((file) => {
-      //     console.log(path.extname(file));
-      //   })
-
-      //   done();
-      // })
     })
 
     it("should return file with the extension 'mp4', 'mov', 'avi'", () => {
+      let extensions = [];
+
       files.forEach((file) => {
-        // path.extname(file).should.exist([".mp4", ".mov", ".avi"]);
-        // path.extname(file).should.exist(".mp4");
+        const extension = path.extname(file);
 
-        console.log(path.extname(file));
-
-        // should(path.extname(file)).be.oneOf([".mp4", ".mov", ".avi"]);
+        if(extension == ".avi" || extension == ".mov" || extension == ".mp4") {
+          extensions.push(extension);
+        }
       })
+
+      extensions.should.containDeep([ '.avi', '.mov', '.mp4' ]);
     })
   });
 });
