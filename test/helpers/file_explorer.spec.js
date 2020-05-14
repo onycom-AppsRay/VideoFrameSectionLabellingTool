@@ -11,13 +11,11 @@ describe("Directory open test", () => {
 
     it("should return directory path", () => {
       dirPath = path.join(__dirname, "../../mock/videos");
-
-      assert.equal(dirPath, "/Users/younghwanpark/Documents/git/VideoFrameSectionLabellingTool/mock/videos");
     });
 
     it("should return files that directory path", () => {
       files = fs.readdirSync(dirPath);
-      files.should.have.length(5);
+      files.should.have.length(3);
     })
 
     it("should return file with the extension 'mp4', 'mov', 'avi'", () => {

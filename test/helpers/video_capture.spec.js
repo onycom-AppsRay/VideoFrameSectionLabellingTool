@@ -1,28 +1,15 @@
-const path = require("path");
-const cv = require('opencv4nodejs');
 
-describe("opencv4nodejs test", () => {
-  describe("#getFrame", () => {
-    let videoPath = path.join(__dirname, "../../mock/videos/sample2.mp4");
+describe("OpenCV, VideoCapture test", () => {
+  describe("#getVideoCapture", () => {
 
-    it("should return frame", (done) => {
-      const vCap = new cv.VideoCapture(videoPath);
+    let videoPath;
 
-      let frame = vCap.read();
+    before(() => {
+      console.log(__dirname);
+    });
 
-      let index = 0;
+    it("should return total frame count", () => {
 
-      while (!frame.empty) {
-        const matRGBA = frame.channels === 1
-          ? imframe.cvtColor(cv.COLOR_GRAY2RGBA)
-          : frame.cvtColor(cv.COLOR_BGR2RGBA);
-
-        console.log(index++, " ", matRGBA.getData());
-
-        frame = vCap.read();
-      }
-
-      done();
     })
   })
 })
