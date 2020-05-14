@@ -27,28 +27,23 @@
     "release": "webpack --config=build/webpack.app.config.js --env=production && electron-builder",
     "rebuild": "electron-rebuild -f -w opencv4nodejs"
   },
-  "dependencies": {
-    "directory-tree": "^2.2.4",
-    "electron-settings": "^3.2.0",
-    "fs-jetpack": "^2.1.0",
-    "validate.js": "^0.13.1"
-  },
   "devDependencies": {
+    "directory-tree": "^2.2.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@types/node": "^13.13.1",
+    "opencv4nodejs-prebuilt": "^5.3.0-2",
     "babel-loader": "^8.1.0",
+    "validate.js": "^0.13.1",
     "chai": "^4.1.0",
     "css-loader": "^3.5.2",
-    "electron": "^4.2.12",
+    "electron": "^1.8.4",
     "electron-builder": "^21.1.5",
-    "electron-rebuild": "^1.11.0",
+    "electron-settings": "^3.2.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "fs-jetpack": "^2.1.0",
     "mocha": "^6.2.3",
-    "opencv4nodejs": "^4.17.0",
     "should": "^13.2.3",
-    "source-map-support": "^0.5.17",
-    "spectron": "^6.0.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.6",
@@ -56,3 +51,13 @@
     "webpack-node-externals": "^1.7.2"
   }
 }
+
+
+
+
+
+
+
+
+
+
