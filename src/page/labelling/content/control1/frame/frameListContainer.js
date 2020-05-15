@@ -14,7 +14,7 @@ const createCanvas = (frame, imgData, index) => {
   canvas.style.height = "auto";
   canvas.style.border = "2px solid lightgray";
   canvas.dataset.index = index;
-  
+
   const ctx = canvas.getContext('2d');
 
   ctx.putImageData(imgData, 0, 0);
@@ -33,8 +33,27 @@ const drawStroked = (ctx, text, x, y) => {
   ctx.fillText(text, x, y);
 }
 
+const createCanvas2 = (imgData, index) => {
+  const canvas = document.createElement("canvas");
+  canvas.height = imgData.height;
+  canvas.width = imgData.width;
+
+  canvas.style.width = "100%";
+  canvas.style.height = "auto";
+  canvas.style.border = "2px solid lightgray";
+  canvas.dataset.index = index;
+
+  // set image data
+  const ctx = canvas.getContext('2d');
+  ctx.putImageData(imgData, 0, 0);
+  drawStroked(ctx, index, (imgData.width / 2), (imgData.height / 2));
+
+  return canvas;
+}
+
 export default {
   initialize,
   createCanvas,
-  drawStroked
+  drawStroked,
+  createCanvas2,
 }

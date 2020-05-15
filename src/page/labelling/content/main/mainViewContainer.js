@@ -42,7 +42,7 @@ const setStyleOfMainViewImage = (isWide) => {
     mainViewImageContainer.setAttribute("style", `top: 50%; transform: translateY(-50%);`);
 
     mainViewImage.setAttribute("style", `width: 100%; height: auto;`);
-  } else {
+  } else {  // isLong
 
     mainViewImageContainer.setAttribute("style", `left: 50%; transform: translateX(-50%); height: 95%`);
 

@@ -9,13 +9,13 @@ describe("Directory open test", () => {
     let dirPath;
     let files = [];
 
-    it("should return directory path", () => {
+    before(() => {
       dirPath = path.join(__dirname, "../../mock/videos");
     });
 
     it("should return files that directory path", () => {
       files = fs.readdirSync(dirPath);
-      files.should.have.length(3);
+      files.should.have.length(5);
     })
 
     it("should return file with the extension 'mp4', 'mov', 'avi'", () => {
