@@ -24,7 +24,6 @@ jsonFileContainer.onclick = async (event) => {
     }
 
     document.getElementById("video-title").innerText = title;
-
     document.getElementById("complete").style.display = "none";
     document.getElementById("update").style.display = "";
 
@@ -47,12 +46,7 @@ jsonFileContainer.onclick = async (event) => {
     const video = mainViewContainer.getVideoTag(completedFilePath);
     mainViewContainer.setMainFrameRate(video);
 
-    const loadedVideo = await videoCapture.loadVideo(completedFilePath);
-
-    let videoWidth = loadedVideo.videoWidth;
-    let videoHeight = loadedVideo.videoHeight;
-
-    const frameList = await videoCapture.extractFrames(loadedVideo, 5);
+    const videoCaptureList = videoCapture.extractFrames2(completedFilePath);
 
     const GlobalVideoData = new globalVideoData();
     GlobalVideoData.setPATH(videoDirectoryPath);
@@ -60,34 +54,14 @@ jsonFileContainer.onclick = async (event) => {
 
     const GlobalFrame = new globalFrame();
     GlobalFrame.setAT(0);
-    GlobalFrame.setLENGTH(frameList.length);
+    GlobalFrame.setLENGTH(videoCaptureList.length);
 
     // show frame list
-    frameList.forEach((frame, index) => {
-      const canvas = document.createElement("canvas");
-      canvas.width = videoWidth;
-      canvas.height = videoHeight;
+    videoCaptureList.forEach((captureImage, index) => {
+      const imgData = videoCapture.convertImageToMat(captureImage);
+      const canvasElement = frameListContainer.createCanvas2(imgData, index);
 
-      canvas.style.width = "100%";
-      canvas.style.height = "auto";
-      canvas.style.border = "2px solid lightgray";
-      canvas.dataset.index = index;
-
-      let img = new Image;
-      img.onload = function () {
-        const ctx = canvas.getContext("2d");
-
-        ctx.drawImage(img, 0, 0);
-        frameListContainer.drawStroked(ctx, index, (videoWidth / 2), (videoHeight / 2));
-      };
-      img.src = frame;
-
-      document.getElementById("frame-list-container").appendChild(canvas);
-
-      if (frameList.length == (index + 1)) {
-        clickEventFlag = false;
-      }
-
+      document.getElementById("frame-list-container").appendChild(canvasElement);
     });
 
     // show labelling data

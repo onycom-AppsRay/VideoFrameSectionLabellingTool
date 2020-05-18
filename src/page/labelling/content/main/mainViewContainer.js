@@ -36,17 +36,20 @@ const setStyleOfMainViewImage = (isWide) => {
   const mainViewImageContainer = document.getElementById("main-view-image-container");
   const mainViewImage = document.getElementById("main-view-image");
 
-  mainViewImageContainer.setAttribute("style", `height: ""; left: ""; top: ""; transform: ""`);
+  mainViewImageContainer.setAttribute("style", `width: ""; height: ""; left: ""; top: ""; transform: ""`);
 
   if (isWide) {
     mainViewImageContainer.setAttribute("style", `top: 50%; transform: translateY(-50%);`);
 
     mainViewImage.setAttribute("style", `width: 100%; height: auto;`);
+
+    return;
   } else {  // isLong
 
-    mainViewImageContainer.setAttribute("style", `left: 50%; transform: translateX(-50%); height: 95%`);
+    mainViewImageContainer.setAttribute("style", `left: 50%; transform: translateX(-50%); height: 90%;`);
 
     mainViewImage.setAttribute("style", `width: auto; height: 100%;`);
+    return;
   }
 }
 
