@@ -43,6 +43,8 @@ document.getElementById("update").addEventListener("click", (event) => {
 
   const labellingInfoList = labellingContainer.getLabellingData();
 
+  console.log("UPDATE, labellingInfoList: ", labellingInfoList);
+
   const VideoData = new videoDataDTO();
   VideoData.setTitle(VIDEO_TITLE)
     .convertLabellingDatasoFrameList(VIDEO_FRAME_LENGTH, labellingInfoList);

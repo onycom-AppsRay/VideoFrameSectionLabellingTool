@@ -21,7 +21,7 @@ export default class {
     LabellingData.forEach((data) => {
       const type = data.type;
       const start = data.start;
-      const end = data.end;
+      const end = (data.end + 1);
 
       result.fill(type, start, end);
     });
