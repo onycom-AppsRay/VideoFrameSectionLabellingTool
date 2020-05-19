@@ -12,8 +12,6 @@ import labellingContainer from "../../control2/complete/labellingContainer";
 
 const jsonFileContainer = document.getElementById("json-file-container");
 
-let clickEventFlag = false;
-
 jsonFileContainer.onclick = async (event) => {
   if (event.target.className == "json-video-file") {
 
@@ -27,13 +25,6 @@ jsonFileContainer.onclick = async (event) => {
     document.getElementById("complete").style.display = "none";
     document.getElementById("update").style.display = "";
 
-    if (clickEventFlag) {
-      alert("loading...");
-      return false;
-    } else {
-      clickEventFlag = true;
-    }
-
     mainViewContainer.initialize();
     frameListContainer.initialize();
     labellingContainer.initialize();
@@ -46,7 +37,7 @@ jsonFileContainer.onclick = async (event) => {
     const video = mainViewContainer.getVideoTag(completedFilePath);
     mainViewContainer.setMainFrameRate(video);
 
-    const videoCaptureList = videoCapture.extractFrames2(completedFilePath);
+    const videoCaptureList = videoCapture.extractFrames(completedFilePath);
 
     const GlobalVideoData = new globalVideoData();
     GlobalVideoData.setPATH(videoDirectoryPath);
@@ -59,7 +50,7 @@ jsonFileContainer.onclick = async (event) => {
     // show frame list
     videoCaptureList.forEach((captureImage, index) => {
       const imgData = videoCapture.convertImageToMat(captureImage);
-      const canvasElement = frameListContainer.createCanvas2(imgData, index);
+      const canvasElement = frameListContainer.createCanvas(imgData, index);
 
       document.getElementById("frame-list-container").appendChild(canvasElement);
     });

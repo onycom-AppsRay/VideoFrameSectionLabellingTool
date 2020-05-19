@@ -1,13 +1,12 @@
 import { ipcRenderer, remote } from "electron";
+import path from "path";
+import fs from "fs";
 
+import videoFileInfo from "../../model/dto/videoFileInfo";
 import videoFilesContainer from "../labelling/content/files/directory/videoFilesContainer";
-import fileExplorer from "../../helpers/file_explorer";
-
-import directoryVideoDTO from "../../model/dto/directoryVideo";
 
 const goOpenFilePageBtn = document.getElementById("go-open-file-page-btn");
 const openDirectoryPage = document.getElementById("open-directory-page");
-
 const openDirectoryButton = document.getElementById("open-directory-button");
 
 let directoryPath;
@@ -36,20 +35,13 @@ goOpenFilePageBtn.addEventListener("click", (event) => {
     remote.getGlobal("sharedObject").DIRECTORY.PATH = directoryPath;
 
     // 폴더로 부터 가져온 비디오 파일 객체에 담기.
-    const videoList = fileExplorer.getFileList(directoryPath);
-
-    let tempVideoList = [];
-    videoList.forEach(video => {
-      const Video = new directoryVideoDTO(video);
-
-      tempVideoList.push(Video);
-    })
+    const videoList = getVideoFileList(directoryPath);
 
     // 'labelling' page 에 비디오 파일 리스트 보여주기.
-    videoFilesContainer.showVideoFiles(tempVideoList);
+    videoFilesContainer.showVideoFiles(videoList);
 
     // 폴더 내부의 비디오 정보들 전역변수로 저장.
-    remote.getGlobal("sharedObject").DIRECTORY.VIDEOS = tempVideoList;
+    remote.getGlobal("sharedObject").DIRECTORY.VIDEOS = videoList;
 
     // 다음 페이지로 이동하기 위한 css trick.
     openDirectoryPage.style.display = "none";
@@ -65,3 +57,24 @@ goOpenFilePageBtn.addEventListener("click", (event) => {
     return;
   }
 })
+
+const getVideoFileList = (dirPath) => {
+  let result = [];
+
+  const files = fs.readdirSync(dirPath);
+
+  files.forEach((file) => {
+    const extension = path.extname(file);
+
+    if(extension == ".avi" || extension == ".mov" || extension == ".mp4") {
+      const VideoFileInfo = new videoFileInfo()
+        .setName(file)
+        .setPath(path.join(dirPath, file))
+        .setExtension(extension);
+
+      result.push(VideoFileInfo);
+    }
+  });
+
+  return result;
+}

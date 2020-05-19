@@ -56,28 +56,15 @@ videoFilesContainer.onclick = async (event) => {
 
     mainViewContainer.setMainFrameRate(video);
 
-    const videoCaptureList = videoCapture.extractFrames2(path);
+    const videoCaptureList = videoCapture.extractFrames(path);
 
     GlobalFrame.setLENGTH(videoCaptureList.length);
 
     videoCaptureList.forEach((captureImage, index) => {
       const imgData = videoCapture.convertImageToMat(captureImage);
-      const canvasElement = frameListContainer.createCanvas2(imgData, index);
+      const canvasElement = frameListContainer.createCanvas(imgData, index);
 
       document.getElementById("frame-list-container").appendChild(canvasElement);
     })
   }
-}
-
-const getFrames = (videoPath) => {
-  const videoCaptureList = videoCapture.extractFrames2(videoPath);
-
-  GlobalFrame.setLENGTH(videoCaptureList.length);
-
-  videoCaptureList.forEach((captureImage, index) => {
-    const imgData = videoCapture.convertImageToMat(captureImage);
-    const canvasElement = frameListContainer.createCanvas2(imgData, index);
-
-    document.getElementById("frame-list-container").appendChild(canvasElement);
-  })
 }

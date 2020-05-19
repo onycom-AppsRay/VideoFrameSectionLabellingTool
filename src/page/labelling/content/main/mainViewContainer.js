@@ -33,22 +33,36 @@ const setMainViewImage = (src) => {
 }
 
 const setStyleOfMainViewImage = (isWide) => {
-  const mainViewImageContainer = document.getElementById("main-view-image-container");
-  const mainViewImage = document.getElementById("main-view-image");
+  let mainViewImageContainer = document.getElementById("main-view-image-container");
+  let mainViewImage = document.getElementById("main-view-image");
 
-  mainViewImageContainer.setAttribute("style", `width: ""; height: ""; left: ""; top: ""; transform: ""`);
+  mainViewImageContainer.style.width = "";
+  mainViewImageContainer.style.height = "";
+  mainViewImageContainer.style.left = "";
+  mainViewImageContainer.style.top = "";
+  mainViewImageContainer.style.transform = "";
+
+  mainViewImage.style.width = "";
+  mainViewImage.style.height = "";
 
   if (isWide) {
-    mainViewImageContainer.setAttribute("style", `top: 50%; transform: translateY(-50%);`);
+    mainViewImageContainer.style.top = "50%";
+    mainViewImageContainer.style.transform = "translateY(-50%)";
+    mainViewImageContainer.style.position = "absolute";
 
-    mainViewImage.setAttribute("style", `width: 100%; height: auto;`);
+    mainViewImage.style.width = "100%";
+    mainViewImage.style.height = "auto";
 
     return;
-  } else {  // isLong
+  } 
+  
+  if (!isWide) {
+    mainViewImageContainer.style.position = "relative";
+    mainViewImageContainer.style.height = "90%";
 
-    mainViewImageContainer.setAttribute("style", `left: 50%; transform: translateX(-50%); height: 90%;`);
+    mainViewImage.style.height = "100%";
+    mainViewImage.style.width = "auto";
 
-    mainViewImage.setAttribute("style", `width: auto; height: 100%;`);
     return;
   }
 }
@@ -56,8 +70,14 @@ const setStyleOfMainViewImage = (isWide) => {
 const setDefaultImage = (isWide) => {
   if (isWide) {
     document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
-  } else {
+
+    return;
+  } 
+  
+  if (!isWide) {
     document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic_long.png");
+
+    return;
   }
 }
 

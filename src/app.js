@@ -11,11 +11,6 @@ import "./stylesheets/page/open_directory.css";
 import "./stylesheets/page/open_file.css";
 import "./stylesheets/page/form_criteria.css";
 
-// Small helpers you might want to keep
-import "./helpers/context_menu.js";
-import "./helpers/external_links.js";
-import "./helpers/key_event.js";
-
 import "./page/labelling/header/nav.js";
 import "./page/labelling/header/back.js";
 
@@ -33,7 +28,10 @@ import "./page/directory/openDirectory.js";
 import "./page/file/importExistingFile.js";
 import "./page/file/createJSONFile.js";
 
-// import "./test.js";
+import "./helpers/context_menu.js";
+import "./helpers/external_links.js";
+import "./helpers/key_event.js";
+
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------
