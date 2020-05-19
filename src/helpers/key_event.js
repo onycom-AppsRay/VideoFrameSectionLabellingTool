@@ -1,4 +1,3 @@
-
 import mainViewContainer from "../page/labelling/content/main/mainViewContainer";
 import inputFrameIndexContainer from "../page/labelling/content/control2/push/inputFrameIndexContainer";
 
@@ -16,6 +15,11 @@ window.addEventListener('keyup', function (e) {
 
 window.addEventListener('keydown', function (e) {
   if (e.keyCode == 13) {
+    // frame push event
+    document.getElementById("section-confirm").click();
+  }
+
+  if (e.keyCode == 37 || e.keyCode == 39) {
     inputFrameIndexContainer.convertInputFocus();
   }
 }, false);
@@ -32,15 +36,15 @@ const frameMove = () => {
 
       const canvas = document.querySelector(`canvas[data-index='${nextImgIndex}'`);
 
+      mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
+      
+      inputFrameIndexContainer.setFrameIndex(nextImgIndex);
+      
+      GlobalFrame.setAT(nextImgIndex);
+
       markSelectedFrame(GlobalFrame.AT, nextImgIndex);
 
-      canvas.scrollIntoView(true);
-
-      mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
-
-      inputFrameIndexContainer.setFrameIndex(nextImgIndex);
-
-      GlobalFrame.setAT(nextImgIndex) 
+      canvas.scrollIntoViewIfNeeded(true);
     }
   }
 
@@ -52,15 +56,15 @@ const frameMove = () => {
 
       const canvas = document.querySelector(`canvas[data-index='${nextImgIndex}'`);
 
+      mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
+      
+      inputFrameIndexContainer.setFrameIndex(nextImgIndex);
+      
+      GlobalFrame.setAT(nextImgIndex);
+      
       markSelectedFrame(GlobalFrame.AT, nextImgIndex);
 
       canvas.scrollIntoViewIfNeeded(true);
-
-      mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
-
-      inputFrameIndexContainer.setFrameIndex(nextImgIndex);
-
-      GlobalFrame.setAT(nextImgIndex)
     }
   }
 
@@ -68,11 +72,9 @@ const frameMove = () => {
 }
 
 const markSelectedFrame = (before, now) => {
-  const beforeFrame = document.querySelector(`#frame-list-container canvas[data-index="${before}"]`)
-  beforeFrame.style.borderColor = "lightgray";
+  document.querySelector(`#frame-list-container canvas[data-index="${before}"]`).style.borderColor = "lightgray";
 
-  const nowFrame = document.querySelector(`#frame-list-container canvas[data-index="${now}"]`);
-  nowFrame.style.borderColor = "red";
+  document.querySelector(`#frame-list-container canvas[data-index="${now}"]`).style.borderColor = "red";
 }
 
 frameMove();

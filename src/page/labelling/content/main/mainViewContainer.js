@@ -33,8 +33,8 @@ const setMainViewImage = (src) => {
 }
 
 const setStyleOfMainViewImage = (isWide) => {
-  const mainViewImageContainer = document.getElementById("main-view-image-container");
-  const mainViewImage = document.getElementById("main-view-image");
+  let mainViewImageContainer = document.getElementById("main-view-image-container");
+  let mainViewImage = document.getElementById("main-view-image");
 
   mainViewImageContainer.style.width = "";
   mainViewImageContainer.style.height = "";
@@ -42,9 +42,13 @@ const setStyleOfMainViewImage = (isWide) => {
   mainViewImageContainer.style.top = "";
   mainViewImageContainer.style.transform = "";
 
+  mainViewImage.style.width = "";
+  mainViewImage.style.height = "";
+
   if (isWide) {
     mainViewImageContainer.style.top = "50%";
     mainViewImageContainer.style.transform = "translateY(-50%)";
+    mainViewImageContainer.style.position = "absolute";
 
     mainViewImage.style.width = "100%";
     mainViewImage.style.height = "auto";
@@ -53,11 +57,11 @@ const setStyleOfMainViewImage = (isWide) => {
   } 
   
   if (!isWide) {
-    mainViewImageContainer.style.left = "50%";
-    mainViewImageContainer.style.transform = "translateX(-50%)";
+    mainViewImageContainer.style.position = "relative";
     mainViewImageContainer.style.height = "90%";
 
     mainViewImage.style.height = "100%";
+    mainViewImage.style.width = "auto";
 
     return;
   }
