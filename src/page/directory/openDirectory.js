@@ -69,7 +69,7 @@ const getVideoFileList = (dirPath) => {
     if(extension == ".avi" || extension == ".mov" || extension == ".mp4") {
       const VideoFileInfo = new videoFileInfo()
         .setName(file)
-        .setPath(dirPath)
+        .setPath(path.join(dirPath, file))
         .setExtension(extension);
 
       result.push(VideoFileInfo);

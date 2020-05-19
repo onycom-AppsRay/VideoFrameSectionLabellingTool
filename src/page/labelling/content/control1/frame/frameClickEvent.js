@@ -10,6 +10,7 @@ frameListContainer.addEventListener("click", (event) => {
     const clickedFrameIndex = canvas.dataset.index;
 
     mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
+    document.getElementById("frame-index").innerText = canvas.dataset.index;
 
     const nowFrameIndex = remote.getGlobal("sharedObject").FRAME.AT;
     const nowImgTag = document.querySelector(`#frame-list-container canvas[data-index="${nowFrameIndex}"]`);

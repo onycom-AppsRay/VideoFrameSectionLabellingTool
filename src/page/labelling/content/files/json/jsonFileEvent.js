@@ -37,7 +37,7 @@ jsonFileContainer.onclick = async (event) => {
     const video = mainViewContainer.getVideoTag(completedFilePath);
     mainViewContainer.setMainFrameRate(video);
 
-    const videoCaptureList = videoCapture.extractFrames2(completedFilePath);
+    const videoCaptureList = videoCapture.extractFrames(completedFilePath);
 
     const GlobalVideoData = new globalVideoData();
     GlobalVideoData.setPATH(videoDirectoryPath);
@@ -50,7 +50,7 @@ jsonFileContainer.onclick = async (event) => {
     // show frame list
     videoCaptureList.forEach((captureImage, index) => {
       const imgData = videoCapture.convertImageToMat(captureImage);
-      const canvasElement = frameListContainer.createCanvas2(imgData, index);
+      const canvasElement = frameListContainer.createCanvas(imgData, index);
 
       document.getElementById("frame-list-container").appendChild(canvasElement);
     });

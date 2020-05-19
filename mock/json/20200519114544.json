@@ -1,0 +1,20 @@
+{
+  "name": "20200519114544.json",
+  "createAt": "2020. 5. 19. 오전 11:45:44",
+  "count": 0,
+  "criterias": [
+    {
+      "type": 1,
+      "text": "test"
+    },
+    {
+      "type": 2,
+      "text": "test2"
+    },
+    {
+      "type": 3,
+      "text": "test4"
+    }
+  ],
+  "videos": []
+}
