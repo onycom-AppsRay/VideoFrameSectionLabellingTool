@@ -12,8 +12,6 @@ import labellingContainer from "../../control2/complete/labellingContainer";
 
 const jsonFileContainer = document.getElementById("json-file-container");
 
-let clickEventFlag = false;
-
 jsonFileContainer.onclick = async (event) => {
   if (event.target.className == "json-video-file") {
 
@@ -26,13 +24,6 @@ jsonFileContainer.onclick = async (event) => {
     document.getElementById("video-title").innerText = title;
     document.getElementById("complete").style.display = "none";
     document.getElementById("update").style.display = "";
-
-    if (clickEventFlag) {
-      alert("loading...");
-      return false;
-    } else {
-      clickEventFlag = true;
-    }
 
     mainViewContainer.initialize();
     frameListContainer.initialize();

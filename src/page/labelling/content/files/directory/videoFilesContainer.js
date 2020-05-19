@@ -1,6 +1,8 @@
+import path from "path";
+import fs from "fs";
+
 import tagControl from "../../../../../helpers/tag_control";
 import jsonControl from "../../../../../helpers/json/json_control";
-import fileExplorer from "../../../../../helpers/file_explorer";
 
 const initialize = () => {
   const videoFilesContainer = document.getElementById("video-files-container");
@@ -31,13 +33,24 @@ const showVideoFiles = (videoFiles, completedVideoFiles = []) => {
 const checkCompletedVideoFiles = (directoryPath, jsonFilePath) => {
   let result = [];
 
-  if(directoryPath && jsonFilePath) {
-    const videoFiles = fileExplorer.getFileList(directoryPath);
+  if (directoryPath && jsonFilePath) {
+    const dirFiles = fs.readdirSync(directoryPath);
+
+    let videoFiles = [];
+
+    dirFiles.forEach((dirFile) => {
+      const extension = path.extname(file);
+
+      if (extension == ".avi" || extension == ".mov" || extension == ".mp4") {
+        videoFiles.push(dirFile);
+      }
+    })
+
     const completedVideoFiles = jsonControl.getJSONFile(jsonFilePath).videos;
 
     videoFiles.forEach((video) => {
       completedVideoFiles.forEach((completedVideoFile) => {
-        if(video.name == completedVideoFile.title) {
+        if (video.name == completedVideoFile.title) {
           result.push(video.name);
         }
       })
@@ -52,13 +65,13 @@ const checkCompletedVideoFiles = (directoryPath, jsonFilePath) => {
 const markCompletedVideoFiles = (completedVideoFiles) => {
   const videoFiles = document.getElementsByClassName("video-file");
 
-  for(let i = 0; i < completedVideoFiles.length; i++) {
+  for (let i = 0; i < completedVideoFiles.length; i++) {
     let completedVideoFileTitle = completedVideoFiles[i];
 
-    for(let j = 0; j < videoFiles.length; j++) {
+    for (let j = 0; j < videoFiles.length; j++) {
       let videoFileTitle = videoFiles[j].id;
 
-      if(completedVideoFileTitle == videoFileTitle) {
+      if (completedVideoFileTitle == videoFileTitle) {
         videoFiles[j].style.textDecoration = "line-through";
       }
     }

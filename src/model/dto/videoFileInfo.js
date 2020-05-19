@@ -1,13 +1,8 @@
 export default class {
   constructor(object = "") {
-    this.type = object.type;
     this.name = object.name;
     this.path = object.path;
     this.extension = object.extension;
-  }
-
-  getType(type) {
-    return this.type;
   }
 
   getName(name) {
@@ -20,11 +15,6 @@ export default class {
 
   getExtension(extension) {
     return this.extension;
-  }
-
-  setType(type) {
-    this.type = type;
-    return this;
   }
 
   setName(name) {
