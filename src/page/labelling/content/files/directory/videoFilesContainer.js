@@ -41,7 +41,7 @@ const checkCompletedVideoFiles = (directoryPath, jsonFilePath) => {
     dirFiles.forEach((dirFile) => {
       const extension = path.extname(file);
 
-      if (extension == ".avi" || extension == ".mov" || extension == ".mp4") {
+      if (extension == ".mov" || extension == ".mp4") {
         videoFiles.push(dirFile);
       }
     })

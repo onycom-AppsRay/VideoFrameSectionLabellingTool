@@ -8,7 +8,6 @@ import importExistingFile from "./page/file/importExistingFile";
   document.querySelector("#open-directory-page").style.display = "none";
   document.querySelector("#open-file-page").style.display = "none";
   document.querySelector("#form-criteria-page").style.display = "none";
-  document.querySelector(".js-content").style.display = "";
 
   const jsonPath = path.join(__dirname, "../mock/json/20200519114544.json");
 

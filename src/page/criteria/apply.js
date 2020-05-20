@@ -47,11 +47,8 @@ goLabellingPageBtn.onclick = () => {
     jsonControl.writeJSONFile(globalJSONPath, JSONFile);
 
     // page move
-    const formCriteriaPage = document.getElementById("form-criteria-page");
-    const jsContent = document.getElementsByClassName("js-content")[0];
-
-    formCriteriaPage.style.display = "none";
-    jsContent.style.display = "";
+    document.getElementById("form-criteria-page").style.display = "none";
+    document.querySelector(".js-content").style.display = "";
 
     return;
   } else {

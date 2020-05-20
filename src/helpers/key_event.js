@@ -4,6 +4,8 @@ import globalFrame from "../model/global/globalFrame";
 
 let keyState = {};
 
+const jsContent = document.querySelector(".js-content");
+
 window.addEventListener('keydown', function (e) {
   keyState[e.keyCode || e.which] = true;
 }, false);
@@ -13,18 +15,20 @@ window.addEventListener('keyup', function (e) {
 }, false);
 
 window.addEventListener('keydown', function (e) {
-  // 'Enter' key for 'PUSH' labbelling data.
-  if (e.keyCode == 13) {
-    document.getElementById("section-confirm").click();
+  if (jsContent.style.display == "") {
+    // 'Enter' key for 'PUSH' labbelling data.
+    if (e.keyCode == 13) {
+      document.getElementById("section-confirm").click();
+    }
+    
+    // 'Arrow Right & left' key, Swap 'START', 'END' frame index section.
+    if (e.keyCode == 37 || e.keyCode == 39) {
+      inputFrameIndexContainer.convertInputFocus();
+    }
+    
+    // Select 'criteria' with keyboard('1', '2', '3', ..., '9')
+    selectCriteriaWithKeyCode(e.keyCode);
   }
-
-  // 'Arrow Right & left' key, Swap 'START', 'END' frame index section.
-  if (e.keyCode == 37 || e.keyCode == 39) {
-    inputFrameIndexContainer.convertInputFocus();
-  }
-
-  // Select 'criteria' with keyboard('1', '2', '3', ..., '9')
-  selectCriteriaWithKeyCode(e.keyCode);
 }, false);
 
 const selectCriteriaWithKeyCode = (keycode = 49) => {

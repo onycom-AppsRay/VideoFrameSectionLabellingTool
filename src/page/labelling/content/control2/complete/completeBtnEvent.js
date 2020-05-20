@@ -1,7 +1,6 @@
 import { remote } from "electron";
 
 import jsonControl from "../../../../../helpers/json/json_control";
-import tagControl from "../../../../../helpers/tag_control";
 
 import videoDataDTO from "../../../../../model/dto/videoData";
 import jsonFileDTO from "../../../../../model/dto/jsonFile";
@@ -48,15 +47,28 @@ COMPLETE_BTN.addEventListener("click", (event) => {
 
   jsonControl.writeJSONFile(JSON_PATH, JSONFile);
 
-  labellingContainer.initialize();
-  mainViewContainer.initialize();
-  frameListContainer.initialize();
-  inputFrameIndexContainer.reset();
+  initOnComplete();
 
   jsonFileContainer.initialize();
   jsonFileContainer.showVideoFiles(JSONFile.getVideos());
   videoFilesContainer.showCompletedVideoFilesCount(JSONFile.getVideos());
   videoFilesContainer.markCompletedVideoFiles([VIDEO_TITLE]);
-
-  tagControl.initMainViewFrame();
 });
+
+const initOnComplete = () => {
+  // 'main view'
+  document.getElementById("video-title").innerText = "";
+  document.getElementById("frame-index").innerText = "";
+  mainViewContainer.initialize();
+  
+  // 'frame list'
+  frameListContainer.initialize();
+  
+  // 'START, END frame-index section'
+  document.getElementById("start-frame-input").innerText = 0;
+  document.getElementById("end-frame-input").innerText = 0;
+  inputFrameIndexContainer.reset();
+
+  // 'labelling data'
+  labellingContainer.initialize();
+}

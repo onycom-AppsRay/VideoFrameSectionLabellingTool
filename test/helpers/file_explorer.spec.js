@@ -18,18 +18,18 @@ describe("Directory open test", () => {
       files.should.have.length(5);
     })
 
-    it("should return file with the extension 'mp4', 'mov', 'avi'", () => {
+    it("should return file with the extension 'mp4', 'mov'", () => {
       let extensions = [];
 
       files.forEach((file) => {
         const extension = path.extname(file);
 
-        if(extension == ".avi" || extension == ".mov" || extension == ".mp4") {
+        if(extension == ".mov" || extension == ".mp4") {
           extensions.push(extension);
         }
       })
 
-      extensions.should.containDeep([ '.avi', '.mov', '.mp4' ]);
+      extensions.should.containDeep([ '.mov', '.mp4' ]);
     })
   });
 });

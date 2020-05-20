@@ -1,9 +1,13 @@
 import { remote } from "electron";
 
+import tagControl from "../../../helpers/tag_control";
+import mainViewContainer from "../../../page/labelling/content/main/mainViewContainer";
+import frameListContainer from "../../../page/labelling/content/control1/frame/frameListContainer";
+import labellingContainer from "../../../page/labelling/content/control2/complete/labellingContainer";
+
 const openDirectoryPage = document.getElementById("open-directory-page");
 const openFilePage = document.getElementById("open-file-page");
 const formCriteriaPage = document.getElementById("form-criteria-page");
-const jsContent = document.getElementsByClassName("js-content")[0];
 
 const backBtn = document.getElementById("back-button");
 
@@ -19,8 +23,6 @@ backBtn.addEventListener("click", (event) => {
   openDirectoryPage.style.display = "";
   openFilePage.style.display = "";
   formCriteriaPage.style.display = "";
-
-  jsContent.style.display = "none";
 });
 
 const initGlobalVariable = () => {
@@ -36,47 +38,36 @@ const initGlobalVariable = () => {
   remote.getGlobal("sharedObject").CRITERIA = [];
 }
 
-/**
- * 'header'
- * - 'path info': 'Directory Path' / 'JSON File Path'
- *
- * 'file explorer'
- * - 'directory list' / 'json file list'
- *
- * 'criteria'
- * - 'criteria list'
- *
- * 'labelling'
- * - 'labelling list'
- */
 const initEachSectionContent = () => {
+  document.querySelector(".js-content").style.display = "none";
+  
   // header
-  const directoryPath = document.getElementById("directory-path");
-  directoryPath.innerText = "";
-
-  const jsonFilePath = document.getElementById("json-file-path");
-  jsonFilePath.innerText = "";
+  document.getElementById("directory-path").innerText = "";
+  document.getElementById("json-file-path").innerText = "";
 
   // 'file explorer' section
-  const completedVideoCount = document.querySelector("#files-container .video-counting #completed-video-count");
-  completedVideoCount.innerText = 0;
-  const totalVideoCount = document.querySelector("#files-container .video-counting #total-video-count");
-  totalVideoCount.innerText = 0;
-  const directoryVideoFileContainer = document.querySelector("#files-container #video-files-container");
-  initialize(directoryVideoFileContainer);
+  document.getElementById("completed-video-count").innerText = 0;
+  document.getElementById("total-video-count").innerText = 0;
+  document.getElementById("json-file-video-data-count").innerText = 0;
 
-  const jsonVideoCount = document.querySelector("#files-container .json-counting #json-file-video-data-count");
-  jsonVideoCount.innerText = 0;
-  const jsonVideoFileContainer = document.querySelector("#files-container #json-file-container");
-  initialize(jsonVideoFileContainer);
+  tagControl.initialize(document.getElementById("video-files-container"));
+  tagControl.initialize(document.getElementById("json-file-container"));
+
+  // 'main frame' section
+  document.getElementById("video-title").innerText = "";
+  document.getElementById("frame-index").innerText = "";
+  mainViewContainer.initialize();
+
+  // 'frame list' section
+  frameListContainer.initialize();
+
+  // 'START', 'END' frame index section
+  document.getElementById("start-frame-input").innerText = 0;
+  document.getElementById("end-frame-input").innerText = 0;
 
   // 'criteria' section
-  const criteriaList = document.getElementById("criteria-list");
-  initialize(criteriaList);
-}
+  tagControl.initialize(document.getElementById("criteria-list"));
 
-const initialize = (element) => {
-  while (element.hasChildNodes()) {
-    element.removeChild(element.firstChild);
-  }
+  // 'labelling data' section
+  labellingContainer.initialize();
 }

@@ -1,9 +1,17 @@
 import path from "path";
 
 const initialize = () => {
-  const mainViewImage = document.getElementById("main-view-image");
+  let mainViewImageContainer = document.getElementById("main-view-image-container");
+  let mainViewImage = document.getElementById("main-view-image");
 
-  mainViewImage.src = "";
+  mainViewImageContainer.style.top = "50%";
+  mainViewImageContainer.style.transform = "translateY(-50%)";
+  mainViewImageContainer.style.position = "absolute";
+  mainViewImageContainer.style.height = "";
+
+  mainViewImage.src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
+  mainViewImage.style.width = "";
+  mainViewImage.style.height = "";
 }
 
 const getVideoTag = (path) => {
