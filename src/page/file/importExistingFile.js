@@ -8,11 +8,6 @@ import jsonFileContainer from "../labelling/content/files/json/jsonFileContainer
 import jsonContentDTO from "../../model/dto/jsonFile";
 
 const openFileButton = document.getElementById("open-file-button");
-
-const openFilePage = document.getElementById("open-file-page");
-const formCriteriaPage = document.getElementById("form-criteria-page");
-const jsContent = document.getElementsByClassName("js-content")[0];
-
 const goLabellingPageBtn = document.querySelector(`#open-file-page-container button[name="go-labelling"]`);
 
 let filePath;
@@ -94,9 +89,9 @@ goLabellingPageBtn.onclick = () => {
     videoFilesContainer.showCompletedVideoFilesCount(completedVideoFiles);
   }
 
-  openFilePage.style.display = "none";
-  formCriteriaPage.style.display = "none";
-  jsContent.style.display = "";
+  document.getElementById("open-file-page").style.display = "none";
+  document.getElementById("form-criteria-page").style.display = "none";
+  document.querySelector(".js-content").style.display = "";
 
   document.querySelector("#open-file-path > p").innerHTML = `.&nbsp;.&nbsp.`;
 
@@ -115,4 +110,8 @@ const showCriteria = (type, criteria) => {
   ].join("");
 
   document.getElementById("criteria-list").appendChild(li);
+}
+
+export default {
+  showCriteria
 }

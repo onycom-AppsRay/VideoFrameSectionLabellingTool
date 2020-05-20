@@ -59,3 +59,6 @@ JSON 파일을 생성할 경우, 레이블링 기준을 입력한다.
 <kbd>
   <img src="https://user-images.githubusercontent.com/20623970/81255108-ce931b80-9067-11ea-85a0-a6b36e2edbc0.gif" width="700">
 </kbd>
+
+## Issue
+> brew unlink tesseract

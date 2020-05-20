@@ -11,11 +11,6 @@ import "./stylesheets/page/open_directory.css";
 import "./stylesheets/page/open_file.css";
 import "./stylesheets/page/form_criteria.css";
 
-// Small helpers you might want to keep
-import "./helpers/context_menu.js";
-import "./helpers/external_links.js";
-import "./helpers/key_event.js";
-
 import "./page/labelling/header/nav.js";
 import "./page/labelling/header/back.js";
 
@@ -25,6 +20,7 @@ import "./page/labelling/content/control1/frame/frameClickEvent.js";
 import "./page/labelling/content/control2/complete/completeBtnEvent.js";
 import "./page/labelling/content/control2/complete/updateBtnEvent.js";
 import "./page/labelling/content/control2/push/confirmSectionEvent.js";
+import "./page/labelling/content/control2/push/criteriaSectionEvent.js";
 import "./page/labelling/content/files/json/jsonFileEvent.js";
 
 import "./page/criteria/insert.js";
@@ -32,6 +28,10 @@ import "./page/criteria/apply.js";
 import "./page/directory/openDirectory.js";
 import "./page/file/importExistingFile.js";
 import "./page/file/createJSONFile.js";
+
+import "./helpers/context_menu.js";
+import "./helpers/external_links.js";
+import "./helpers/key_event.js";
 
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
@@ -41,7 +41,7 @@ import { remote } from "electron";
 import jetpack from "fs-jetpack";
 import env from "env";
 
-import tagControl from "./helpers/tag_control";
+import mainViewContainer from "./page/labelling/content/main/mainViewContainer";
 
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
@@ -65,6 +65,8 @@ const initGlobalVariable = () => {
 
   document.getElementById("complete").style.display = "";
   document.getElementById("update").style.display = "none";
+
+  document.querySelector(".js-content").style.display = "none";
 }
 
 const projectInfo = () => {
@@ -72,11 +74,10 @@ const projectInfo = () => {
   document.querySelector("#os").innerHTML = osMap[process.platform];
   document.querySelector("#author").innerHTML = `${manifest.author}` + `&copy;` + `onycom`;
   document.querySelector("#env").innerHTML = env.name;
-  // document.querySelector("#electron-version").innerHTML = process.versions.electron;
 }
 
 (() => {
   projectInfo();
-  tagControl.initMainViewFrame();
   initGlobalVariable();
+  mainViewContainer.initialize();
 })();

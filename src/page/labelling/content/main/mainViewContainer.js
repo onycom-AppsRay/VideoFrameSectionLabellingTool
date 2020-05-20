@@ -1,9 +1,17 @@
 import path from "path";
 
 const initialize = () => {
-  const mainViewImage = document.getElementById("main-view-image");
+  let mainViewImageContainer = document.getElementById("main-view-image-container");
+  let mainViewImage = document.getElementById("main-view-image");
 
-  mainViewImage.src = "";
+  mainViewImageContainer.style.top = "50%";
+  mainViewImageContainer.style.transform = "translateY(-50%)";
+  mainViewImageContainer.style.position = "absolute";
+  mainViewImageContainer.style.height = "";
+
+  mainViewImage.src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
+  mainViewImage.style.width = "";
+  mainViewImage.style.height = "";
 }
 
 const getVideoTag = (path) => {
@@ -33,28 +41,51 @@ const setMainViewImage = (src) => {
 }
 
 const setStyleOfMainViewImage = (isWide) => {
-  const mainViewImageContainer = document.getElementById("main-view-image-container");
-  const mainViewImage = document.getElementById("main-view-image");
+  let mainViewImageContainer = document.getElementById("main-view-image-container");
+  let mainViewImage = document.getElementById("main-view-image");
 
-  mainViewImageContainer.setAttribute("style", `height: ""; left: ""; top: ""; transform: ""`);
+  mainViewImageContainer.style.width = "";
+  mainViewImageContainer.style.height = "";
+  mainViewImageContainer.style.left = "";
+  mainViewImageContainer.style.top = "";
+  mainViewImageContainer.style.transform = "";
+
+  mainViewImage.style.width = "";
+  mainViewImage.style.height = "";
 
   if (isWide) {
-    mainViewImageContainer.setAttribute("style", `top: 50%; transform: translateY(-50%);`);
+    mainViewImageContainer.style.top = "50%";
+    mainViewImageContainer.style.transform = "translateY(-50%)";
+    mainViewImageContainer.style.position = "absolute";
 
-    mainViewImage.setAttribute("style", `width: 100%; height: auto;`);
-  } else {
+    mainViewImage.style.width = "100%";
+    mainViewImage.style.height = "auto";
 
-    mainViewImageContainer.setAttribute("style", `left: 50%; transform: translateX(-50%); height: 95%`);
+    return;
+  } 
+  
+  if (!isWide) {
+    mainViewImageContainer.style.position = "relative";
+    mainViewImageContainer.style.height = "90%";
 
-    mainViewImage.setAttribute("style", `width: auto; height: 100%;`);
+    mainViewImage.style.height = "100%";
+    mainViewImage.style.width = "auto";
+
+    return;
   }
 }
 
 const setDefaultImage = (isWide) => {
   if (isWide) {
     document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
-  } else {
+
+    return;
+  } 
+  
+  if (!isWide) {
     document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic_long.png");
+
+    return;
   }
 }
 

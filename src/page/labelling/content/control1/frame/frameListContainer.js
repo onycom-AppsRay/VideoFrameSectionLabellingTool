@@ -5,24 +5,6 @@ const initialize = () => {
   tagControl.initialize(frameListContainer);
 }
 
-const createCanvas = (frame, imgData, index) => {
-  const canvas = document.createElement('canvas');
-  canvas.height = frame.rows;
-  canvas.width = frame.cols;
-
-  canvas.style.width = "100%";
-  canvas.style.height = "auto";
-  canvas.style.border = "2px solid lightgray";
-  canvas.dataset.index = index;
-  
-  const ctx = canvas.getContext('2d');
-
-  ctx.putImageData(imgData, 0, 0);
-  drawStroked(ctx, index, (frame.cols / 2), (frame.rows / 2));
-
-  return canvas;
-}
-
 const drawStroked = (ctx, text, x, y) => {
   ctx.font = "20rem Sans-serif";
   ctx.strokeStyle = "black";
@@ -33,8 +15,26 @@ const drawStroked = (ctx, text, x, y) => {
   ctx.fillText(text, x, y);
 }
 
+const createCanvas = (imgData, index) => {
+  const canvas = document.createElement("canvas");
+  canvas.height = imgData.height;
+  canvas.width = imgData.width;
+
+  canvas.style.width = "100%";
+  canvas.style.height = "auto";
+  canvas.style.border = "2px solid lightgray";
+  canvas.dataset.index = index;
+
+  // set image data
+  const ctx = canvas.getContext('2d');
+  ctx.putImageData(imgData, 0, 0);
+  // drawStroked(ctx, index, (imgData.width / 2), (imgData.height / 2));
+
+  return canvas;
+}
+
 export default {
   initialize,
+  drawStroked,
   createCanvas,
-  drawStroked
 }

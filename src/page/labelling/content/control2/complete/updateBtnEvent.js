@@ -1,7 +1,6 @@
 import { remote } from "electron";
 
 import jsonControl from "../../../../../helpers/json/json_control";
-import tagControl from "../../../../../helpers/tag_control";
 
 import videoDataDTO from "../../../../../model/dto/videoData";
 import jsonFileDTO from "../../../../../model/dto/jsonFile";
@@ -22,7 +21,6 @@ document.getElementById("update").addEventListener("click", (event) => {
   
   document.getElementById("complete").style.display = "";
   document.getElementById("update").style.display = "none";
-  
   
   const JSON_PATH = GLOBAL.JSON_FILE.PATH;
   const VIDEO_FRAME_LENGTH = GLOBAL.FRAME.LENGTH;
@@ -53,10 +51,23 @@ document.getElementById("update").addEventListener("click", (event) => {
 
   jsonControl.writeJSONFile(JSON_PATH, JSONFile);
 
-  labellingContainer.initialize();
+  initOnUpdate();
+});
+
+const initOnUpdate = () => {
+  // 'main view'
+  document.getElementById("video-title").innerText = "";
+  document.getElementById("frame-index").innerText = "";
   mainViewContainer.initialize();
+  
+  // 'frame list'
   frameListContainer.initialize();
+  
+  // 'START, END frame-index section'
+  document.getElementById("start-frame-input").innerText = 0;
+  document.getElementById("end-frame-input").innerText = 0;
   inputFrameIndexContainer.reset();
 
-  tagControl.initMainViewFrame();
-})
+  // 'labelling data'
+  labellingContainer.initialize();
+};

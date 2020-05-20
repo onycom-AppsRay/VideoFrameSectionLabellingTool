@@ -14,19 +14,10 @@ import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
 const videoFilesContainer = document.getElementById("video-files-container");
 
-let clickEventFlag = false;
-
 videoFilesContainer.onclick = async (event) => {
   if (event.target.className == "video-file") {
 
     const title = event.target.dataset.title;
-
-    if (clickEventFlag) {
-      alert("loading...");
-      return false;
-    } else {
-      clickEventFlag = true;
-    }
 
     document.getElementById("video-title").innerText = title;
 
@@ -65,40 +56,15 @@ videoFilesContainer.onclick = async (event) => {
 
     mainViewContainer.setMainFrameRate(video);
 
-    const loadedVideo = await videoCapture.loadVideo(path);
+    const videoCaptureList = videoCapture.extractFrames(path);
 
-    let videoWidth = loadedVideo.videoWidth;
-    let videoHeight = loadedVideo.videoHeight;
+    GlobalFrame.setLENGTH(videoCaptureList.length);
 
-    const frameList = await videoCapture.extractFrames(loadedVideo, 5);
-    GlobalFrame.setLENGTH(frameList.length);
+    videoCaptureList.forEach((captureImage, index) => {
+      const imgData = videoCapture.convertImageToMat(captureImage);
+      const canvasElement = frameListContainer.createCanvas(imgData, index);
 
-    frameList.forEach((frame, index) => {
-      const canvas = document.createElement("canvas");
-      canvas.width = videoWidth;
-      canvas.height = videoHeight;
-
-      canvas.style.width = "100%";
-      canvas.style.height = "auto";
-      canvas.style.border = "2px solid lightgray";
-      canvas.dataset.index = index;
-
-      let img = new Image;
-      img.onload = function () {
-        const ctx = canvas.getContext("2d");
-
-        ctx.drawImage(img, 0, 0);
-        frameListContainer.drawStroked(ctx, index, (videoWidth / 2), (videoHeight / 2));
-      };
-      img.src = frame;
-
-      document.getElementById("frame-list-container").appendChild(canvas);
-
-      if (frameList.length == (index + 1)) {
-        clickEventFlag = false;
-      }
-
-    });
+      document.getElementById("frame-list-container").appendChild(canvasElement);
+    })
   }
 }
-
