@@ -9,6 +9,4 @@ package-lock.json
 /app/background.js
 /app/**/*.map
 
-/src/test.js
-
 /dist
