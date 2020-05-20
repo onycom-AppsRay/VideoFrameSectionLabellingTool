@@ -116,3 +116,7 @@ const showCriteria = (type, criteria) => {
 
   document.getElementById("criteria-list").appendChild(li);
 }
+
+export default {
+  showCriteria
+}

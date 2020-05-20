@@ -1,6 +1,5 @@
 import mainViewContainer from "../page/labelling/content/main/mainViewContainer";
 import inputFrameIndexContainer from "../page/labelling/content/control2/push/inputFrameIndexContainer";
-
 import globalFrame from "../model/global/globalFrame";
 
 let keyState = {};
@@ -14,15 +13,29 @@ window.addEventListener('keyup', function (e) {
 }, false);
 
 window.addEventListener('keydown', function (e) {
+  // 'Enter' key for 'PUSH' labbelling data.
   if (e.keyCode == 13) {
-    // frame push event
     document.getElementById("section-confirm").click();
   }
 
+  // 'Arrow Right & left' key, Swap 'START', 'END' frame index section.
   if (e.keyCode == 37 || e.keyCode == 39) {
     inputFrameIndexContainer.convertInputFocus();
   }
+
+  // Select 'criteria' with keyboard('1', '2', '3', ..., '9')
+  selectCriteriaWithKeyCode(e.keyCode);
 }, false);
+
+const selectCriteriaWithKeyCode = (keycode = 49) => {
+  let numberKeyCodeList = [49, 50, 51, 52, 53, 54, 55, 56, 57];
+
+  if (numberKeyCodeList.indexOf(keycode) >= 0) {
+    let criteria = String.fromCharCode((keycode - 49) + 65);
+
+    document.querySelector(`#criteria-${criteria}`).checked = "checked";
+  }
+}
 
 const frameMove = () => {
   const GlobalFrame = new globalFrame();
@@ -37,9 +50,9 @@ const frameMove = () => {
       const canvas = document.querySelector(`canvas[data-index='${nextImgIndex}'`);
 
       mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
-      
+
       inputFrameIndexContainer.setFrameIndex(nextImgIndex);
-      
+
       GlobalFrame.setAT(nextImgIndex);
 
       markSelectedFrame(GlobalFrame.AT, nextImgIndex);
@@ -57,11 +70,11 @@ const frameMove = () => {
       const canvas = document.querySelector(`canvas[data-index='${nextImgIndex}'`);
 
       mainViewContainer.setMainViewImage(canvas.toDataURL("image/jpeg"));
-      
+
       inputFrameIndexContainer.setFrameIndex(nextImgIndex);
-      
+
       GlobalFrame.setAT(nextImgIndex);
-      
+
       markSelectedFrame(GlobalFrame.AT, nextImgIndex);
 
       canvas.scrollIntoViewIfNeeded(true);

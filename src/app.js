@@ -32,6 +32,7 @@ import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
 import "./helpers/key_event.js";
 
+// import "./test";
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------
