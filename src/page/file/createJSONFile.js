@@ -37,6 +37,7 @@ ipcRenderer.on("selected-json-directory", (event, pathArr) => {
   document.getElementById("json-file-path").innerText = creationPath;
 
   goCriteriaPageBtn.hidden = "";
+  document.getElementById("go-labbeling").hidden = true;
 });
 
 goCriteriaPageBtn.onclick = () => {
@@ -45,4 +46,5 @@ goCriteriaPageBtn.onclick = () => {
   document.querySelector("#open-file-path > p").innerHTML = `.&nbsp;.&nbsp.`;
 
   goCriteriaPageBtn.hidden = true;
+  document.getElementById("go-labbeling").hidden = true;
 }

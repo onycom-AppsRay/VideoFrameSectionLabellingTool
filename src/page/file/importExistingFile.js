@@ -8,7 +8,7 @@ import jsonFileContainer from "../labelling/content/files/json/jsonFileContainer
 import jsonContentDTO from "../../model/dto/jsonFile";
 
 const openFileButton = document.getElementById("open-file-button");
-const goLabellingPageBtn = document.querySelector(`#open-file-page-container button[name="go-labelling"]`);
+const goLabellingPageBtn = document.getElementById("go-labbeling");
 
 let filePath;
 let jsonCriteria;
@@ -42,6 +42,7 @@ ipcRenderer.on("selected-file", (event, pathArr) => {
     document.querySelector("#open-file-path > p").innerText = filePath;
 
     goLabellingPageBtn.hidden = "";
+    document.getElementById("go-write-criteria").hidden = true;
 
     return;
   } else {
