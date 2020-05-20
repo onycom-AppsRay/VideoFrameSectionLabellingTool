@@ -17,7 +17,7 @@ criteriaInsertBtn.onclick = () => {
     `<span>${criteria}</span>`
   ].join("");
 
-  document.querySelector("#criteria2-list ul").appendChild(li);
+  document.querySelector("#criteria-modal-header").appendChild(li);
 }
 
 const checkInputCriteria = (inputCriteria) => {
