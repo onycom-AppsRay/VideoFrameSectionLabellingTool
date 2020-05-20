@@ -58,7 +58,7 @@ app.on("ready", () => {
 
   mainWindow = createWindow("main", {
     width: 1100,
-    height: 900
+    height: 1000
   });
 
   mainWindow.loadURL(
