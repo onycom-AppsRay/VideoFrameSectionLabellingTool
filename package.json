@@ -23,6 +23,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "test": "mocha test/**/**.spec.js",
+    "test-opencv": "mocha test/helpers/external/opencvCustom.spec.js",
     "start": "node build/start.js",
     "release": "webpack --config=build/webpack.app.config.js --env=production && electron-builder"
   },
