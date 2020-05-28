@@ -7,11 +7,8 @@ document.querySelector(`#main-view-image-rate-radio-container`).addEventListener
     const mainViewImage = document.querySelector(`img[id="main-view-image"]`);
 
     mainViewImage.style.width = (rate + "%");
-
-    console.log("mainViewImage: ", mainViewImage.clientHeight);
-    console.log("mainViewImage: ", mainViewImage.clientWidth);
-
-    console.log(rate);
+    
+    console.log("client width: ", document.querySelector(`img[id="main-view-image"]`).clientWidth);
   }
 }, false);
 

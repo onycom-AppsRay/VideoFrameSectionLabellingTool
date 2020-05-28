@@ -12,8 +12,6 @@ import globalVideoData from "../../../../../model/global/globalVideoData";
 import globalFrame from "../../../../../model/global/globalFrame";
 import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
-import mainViewEvent from "../../main/mainViewEvent";
-
 const videoFilesContainer = document.getElementById("video-files-container");
 
 videoFilesContainer.onclick = async (event) => {
@@ -58,6 +56,11 @@ videoFilesContainer.onclick = async (event) => {
 
     mainViewContainer.setMainFrameRate(video);
 
+    // let startTime = new Date().getTime();
+
+    // 위에 'main-view' 를 초기화하는 코드들 때문에, 변경사항이 전달되지 않는다.
+    console.log("client width: ", document.querySelector(`img[id="main-view-image"]`).clientWidth);
+
     const videoCaptureList = videoCapture.extractFrames(path, document.querySelector(`img[id="main-view-image"]`).clientWidth);
 
     GlobalFrame.setLENGTH(videoCaptureList.length);
@@ -68,5 +71,9 @@ videoFilesContainer.onclick = async (event) => {
 
       document.getElementById("frame-list-container").appendChild(canvasElement);
     })
+
+    // let endTime = new Date().getTime();
+
+    // console.log(endTime - startTime);
   }
 }

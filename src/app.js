@@ -14,7 +14,7 @@ import "./stylesheets/page/form_criteria.css";
 import "./page/labelling/header/nav.js";
 import "./page/labelling/header/back.js";
 
-import "./page/labelling/content/main/mainViewEvent.js";
+// import "./page/labelling/content/main/mainViewEvent.js";
 import "./page/labelling/content/files/json/jsonFileEvent.js";
 import "./page/labelling/content/files/directory/videoFileEvent.js";
 import "./page/labelling/content/control1/frame/frameClickEvent.js";

@@ -37,7 +37,7 @@ jsonFileContainer.onclick = async (event) => {
     const video = mainViewContainer.getVideoTag(completedFilePath);
     mainViewContainer.setMainFrameRate(video);
 
-    const videoCaptureList = videoCapture.extractFrames(completedFilePath);
+    const videoCaptureList = videoCapture.extractFrames(completedFilePath, document.querySelector(`img[id="main-view-image"]`).clientWidth);
 
     const GlobalVideoData = new globalVideoData();
     GlobalVideoData.setPATH(videoDirectoryPath);
