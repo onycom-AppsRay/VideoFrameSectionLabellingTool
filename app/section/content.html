@@ -19,6 +19,22 @@
       </div>
 
       <div class="col-7" id="main-view-container">
+        <div class="progress" style="border-radius: 0%;">
+          <div id="progressbar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
+
+        <div id="main-view-image-rate-radio-container" class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary">
+            <input type="radio" name="image-frame-rate" id="option1" value=50> 50%
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="image-frame-rate" id="option2" value=75> 75%
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="image-frame-rate" id="option3" value=100 active> 100%
+          </label>
+        </div>
+
         <div>
           <h6 id="video-title"></h6>
           <h2 id="frame-index"></h2>

@@ -14,14 +14,15 @@ import "./stylesheets/page/form_criteria.css";
 import "./page/labelling/header/nav.js";
 import "./page/labelling/header/back.js";
 
-import "./page/labelling/content/control2/complete/sectionClickEvent.js";
+import "./page/labelling/content/main/mainViewEvent.js";
+import "./page/labelling/content/files/json/jsonFileEvent.js";
 import "./page/labelling/content/files/directory/videoFileEvent.js";
 import "./page/labelling/content/control1/frame/frameClickEvent.js";
+import "./page/labelling/content/control2/complete/sectionClickEvent.js";
 import "./page/labelling/content/control2/complete/completeBtnEvent.js";
 import "./page/labelling/content/control2/complete/updateBtnEvent.js";
 import "./page/labelling/content/control2/push/confirmSectionEvent.js";
 import "./page/labelling/content/control2/push/criteriaSectionEvent.js";
-import "./page/labelling/content/files/json/jsonFileEvent.js";
 
 import "./page/criteria/insert.js";
 import "./page/criteria/apply.js";
@@ -36,6 +37,9 @@ import "./helpers/key_event.js";
 // ----------------------------------------------------------------------------
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------
+
+// test
+// import "../test/page/labelling/frameExtract.js";
 
 import { remote } from "electron";
 import jetpack from "fs-jetpack";

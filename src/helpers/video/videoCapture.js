@@ -1,6 +1,6 @@
 import cv from "opencv4nodejs-prebuilt";
 
-const extractFrames = (videoPath) => {
+const extractFrames = (videoPath, resizeValue) => {
   const vCap = new cv.VideoCapture(videoPath);
 
   let done = false;
@@ -12,7 +12,26 @@ const extractFrames = (videoPath) => {
     if (frame.empty) {
       done = true;
     } else {
-      result.push(frame);
+      result.push(frame.resizeToMax(Number.parseInt(resizeValue)));
+    }
+  }
+
+  return result;
+}
+
+const extractFrames2 = (videoPath, resizeRate) => {
+  const vCap = new cv.VideoCapture(videoPath);
+
+  let done = false;
+
+  let result = [];
+  while (!done) {
+    let frame = vCap.read();
+
+    if (frame.empty) {
+      done = true;
+    } else {
+      result.push(frame.resizeToMax(resizeRate));
     }
   }
 
@@ -24,7 +43,6 @@ const convertImageToMat = (img) => {
     ? img.cvtColor(cv.COLOR_GRAY2RGBA)
     : img.cvtColor(cv.COLOR_BGR2RGBA);
 
-  // create new ImageData from raw mat data
   const imgData = new ImageData(
     new Uint8ClampedArray(matRGBA.getData()),
     img.cols,
@@ -36,5 +54,6 @@ const convertImageToMat = (img) => {
 
 export default {
   extractFrames,
+  extractFrames2,
   convertImageToMat
 }

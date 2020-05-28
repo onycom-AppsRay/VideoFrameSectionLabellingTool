@@ -12,6 +12,8 @@ import globalVideoData from "../../../../../model/global/globalVideoData";
 import globalFrame from "../../../../../model/global/globalFrame";
 import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
+import mainViewEvent from "../../main/mainViewEvent";
+
 const videoFilesContainer = document.getElementById("video-files-container");
 
 videoFilesContainer.onclick = async (event) => {
@@ -56,7 +58,7 @@ videoFilesContainer.onclick = async (event) => {
 
     mainViewContainer.setMainFrameRate(video);
 
-    const videoCaptureList = videoCapture.extractFrames(path);
+    const videoCaptureList = videoCapture.extractFrames(path, document.querySelector(`img[id="main-view-image"]`).clientWidth);
 
     GlobalFrame.setLENGTH(videoCaptureList.length);
 
