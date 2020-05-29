@@ -33,6 +33,7 @@ global.sharedObject = {
     AT: 0
   },
   CRITERIA: [],
+  COMPLETE_FLAG: true,
 }
 
 const setApplicationMenu = () => {

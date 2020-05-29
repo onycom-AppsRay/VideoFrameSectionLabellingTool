@@ -66,6 +66,7 @@ const initGlobalVariable = () => {
   remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
   remote.getGlobal("sharedObject").DIRECTORY.VIDEOS = [];
   remote.getGlobal("sharedObject").CRITERIA = [];
+  remote.getGlobal("sharedObject").COMPLETE_FLAG = true;
 
   document.getElementById("complete").style.display = "";
   document.getElementById("update").style.display = "none";

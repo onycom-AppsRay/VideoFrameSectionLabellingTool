@@ -33,11 +33,36 @@
           <label class="btn btn-secondary">
             <input type="radio" name="image-frame-rate" id="option3" value=100 active> 100%
           </label>
-        </div> -->
+        </div> -->        
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              파일명:
+              <span id="video-title"></span>
+            </div>
+          </div>
 
-        <div>
-          <h6 id="video-title"></h6>
-          <h2 id="frame-index"></h2>
+          <div class="row">
+            <div class="col-sm">
+              재생 시간:
+              <span id="video-duration"></span>
+            </div>
+            <div class="col-sm">
+              FPS:
+              <span id="video-fps"></span>
+            </div>
+            <div class="col-sm">
+              프레임 수:
+              <span id="video-frame-count"></span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <p>현재 프레임</p>
+              <h2 id="frame-index">0</h2>
+            </div>
+          </div>
         </div>
 
         <div id="main-view-image-container">

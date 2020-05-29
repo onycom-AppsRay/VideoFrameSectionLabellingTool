@@ -37,24 +37,24 @@
 
 /* main view */
 #main-view-container {
-  max-height: 100%;
+  height: 100%;
   width: 100%;
   padding: 0;
   background-color: black;
   color: white;
 }
 
-#frames-progress-bar {
-  height: 1%;
-}
-
 #main-view-image-container {
-  position: absolute;
-  z-index: 1;
+  width: 100%;
   padding: 1rem;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#main-view-image {
+#main-view-image, #hidden-video {
   border: 1px solid lime;
   width: 100%;
 }
