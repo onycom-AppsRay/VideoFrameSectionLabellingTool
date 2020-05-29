@@ -37,7 +37,12 @@ jsonFileContainer.onclick = async (event) => {
     const video = mainViewContainer.getVideoTag(completedFilePath);
     mainViewContainer.setMainFrameRate(video);
 
-    const videoCaptureList = videoCapture.extractFrames(completedFilePath, document.querySelector(`img[id="main-view-image"]`).clientWidth);
+    const imgSize = document.querySelector(`img[id="main-view-image"]`).clientWidth;
+    const videoSize = document.querySelector(`video[id="hidden-video"]`).clientWidth
+
+    const resizeValue = (imgSize == 0) ? videoSize : imgSize;
+
+    const videoCaptureList = videoCapture.extractFrames(completedFilePath, resizeValue);
 
     const GlobalVideoData = new globalVideoData();
     GlobalVideoData.setPATH(videoDirectoryPath);
@@ -99,6 +104,7 @@ jsonFileContainer.onclick = async (event) => {
       before = value;
     })
 
+    remote.getGlobal("sharedObject").COMPLETE_FLAG = false;
   }
 }
 
