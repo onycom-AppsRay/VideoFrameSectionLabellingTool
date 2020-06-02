@@ -1,6 +1,8 @@
 import tagControl from "../../../../../helpers/tag_control";
+import jsonControl from "../../../../../helpers/json/json_control";
 
 import labellingDataDTO from "../../../../../model/dto/labellingData";
+import videoCapture from "../../../../../helpers/video/videoCapture";
 
 const initialize = () => {
   const criteriaTempList = document.querySelector("#result-list tbody");
@@ -87,10 +89,45 @@ const getLabellingData = () => {
   return result;
 }
 
+const showLabellingDataInJSON = (jsonPath, fileName) => {
+  const completedLabellingData = jsonControl.getLabellingDataInJSON(jsonPath, fileName);
+  
+  let before = 0;
+  let start, end = 0;
+  let flag = false;
+
+  completedLabellingData.forEach((value, index) => {
+    if (value > 0 && before != value) {
+      if (flag) {
+        end = (index - 1);
+        flag = false;
+
+        showLabellingData(start, end, String.fromCharCode(before + 64));
+      }
+
+      start = index;
+      flag = true;
+      before = value;
+
+      return;
+    }
+
+    if (flag && before != value) {
+      end = (index - 1);
+      flag = false;
+
+      showLabellingData(start, end, String.fromCharCode(before + 64));
+    }
+
+    before = value;
+  })
+}
+
 export default {
   initialize,
   showLabellingData,
   resetTableBodyIndex,
   hasSameData,
-  getLabellingData
+  getLabellingData,
+  showLabellingDataInJSON
 }

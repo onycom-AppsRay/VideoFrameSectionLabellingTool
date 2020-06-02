@@ -96,11 +96,30 @@ const hasJSONFile = (path, fileName) => {
   return flag;
 }
 
+const getLabellingDataInJSON = (jsonPath, fileName) => {
+  const jsonContent = getJSONFile(jsonPath);
+
+  const labellingDataList = jsonContent.content.videos;
+
+  let result = "";
+
+  Array.prototype.some.call(labellingDataList, (labellingData) => {
+    if (labellingData.title = fileName) {
+      result = labellingData.frameList;
+
+      return true;
+    }
+  })
+
+  return result;
+}
+
 export default {
   getJSONFile,
   writeJSONFile,
   matchingVideoTitle,
   createFileNameWithCurrentTime,
   hasJSONFile,
-  hasVideoData
+  hasVideoData,
+  getLabellingDataInJSON
 }
