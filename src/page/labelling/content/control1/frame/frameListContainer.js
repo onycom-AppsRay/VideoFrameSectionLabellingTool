@@ -1,4 +1,5 @@
 import tagControl from "../../../../../helpers/tag_control";
+import VideoCapture from "../../../../../helpers/video/videoCapture";
 
 const initialize = () => {
   const frameListContainer = document.getElementById("frame-list-container");
@@ -33,8 +34,18 @@ const createCanvas = (imgData, index) => {
   return canvas;
 }
 
+const showFrameList = (videoCaptureList) => {
+  Array.prototype.forEach.call(videoCaptureList, (videoCapture, index) => {
+    const imgData = VideoCapture.convertImageToMat(videoCapture);
+    const canvas = createCanvas(imgData, index);
+
+    document.getElementById("frame-list-container").appendChild(canvas);
+  })
+}
+
 export default {
   initialize,
   drawStroked,
   createCanvas,
+  showFrameList
 }

@@ -34,6 +34,7 @@ window.addEventListener('keydown', function (e) {
 const selectCriteriaWithKeyCode = (keycode = 49) => {
   let numberKeyCodeList = [49, 50, 51, 52, 53, 54, 55, 56, 57];
 
+  // criteria 갯수 보다 높은 숫자를 입력했을 때, 이벤트 막기
   if (numberKeyCodeList.indexOf(keycode) >= 0) {
     let criteria = String.fromCharCode((keycode - 49) + 65);
 

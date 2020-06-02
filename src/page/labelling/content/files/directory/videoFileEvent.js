@@ -12,68 +12,91 @@ import globalVideoData from "../../../../../model/global/globalVideoData";
 import globalFrame from "../../../../../model/global/globalFrame";
 import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
-const videoFilesContainer = document.getElementById("video-files-container");
+const videoFilesContainerTag = document.getElementById("video-files-container");
 
-videoFilesContainer.onclick = async (event) => {
-  if (event.target.className == "video-file") {
+videoFilesContainerTag.onclick = async (event) => {
 
-    const title = event.target.dataset.title;
-
-    document.getElementById("video-title").innerText = title;
-
-    const path = event.target.dataset.path;
-
-    const jsonFilePath = remote.getGlobal("sharedObject").JSON_FILE.PATH;
-    const result = jsonControl.getJSONFile(jsonFilePath);
-
-    if (!result.result) {
-      alert("Error json file load");
-      return;
-    }
-
-    const JSONContent = new jsonFileDTO(result.content);
-    const JSONVideos = JSONContent.getVideos();
-
-    if (JSONVideos.length > 0) {
-      if (jsonControl.hasVideoData(JSONVideos, title)) {
-        alert("동일한 비디오에 대한 데이터가 존재 합니다.");
-        return;
-      }
-    }
-
-    mainViewContainer.initialize();
-    frameListContainer.initialize();
-    labellingContainer.initialize();
-
-    const GlobalVideoData = new globalVideoData();
-    GlobalVideoData.setPATH(path);
-    GlobalVideoData.setTITLE(title);
-
-    const GlobalFrame = new globalFrame();
-    GlobalFrame.setAT(0);
-
-    const video = mainViewContainer.getVideoTag(path);
-
-    mainViewContainer.setMainFrameRate(video);
-
-    // let startTime = new Date().getTime();
-
-    // 위에 'main-view' 를 초기화하는 코드들 때문에, 변경사항이 전달되지 않는다.
-    console.log("client width: ", document.querySelector(`img[id="main-view-image"]`).clientWidth);
-
-    const videoCaptureList = videoCapture.extractFrames(path, document.querySelector(`img[id="main-view-image"]`).clientWidth);
-
-    GlobalFrame.setLENGTH(videoCaptureList.length);
-
-    videoCaptureList.forEach((captureImage, index) => {
-      const imgData = videoCapture.convertImageToMat(captureImage);
-      const canvasElement = frameListContainer.createCanvas(imgData, index);
-
-      document.getElementById("frame-list-container").appendChild(canvasElement);
-    })
-
-    // let endTime = new Date().getTime();
-
-    // console.log(endTime - startTime);
+  if (event.target.className != "video-file") {
+    return false;
   }
+
+  if (!confirm(`${event.target.dataset.title} 에 대한 작업을 시작하시겠습니까? \n` +
+    `(작업 시작 시, 비디오 제원에 대한 미리보기는 중단 됩니다.)`)) {
+    return false;
+  }
+
+  const result = jsonControl.getJSONFile(remote.getGlobal("sharedObject").JSON_FILE.PATH);
+
+  if (!result.result) {
+    alert("Tool에서 지원하지 않는 JSON 파일 형식 입니다.");
+    return false;
+  }
+
+  const title = event.target.dataset.title;
+  const jsonVideos = new jsonFileDTO(result.content).getVideos();
+
+  if (jsonVideos.length > 0 && jsonControl.hasVideoData(jsonVideos, title)) {
+    alert("동일한 비디오에 대한 데이터가 존재 합니다.");
+    return false;
+  }
+
+  mainViewContainer.initialize();
+  frameListContainer.initialize();
+  labellingContainer.initialize();
+
+  const path = event.target.dataset.path;
+  
+  const GlobalVideoData = new globalVideoData();
+  GlobalVideoData.setPATH(path);
+  GlobalVideoData.setTITLE(title);
+
+  const GlobalFrame = new globalFrame();
+  GlobalFrame.setAT(0);
+
+  const video = mainViewContainer.getVideoTag(path);
+
+  mainViewContainer.setMainFrameRate(video);
+
+  const videoCaptureList = videoCapture.extractFrames(path, document.getElementById("hidden-video").clientWidth);
+
+  GlobalFrame.setLENGTH(videoCaptureList.length);
+
+  frameListContainer.showFrameList(videoCaptureList);
+
+  // 비디오 제원 : '파일명', '재생 시간', 'FPS', '프레임 수'
+  mainViewContainer.showVideoInfo(event);
+
+  remote.getGlobal("sharedObject").COMPLETE_FLAG = false;
+
+  return true;
+}
+
+videoFilesContainerTag.onmouseover = (event) => {
+
+  // 'COMPLETE' 완료 시, 비디오 제원 미리보기 기능 활성화.
+  if (!remote.getGlobal("sharedObject").COMPLETE_FLAG) {
+    return false;
+  }
+
+  // 비디오 파일 명 위에 마우스 포인터 위치 시 제원 보여주기.
+  if (event.target.className != "video-file") {
+    return false;
+  }
+
+  // 비디오 제원 : '파일명', '재생 시간', 'FPS', '프레임 수'
+  mainViewContainer.showVideoInfo(event);
+
+  return true;
+}
+
+videoFilesContainerTag.onmouseleave = () => {
+
+  // 'COMPLETE' 완료 시, 비디오 제원 미리보기 기능 활성화.
+  if (!remote.getGlobal("sharedObject").COMPLETE_FLAG) {
+    return false;
+  }
+
+  mainViewContainer.initVideoInfo();
+
+  return true;
 }

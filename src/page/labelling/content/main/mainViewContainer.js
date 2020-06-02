@@ -1,15 +1,11 @@
 import path from "path";
+import cv from "opencv4nodejs-prebuilt";
 
 const initialize = () => {
-  let mainViewImageContainer = document.getElementById("main-view-image-container");
-  let mainViewImage = document.getElementById("main-view-image");
-
-  mainViewImageContainer.style.top = "50%";
-  mainViewImageContainer.style.transform = "translateY(-50%)";
-  mainViewImageContainer.style.position = "absolute";
-  mainViewImageContainer.style.height = "";
+  const mainViewImage = document.getElementById("main-view-image");
 
   mainViewImage.src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
+
   mainViewImage.style.width = "";
   mainViewImage.style.height = "";
 }
@@ -46,18 +42,11 @@ const setStyleOfMainViewImage = (isWide) => {
 
   mainViewImageContainer.style.width = "";
   mainViewImageContainer.style.height = "";
-  mainViewImageContainer.style.left = "";
-  mainViewImageContainer.style.top = "";
-  mainViewImageContainer.style.transform = "";
 
   mainViewImage.style.width = "";
   mainViewImage.style.height = "";
 
   if (isWide) {
-    mainViewImageContainer.style.top = "50%";
-    mainViewImageContainer.style.transform = "translateY(-50%)";
-    mainViewImageContainer.style.position = "absolute";
-
     mainViewImage.style.width = "100%";
     mainViewImage.style.height = "auto";
 
@@ -65,9 +54,6 @@ const setStyleOfMainViewImage = (isWide) => {
   } 
   
   if (!isWide) {
-    mainViewImageContainer.style.position = "relative";
-    mainViewImageContainer.style.height = "90%";
-
     mainViewImage.style.height = "100%";
     mainViewImage.style.width = "auto";
 
@@ -89,9 +75,42 @@ const setDefaultImage = (isWide) => {
   }
 }
 
+const showVideoInfo = (event) => {
+  // 비디오 파일 미리보기를 위해서, 'video' tag 를 통한 초반 1Frame 노출.
+  document.getElementById("main-view-image").hidden = true;
+  document.getElementById("hidden-video").hidden = false;
+  
+  const fileName = event.target.dataset.title;
+  const filePath = event.target.dataset.path;
+
+  const hiddenVideoTag = document.getElementById("hidden-video");
+  hiddenVideoTag.src = filePath;
+  hiddenVideoTag.onloadedmetadata = () => {
+    document.getElementById("video-duration").innerText = hiddenVideoTag.duration;
+  }
+  
+  const videoCapture = new cv.VideoCapture(filePath);
+
+  document.getElementById("video-title").innerText = fileName;
+  document.getElementById("video-fps").innerText = videoCapture.get(cv.CAP_PROP_FPS);
+  document.getElementById("video-frame-count").innerText = videoCapture.get(cv.CAP_PROP_FRAME_COUNT);
+}
+
+const initVideoInfo = () => {
+  document.getElementById("main-view-image").hidden = false;
+  document.getElementById("hidden-video").hidden = true;
+
+  document.getElementById("video-duration").innerText = "";
+  document.getElementById("video-title").innerText = "";
+  document.getElementById("video-fps").innerText = "";
+  document.getElementById("video-frame-count").innerText = "";
+}
+
 export default {
   initialize,
   getVideoTag,
   setMainFrameRate,
-  setMainViewImage
+  setMainViewImage,
+  showVideoInfo,
+  initVideoInfo
 }

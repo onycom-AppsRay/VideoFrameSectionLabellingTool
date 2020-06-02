@@ -59,6 +59,9 @@ const initOnUpdate = () => {
   document.getElementById("video-title").innerText = "";
   document.getElementById("frame-index").innerText = "";
   mainViewContainer.initialize();
+
+  // directory list 'mouse over' event flag
+  remote.getGlobal("sharedObject").COMPLETE_FLAG = true;
   
   // 'frame list'
   frameListContainer.initialize();
