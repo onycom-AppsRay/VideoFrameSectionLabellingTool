@@ -10,3 +10,4 @@ package-lock.json
 /app/**/*.map
 
 /dist
+/test
