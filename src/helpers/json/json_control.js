@@ -104,7 +104,7 @@ const getLabellingDataInJSON = (jsonPath, fileName) => {
   let result = "";
 
   Array.prototype.some.call(labellingDataList, (labellingData) => {
-    if (labellingData.title = fileName) {
+    if (labellingData.title == fileName) {
       result = labellingData.frameList;
 
       return true;

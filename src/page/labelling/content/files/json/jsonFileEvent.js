@@ -6,7 +6,6 @@ import globalFrame from "../../../../../model/global/globalFrame";
 import globalVideoData from "../../../../../model/global/globalVideoData";
 
 import videoCapture from "../../../../../helpers/video/videoCapture";
-import jsonControl from "../../../../../helpers/json/json_control";
 
 import mainViewContainer from "../../main/mainViewContainer";
 import frameListContainer from "../../control1/frame/frameListContainer";
@@ -15,6 +14,12 @@ import labellingContainer from "../../control2/complete/labellingContainer";
 const jsonFileContainer = document.getElementById("json-file-container");
 
 jsonFileContainer.onclick = async (event) => {
+
+  // 'COMPLETE' 시, 수정 기능 활성화.
+  if (!remote.getGlobal("sharedObject").COMPLETE_FLAG) {
+    alert("라벨링 작업 완료('COMPLETE') 후, 수정이 가능합니다.");
+    return false;
+  }
 
   if (event.target.className != "json-video-file") {
     return false;
@@ -55,6 +60,9 @@ jsonFileContainer.onclick = async (event) => {
 
   // show frame list
   frameListContainer.showFrameList(videoCaptureList);
+
+  document.getElementById("main-view-image").hidden = false;
+  document.getElementById("hidden-video").hidden = true;
 
   // show labelling data
   labellingContainer.showLabellingDataInJSON(
