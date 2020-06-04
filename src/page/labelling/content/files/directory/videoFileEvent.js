@@ -20,7 +20,7 @@ videoFilesContainerTag.onclick = async (event) => {
     return false;
   }
 
-  if (!confirm(`${event.target.dataset.title} 에 대한 작업을 시작하시겠습니까? \n` +
+  if (!confirm(`'${event.target.dataset.title}' 에 대한 작업을 시작하시겠습니까? \n` +
     `(작업 시작 시, 비디오 제원에 대한 미리보기는 중단 됩니다.)`)) {
     return false;
   }
@@ -43,28 +43,28 @@ videoFilesContainerTag.onclick = async (event) => {
   mainViewContainer.initialize();
   frameListContainer.initialize();
   labellingContainer.initialize();
-
+  
   const path = event.target.dataset.path;
   
   const GlobalVideoData = new globalVideoData();
   GlobalVideoData.setPATH(path);
   GlobalVideoData.setTITLE(title);
-
+  
   const GlobalFrame = new globalFrame();
   GlobalFrame.setAT(0);
-
+  
   const video = mainViewContainer.getVideoTag(path);
-
+  
   mainViewContainer.setMainFrameRate(video);
-
+  
   const videoCaptureList = videoCapture.extractFrames(path, document.getElementById("hidden-video").clientWidth);
-
+  
   GlobalFrame.setLENGTH(videoCaptureList.length);
-
+  
   frameListContainer.showFrameList(videoCaptureList);
-
-  // 비디오 제원 : '파일명', '재생 시간', 'FPS', '프레임 수'
-  mainViewContainer.showVideoInfo(event);
+  
+  document.getElementById("main-view-image").hidden = false;
+  document.getElementById("hidden-video").hidden = true;
 
   remote.getGlobal("sharedObject").COMPLETE_FLAG = false;
 
