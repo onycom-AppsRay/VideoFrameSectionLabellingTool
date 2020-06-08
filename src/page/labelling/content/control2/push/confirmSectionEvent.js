@@ -7,8 +7,8 @@ const SECTION_CONFIRM = document.getElementById("section-confirm");
 SECTION_CONFIRM.addEventListener("click", (event) => {
   event.target.blur();
 
-  const startFrameInput = Number.parseInt(document.getElementById("start-frame-input").innerText);
-  const endFrameInput = Number.parseInt(document.getElementById("end-frame-input").innerText);
+  const startFrameIndex = Number.parseInt(document.getElementById("start-frame-input").innerText);
+  const endFrameIndex = Number.parseInt(document.getElementById("end-frame-input").innerText);
   const criteriaTagList = criteriaContainer.selectedCriteria();
 
   if (startFrameIndex == "" || endFrameIndex == "") {
@@ -26,7 +26,7 @@ SECTION_CONFIRM.addEventListener("click", (event) => {
     return false;
   }
 
-  const criteriaType = criteriaContainer.getCriteriaTypes(criteriaTag);
+  const criteriaType = criteriaContainer.getCriteriaTypes(criteriaTagList);
 
   if (labellingContainer.hasSameData(startFrameIndex, endFrameIndex, criteriaType)) {
     alert("Same data.");
@@ -44,9 +44,9 @@ SECTION_CONFIRM.addEventListener("click", (event) => {
   }
 
   labellingContainer.showLabellingData(startFrameIndex, endFrameIndex, criteriaType);
-  startFrameInput.innerText = endFrameIndex;
-  startFrameInput.focus();
-  endFrameInput.setAttribute("autofocus", "");
+  document.getElementById("start-frame-input").innerText = endFrameIndex;
+  document.getElementById("start-frame-input").focus();
+  document.getElementById("end-frame-input").setAttribute("autofocus", "");
 
   return true;
 });

@@ -87,5 +87,4 @@ const initOnComplete = () => {
 
   // 'labelling data'
   labellingContainer.initialize();
-
 }

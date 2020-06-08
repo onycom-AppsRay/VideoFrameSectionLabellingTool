@@ -80,6 +80,6 @@ const projectInfo = () => {
   initGlobalVariable();
   mainViewContainer.initialize();
 
-  criteriasSection.showCriterias();
-  frameListSection.showFrameList();
+  // criteriasSection.showCriterias();
+  // frameListSection.showFrameList();
 })();

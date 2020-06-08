@@ -1,13 +1,24 @@
-
 export default class {
-  constructor(type = "", start = 0, end = 0) {
+  constructor(type = [], start = 0, end = 0) {
     this.type = type;
     this.start = start;
     this.end = end;
   }
 
   setType(type) {
-    this.type = (type.toString().charCodeAt(0) - 64);
+    if(type.length > 1) {
+      const alphabetList = type.split(", ");
+      
+      let numberList = [];
+      Array.prototype.forEach.call(alphabetList, (alphabet) => {
+        numberList.push(alphabet.toString().charCodeAt(0) - 64);
+      });
+
+      this.type = numberList;
+    } else {
+      this.type = (type.toString().charCodeAt(0) - 64);
+    }
+
     return this;
   }
 
