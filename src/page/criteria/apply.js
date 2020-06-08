@@ -6,6 +6,8 @@ import jsonControl from "../../helpers/json/json_control";
 import jsonCriteriaDTO from "../../model/dto/jsonCriteria";
 import jsonFileDTO from "../../model/dto/jsonFile";
 
+import criteriaContainer from "../../page/labelling/content/control2/criteria/criteriaContainer";
+
 const goLabellingPageBtn = document.getElementById("go-labelling-page-btn");
 
 goLabellingPageBtn.onclick = () => {
@@ -25,7 +27,7 @@ goLabellingPageBtn.onclick = () => {
       
       criteriaArr.push(JSONCriteria);
       
-      showCriteria(type, text);
+      criteriaContainer.setCheckbox(type, text);
     });
     
     // global
@@ -62,16 +64,16 @@ goLabellingPageBtn.onclick = () => {
   }
 }
 
-const showCriteria = (type, criteria) => {
-  const li = document.createElement("li");
+// const showCriteria = (type, criteria) => {
+//   const li = document.createElement("li");
 
-  li.className = "list-group-item";
-  li.innerHTML = [
-    `<div class="custom-control custom-radio">`,
-    `<input type="radio" class="custom-control-input" id="criteria-${type}" name="criteria" data-type="${type}" data-criteria="${criteria}">`,
-    `<label class="custom-control-label" for="criteria-${type}">${type}.&nbsp;${criteria}</label>`,
-    `</div>`
-  ].join("");
+//   li.className = "list-group-item";
+//   li.innerHTML = [
+//     `<div class="custom-control custom-radio">`,
+//     `<input type="radio" class="custom-control-input" id="criteria-${type}" name="criteria" data-type="${type}" data-criteria="${criteria}">`,
+//     `<label class="custom-control-label" for="criteria-${type}">${type}.&nbsp;${criteria}</label>`,
+//     `</div>`
+//   ].join("");
 
-  document.getElementById("criteria-list").appendChild(li);
-}
+//   document.getElementById("criteria-list").appendChild(li);
+// }

@@ -1,0 +1,92 @@
+{
+  "name": "20200608105237.json",
+  "createAt": "2020. 6. 8. 오전 10:52:37",
+  "count": 0,
+  "criterias": [
+    {
+      "type": 1,
+      "text": "test1"
+    },
+    {
+      "type": 2,
+      "text": "test2"
+    },
+    {
+      "type": 3,
+      "text": "test3"
+    },
+    {
+      "type": 4,
+      "text": "test4"
+    },
+    {
+      "type": 5,
+      "text": "test5"
+    },
+    {
+      "type": 6,
+      "text": "test6"
+    },
+    {
+      "type": 7,
+      "text": "test7"
+    },
+    {
+      "type": 8,
+      "text": "test8"
+    },
+    {
+      "type": 9,
+      "text": "test9"
+    },
+    {
+      "type": 10,
+      "text": "test10"
+    },
+    {
+      "type": 11,
+      "text": "테스트11"
+    },
+    {
+      "type": 12,
+      "text": "테스트12"
+    },
+    {
+      "type": 13,
+      "text": "테스트13"
+    },
+    {
+      "type": 14,
+      "text": "테스트14"
+    },
+    {
+      "type": 15,
+      "text": "테스트15"
+    },
+    {
+      "type": 16,
+      "text": "테스트16"
+    },
+    {
+      "type": 17,
+      "text": "테스트17"
+    },
+    {
+      "type": 18,
+      "text": "테스트18"
+    },
+    {
+      "type": 19,
+      "text": "테스트19"
+    },
+    {
+      "type": 20,
+      "text": "테스트20"
+    },
+    {
+      "type": 21,
+      "text": "장문테스트21장문테스트21장문테스트21장문테스트21장문테스트21"
+    }
+  ],
+  "videos": []
+}

@@ -1,6 +1,6 @@
 import labellingContainer from "../complete/labellingContainer";
 
-import criteriaContainer from "./criteriaContainer";
+import criteriaContainer from "../criteria/criteriaContainer";
 
 const SECTION_CONFIRM = document.getElementById("section-confirm");
 
