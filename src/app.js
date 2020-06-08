@@ -37,6 +37,8 @@ import "./helpers/key_event.js";
 // Everything below is just to show you how it works. You can delete all of it.
 // ----------------------------------------------------------------------------
 
+import criteriasSection from "../test/page/labelling/controller2/criteriasSection";
+
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
 import env from "env";
@@ -81,4 +83,6 @@ const projectInfo = () => {
   projectInfo();
   initGlobalVariable();
   mainViewContainer.initialize();
+
+  criteriasSection.result();
 })();

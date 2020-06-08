@@ -1,11 +1,11 @@
 import { ipcRenderer, remote } from "electron";
 
 import jsonControl from "../../helpers/json/json_control";
+import jsonContentDTO from "../../model/dto/jsonFile";
 
 import videoFilesContainer from "../labelling/content/files/directory/videoFilesContainer";
 import jsonFileContainer from "../labelling/content/files/json/jsonFileContainer";
-
-import jsonContentDTO from "../../model/dto/jsonFile";
+import criteriaContainer from "../../page/labelling/content/control2/criteria/criteriaContainer";
 
 const openFileButton = document.getElementById("open-file-button");
 const goLabellingPageBtn = document.getElementById("go-labbeling");
@@ -65,7 +65,7 @@ goLabellingPageBtn.onclick = () => {
     const type = String.fromCharCode(criteria.type + 64);
     const text = criteria.text;
 
-    showCriteria(type, text);
+    criteriaContainer.setCheckbox(type, text);
   })
 
   // 'json file' section 에 비디오 파일 보여주기
@@ -99,20 +99,20 @@ goLabellingPageBtn.onclick = () => {
   goLabellingPageBtn.hidden = true;
 }
 
-const showCriteria = (type, criteria) => {
-  const li = document.createElement("li");
+// const showCriteria = (type, criteria) => {
+//   const li = document.createElement("li");
 
-  li.className = "list-group-item";
-  li.innerHTML = [
-    `<div class="custom-control custom-radio">`,
-    `<input type="radio" class="custom-control-input" id="criteria-${type}" name="criteria" data-type="${type}" data-criteria="${criteria}">`,
-    `<label class="custom-control-label" for="criteria-${type}">${type}.&nbsp;${criteria}</label>`,
-    `</div>`
-  ].join("");
+//   li.className = "list-group-item";
+//   li.innerHTML = [
+//     `<div class="custom-control custom-radio">`,
+//     `<input type="radio" class="custom-control-input" id="criteria-${type}" name="criteria" data-type="${type}" data-criteria="${criteria}">`,
+//     `<label class="custom-control-label" for="criteria-${type}">${type}.&nbsp;${criteria}</label>`,
+//     `</div>`
+//   ].join("");
 
-  document.getElementById("criteria-list").appendChild(li);
-}
+//   document.getElementById("criteria-list").appendChild(li);
+// }
 
-export default {
-  showCriteria
-}
+// export default {
+//   showCriteria
+// }
