@@ -114,12 +114,7 @@
   text-align: left;
 }
 
-#criteria-list li:hover {
-  background-color: crimson;
-  color: white;
-}
-
-#criteria-list label {
+#criteria-list label, input {
   cursor: pointer;
 }
 
