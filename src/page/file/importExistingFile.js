@@ -62,7 +62,7 @@ goLabellingPageBtn.onclick = () => {
 
   // 사용자가 저장해 놓은 JSON에 있는 기준 보여주기
   Array.prototype.forEach.call(jsonCriteria, (criteria) => {
-    const type = String.fromCharCode(criteria.type + 64);
+    const type = String.fromCharCode(criteria.type + 64); //json에 결과값 입력 할 때만, 바꾸게 로직 변경하기
     const text = criteria.text;
 
     criteriaContainer.setCheckbox(type, text);

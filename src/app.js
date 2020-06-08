@@ -21,7 +21,7 @@ import "./page/labelling/content/control2/complete/sectionClickEvent.js";
 import "./page/labelling/content/control2/complete/completeBtnEvent.js";
 import "./page/labelling/content/control2/complete/updateBtnEvent.js";
 import "./page/labelling/content/control2/push/confirmSectionEvent.js";
-import "./page/labelling/content/control2/push/criteriaSectionEvent.js";
+import "./page/labelling/content/control2/criteria/criteriaSectionEvent.js";
 
 import "./page/criteria/insert.js";
 import "./page/criteria/apply.js";
@@ -33,11 +33,9 @@ import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
 import "./helpers/key_event.js";
 
-// ----------------------------------------------------------------------------
-// Everything below is just to show you how it works. You can delete all of it.
-// ----------------------------------------------------------------------------
-
-import criteriasSection from "../test/page/labelling/controller2/criteriasSection";
+// HTML test
+import criteriasSection from "../test/page/labelling/controller2/criteria/criteriasSection";
+import frameListSection from "../test/page/labelling/controller1/frameListSection";
 
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
@@ -48,8 +46,6 @@ import mainViewContainer from "./page/labelling/content/main/mainViewContainer";
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
 
-// Holy crap! This is browser window with HTML and stuff, but I can read
-// files from disk like it's node.js! Welcome to Electron world :)
 const manifest = appDir.read("package.json", "json");
 
 const osMap = {
@@ -84,5 +80,6 @@ const projectInfo = () => {
   initGlobalVariable();
   mainViewContainer.initialize();
 
-  // criteriasSection.result();
+  criteriasSection.showCriterias();
+  frameListSection.showFrameList();
 })();

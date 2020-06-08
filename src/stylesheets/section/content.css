@@ -124,6 +124,10 @@
   height: 42%;
 }
 
+.labelling-data-row td {
+  white-space: nowrap;
+}
+
 #complete-container {
   height: 8%;
   width: 100%;

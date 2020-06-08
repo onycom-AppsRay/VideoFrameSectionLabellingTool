@@ -1,3 +1,9 @@
 {
-  "criterias_only_json_mock": "../mock/json/criterias_only.json"
+  "json": {
+    "criterias_only_json_mock": "../mock/json/criterias_only.json"
+  },
+  "video": {
+    "long_mp4_video_mock": "../mock/video/long_sample.mp4",
+    "wide_mov_video_mock": "../mock/video/wide_sample.mov"
+  }
 }

@@ -1,35 +1,17 @@
 const selectedCriteria = () => {
   const criteriaList = document.querySelectorAll("#criteria-list input[name=criteria]");
 
-  let result = "";
-  Array.prototype.some.call(criteriaList, (criteria) => {
+  let result = [];
+
+  Array.prototype.forEach.call(criteriaList, (criteria) => {
     if(criteria.checked == true) {
-      result = criteria;
-      return true;
+      result.push(criteria);
     }
   })
 
   return result;
 };
 
-const validate = (startFrameIndex, endFrameIndex, criteria) => {
-  if (startFrameIndex == '' || endFrameIndex == '') {
-    alert('Please select a frame.');
-    return false;
-  }
-
-  if (Number.parseInt(startFrameIndex) > Number.parseInt(endFrameIndex)) {
-    alert(`START: ${startFrameIndex} > END: ${endFrameIndex}`);
-    return false;
-  }
-
-  if (!criteria) {
-    alert(`Please select a criteria.`);
-    return false;
-  }
-
-  return true;
-};
 
 const setCheckbox = (type, text) => {
   const checkboxContainer = document.createElement("div");
@@ -46,7 +28,7 @@ const setCheckbox = (type, text) => {
   const label = document.createElement("label");
   label.className = "form-check-label";
   label.htmlFor = `criteria-${type}`;
-  label.innerText = text;
+  label.innerText = String.prototype.concat(type, ". ", text);
   label.style.display = "block";
   label.style.whiteSpace = "nowrap";
   label.style.textDecoration = "underline";
@@ -58,8 +40,27 @@ const setCheckbox = (type, text) => {
   document.getElementById("criteria-list").appendChild(checkboxContainer);
 }
 
+const getCriteriaTypes = (criteriaTagList = []) => {
+  const length = criteriaTagList.length;
+
+  let result = "";
+
+  for(let i = 0; i < length; i++) {
+    const type = criteriaTagList[i].dataset.type;
+
+    if (i == 0) {
+      result = type;
+    } else {
+      result = String.prototype.concat(result, ", ", type);
+    } 
+  }
+
+  return result;
+}
+
+
 export default {
   selectedCriteria,
-  validate,
-  setCheckbox
+  setCheckbox,
+  getCriteriaTypes
 }
