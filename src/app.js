@@ -84,5 +84,5 @@ const projectInfo = () => {
   initGlobalVariable();
   mainViewContainer.initialize();
 
-  criteriasSection.result();
+  // criteriasSection.result();
 })();
