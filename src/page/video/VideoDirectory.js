@@ -2,7 +2,7 @@ import { ipcRenderer, remote } from "electron";
 import path from "path";
 import fs from "fs";
 
-import videoFileInfo from "../../model/dto/videoFileInfo";
+import VideoFileDTO from "../../model/dto/VideoFile";
 import videoFilesContainer from "../labelling/content/files/directory/videoFilesContainer";
 
 const goOpenFilePageBtn = document.getElementById("go-open-file-page-btn");
@@ -33,6 +33,7 @@ goOpenFilePageBtn.addEventListener("click", (event) => {
 
     // 가져 온 비디오 폴더 경로 전역변수로 저장.
     remote.getGlobal("sharedObject").DIRECTORY.PATH = directoryPath;
+    remote.getGlobal("sharedObject").VIDEO.DIRECTORY.PATH = directoryPath;
 
     // 폴더로 부터 가져온 비디오 파일 객체에 담기.
     const videoList = getVideoFileList(directoryPath);
@@ -42,6 +43,7 @@ goOpenFilePageBtn.addEventListener("click", (event) => {
 
     // 폴더 내부의 비디오 정보들 전역변수로 저장.
     remote.getGlobal("sharedObject").DIRECTORY.VIDEOS = videoList;
+    remote.getGlobal("sharedObject").VIDEO.DIRECTORY.FILELIST = videoList;
 
     // 다음 페이지로 이동하기 위한 css trick.
     openDirectoryPage.style.display = "none";
@@ -61,20 +63,20 @@ goOpenFilePageBtn.addEventListener("click", (event) => {
 const getVideoFileList = (dirPath) => {
   let result = [];
 
-  const files = fs.readdirSync(dirPath);
+  const videoFileList = fs.readdirSync(dirPath);
 
-  files.forEach((file) => {
-    const extension = path.extname(file);
+  Array.prototype.forEach.call(videoFileList, (videoFile) => {
+    const extension = path.extname(videoFile);
 
     if (extension == ".mov" || extension == ".mp4") {
-      const VideoFileInfo = new videoFileInfo()
-        .setName(file)
-        .setPath(path.join(dirPath, file))
+      const VideoFile =  new VideoFileDTO()
+        .setName(videoFile)
+        .setPath(path.join(dirPath, videoFile))
         .setExtension(extension);
-
-      result.push(VideoFileInfo);
+      
+      result.push(VideoFile);
     }
-  });
+  })
 
   return result;
 }

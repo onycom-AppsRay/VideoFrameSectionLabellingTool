@@ -3,7 +3,7 @@ import { remote } from "electron";
 import tagControl from "../../../helpers/tag_control";
 import mainViewContainer from "../../../page/labelling/content/main/mainViewContainer";
 import frameListContainer from "../../../page/labelling/content/control1/frame/frameListContainer";
-import labellingContainer from "../../../page/labelling/content/control2/complete/labellingContainer";
+import resultContainer from "../../../page/labelling/content/control2/result/resultContainer";
 
 const openDirectoryPage = document.getElementById("open-directory-page");
 const openFilePage = document.getElementById("open-file-page");
@@ -69,5 +69,5 @@ const initEachSectionContent = () => {
   tagControl.initialize(document.getElementById("criteria-list"));
 
   // 'labelling data' section
-  labellingContainer.initialize();
+  resultContainer.initialize();
 }

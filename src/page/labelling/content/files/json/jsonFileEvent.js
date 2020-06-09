@@ -9,7 +9,7 @@ import videoCapture from "../../../../../helpers/video/videoCapture";
 
 import mainViewContainer from "../../main/mainViewContainer";
 import frameListContainer from "../../control1/frame/frameListContainer";
-import labellingContainer from "../../control2/complete/labellingContainer";
+import resultContainer from "../../control2/result/resultContainer";
 
 const jsonFileContainer = document.getElementById("json-file-container");
 
@@ -38,7 +38,7 @@ jsonFileContainer.onclick = async (event) => {
 
   mainViewContainer.initialize();
   frameListContainer.initialize();
-  labellingContainer.initialize();
+  resultContainer.initialize();
 
   // extract video frame list
   const directoryPath = remote.getGlobal("sharedObject").DIRECTORY.PATH;
@@ -65,7 +65,7 @@ jsonFileContainer.onclick = async (event) => {
   document.getElementById("hidden-video").hidden = true;
 
   // show labelling data
-  labellingContainer.showLabellingDataInJSON(
+  resultContainer.showLabellingDataInJSON(
     remote.getGlobal("sharedObject").JSON_FILE.PATH,
     title
   );
@@ -85,10 +85,10 @@ jsonFileContainer.onmouseover = (event) => {
     return false;
   }
 
-  labellingContainer.initialize();
+  resultContainer.initialize();
 
   // 저장되어 있는 라벨링 데이터 보여주기.
-  labellingContainer.showLabellingDataInJSON(
+  resultContainer.showLabellingDataInJSON(
     remote.getGlobal("sharedObject").JSON_FILE.PATH,
     event.target.dataset.title
   );
@@ -103,7 +103,7 @@ jsonFileContainer.onmouseleave = () => {
     return false;
   }
 
-  labellingContainer.initialize();
+  resultContainer.initialize();
   mainViewContainer.initVideoInfo();
 
   return true;

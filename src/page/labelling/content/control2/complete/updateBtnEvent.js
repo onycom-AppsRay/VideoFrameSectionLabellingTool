@@ -5,7 +5,7 @@ import jsonControl from "../../../../../helpers/json/json_control";
 import videoDataDTO from "../../../../../model/dto/videoData";
 import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
-import labellingContainer from "./labellingContainer";
+import resultContainer from "../result/resultContainer";
 import mainViewContainer from "../../main/mainViewContainer";
 import frameListContainer from "../../control1/frame/frameListContainer";
 import inputFrameIndexContainer from "../../control2/push/inputFrameIndexContainer";
@@ -39,7 +39,7 @@ document.getElementById("update").addEventListener("click", (event) => {
     return (video.title == VIDEO_TITLE);
   });
 
-  const labellingInfoList = labellingContainer.getLabellingData();
+  const labellingInfoList = resultContainer.getLabellingData();
 
   const VideoData = new videoDataDTO();
   VideoData.setTitle(VIDEO_TITLE)
@@ -70,5 +70,5 @@ const initOnUpdate = () => {
   inputFrameIndexContainer.reset();
 
   // 'labelling data'
-  labellingContainer.initialize();
+  resultContainer.initialize();
 };

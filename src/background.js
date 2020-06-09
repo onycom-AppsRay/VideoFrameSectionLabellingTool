@@ -15,6 +15,12 @@ import createWindow from "./helpers/window";
 import env from "env";
 
 global.sharedObject = {
+  VIDEO: {
+    DIRECTORY: {
+      PATH: "",
+      FILELIST: []
+    }
+  },
   DIRECTORY: {
     PATH: "",
     VIDEOS: []

@@ -5,7 +5,7 @@ import jsonControl from "../../../../../helpers/json/json_control";
 import videoDataDTO from "../../../../../model/dto/videoData";
 import jsonFileDTO from "../../../../../model/dto/jsonFile";
 
-import labellingContainer from "./labellingContainer";
+import resultContainer from "../result/resultContainer";
 import mainViewContainer from "../../main/mainViewContainer";
 import frameListContainer from "../../control1/frame/frameListContainer";
 import inputFrameIndexContainer from "../../control2/push/inputFrameIndexContainer";
@@ -41,7 +41,7 @@ COMPLETE_BTN.addEventListener("click", (event) => {
     return;
   }
 
-  const labellingInfoList = labellingContainer.getLabellingData();
+  const labellingInfoList = resultContainer.getLabellingData();
 
   const VideoData = new videoDataDTO();
   VideoData.setTitle(VIDEO_TITLE)
@@ -86,5 +86,5 @@ const initOnComplete = () => {
   inputFrameIndexContainer.reset();
 
   // 'labelling data'
-  labellingContainer.initialize();
+  resultContainer.initialize();
 }

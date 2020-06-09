@@ -8,7 +8,7 @@ import jsonFileContainer from "../labelling/content/files/json/jsonFileContainer
 import criteriaContainer from "../../page/labelling/content/control2/criteria/criteriaContainer";
 
 const openFileButton = document.getElementById("open-file-button");
-const goLabellingPageBtn = document.getElementById("go-labbeling");
+const goLabellingPageBtn = document.getElementById("go-labelling");
 
 let filePath;
 let jsonCriteria;

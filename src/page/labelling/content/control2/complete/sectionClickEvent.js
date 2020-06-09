@@ -1,4 +1,4 @@
-import labellingContainer from "./labellingContainer";
+import resultContainer from "../result/resultContainer";
 
 const resultListContainer = document.getElementById("result-list-container");
 
@@ -8,6 +8,6 @@ resultListContainer.addEventListener("click", (event) => {
 
     event.target.parentNode.remove();
 
-    labellingContainer.resetTableBodyIndex();
+    resultContainer.resetTableBodyIndex();
   }
 })

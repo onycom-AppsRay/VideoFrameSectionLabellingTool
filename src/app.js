@@ -25,17 +25,28 @@ import "./page/labelling/content/control2/criteria/criteriaSectionEvent.js";
 
 import "./page/criteria/insert.js";
 import "./page/criteria/apply.js";
-import "./page/directory/openDirectory.js";
+import "./page/video/VideoDirectory.js";
 import "./page/file/importExistingFile.js";
-import "./page/file/createJSONFile.js";
+import "./page/json/create/JSONCreator.js";
 
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
 import "./helpers/key_event.js";
 
 // HTML test
-import criteriasSection from "../test/page/labelling/controller2/criteria/criteriasSection";
-import frameListSection from "../test/page/labelling/controller1/frameListSection";
+// Video Directory Page
+import VideoDirectory from "../test/page/video/VideoDirectory.spec.js"
+
+// jsonfile page
+import JSONFile from "../test/page/json/create/JSONFile.spec.js";
+
+// Criteria Page
+import CriteriaCreator from "../test/page/criteria/CriteriaCreator.spec.js";
+
+// labelling page
+import CriteriaList from "../test/page/main/list/CriteriaList.spec.js";
+import FrameList from "../test/page/main/list/FrameList.spec.js";
+import JSONFileList from "../test/page/main/list/JSONFileList.spec.js";
 
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
@@ -80,6 +91,10 @@ const projectInfo = () => {
   initGlobalVariable();
   mainViewContainer.initialize();
 
-  // criteriasSection.showCriterias();
-  // frameListSection.showFrameList();
+  // CriteriaList.showCriterias();
+  // FrameList.showFrameList();
+  // JSONFileList.showList();
+  // JSONFile.createJSONFile();
+  // VideoDirectory.init();
+  CriteriaCreator.init();
 })();

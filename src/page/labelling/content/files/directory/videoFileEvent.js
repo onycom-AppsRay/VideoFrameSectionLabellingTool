@@ -6,7 +6,7 @@ import jsonControl from "../../../../../helpers/json/json_control";
 
 import mainViewContainer from "../../main/mainViewContainer";
 import frameListContainer from "../../control1/frame/frameListContainer";
-import labellingContainer from "../../control2/complete/labellingContainer";
+import resultContainer from "../../control2/result/resultContainer";
 
 import globalVideoData from "../../../../../model/global/globalVideoData";
 import globalFrame from "../../../../../model/global/globalFrame";
@@ -42,7 +42,7 @@ videoFilesContainerTag.onclick = async (event) => {
 
   mainViewContainer.initialize();
   frameListContainer.initialize();
-  labellingContainer.initialize();
+  resultContainer.initialize();
   
   const path = event.target.dataset.path;
   

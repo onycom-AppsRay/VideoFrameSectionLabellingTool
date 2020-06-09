@@ -1,4 +1,3 @@
-
 document.body.addEventListener('click', (event) => {
   if (event.target.dataset.modal) {
     handleModalTrigger(event)

@@ -12,16 +12,6 @@
 
 <br/>
 
-## Quick start
-
-#### (1) Clone / Download project
-
-#### (2) _npm install_
-
-#### (3) _npm start_
-
-<br/>
-
 ## Tutorial
 
 #### (1) Select Video Directory

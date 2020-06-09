@@ -1,4 +1,4 @@
-import labellingContainer from "../complete/labellingContainer";
+import resultContainer from "../result/resultContainer";
 
 import criteriaContainer from "../criteria/criteriaContainer";
 
@@ -10,11 +10,6 @@ SECTION_CONFIRM.addEventListener("click", (event) => {
   const startFrameIndex = Number.parseInt(document.getElementById("start-frame-input").innerText);
   const endFrameIndex = Number.parseInt(document.getElementById("end-frame-input").innerText);
   const criteriaTagList = criteriaContainer.selectedCriteria();
-
-  if (startFrameIndex == "" || endFrameIndex == "") {
-    alert("프레임을 선택하세요.");
-    return false;
-  }
 
   if (startFrameIndex > endFrameIndex) {
     alert(`START: ${startFrameIndex} > END: ${endFrameIndex}`);
@@ -28,7 +23,7 @@ SECTION_CONFIRM.addEventListener("click", (event) => {
 
   const criteriaType = criteriaContainer.getCriteriaTypes(criteriaTagList);
 
-  if (labellingContainer.hasSameData(startFrameIndex, endFrameIndex, criteriaType)) {
+  if (resultContainer.hasSameData(startFrameIndex, endFrameIndex, criteriaType)) {
     alert("Same data.");
     return false;
   }
@@ -43,7 +38,7 @@ SECTION_CONFIRM.addEventListener("click", (event) => {
     return false;
   }
 
-  labellingContainer.showLabellingData(startFrameIndex, endFrameIndex, criteriaType);
+  resultContainer.showLabellingData(startFrameIndex, endFrameIndex, criteriaType);
   document.getElementById("start-frame-input").innerText = endFrameIndex;
   document.getElementById("start-frame-input").focus();
   document.getElementById("end-frame-input").setAttribute("autofocus", "");

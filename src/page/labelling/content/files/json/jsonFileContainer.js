@@ -9,6 +9,18 @@ const initialize = () => {
   tagControl.initialize(jsonFileContainer);
 }
 
+const setVideoFileTag = () => {
+  const span = document.createElement("span");
+
+  span.className = "json-video-file";
+  span.id = title;
+  span.innerText = title;
+  span.style.wordBreak = "keep-all";
+
+  span.dataset.path = path;
+  span.dataset.title = title;
+}
+
 const showVideoFiles = (jsonVideos) => {
   const jsonFileContainer = document.getElementById("json-file-container");
   const directoryPath = remote.getGlobal("sharedObject").DIRECTORY.PATH;

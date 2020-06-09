@@ -88,42 +88,6 @@ const getLabellingData = () => {
   return result;
 }
 
-const getData = () => {
-  const table = document.getElementById("result-list");
-  const rowLength = table.rows.length;
-
-  let result = [];
-
-  for (let i = 1; i < rowLength; i++) {
-    const row = table.rows.item(i);
-    const cells = row.cells;
-    const cellLength = cells.length;
-
-    const LabellingData = new labellingDataDTO();
-
-    for (let i = 1; i < cellLength; i++) {
-      const cell = cells[i];
-      const value = cell.innerHTML;
-
-      switch (i) {
-        case 1:
-          LabellingData.setType(value);
-          break;
-        case 2:
-          LabellingData.setStart(value);
-          break;
-        case 3:
-          LabellingData.setEnd(value);
-          break;
-      }
-    }
-
-    result.push(LabellingData);
-  };
-
-  return result;
-}
-
 const showLabellingDataInJSON = (jsonPath, fileName) => {
   const completedLabellingData = jsonControl.getLabellingDataInJSON(jsonPath, fileName);
   
