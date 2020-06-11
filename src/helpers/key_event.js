@@ -4,8 +4,6 @@ import globalFrame from "../model/global/globalFrame";
 
 let keyState = {};
 
-const jsContent = document.querySelector(".js-content");
-
 window.addEventListener('keydown', function (e) {
   keyState[e.keyCode || e.which] = true;
 }, false);
