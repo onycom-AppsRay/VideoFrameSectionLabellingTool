@@ -1,4 +1,3 @@
-import jsonFile from "../../../../src/model/dto/JSONFile2";
 
 const displayControl = () => {
   document.querySelector("#open-directory-page").style.display = "none";
@@ -7,14 +6,12 @@ const displayControl = () => {
   document.querySelector("#labelling-page").style.display = "none";
 }
 
-const createJSONFile = () => {
+const init = () => {
   displayControl();
-  
-  const JSONFile = new jsonFile();
 
-  console.log(JSONFile);
+  console.log("JSON Create, Open Page");
 }
 
 export default {
-  createJSONFile
+  init
 }

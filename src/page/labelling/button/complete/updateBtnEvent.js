@@ -1,14 +1,15 @@
 import { remote } from "electron";
 
-import jsonControl from "../../../../../helpers/json/json_control";
+import jsonControl from "../../../../helpers/json/json_control";
 
-import videoDataDTO from "../../../../../model/dto/videoData";
-import jsonFileDTO from "../../../../../model/dto/jsonFile";
+import videoDataDTO from "../../../../model/dto/videoData";
+import jsonFileDTO from "../../../../model/dto/jsonFile";
+import JSONFileDTO from "../../../../model/dto/JSONFile";
 
 import resultContainer from "../result/resultContainer";
-import mainViewContainer from "../../main/mainViewContainer";
-import frameListContainer from "../../control1/frame/frameListContainer";
-import inputFrameIndexContainer from "../../control2/push/inputFrameIndexContainer";
+import mainViewContainer from "../../frame/main/mainViewContainer";
+import frameListContainer from "../../frame/list/frameListContainer";
+import inputFrameIndexContainer from "../push/inputFrameIndexContainer";
 
 document.getElementById("update").addEventListener("click", (event) => {
 
@@ -19,9 +20,6 @@ document.getElementById("update").addEventListener("click", (event) => {
     return;
   }
   
-  document.getElementById("complete").style.display = "";
-  document.getElementById("update").style.display = "none";
-  
   const JSON_PATH = GLOBAL.JSON_FILE.PATH;
   const VIDEO_FRAME_LENGTH = GLOBAL.FRAME.LENGTH;
 
@@ -31,6 +29,10 @@ document.getElementById("update").addEventListener("click", (event) => {
     alert(readContent.content);
     return;
   }
+
+  const JSONFileObj = new JSONFileDTO();
+
+  console.log(JSONFileObj);
 
   const JSONFile = new jsonFileDTO(readContent.content);
   const JSONVideos = JSONFile.getVideos();
@@ -71,4 +73,8 @@ const initOnUpdate = () => {
 
   // 'labelling data'
   resultContainer.initialize();
+
+  // Change Button('COMPLETE' -> 'UPDATE').
+  document.getElementById("complete").style.display = "";
+  document.getElementById("update").style.display = "none";
 };

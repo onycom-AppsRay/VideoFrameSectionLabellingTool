@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import jsonFileContainer from "../../../../src/page/labelling/content/files/json/jsonFileContainer";
+import jsonFileContainer from "../../../../src/page/labelling/list/file/json/jsonFileContainer";
 
 const displayControl = () => {
   document.querySelector("#open-directory-page").style.display = "none";

@@ -1,5 +1,5 @@
-import tagControl from "../../../../../helpers/tag_control";
-import VideoCapture from "../../../../../helpers/video/videoCapture";
+import tagControl from "../../../../helpers/tag_control";
+import VideoCapture from "../../../../helpers/video/videoCapture";
 
 const initialize = () => {
   const frameListContainer = document.getElementById("frame-list-container");

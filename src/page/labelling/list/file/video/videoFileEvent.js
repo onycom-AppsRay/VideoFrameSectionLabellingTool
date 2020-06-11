@@ -4,13 +4,13 @@ import videoCapture from "../../../../../helpers/video/videoCapture";
 
 import jsonControl from "../../../../../helpers/json/json_control";
 
-import mainViewContainer from "../../main/mainViewContainer";
-import frameListContainer from "../../control1/frame/frameListContainer";
-import resultContainer from "../../control2/result/resultContainer";
+import mainViewContainer from "../../../frame/main/mainViewContainer";
+import frameListContainer from "../../../frame/list/frameListContainer";
+import resultContainer from "../../result/resultContainer";
 
 import globalVideoData from "../../../../../model/global/globalVideoData";
 import globalFrame from "../../../../../model/global/globalFrame";
-import jsonFileDTO from "../../../../../model/dto/jsonFile";
+import JSONFileDTO from "../../../../../model/dto/JSONFile";
 
 const videoFilesContainerTag = document.getElementById("video-files-container");
 
@@ -25,17 +25,12 @@ videoFilesContainerTag.onclick = async (event) => {
     return false;
   }
 
-  const result = jsonControl.getJSONFile(remote.getGlobal("sharedObject").JSON_FILE.PATH);
-
-  if (!result.result) {
-    alert("Tool에서 지원하지 않는 JSON 파일 형식 입니다.");
-    return false;
-  }
-
   const title = event.target.dataset.title;
-  const jsonVideos = new jsonFileDTO(result.content).getVideos();
 
-  if (jsonVideos.length > 0 && jsonControl.hasVideoData(jsonVideos, title)) {
+  const JSONFileObj = new JSONFileDTO();
+  const JSONFileVideoList = JSONFileObj.getVideos();
+
+  if (JSONFileVideoList.length > 0 && jsonControl.hasVideoData(JSONFileVideoList, title)) {
     alert("동일한 비디오에 대한 데이터가 존재 합니다.");
     return false;
   }

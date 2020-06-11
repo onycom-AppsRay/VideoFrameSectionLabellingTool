@@ -7,9 +7,9 @@ import globalVideoData from "../../../../../model/global/globalVideoData";
 
 import videoCapture from "../../../../../helpers/video/videoCapture";
 
-import mainViewContainer from "../../main/mainViewContainer";
-import frameListContainer from "../../control1/frame/frameListContainer";
-import resultContainer from "../../control2/result/resultContainer";
+import mainViewContainer from "../../../frame/main/mainViewContainer";
+import frameListContainer from "../../../frame/list/frameListContainer";
+import resultContainer from "../../result/resultContainer";
 
 const jsonFileContainer = document.getElementById("json-file-container");
 

@@ -1,5 +1,6 @@
-import mainViewContainer from "../page/labelling/content/main/mainViewContainer";
-import inputFrameIndexContainer from "../page/labelling/content/control2/push/inputFrameIndexContainer";
+import mainViewContainer from "../page/labelling/frame/main/mainViewContainer";
+import inputFrameIndexContainer from "../page/labelling/button/push/inputFrameIndexContainer";
+
 import globalFrame from "../model/global/globalFrame";
 
 let keyState = {};

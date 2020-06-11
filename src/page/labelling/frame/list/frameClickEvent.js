@@ -1,6 +1,6 @@
 import { remote } from "electron";
 
-import mainViewContainer from "../../main/mainViewContainer";
+import mainViewContainer from "../main/mainViewContainer";
 
 const frameListContainer = document.getElementById("frame-list-container");
 

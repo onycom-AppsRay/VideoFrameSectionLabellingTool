@@ -1,12 +1,9 @@
-import { remote } from "electron";
+import JSONFile2DTO from "../../model/dto/JSONFile";
 
 import tagControl from "../../helpers/tag_control";
 import jsonControl from "../../helpers/json/json_control";
 
-import jsonCriteriaDTO from "../../model/dto/jsonCriteria";
-import jsonFileDTO from "../../model/dto/jsonFile";
-
-import criteriaContainer from "../../page/labelling/content/control2/criteria/criteriaContainer";
+import criteriaContainer from "../labelling/list/criteria/criteriaContainer";
 
 const goLabellingPageBtn = document.getElementById("go-labelling-page-btn");
 
@@ -18,36 +15,19 @@ goLabellingPageBtn.onclick = () => {
 
     return false;
   }
-  
+
   const criteriaList = getCriteriaList(CriteriaTableTag);
 
   Array.prototype.forEach.call(criteriaList, (criteria) => {
     criteriaContainer.setCheckbox(criteria.type, criteria.text);
   })
 
-  console.log(criteriaList);
-  return;
+  const JSONFile2 = new JSONFile2DTO()
+    .setCriterias(criteriaList);
 
-  // global
-  // remote.getGlobal("sharedObject").CRITERIA = criteriaArr;
+  jsonControl.writeJSONFile(JSONFile2.getDirPath(), JSONFile2);
 
-  // JSON 파일에 'criteria(기준)' 입력
-  const globalJSONPath = remote.getGlobal("sharedObject").JSON_FILE.PATH;
-
-  const json = jsonControl.getJSONFile(globalJSONPath);
-  const content = json.content;
-
-  if (!json.result) {
-    alert(content);
-    return;
-  }
-
-  const JSONFile = new jsonFileDTO(content);
-  JSONFile.setCriterias(criteriaArr);
-
-  jsonControl.writeJSONFile(globalJSONPath, JSONFile);
-
-  // page move
+  // Change page.
   document.getElementById("form-criteria-page").style.display = "none";
   document.querySelector(".js-content").style.display = "";
 

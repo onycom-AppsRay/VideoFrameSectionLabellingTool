@@ -1,6 +1,5 @@
-import resultContainer from "../result/resultContainer";
-
-import criteriaContainer from "../criteria/criteriaContainer";
+import resultContainer from "../../list/result/resultContainer";
+import criteriaContainer from "../../list/criteria/criteriaContainer";
 
 const SECTION_CONFIRM = document.getElementById("section-confirm");
 

@@ -3,7 +3,7 @@ import path from "path";
 
 import jsonControl from "../../../helpers/json/json_control";
 
-import JSONFileDTO from "../../../model/dto/JSONFile2";
+import JSONFileDTO from "../../../model/dto/JSONFile";
 
 const createFileBtn = document.getElementById("create-file-button");
 const goCriteriaPageBtn = document.querySelector(`#open-file-page-container button[name="go-criteria"]`);
@@ -16,15 +16,13 @@ createFileBtn.onclick = () => {
 
 ipcRenderer.on("selected-json-directory", (event, pathArr) => {
   const fileName = jsonControl.createFileNameWithCurrentTime();
-  const storedPath = pathArr[0];
-  const fullPath = path.join(storedPath, fileName);
+  const storedDirPath = pathArr[0];
+  const fullPath = path.join(storedDirPath, fileName);
 
-  // Create JSON file
-  const JSONFile = new JSONFileDTO()
+  // Set JSON file
+  new JSONFileDTO()
     .setName(fileName)
-    .setPath(storedPath)
-  
-  jsonControl.writeJSONFile(fullPath, JSONFile);
+    .setPath(storedDirPath, fileName);
 
   // Set GLOBAL Variable
   remote.getGlobal("sharedObject").JSON_FILE.NAME = fileName;

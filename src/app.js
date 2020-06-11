@@ -14,20 +14,20 @@ import "./stylesheets/page/form_criteria.css";
 import "./page/labelling/header/nav.js";
 import "./page/labelling/header/back.js";
 
-import "./page/labelling/content/files/json/jsonFileEvent.js";
-import "./page/labelling/content/files/directory/videoFileEvent.js";
-import "./page/labelling/content/control1/frame/frameClickEvent.js";
-import "./page/labelling/content/control2/complete/sectionClickEvent.js";
-import "./page/labelling/content/control2/complete/completeBtnEvent.js";
-import "./page/labelling/content/control2/complete/updateBtnEvent.js";
-import "./page/labelling/content/control2/push/confirmSectionEvent.js";
-import "./page/labelling/content/control2/criteria/criteriaSectionEvent.js";
+import "./page/labelling/list/file/json/jsonFileEvent.js";
+import "./page/labelling/list/file/video/videoFileEvent.js";
+import "./page/labelling/list/result/sectionClickEvent.js";
+import "./page/labelling/list/criteria/criteriaSectionEvent.js";
+import "./page/labelling/frame/list/frameClickEvent.js";
+import "./page/labelling/button/complete/completeBtnEvent.js";
+import "./page/labelling/button/complete/updateBtnEvent.js";
+import "./page/labelling/button/push/confirmSectionEvent.js";
 
 import "./page/criteria/insert.js";
 import "./page/criteria/apply.js";
 import "./page/video/VideoDirectory.js";
-import "./page/file/importExistingFile.js";
 import "./page/json/create/JSONCreator.js";
+import "./page/json/open/JSONDirectory.js";
 
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
@@ -35,24 +35,24 @@ import "./helpers/key_event.js";
 
 // HTML test
 // Video Directory Page
-import VideoDirectory from "../test/page/video/VideoDirectory.spec.js"
+// import VideoDirectory from "../test/page/video/VideoDirectory.spec.js"
 
-// jsonfile page
-import JSONFile from "../test/page/json/create/JSONFile.spec.js";
+// // jsonfile page
+// import JSONFile from "../test/page/json/create/JSONFile.spec.js";
 
-// Criteria Page
-import CriteriaCreator from "../test/page/criteria/CriteriaCreator.spec.js";
+// // Criteria Page
+// import CriteriaCreator from "../test/page/criteria/CriteriaCreator.spec.js";
 
-// labelling page
-import CriteriaList from "../test/page/main/list/CriteriaList.spec.js";
-import FrameList from "../test/page/main/list/FrameList.spec.js";
-import JSONFileList from "../test/page/main/list/JSONFileList.spec.js";
+// // labelling page
+// import CriteriaList from "../test/page/main/list/CriteriaList.spec.js";
+// import FrameList from "../test/page/main/list/FrameList.spec.js";
+// import JSONFileList from "../test/page/main/list/JSONFileList.spec.js";
 
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
 import env from "env";
 
-import mainViewContainer from "./page/labelling/content/main/mainViewContainer";
+import mainViewContainer from "./page/labelling/frame/main/mainViewContainer";
 
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
@@ -94,7 +94,7 @@ const projectInfo = () => {
   // CriteriaList.showCriterias();
   // FrameList.showFrameList();
   // JSONFileList.showList();
-  // JSONFile.createJSONFile();
+  // JSONFile.init();
   // VideoDirectory.init();
-  CriteriaCreator.init();
+  // CriteriaCreator.init();
 })();

@@ -1,19 +1,24 @@
 import { remote } from "electron";
 
-import jsonControl from "../../../../../helpers/json/json_control";
+import jsonControl from "../../../../helpers/json/json_control";
 
-import videoDataDTO from "../../../../../model/dto/videoData";
-import jsonFileDTO from "../../../../../model/dto/jsonFile";
+import videoDataDTO from "../../../../model/dto/videoData";
+import JSONFileDTO from "../../../../model/dto/JSONFile";
 
 import resultContainer from "../result/resultContainer";
-import mainViewContainer from "../../main/mainViewContainer";
-import frameListContainer from "../../control1/frame/frameListContainer";
-import inputFrameIndexContainer from "../../control2/push/inputFrameIndexContainer";
-import jsonFileContainer from "../../files/json/jsonFileContainer";
-import videoFilesContainer from "../../files/directory/videoFilesContainer";
+import mainViewContainer from "../../frame/main/mainViewContainer";
+import frameListContainer from "../../frame/list/frameListContainer";
+import inputFrameIndexContainer from "../push/inputFrameIndexContainer";
+import jsonFileContainer from "../../list/file/json/jsonFileContainer";
+import videoFilesContainer from "../../list/file/video/videoFilesContainer";
 
 const COMPLETE_BTN = document.getElementById("complete");
 
+/**
+ * 'COMPLETE' Button
+ * - 파일에 라벨링 데이터 입력(write).
+ * - 'result' Section 의 데이터를 읽어들여서, 입력하는 방식.
+ */
 COMPLETE_BTN.addEventListener("click", (event) => {
 
   if (!confirm("작업을 완료하시겠습니까?")) {
@@ -22,19 +27,11 @@ COMPLETE_BTN.addEventListener("click", (event) => {
   
   const GLOBAL = remote.getGlobal("sharedObject");
 
-  const JSON_PATH = GLOBAL.JSON_FILE.PATH;
   const VIDEO_TITLE = GLOBAL.VIDEO_DATA.TITLE;
   const VIDEO_FRAME_LENGTH = GLOBAL.FRAME.LENGTH;
 
-  const readContent = jsonControl.getJSONFile(JSON_PATH);
-
-  if (!readContent.result) {
-    alert(readContent.content);
-    return;
-  }
-
-  const JSONFile = new jsonFileDTO(readContent.content);
-  const JSONVideos = JSONFile.getVideos();
+  const JSONFileObj = new JSONFileDTO();
+  const JSONVideos = JSONFileObj.getVideos();
 
   if (jsonControl.hasVideoData(JSONVideos, VIDEO_TITLE)) {
     alert(`There is overlapping video data. \n\n '${VIDEO_TITLE}'`);
@@ -47,16 +44,16 @@ COMPLETE_BTN.addEventListener("click", (event) => {
   VideoData.setTitle(VIDEO_TITLE)
     .convertLabellingDatasoFrameList(VIDEO_FRAME_LENGTH, labellingInfoList);
 
-  JSONFile.setVideos(VideoData)
-    .setCount();
+  JSONFileObj.setVideos(VideoData);
+  JSONFileObj.setCount();
 
-  jsonControl.writeJSONFile(JSON_PATH, JSONFile);
+  jsonControl.writeJSONFile(JSONFileObj.getDirPath(), JSONFileObj);
 
   initOnComplete();
 
   jsonFileContainer.initialize();
-  jsonFileContainer.showVideoFiles(JSONFile.getVideos());
-  videoFilesContainer.showCompletedVideoFilesCount(JSONFile.getVideos());
+  jsonFileContainer.showVideoFiles(JSONFileObj.getVideos());
+  videoFilesContainer.showCompletedVideoFilesCount(JSONFileObj.getVideos());
   videoFilesContainer.markCompletedVideoFiles([VIDEO_TITLE]);
 });
 

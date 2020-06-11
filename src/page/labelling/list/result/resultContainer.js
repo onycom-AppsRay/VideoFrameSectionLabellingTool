@@ -1,7 +1,8 @@
-import tagControl from "../../../../../helpers/tag_control";
-import jsonControl from "../../../../../helpers/json/json_control";
 
-import labellingDataDTO from "../../../../../model/dto/labellingData";
+import tagControl from "../../../../helpers/tag_control";
+import jsonControl from "../../../../helpers/json/json_control";
+
+import labellingDataDTO from "../../../../model/dto/labellingData";
 
 const initialize = () => {
   const criteriaTempList = document.querySelector("#result-list tbody");

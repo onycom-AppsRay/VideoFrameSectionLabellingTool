@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import criteriaContainer from "../../../../src/page/labelling/content/control2/criteria/criteriaContainer";
+import criteriaContainer from "../../../../src/page/labelling/list/criteria/criteriaContainer";
 
 const displayControl = () => {
   document.querySelector("#open-directory-page").style.display = "none";

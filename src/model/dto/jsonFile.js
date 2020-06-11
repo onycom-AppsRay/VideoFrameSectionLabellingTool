@@ -1,32 +1,33 @@
 import jsonCriteriaDTO from "./jsonCriteria";
+import path from "path";
+
+let instance = null;
 
 export default class {
   constructor(jsonContent = "") {
+    if (instance) return instance;
+
     this.name = (!jsonContent ? "" : jsonContent.name);
-    this.createAt = (!jsonContent ? new Date().toLocaleString(): jsonContent.createAt);
+    this.path = (!jsonContent ? "" : jsonContent.path);
+    this.createAt = (!jsonContent ? new Date().toLocaleString() : jsonContent.createAt);
     this.count = (!jsonContent ? 0 : jsonContent.count);
     this.criterias = (!jsonContent ? [] : jsonContent.criterias);
     this.videos = (!jsonContent ? [] : jsonContent.videos);
+
+    instance = this;
   };
+
+  init() {
+    this.name = "";
+    this.path = "";
+    this.createAt = "";
+    this.count = 0;
+    this.criterias = [];
+    this.videos = [];
+  }
 
   getName() {
     return this.name;
-  }
-
-  getCreateAt() {
-    return this.createAt;
-  }
-
-  getCount() {
-    return this.count;
-  }
-
-  getCriterias() {
-    return this.criterias;
-  }
-
-  getVideos() {
-    return this.videos;
   }
 
   setName(name) {
@@ -34,9 +35,43 @@ export default class {
     return this;
   }
 
-  setCreateAt() {
-    this.createAt = new Date().toLocaleString();
+  getDirPath() {
+    return this.path;
+  }
+
+  setPath(dirPath, fileName = "") {
+    this.path = path.join(dirPath, fileName);
     return this;
+  }
+
+  getCreateAt() {
+    return this.createAt;
+  }
+
+  setCreateAt(createAt = "") {
+    if(createAt == "") {
+      this.createAt = new Date().toLocaleString();
+    } else {
+      this.createAt = createAt;
+    }
+
+    return this;
+  }
+
+  getCount() {
+    return this.count;
+  }
+
+  setCount() {
+    this.count++;
+
+    if (this.count != this.videos.length) {
+      this.count = this.videos.length;
+    }
+  }
+
+  getCriterias() {
+    return this.criterias;
   }
 
   setCriterias(criterias) {
@@ -52,17 +87,13 @@ export default class {
     return this;
   }
 
+  getVideos() {
+    return this.videos;
+  }
+
   setVideos(videos) {
     this.videos = Array.prototype.concat(this.videos, videos);
     return this;
-  }
-
-  setCount() {
-    this.count++;
-
-    if(this.count != this.videos.length) {
-      this.count = this.videos.length;
-    }
   }
 
   updateVideo(index, video) {

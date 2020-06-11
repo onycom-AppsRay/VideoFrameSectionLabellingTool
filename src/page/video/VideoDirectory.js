@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 
 import VideoFileDTO from "../../model/dto/VideoFile";
-import videoFilesContainer from "../labelling/content/files/directory/videoFilesContainer";
+import videoFilesContainer from "../labelling/list/file/video/videoFilesContainer";
 
 const goOpenFilePageBtn = document.getElementById("go-open-file-page-btn");
 const openDirectoryPage = document.getElementById("open-directory-page");

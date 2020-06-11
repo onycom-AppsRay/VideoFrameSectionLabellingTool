@@ -1,9 +1,12 @@
 import { remote } from "electron";
 
+import JSONFileDTO from "../../../model/dto/JSONFile";
+
 import tagControl from "../../../helpers/tag_control";
-import mainViewContainer from "../../../page/labelling/content/main/mainViewContainer";
-import frameListContainer from "../../../page/labelling/content/control1/frame/frameListContainer";
-import resultContainer from "../../../page/labelling/content/control2/result/resultContainer";
+
+import mainViewContainer from "../frame/main/mainViewContainer";
+import frameListContainer from "../frame/list/frameListContainer";
+import resultContainer from "../list/result/resultContainer";
 
 const openDirectoryPage = document.getElementById("open-directory-page");
 const openFilePage = document.getElementById("open-file-page");
@@ -36,6 +39,8 @@ const initGlobalVariable = () => {
   remote.getGlobal("sharedObject").FRAME.LENGTH = 0;
   remote.getGlobal("sharedObject").FRAME.AT = 0;
   remote.getGlobal("sharedObject").CRITERIA = [];
+
+  new JSONFileDTO().init();
 }
 
 const initEachSectionContent = () => {
