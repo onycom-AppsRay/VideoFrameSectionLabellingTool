@@ -4,8 +4,6 @@ import globalFrame from "../model/global/globalFrame";
 
 let keyState = {};
 
-const jsContent = document.querySelector(".js-content");
-
 window.addEventListener('keydown', function (e) {
   keyState[e.keyCode || e.which] = true;
 }, false);
@@ -15,7 +13,13 @@ window.addEventListener('keyup', function (e) {
 }, false);
 
 window.addEventListener('keydown', function (e) {
-  if (jsContent.style.display == "") {
+  if (document.querySelector("#form-criteria-page").style.display == "") {
+    if (e.keyCode == 13) {
+      document.getElementById("button-addon2").click();
+    }
+  }
+
+  if (document.querySelector(".js-content").style.display == "") {
     // 'Enter' key for 'PUSH' labbelling data.
     if (e.keyCode == 13) {
       document.getElementById("section-confirm").click();
