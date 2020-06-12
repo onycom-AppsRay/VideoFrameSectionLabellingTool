@@ -1,0 +1,54 @@
+<template class="task-template">
+  <div id="about-modal" class="about modal">
+    <div class="about-wrapper">
+      <main class="about-sections">
+        <header class="about-header">
+          <h2>Labeller</h2>
+          <p style="text-align: center;">비디오에 대해서 사용자가 원하는 구간을 라벨링 할 수 있는 도구.</p>
+        </header>
+
+        <section class="about-section play-along">
+          <h2>Component</h2>
+          <h5><i>'About'</i></h5>
+          <p>
+            'Labeler' 사용을 위한 설명.
+          </p>
+
+          <h5><i>'open_directory'</i></h5>
+          <p>
+            비디오 디렉터리를 읽어들임.
+            <br>(mp4, mov 확장자 형식 지원)
+          </p>
+
+          <h5><i>'open_json'</i></h5>
+          <p>
+            라벨링 한 데이터를 저장할 파일 경로를 불러옴.
+            <br>(*파일은 Tool 에서 정한 형식을 따라야 함)
+          </p>
+
+          <h5><i>'create_json'</i></h5>
+          <p>
+            Tool 에서 정한 규칙에 맞는 '.json' 파일 생성.
+            <br>(*라벨링한 데이터는 특정한 규칙에 따라 저장되어야 함)
+          </p>
+          <pre
+            style="background-color: whitesmoke;"><code class="language-bash">{<br>&nbsp;&nbsp;"name": "",<br>&nbsp;&nbsp;"createAt": "",<br>&nbsp;&nbsp;"count": 0,<br>&nbsp;&nbsp;"criteria": [],<br>&nbsp;&nbsp;"videos": []<br>}</code></pre>
+
+          <h5><i>'create_criteria'</i></h5>
+          <p>
+            라벨링 기준을 추가하기 위한 컴포넌트.
+          </p>
+          <span>&#42; <i>'create_json'</i>을 통해 생성된 '.json' 파일은 자동으로 import 되고, 기준을 추가 할 수 있다.</span>
+          <br><span>&#42; <i>'open_json'</i>으로 import 한 '.json' 파일에는 기준을 추가 할 수 없다.</span>
+          <br><span>&#42; 기준을 추가하고, 라벨링 데이터를 저장한 파일은 새로운 기준을 추가 할 수 없다.
+          <br>(새로운 기준을 추가하려면, 파일을 새로 만들어야 한다.)</span>
+
+        </section>
+
+        <footer class="about-section footer">
+          <button type="button" class="btn btn-outline-danger about-button modal-hide">GET START</button>
+        </footer>
+      </main>
+    </div>
+  </div>
+</template>

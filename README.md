@@ -1,102 +1,54 @@
-# electron-boilerplate
+# video-labelling-tool
+비디오 파일에 대해서 특정 구간에 대한 레이블링을 돕는 툴.
 
-A minimalistic boilerplate for [Electron runtime](http://electron.atom.io). Tested on Windows, macOS and Linux.  
+<br/>
 
-This project contains only bare minimum of tooling and dependencies to provide you with simple to understand and extensible base (but still, this is fully functional Electron environment). The boilerplate also doesn't impose on you any frontend technologies, so feel free to pick your favourite.
+## Summary
+비디오 파일을 초당 5장씩 캡쳐한 프레임 리스트로 보여준다.
 
-# Quick start
+사용자는 비디오 파일 상에서 원하는 레이블링 기준을 통해서, 범위에 대한 레이블링을 가능하게 한다.
 
-Make sure you have [Node.js](https://nodejs.org) installed, then type the following commands known to every Node developer...
-```
-git clone https://github.com/szwacz/electron-boilerplate.git
-cd electron-boilerplate
-npm install
-npm start
-```
-...and you have a running desktop application on your screen.
+레이블링 데이터는 JSON 파일로 저장이 되며, 프레임 개수와 동일한 길이의 배열에 레이블링 결과가 표기 된다.
 
-# Structure of the project
+<br/>
 
-The application consists of two main folders...
+## Tutorial
 
-`src` - files within this folder get transpiled or compiled (because Electron can't use them directly).
+#### (1) Select Video Directory
+비디오 파일이 있는 폴더를 선택한다.
 
-`app` - contains all static assets which don't need any pre-processing. Put here images, CSSes, HTMLs, etc.
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81248648-ccc15c00-9057-11ea-8734-331150377705.gif" width="700">
+</kbd>
 
-The build process compiles the content of the `src` folder and puts it into the `app` folder, so after the build has finished, your `app` folder contains the full, runnable application.
 
-Treat `src` and `app` folders like two halves of one bigger thing.
+#### (2) Open JSON Directory
+레이블링 데이터를 저장 할 JSON 파일을 생성 혹은 기존에 작업하던, JSON 파일을 불러온다.
 
-The drawback of this design is that `app` folder contains some files which should be git-ignored and some which shouldn't (see `.gitignore` file). But this two-folders split makes development builds much, much faster.
+a. JSON 파일 생성
 
-# Development
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81248795-22960400-9058-11ea-8c42-421f5c049ab2.gif" width="700">
+</kbd>
 
-## Starting the app
+b. 생성 한 JSON 파일 불러오기
 
-```
-npm start
-```
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81248931-74d72500-9058-11ea-904c-daecf442b7d4.gif" width="700">
+</kbd>
 
-## The build pipeline
+#### (3) Write Criteria
+JSON 파일을 생성할 경우, 레이블링 기준을 입력한다.
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81249064-b8319380-9058-11ea-8332-78071a840bcf.gif" width="700">
+</kbd>
 
-Build process uses [Webpack](https://webpack.js.org/). The entry-points are `src/background.js` and `src/app.js`. Webpack will follow all `import` statements starting from those files and compile code of the whole dependency tree into one `.js` file for each entry point.
+#### (4) Labelling
+레이블링 작업을 진행한다.
 
-[Babel](http://babeljs.io/) is also utilised, but mainly for its great error messages. Electron under the hood runs latest Chromium, hence most of the new JavaScript features are already natively supported.
+<kbd>
+  <img src="https://user-images.githubusercontent.com/20623970/81255108-ce931b80-9067-11ea-85a0-a6b36e2edbc0.gif" width="700">
+</kbd>
 
-## Environments
-
-Environmental variables are done in a bit different way (not via `process.env`). Env files are plain JSONs in `config` directory, and build process dynamically links one of them as an `env` module. You can import it wherever in code you need access to the environment.
-```js
-import env from "env";
-console.log(env.name);
-```
-
-## Upgrading Electron version
-
-To do so edit `package.json`:
-```json
-"devDependencies": {
-  "electron": "2.0.2"
-}
-```
-*Side note:* [Electron authors recommend](http://electron.atom.io/docs/tutorial/electron-versioning/) to use fixed version here.
-
-## Adding npm modules to your app
-
-Remember to respect the split between `dependencies` and `devDependencies` in `package.json` file. Your distributable app will contain modules listed in `dependencies` after running the release script.
-
-*Side note:* If the module you want to use in your app is a native one (not pure JavaScript but compiled binary) you should first  run `npm install name_of_npm_module` and then `npm run postinstall` to rebuild the module for Electron. You need to do this once after you're first time installing the module. Later on, the postinstall script will fire automatically with every `npm install`.
-
-# Testing
-
-Run all tests:
-```
-npm test
-```
-
-## Unit
-
-```
-npm run unit
-```
-Using [electron-mocha](https://github.com/jprichardson/electron-mocha) test runner with the [Chai](http://chaijs.com/api/assert/) assertion library. You can put your spec files wherever you want within the `src` directory, just name them with the `.spec.js` extension.
-
-## End to end
-
-```
-npm run e2e
-```
-Using [Mocha](https://mochajs.org/) and [Spectron](http://electron.atom.io/spectron/). This task will run all files in `e2e` directory with `.e2e.js` extension.
-
-# Making a release
-
-To package your app into an installer use command:
-```
-npm run release
-```
-
-Once the packaging process finished, the `dist` directory will contain your distributable file.
-
-We use [electron-builder](https://github.com/electron-userland/electron-builder) to handle the packaging process. It has a lot of [customization options](https://www.electron.build/configuration/configuration), which you can declare under `"build"` key in `package.json`.
-
-You can package your app cross-platform from a single operating system, [electron-builder kind of supports this](https://www.electron.build/multi-platform-build), but there are limitations and asterisks. That's why this boilerplate doesn't do that by default.
+## Issue
+> brew unlink tesseract

@@ -1,0 +1,23 @@
+.criteria {
+  display: none;
+}
+
+.criteria-modal-header {
+  padding: 0;
+}
+
+#criteria-modal-list {
+  padding: 0;
+}
+
+.criteria-temp-text {
+  overflow-x: auto;
+}
+
+.criteria-temp-text::-webkit-scrollbar {
+  display:none;
+}
+
+#criteria-apply {
+  color: seagreen;
+}

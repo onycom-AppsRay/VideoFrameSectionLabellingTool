@@ -2,45 +2,59 @@
   <div class="container" id="content-container">
     <div class="row">
 
-      <div class="col-1" id="files-container">
+      <div class="col-2" id="files-container">
         <div class="video-counting">
           <span id="completed-video-count">0</span>/<span id="total-video-count">0</span>
         </div>
+
         <div id="video-files-container">
         </div>
+
         <div class="json-counting">
           <span id="json-file-video-data-count">0</span>
         </div>
+
         <div id="json-file-container">
         </div>
       </div>
 
-      <div class="col-8" id="main-view-container">
-        <div style="height: auto;">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm">
-                name:
-              </div>
-              <div class="col-sm">
-                runtime:
-              </div>
-              <div class="col-sm">
-                fps:
-              </div>
+      <div class="col-7" id="main-view-container">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              파일명:
+              <span id="video-title"></span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              재생 시간:
+              <span id="video-duration"></span>
+            </div>
+            <div class="col-sm">
+              프레임 수:
+              <span id="video-frame-count"></span>
+            </div>
+            <div class="col-sm">
+              FPS:
+              <span id="video-fps"></span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <p>현재 프레임</p>
+              <h2 id="frame-index">0</h2>
             </div>
           </div>
         </div>
 
         <div id="main-view-image-container">
           <img id="main-view-image" src="" alt="onycom" />
+          <video id="hidden-video" muted poster hidden></video>
         </div>
 
-        <div id="overlay">
-          <div id="section-selection-criteria-container">
-            <div id="progress-bar-container" hidden></div>
-          </div>
-        </div>
       </div>
 
       <div class="col-1" id="control1-container">
@@ -51,12 +65,13 @@
         <div id="frame-index-container"></div>
 
         <div id="criteria-container">
-          <ul id="criteria-list" class="list-group list-group-flush"></ul>
+          <div class="form-check" id="criteria-list">
+          </div>
         </div>
 
         <div id="section-confirm-container">
           <div>
-            <button id="section-confirm" type="button" class="btn btn-lg btn-outline-success">PUSH</button>
+            <button id="section-confirm" type="button" class="btn btn-lg btn-outline-secondary">PUSH</button>
           </div>
         </div>
 
@@ -64,7 +79,10 @@
 
         <div id="complete-container">
           <div>
-            <button id="complete" type="button" class="btn btn-lg btn-outline-danger">COMPLETE</button>
+            <button id="complete" type="button" class="btn btn-lg btn-outline-secondary">COMPLETE</button>
+          </div>
+          <div>
+            <button id="update" type="button" class="btn btn-lg btn-outline-danger">UPDATE</button>
           </div>
         </div>
       </div>

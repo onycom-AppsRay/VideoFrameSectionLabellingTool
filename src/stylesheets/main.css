@@ -16,6 +16,14 @@ a {
   color: #cb3837;
 }
 
+.js-content {
+  visibility: hidden;
+}
+
+.js-content.is-shown {
+  visibility: visible;
+}
+
 .container {
   text-align: center;
 }

@@ -1,5 +1,19 @@
 footer {
   height: 5vh;
-  background-color: whitesmoke;
-  color: black;
+  width: 100%;
+  background-color: lightgray;
+  color: white;
+  display: table;
 }
+
+#app-info {
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 5vh;
+}
+
+#app-info > p {
+  margin: 0;
+}
+
+

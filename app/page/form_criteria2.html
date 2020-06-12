@@ -1,0 +1,26 @@
+<template class="task-template">
+  <div id="form-criteria-page-container">
+    <p>라벨링 기준을 입력합니다.</p>
+
+    <div id="form-criteria-container" class="input-group mb-3">
+      <input id="input-criteria2" type="text" class="form-control" placeholder="라벨링 기준" aria-label="라벨링 기준"
+        aria-describedby="button-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Insert</button>
+      </div>
+    </div>
+
+    <div id="criteria2-list">
+      <ul class="list-group-flush criteria-modal-header">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span class="badge badge-warning badge-pill">type</span>
+          <span>기준</span>
+        </li>
+      </ul>
+      <ul id="criteria-modal-header" class="list-group-flush criteria-modal-header">
+      </ul>
+    </div>
+
+    <button type="button" class="btn btn-link" id="go-labelling-page-btn">GO LABELLING</button>
+  </div>
+</template>

@@ -1,40 +1,62 @@
-import "./import";
+import "./helpers/import.js";
 
-import "./stylesheets/main.css";
 import "./stylesheets/main.css";
 import "./stylesheets/section/header.css";
 import "./stylesheets/section/content.css";
 import "./stylesheets/section/footer.css";
+import "./stylesheets/section/about.css";
+import "./stylesheets/section/criteria.css";
 import "./stylesheets/element/frame_index_container.css";
+import "./stylesheets/page/open_directory.css";
+import "./stylesheets/page/open_file.css";
+import "./stylesheets/page/form_criteria.css";
 
-// Small helpers you might want to keep
+import "./page/labelling/header/nav.js";
+import "./page/labelling/header/back.js";
+
+import "./page/labelling/list/file/json/jsonFileEvent.js";
+import "./page/labelling/list/file/video/videoFileEvent.js";
+import "./page/labelling/list/result/sectionClickEvent.js";
+import "./page/labelling/list/criteria/criteriaSectionEvent.js";
+import "./page/labelling/frame/list/frameClickEvent.js";
+import "./page/labelling/button/complete/completeBtnEvent.js";
+import "./page/labelling/button/complete/updateBtnEvent.js";
+import "./page/labelling/button/push/confirmSectionEvent.js";
+
+import "./page/criteria/insert.js";
+import "./page/criteria/apply.js";
+import "./page/video/VideoDirectory.js";
+import "./page/json/create/JSONCreator.js";
+import "./page/json/open/JSONDirectory.js";
+
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
+import "./helpers/key_event.js";
 
-import "./renderer_process/open_directory.js";
-import "./renderer_process/open_file.js";
-import "./renderer_process/create_json.js";
-import "./renderer_process/key_event.js";
-import "./renderer_process/confirm_section.js";
-import "./renderer_process/complete.js";
-import "./renderer_process/create_criteria.js";
+// HTML test
+// Video Directory Page
+// import VideoDirectory from "../test/page/video/VideoDirectory.spec.js"
 
-import "./test";
+// // jsonfile page
+// import JSONFile from "../test/page/json/create/JSONFile.spec.js";
 
-// ----------------------------------------------------------------------------
-// Everything below is just to show you how it works. You can delete all of it.
-// ----------------------------------------------------------------------------
+// // Criteria Page
+// import CriteriaCreator from "../test/page/criteria/CriteriaCreator.spec.js";
+
+// // labelling page
+// import CriteriaList from "../test/page/main/list/CriteriaList.spec.js";
+// import FrameList from "../test/page/main/list/FrameList.spec.js";
+// import JSONFileList from "../test/page/main/list/JSONFileList.spec.js";
 
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
 import env from "env";
-import path from "path";
+
+import mainViewContainer from "./page/labelling/frame/main/mainViewContainer";
 
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
 
-// Holy crap! This is browser window with HTML and stuff, but I can read
-// files from disk like it's node.js! Welcome to Electron world :)
 const manifest = appDir.read("package.json", "json");
 
 const osMap = {
@@ -43,36 +65,36 @@ const osMap = {
   linux: "Linux"
 };
 
+const initGlobalVariable = () => {
+  remote.getGlobal("sharedObject").JSON_FILE.PATH = "";
+  remote.getGlobal("sharedObject").JSON_FILE.NAME = "";
+  remote.getGlobal("sharedObject").DIRECTORY.PATH = "";
+  remote.getGlobal("sharedObject").DIRECTORY.VIDEOS = [];
+  remote.getGlobal("sharedObject").CRITERIA = [];
+  remote.getGlobal("sharedObject").COMPLETE_FLAG = true;
+
+  document.getElementById("complete").style.display = "";
+  document.getElementById("update").style.display = "none";
+
+  document.querySelector(".js-content").style.display = "none";
+}
+
+const projectInfo = () => {
+  document.querySelector("#app-info").style.display = "block";
+  document.querySelector("#os").innerHTML = osMap[process.platform];
+  document.querySelector("#author").innerHTML = `${manifest.author}` + `&copy;` + `onycom`;
+  document.querySelector("#env").innerHTML = env.name;
+}
+
 (() => {
-  console.log("JSON_FILE \n", JSON.stringify(remote.getGlobal("sharedObject").JSON_FILE, " ", 2));
-  console.log("VIDEO_DATA \n", JSON.stringify(remote.getGlobal("sharedObject").VIDEO_DATA, " ", 2));
-  console.log("FRAME \n", JSON.stringify(remote.getGlobal("sharedObject").FRAME, " ", 2));
-  console.log("CRITERIA \n", JSON.stringify(remote.getGlobal("sharedObject").CRITERIA, " ", 2));
+  projectInfo();
+  initGlobalVariable();
+  mainViewContainer.initialize();
+
+  // CriteriaList.showCriterias();
+  // FrameList.showFrameList();
+  // JSONFileList.showList();
+  // JSONFile.init();
+  // VideoDirectory.init();
+  // CriteriaCreator.init();
 })();
-
-document.querySelector("#app").style.display = "block";
-document.querySelector("#os").innerHTML = osMap[process.platform];
-document.querySelector("#author").innerHTML = manifest.author;
-document.querySelector("#env").innerHTML = env.name;
-document.querySelector("#electron-version").innerHTML = process.versions.electron;
-
-// main view init
-document.querySelector("#main-view-image-container").setAttribute("style", "top: 50%; transform: translateY(-50%)")
-document.querySelector("#main-view-image").src = path.join("file://", __dirname, "../resources/images/onycom_ci_basic.png");
-document.querySelector("#main-view-image").setAttribute("style", "width: 100%;");
-
-// criteria init
-remote.getGlobal("sharedObject").CRITERIA.forEach((value, index) => {
-  const criteria = value.replace(/\ /, "&nbsp;");
-
-  const li = document.createElement("li");
-  li.className = "list-group-item";
-  li.innerHTML = [
-    `<div class="custom-control custom-radio">`,
-    `<input type="radio" id="creteria${index}" name="creteria" class="custom-control-input">`,
-    `<label class="custom-control-label" for="creteria${index}">${criteria}</label>`,
-    `</div>`
-  ].join("");
-
-  document.querySelector("#criteria-list").appendChild(li);
-})

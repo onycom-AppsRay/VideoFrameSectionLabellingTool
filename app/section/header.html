@@ -1,24 +1,19 @@
 <template class="task-template">
   <div class="container" id="header-container">
     <div class="row">
-      <div class="col-1" id="tutorial-container">
-        tutorial
+
+      <div class="col-2" id="back-container">
+        <button id="back-button" type="button" class="btn btn-outline-secondary">&larr;</button>
       </div>
 
-      <div class="col-4" id="open-directory-container">
-        <span id="open-directory">open directory</span>
+      <div class="col-8" id="path-info-container">
+        1.&nbsp;VIDEO&nbsp;Directory&nbsp;Path:&nbsp;<span id="directory-path"></span>
+        <br>
+        2.&nbsp;JSON&nbsp;File&nbsp;Path:&nbsp;<span id="json-file-path"></span>
       </div>
 
-      <div class="col-4" id="open-file-container">
-        <span id="open-json">open json</span>
-      </div>
-
-      <div class="col-1" id="create-file-container">
-        <span id="create-json">create json</span>
-      </div>
-
-      <div class="col-2" id="create-criteria-container">
-        <span id="create-criteria">create criteria</span>
+      <div class="col-2" id="tutorial-container">
+        <button id="tutorial-button" type="button" class="btn btn-outline-secondary" data-modal="about">&quest;</button>
       </div>
     </div>
   </div>

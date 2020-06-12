@@ -15,6 +15,16 @@ import createWindow from "./helpers/window";
 import env from "env";
 
 global.sharedObject = {
+  VIDEO: {
+    DIRECTORY: {
+      PATH: "",
+      FILELIST: []
+    }
+  },
+  DIRECTORY: {
+    PATH: "",
+    VIDEOS: []
+  },
   JSON_FILE: {
     PATH: "",
     NAME: "",
@@ -28,7 +38,8 @@ global.sharedObject = {
     LENGTH: 0,
     AT: 0
   },
-  CRITERIA: []
+  CRITERIA: [],
+  COMPLETE_FLAG: true,
 }
 
 const setApplicationMenu = () => {
@@ -53,8 +64,8 @@ app.on("ready", () => {
   setApplicationMenu();
 
   mainWindow = createWindow("main", {
-    width: 1000,
-    height: 600
+    width: 1100,
+    height: 1000
   });
 
   mainWindow.loadURL(
