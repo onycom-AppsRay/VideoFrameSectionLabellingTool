@@ -41,6 +41,9 @@ const initGlobalVariable = () => {
   remote.getGlobal("sharedObject").CRITERIA = [];
 
   new JSONFileDTO().init();
+
+  // directory list 'mouse over' event flag
+  remote.getGlobal("sharedObject").COMPLETE_FLAG = true;
 }
 
 const initEachSectionContent = () => {

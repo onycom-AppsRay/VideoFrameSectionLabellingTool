@@ -3,10 +3,9 @@ import { remote } from "electron";
 import jsonControl from "../../../../helpers/json/json_control";
 
 import videoDataDTO from "../../../../model/dto/videoData";
-import jsonFileDTO from "../../../../model/dto/jsonFile";
 import JSONFileDTO from "../../../../model/dto/JSONFile";
 
-import resultContainer from "../result/resultContainer";
+import resultContainer from "../../list/result/resultContainer";
 import mainViewContainer from "../../frame/main/mainViewContainer";
 import frameListContainer from "../../frame/list/frameListContainer";
 import inputFrameIndexContainer from "../push/inputFrameIndexContainer";
@@ -35,7 +34,7 @@ document.getElementById("update").addEventListener("click", (event) => {
   console.log(JSONFileObj);
 
   const JSONFile = new jsonFileDTO(readContent.content);
-  const JSONVideos = JSONFile.getVideos();
+  const JSONVideos = readContent.content.videos;
   
   const deleteVideoIndex = JSONVideos.findIndex((video) => {
     return (video.title == VIDEO_TITLE);
@@ -49,7 +48,9 @@ document.getElementById("update").addEventListener("click", (event) => {
 
   JSONFile.updateVideo(deleteVideoIndex, VideoData);
 
-  jsonControl.writeJSONFile(JSON_PATH, JSONFile);
+  JSONFileObj.setVideos(VideoData);
+
+  jsonControl.writeJSONFile(JSONFileObj.getDirPath(), JSONFile);
 
   initOnUpdate();
 });

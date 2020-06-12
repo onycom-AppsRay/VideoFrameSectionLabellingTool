@@ -38,7 +38,10 @@ videoFilesContainerTag.onclick = async (event) => {
   mainViewContainer.initialize();
   frameListContainer.initialize();
   resultContainer.initialize();
-  
+
+  const mainViewImageWidth = document.querySelector("#main-view-image").clientWidth;
+  const hiddenVideo = document.querySelector("#hidden-video").clientWidth;
+
   const path = event.target.dataset.path;
   
   const GlobalVideoData = new globalVideoData();
@@ -52,7 +55,9 @@ videoFilesContainerTag.onclick = async (event) => {
   
   mainViewContainer.setMainFrameRate(video);
   
-  const videoCaptureList = videoCapture.extractFrames(path, document.getElementById("hidden-video").clientWidth);
+  const viewWidth = (mainViewImageWidth == 0 ? hiddenVideo : mainViewImageWidth);
+
+  const videoCaptureList = videoCapture.extractFrames(path, viewWidth);
   
   GlobalFrame.setLENGTH(videoCaptureList.length);
   

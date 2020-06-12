@@ -2,6 +2,7 @@ import cv from "opencv4nodejs-prebuilt";
 
 const extractFrames = (videoPath, resizeValue) => {
   const vCap = new cv.VideoCapture(videoPath);
+  const resizingRate = Math.round((Number.parseInt(resizeValue)));
 
   let done = false;
 
@@ -12,7 +13,7 @@ const extractFrames = (videoPath, resizeValue) => {
     if (frame.empty) {
       done = true;
     } else {
-      result.push(frame.resizeToMax(Number.parseInt(resizeValue)));
+      result.push(frame.resizeToMax(resizingRate));
     }
   }
 

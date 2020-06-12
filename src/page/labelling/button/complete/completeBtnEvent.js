@@ -5,7 +5,7 @@ import jsonControl from "../../../../helpers/json/json_control";
 import videoDataDTO from "../../../../model/dto/videoData";
 import JSONFileDTO from "../../../../model/dto/JSONFile";
 
-import resultContainer from "../result/resultContainer";
+import resultContainer from "../../list/result/resultContainer";
 import mainViewContainer from "../../frame/main/mainViewContainer";
 import frameListContainer from "../../frame/list/frameListContainer";
 import inputFrameIndexContainer from "../push/inputFrameIndexContainer";
